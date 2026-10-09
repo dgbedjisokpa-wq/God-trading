@@ -21,7 +21,7 @@
      <source src="assets/videos/fumee.mp4" type="video/mp4">
    </video>                                                                    */
 
-.tete-rubrique { /* Grand en-tête des pages de rubrique */
+.tete-rubrique { /* Grand en-tête des rubriques, d'Odyssées, de Trésors, du Cercle et des partenaires */
   position: relative; /* Repère pour la fumée et le voile */
   isolation: isolate; /* Pile de couches indépendante */
   overflow: hidden; /* Décors contenus */
@@ -56,7 +56,49 @@
   inset: 0; /* Bord à bord */
   z-index: 0; /* Au-dessus de la fumée, sous le texte */
   pointer-events: none; /* Ne bloque pas les clics */
-  background: linear-gradient(to top, color-mix(in srgb, var(--fumee-fond) 85%, transparent) 0%, color-mix(in srgb, var(--fumee-fond) 35%, transparent) 55%, transparent 100%); /* Plus dense en bas, là où se trouve le texte */
+  background: linear-gradient(to top, color-mix(in srgb, var(--fumee-voile, var(--fumee-fond)) 85%, transparent) 0%, color-mix(in srgb, var(--fumee-voile, var(--fumee-fond)) 35%, transparent) 55%, transparent 100%); /* Plus dense en bas, là où se trouve le texte (couleur : --fumee-voile si elle existe, sinon le fond) */
+} /* Fin */
+
+.fumee__pause { /* Bouton « Mettre en pause » de la fumée, en haut à droite de l'en-tête */
+  position: absolute; /* Posé sur l'en-tête */
+  top: 1rem; /* Près du haut */
+  right: var(--marge); /* Aligné sur la marge du site */
+  z-index: 2; /* Au-dessus de tout */
+  display: inline-flex; /* Icône + texte */
+  align-items: center; /* Centrés */
+  gap: .55rem; /* Espace */
+  min-height: 40px; /* Zone cliquable */
+  padding: .4rem .95rem; /* Marges */
+  border: 1px solid currentColor; /* Contour */
+  border-radius: var(--rayon-pilule); /* Arrondi */
+  background: color-mix(in srgb, var(--fumee-voile, var(--fumee-fond)) 45%, transparent); /* Fond légèrement teinté pour rester lisible */
+  color: var(--c-texte); /* Couleur du texte de l'en-tête */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-size: .64rem; /* Petit */
+  font-weight: 600; /* Demi-gras */
+  letter-spacing: .14em; /* Espacé */
+  text-transform: uppercase; /* Capitales */
+} /* Fin */
+
+.fumee__pause::before { /* Icône « pause » : deux barres */
+  content: ""; /* Décoratif */
+  width: 8px; /* Largeur */
+  height: 10px; /* Hauteur */
+  border-left: 3px solid currentColor; /* Barre de gauche */
+  border-right: 3px solid currentColor; /* Barre de droite */
+} /* Fin */
+
+.animations-en-pause .fumee__pause::before { /* Icône « lecture » quand tout est en pause : un triangle */
+  width: 0; /* Pas de largeur… */
+  height: 0; /* …ni de hauteur : le triangle est fait de bordures */
+  border-left: 9px solid currentColor; /* Pointe vers la droite */
+  border-right: 0; /* Pas de barre à droite */
+  border-top: 5px solid transparent; /* Biseau haut */
+  border-bottom: 5px solid transparent; /* Biseau bas */
+} /* Fin */
+
+@media (prefers-reduced-motion: reduce) { /* Animations réduites : la fumée est déjà fixe… */
+  .fumee__pause { display: none; } /* …le bouton est inutile */
 } /* Fin */
 
 .tete-rubrique > .conteneur, .tete-rubrique__motif { /* Textes et frise… */
@@ -127,12 +169,13 @@
 
 .tete-rubrique__motif { /* Frise de motif textile en bas du bloc */
   height: clamp(48px, 6vw, 84px); /* Hauteur */
+  background: color-mix(in srgb, var(--fumee-volute) 55%, transparent); /* Couleur des volutes : reste visible au-dessus du voile sombre */
 } /* Fin */
 
 
 /* B. EN-TÊTE DE PAGE SIMPLE + FIL D'ARIANE ================================== */
 
-.page-tete { /* En-tête des pages sans couleur (contact, légales…) */
+.page-tete { /* En-tête simple, sans couleur (pages légales) */
   padding-block: clamp(48px, 8vw, 120px) clamp(40px, 6vw, 80px); /* Marges */
   border-bottom: 1px solid var(--trait); /* Filet */
 } /* Fin */
@@ -167,7 +210,9 @@
 
 .fil-ariane a:hover { opacity: 1; text-decoration: underline; } /* Survol */
 
-.fil-ariane span { opacity: .45; } /* Séparateurs « / » */
+.fil-ariane span[aria-hidden="true"] { opacity: .45; } /* Séparateurs « / » atténués (la page actuelle, elle, reste pleinement lisible) */
+
+.tete-rubrique .fil-ariane a { opacity: 1; } /* Sur la fumée, les liens du fil restent pleinement lisibles */
 
 
 /* C. PAGE RÉCIT ============================================================= */
@@ -1044,6 +1089,8 @@
 
 .grille-partenaires a:hover img { filter: none; } /* En couleur au survol */
 
+.grille-partenaires a:focus-visible { outline-offset: -4px; } /* Contour clavier à l'intérieur de la case (sinon l'arrondi le couperait) */
+
 .partenaires-vide { /* Message quand aucun partenaire n'est encore listé */
   padding: clamp(32px, 5vw, 64px); /* Marges */
   border: 1.5px dashed var(--encre); /* Bordure pointillée */
@@ -1166,7 +1213,7 @@
 .suite__titre { /* Nom de la rubrique suivante */
   margin-top: .8rem; /* Espace */
   font-size: clamp(2.6rem, 7vw, 6.4rem); /* Très grand */
-  line-height: .95; /* Serré */
+  line-height: 1.08; /* Assez d'espace pour les accents des capitales (É) */
 } /* Fin */
 
 .suite:hover .suite__titre { font-style: italic; } /* Italique au survol */

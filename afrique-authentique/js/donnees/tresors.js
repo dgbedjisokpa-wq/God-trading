@@ -17,7 +17,7 @@ const PRODUITS = [ // Ouvre la liste des produits
     categorie: 'Textiles', // Catégorie (sert aux filtres de la boutique)
     prix: 65000, // Prix de base, en FCFA
     accroche: 'Bandes tissées sur métier étroit, assemblées à la main.', // Phrase courte (cartes)
-    description: "Ce kente est tissé par un atelier familial de Bonwire, bande après bande, puis assemblé à la main. Chaque pièce est unique : de légères variations de motifs témoignent du travail du tisserand.", // Description complète (fiche produit)
+    description: "Ce kente est tissé par un atelier familial de Bonwire, bande après bande, puis assemblé à la main. Chaque pièce est unique : de légères variations de motifs témoignent du travail du tisserand.", // Description complète (fiche produit)
     variantes: [ // Choix proposés au client (couleur, taille…). « prix » facultatif : s'il manque, le prix de base s'applique
       { nom: 'Or & vert' }, // Variante 1
       { nom: 'Or & bleu' }, // Variante 2
@@ -29,7 +29,7 @@ const PRODUITS = [ // Ouvre la liste des produits
       ['Entretien', 'Lavage à la main, eau froide'], // Ligne
       ['Disponibilité', 'Sous 7 à 10 jours'], // Ligne
     ], // Fin des caractéristiques
-    recit: 'kente', // Identifiant d'un récit lié (affiche « Lire l'histoire de l'objet »). Vide = pas de lien
+    recit: 'kente', // Identifiant d'un récit lié (affiche « Lire l'histoire de l'objet »). Vide = pas de lien
     image: '', // Photo (ex. 'assets/photos/kente.jpg'). Vide = composition graphique
     galerie: [], // Facultatif : plusieurs photos pour la fiche, ex. ['assets/photos/kente-1.jpg', 'assets/photos/kente-2.jpg']
     alt: '', // Description de la photo
@@ -45,7 +45,7 @@ const PRODUITS = [ // Ouvre la liste des produits
     categorie: 'Textiles', // Catégorie
     prix: 38000, // Prix
     accroche: 'Teinture végétale et minérale, motifs peints à la main.', // Accroche
-    description: "Peint à la main selon la technique traditionnelle : bain de feuilles, puis application de terre fermentée. Idéal en tenture murale, en jeté de canapé ou pour la confection.", // Description
+    description: "Peint à la main selon la technique traditionnelle : bain de feuilles, puis application de terre fermentée. Idéal en tenture murale, en jeté de canapé ou pour la confection.", // Description
     variantes: [{ nom: 'Écru & noir' }, { nom: 'Ocre & noir' }], // Variantes
     details: [['Matière', 'Coton tissé main'], ['Dimensions', 'environ 1,50 m × 1 m'], ['Entretien', 'Lavage à la main, savon doux, sans frotter']], // Caractéristiques
     recit: 'bogolan', // Récit lié
@@ -87,7 +87,7 @@ const PRODUITS = [ // Ouvre la liste des produits
     categorie: 'Maison', // Catégorie
     prix: 24000, // Prix de base
     accroche: 'Tressé en herbe à éléphant, anses en cuir.', // Accroche
-    description: "Tressés à la main dans le nord du Ghana, ces paniers robustes servent au marché comme à la maison. Les couleurs varient d'une pièce à l'autre : chacune est unique.", // Description
+    description: "Tressés à la main dans le nord du Ghana, ces paniers robustes servent au marché comme à la maison. Les couleurs varient d'une pièce à l'autre : chacune est unique.", // Description
     variantes: [{ nom: 'Taille moyenne', prix: 24000 }, { nom: 'Grande taille', prix: 32000 }], // Variantes
     details: [['Matière', 'Herbe à éléphant, cuir'], ['Fabrication', 'Tressage à la main']], // Caractéristiques
     recit: '', // Pas de récit lié
@@ -115,9 +115,9 @@ const PRODUITS = [ // Ouvre la liste des produits
     categorie: 'Textiles', // Catégorie
     prix: 18000, // Prix
     accroche: "Teint à la main, motifs réservés à l'amidon de manioc.", // Accroche
-    description: "Réalisé par des teinturières d'Abeokuta selon la technique de l'adire eleko : le motif est peint à la pâte de manioc avant les bains d'indigo successifs.", // Description
+    description: "Réalisé par des teinturières d'Abeokuta selon la technique de l'adire eleko : le motif est peint à la pâte de manioc avant les bains d'indigo successifs.", // Description
     variantes: [], // Pas de variante
-    details: [['Matière', 'Coton'], ['Dimensions', 'environ 180 × 70 cm'], ['Entretien', "Premiers lavages à part : l'indigo peut dégorger"]], // Caractéristiques
+    details: [['Matière', 'Coton'], ['Dimensions', 'environ 180 × 70 cm'], ['Entretien', "Premiers lavages à part : l'indigo peut dégorger"]], // Caractéristiques
     recit: 'adire', // Récit lié
     image: '', alt: '', motif: 'adire', teinte: 'indigo', forme: 'arche', // Visuel
   }, // Fin
@@ -129,7 +129,7 @@ const PRODUITS = [ // Ouvre la liste des produits
     categorie: 'Maison', // Catégorie
     prix: 45000, // Prix de base
     accroche: 'Figures découpées et cousues à la main, d’après les emblèmes royaux.', // Accroche
-    description: "Réalisée par un atelier d'Abomey selon la technique de l'appliqué : chaque figure est découpée dans un tissu de couleur, puis cousue à la main sur la toile de fond.", // Description
+    description: "Réalisée par un atelier d'Abomey selon la technique de l'appliqué : chaque figure est découpée dans un tissu de couleur, puis cousue à la main sur la toile de fond.", // Description
     variantes: [{ nom: 'Format 60 × 40 cm', prix: 45000 }, { nom: 'Format 120 × 80 cm', prix: 85000 }], // Variantes
     details: [['Matière', 'Coton'], ['Fabrication', 'Appliqué cousu main'], ['Accrochage', 'Fourreau en haut pour une tringle']], // Caractéristiques
     recit: 'abomey-memoire-cousue', // Récit lié

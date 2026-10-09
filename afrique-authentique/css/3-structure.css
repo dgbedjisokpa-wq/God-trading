@@ -561,7 +561,7 @@
   width: min(440px, 100%); /* 440 px maximum, plein écran sur téléphone */
   display: grid; /* Trois zones */
   grid-template-rows: auto 1fr auto; /* En-tête, liste, pied */
-  background: var(--cauri); /* Fond blanc chaud */
+  background: var(--cauri); /* Fond blanc */
   box-shadow: -30px 0 60px -30px rgba(28, 21, 17, .5); /* Ombre portée à gauche */
   transform: translateX(100%); /* Caché à droite */
   visibility: hidden; /* Inactif */
@@ -638,6 +638,8 @@
 } /* Fin */
 
 .quantite button:hover { background: var(--sable-fonce); } /* Fond au survol */
+
+.quantite button:focus-visible, .quantite input:focus-visible { outline-offset: -3px; } /* Contour clavier dessiné à l'intérieur (sinon l'arrondi le couperait) */
 
 .quantite output, .quantite input { /* Le chiffre de la quantité */
   min-width: 32px; /* Largeur */
@@ -720,7 +722,7 @@
   display: grid; /* Empilé */
   gap: 1rem; /* Espaces */
   padding: 1.4rem; /* Marges */
-  background: var(--cauri); /* Fond blanc chaud */
+  background: var(--cauri); /* Fond blanc */
   border: 1.5px solid var(--encre); /* Bordure foncée */
   border-radius: 18px; /* Coins arrondis */
   box-shadow: 10px 10px 0 var(--ocre); /* Ombre décalée ocre (effet « imprimé ») */

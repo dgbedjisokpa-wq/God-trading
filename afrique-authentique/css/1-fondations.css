@@ -330,7 +330,7 @@ em { /* Mots en italique */
 } /* Fin */
 
 .bouton--plein:hover, .bouton--plein:focus-visible { /* Survol du bouton plein */
-  color: var(--cauri); /* Texte blanc chaud */
+  color: var(--cauri); /* Texte blanc */
   border-color: var(--laterite); /* Bordure rouge */
 } /* Fin */
 
@@ -446,6 +446,16 @@ a:hover .fleche, button:hover .fleche { /* Au survol du lien ou bouton */
 
 
 /* G. RÉDUIRE LES ANIMATIONS ================================================= */
+
+.animations-en-pause .kente, /* Frises de kente… */
+.animations-en-pause .defilant__piste, /* …bande des mots de bienvenue… */
+.animations-en-pause .sceau svg, /* …sceau tournant… */
+.animations-en-pause .collage__secondaire, /* …image flottante… */
+.animations-en-pause .puce, /* …point qui respire… */
+.animations-en-pause .tete-rubrique.fumee--repli { /* …et nuages de repli des en-têtes */
+  animation-play-state: paused; /* Figés quand le visiteur a mis les animations en pause */
+} /* Fin */
+
 /* Si le visiteur a activé « réduire les animations » dans son système,
    on coupe tous les mouvements (confort et accessibilité). */
 

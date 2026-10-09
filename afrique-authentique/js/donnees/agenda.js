@@ -19,7 +19,7 @@ const EVENEMENTS = [ // Ouvre la liste des événements
     dateFin: '', // Date de fin pour un événement sur plusieurs jours (sinon laisser vide)
     heure: '19 h', // Horaire affiché (texte libre)
     lieu: 'Cotonou, Bénin', // Lieu
-    description: "Une soirée de contes en fon et en français, accompagnée au tambour. Places limitées : réservation conseillée.", // Description courte
+    description: "Une soirée de contes en fon et en français, accompagnée au tambour. Places limitées : réservation conseillée.", // Description courte
     reservation: true, // true = bouton « Réserver via WhatsApp » ; false = pas de bouton
     lien: '', // Lien externe facultatif (site officiel, billetterie…)
     aConfirmer: false, // true = affiche la mention « dates à confirmer »
@@ -27,7 +27,7 @@ const EVENEMENTS = [ // Ouvre la liste des événements
 
   { // Événement
     id: 'atelier-indigo', // Identifiant
-    titre: 'Atelier : teindre à l’indigo', // Titre
+    titre: 'Atelier : teindre à l’indigo', // Titre
     type: 'Atelier', // Type
     date: '2026-11-29', dateFin: '', heure: '9 h 30 – 13 h', // Dates et horaire
     lieu: 'Porto-Novo, Bénin', // Lieu
@@ -67,7 +67,7 @@ const EVENEMENTS = [ // Ouvre la liste des événements
 
   { // Événement passé
     id: 'lecture-amkoullel', // Identifiant
-    titre: 'Lecture : « Amkoullel, l’enfant peul »', // Titre
+    titre: 'Lecture : « Amkoullel, l’enfant peul »', // Titre
     type: 'Lecture', // Type
     date: '2026-09-20', dateFin: '', heure: '17 h', // Dates
     lieu: 'Cotonou, Bénin', // Lieu
@@ -77,7 +77,7 @@ const EVENEMENTS = [ // Ouvre la liste des événements
 
   { // Événement passé
     id: 'projection-timbuktu', // Identifiant
-    titre: 'Projection-débat : « Timbuktu »', // Titre
+    titre: 'Projection-débat : « Timbuktu »', // Titre
     type: 'Cinéma', // Type
     date: '2026-07-18', dateFin: '', heure: '19 h 30', // Dates
     lieu: 'Cotonou, Bénin', // Lieu

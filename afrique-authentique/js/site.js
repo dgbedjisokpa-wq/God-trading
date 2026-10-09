@@ -286,7 +286,7 @@
         <div class="conteneur"> <!-- Conteneur de la dernière ligne -->
           <div class="pied__bas etiquette"> <!-- Dernière ligne -->
             <p>© ${new Date().getFullYear()} ${echapper(REGLAGES.nomSite)} · ${echapper(REGLAGES.ville)}</p> <!-- Copyright, nom et ville -->
-            <ul>${legaux}<li><button type="button" data-cookies-gerer>Gérer les cookies</button></li></ul> <!-- Liens légaux + bouton cookies -->
+            <ul>${legaux}<li><button type="button" data-cookies-gerer>Gérer les cookies</button></li><li><button type="button" data-animations-basculer data-texte-pause="Mettre les animations en pause" data-texte-lecture="Relancer les animations">Mettre les animations en pause</button></li></ul> <!-- Liens légaux + boutons cookies et pause des animations -->
           </div> <!-- Fin de la dernière ligne -->
         </div> <!-- Fin du conteneur -->
       </footer>`; // Frise | lettre du cercle + 4 colonnes de liens | grand logo | copyright + liens légaux
@@ -602,13 +602,35 @@
     '}', // Fin de main
   ].join('\n'); // Assemble les lignes
 
-  function couleurVersRVB(texte) { // Convertit « #A63F24 » en trois nombres entre 0 et 1 (rouge, vert, bleu)
-    const hex = String(texte || '').trim().replace('#', ''); // Retire le # et les espaces
-    if (hex.length !== 6) return [0, 0, 0]; // Format inattendu : noir
-    return [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255); // Deux caractères par couleur
+  const lecteurCouleur = document.createElement('canvas').getContext('2d'); // Petit outil du navigateur qui comprend toutes les écritures de couleur
+
+  function couleurVersRVB(texte) { // Convertit une couleur CSS (#A63F24, #FFF, rgb(…), white…) en trois nombres entre 0 et 1
+    if (!lecteurCouleur) return [0, 0, 0]; // Outil indisponible (très rare) : noir
+    lecteurCouleur.fillStyle = '#000000'; // Valeur de secours si la couleur est illisible
+    lecteurCouleur.fillStyle = String(texte || '').trim() || '#000000'; // Le navigateur interprète la couleur écrite dans le CSS
+    const valeur = lecteurCouleur.fillStyle; // Il la rend au format « #rrggbb » (ou « rgba(…) » si elle est transparente)
+    if (valeur.charAt(0) === '#') return [1, 3, 5].map((i) => parseInt(valeur.slice(i, i + 2), 16) / 255); // Format #rrggbb : deux caractères par couleur
+    return (valeur.match(/[\d.]+/g) || [0, 0, 0]).slice(0, 3).map((n) => Number(n) / 255); // Format rgba(r, g, b, a) : les trois premiers nombres
   } // Fin de couleurVersRVB
 
+  const CLE_PAUSE = 'aa-animations-pause'; // Nom sous lequel le choix « animations en pause » est mémorisé
+  let animationsEnPause = lireStockage(CLE_PAUSE) === 'oui'; // Le visiteur a-t-il mis les animations en pause ?
+  const relanceurs = []; // Fonctions qui redémarrent les fumées quand on relance
+
+  function appliquerPause() { // Applique le choix « pause » à toute la page
+    document.documentElement.classList.toggle('animations-en-pause', animationsEnPause); // Classe utilisée par le CSS pour figer les animations décoratives
+    $$('[data-animations-basculer]').forEach((bouton) => { // Chaque bouton pause / lecture
+      bouton.textContent = animationsEnPause ? bouton.dataset.texteLecture : bouton.dataset.textePause; // Texte selon l'état
+    }); // Fin
+    $$('video.fumee').forEach((video) => { if (animationsEnPause) video.pause(); else video.play().catch(() => {}); }); // Vidéos de fond éventuelles
+    if (!animationsEnPause) relanceurs.forEach((relancer) => relancer()); // Relance les fumées
+  } // Fin de appliquerPause
+
   function initFumees() { // Dessine la fumée animée des en-têtes (balises <canvas data-fumee>)
+    $$('.tete-rubrique').forEach((bloc) => { // Chaque en-tête…
+      if (!bloc.querySelector('.fumee') || bloc.querySelector('.fumee__pause')) return; // …qui a une fumée (ou une vidéo) et pas encore de bouton
+      bloc.insertAdjacentHTML('afterbegin', '<button class="fumee__pause" type="button" data-animations-basculer data-texte-pause="Mettre en pause" data-texte-lecture="Relancer l’animation">Mettre en pause</button>'); // Bouton pause / lecture en haut à droite
+    }); // Fin des boutons
     $$('canvas[data-fumee]').forEach((toile) => { // Chaque zone de fumée
       if (getComputedStyle(toile).display === 'none') return; // Masquée (une vidéo la remplace) : rien à faire
       const bloc = toile.parentElement; // L'en-tête qui contient la fumée
@@ -649,11 +671,12 @@
       let visible = true; // L'en-tête est-il à l'écran ?
       let enCours = false; // Une boucle d'animation tourne-t-elle ?
       const boucle = (ms) => { // Boucle d'animation (environ 60 images par seconde)
-        if (!visible || document.hidden) { enCours = false; return; } // Hors écran ou onglet caché : pause (économie de batterie)
+        if (!visible || document.hidden || animationsEnPause) { enCours = false; return; } // Hors écran, onglet caché ou mis en pause par le visiteur : on s'arrête
         dessiner(ms); // Dessine l'image suivante
         window.requestAnimationFrame(boucle); // Prévoit la suivante
       }; // Fin de la boucle
-      const relancer = () => { if (!enCours && visible && !document.hidden) { enCours = true; window.requestAnimationFrame(boucle); } }; // Relance l'animation si elle s'était arrêtée
+      const relancer = () => { if (!enCours && visible && !document.hidden && !animationsEnPause) { enCours = true; window.requestAnimationFrame(boucle); } }; // Relance l'animation si elle s'était arrêtée
+      relanceurs.push(relancer); // Mémorisé : le bouton « Relancer » pourra la redémarrer
       if ('IntersectionObserver' in window) new IntersectionObserver(([entree]) => { visible = entree.isIntersecting; relancer(); }).observe(bloc); // Surveille si l'en-tête est visible
       document.addEventListener('visibilitychange', relancer); // Reprend au retour sur l'onglet
       relancer(); // Démarre l'animation
@@ -831,6 +854,11 @@
     } // Fin du bouton « Vider »
     else if (cible.matches('[data-cookies]')) enregistrerCookies(cible.dataset.cookies); // Boutons Accepter / Refuser
     else if (cible.matches('[data-cookies-gerer]')) $('[data-cookies-bandeau]').hidden = false; // « Gérer les cookies » : rouvre le bandeau
+    else if (cible.matches('[data-animations-basculer]')) { // Bouton « Mettre en pause » / « Relancer » des animations
+      animationsEnPause = !animationsEnPause; // Inverse l'état
+      ecrireStockage(CLE_PAUSE, animationsEnPause ? 'oui' : 'non'); // Mémorise le choix pour les autres pages
+      appliquerPause(); // Applique à toute la page
+    } // Fin du bouton pause
     else if (cible.matches('.menu a[href]')) fermerPanneau(false); // Clic sur un lien du menu : on le referme
   }); // Fin de l'écouteur de clics
 
@@ -848,7 +876,8 @@
     initDefilants(); // Bandes défilantes
     initProverbes(); // Proverbes
     initDefiles(); // Rangées horizontales
-    initFumees(); // Fumée animée des en-têtes
+    initFumees(); // Fumée animée des en-têtes (et ses boutons pause)
+    appliquerPause(); // Applique le choix « animations en pause » mémorisé
     initLiensReglages(); // Liens WhatsApp, e-mail, réseaux
     initFormulaires(); // Formulaires
     initApparitions(); // Animations d'apparition

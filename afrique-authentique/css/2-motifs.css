@@ -25,7 +25,7 @@
 
 [data-teinte="laterite"] { /* Teinte rouge latérite */
   --c: var(--laterite); /* Fond rouge */
-  --c-texte: var(--cauri); /* Texte blanc chaud */
+  --c-texte: var(--cauri); /* Texte blanc */
   --c-motif: rgba(94, 38, 32, .55); /* Motif brun kola semi-transparent */
   --c-forme: var(--ocre); /* Forme ocre */
   --fumee-fond: #5A1D10; /* En-tête à fumée : couleur de fond (latérite sombre) */
@@ -38,7 +38,8 @@
   --c-texte: var(--encre); /* Texte foncé (meilleur contraste sur l'ocre) */
   --c-motif: rgba(166, 63, 36, .38); /* Motif latérite transparent */
   --c-forme: var(--indigo); /* Forme indigo */
-  --fumee-fond: #C88A2A; /* En-tête à fumée : couleur de fond (ocre) */
+  --fumee-fond: #D3922A; /* En-tête à fumée : couleur de fond (ocre) */
+  --fumee-voile: #F4CF7E; /* En-tête à fumée : voile clair sous le texte foncé */
   --fumee-volute: #F4CF7E; /* En-tête à fumée : volutes (ocre très clair) */
   --fumee-lueur: #FFF4DC; /* En-tête à fumée : reflets (crème) */
 } /* Fin */
@@ -67,7 +68,7 @@
   --c: var(--kola); /* Fond brun-rouge */
   --c-texte: var(--sable); /* Texte clair */
   --c-motif: rgba(211, 146, 42, .26); /* Motif ocre transparent */
-  --c-forme: var(--sable); /* Forme blanche */
+  --c-forme: var(--ocre); /* Forme ocre (une forme blanche se confondrait avec le fond de page) */
   --fumee-fond: #2E0F0C; /* En-tête à fumée : couleur de fond (kola sombre) */
   --fumee-volute: #84392B; /* En-tête à fumée : volutes (kola clair) */
   --fumee-lueur: #D39A3A; /* En-tête à fumée : reflets (ocre) */

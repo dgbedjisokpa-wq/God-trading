@@ -148,7 +148,7 @@
   align-items: center; /* Centrés */
   gap: .8rem; /* Espace */
   padding: .7rem 1rem; /* Marges */
-  background: var(--cauri); /* Fond blanc chaud */
+  background: var(--cauri); /* Fond blanc */
   border: 1px dashed var(--encre); /* Bordure pointillée (ticket) */
   rotate: 2.5deg; /* Légèrement penché */
   box-shadow: 0 14px 30px -18px rgba(28, 21, 17, .7); /* Ombre */
@@ -421,8 +421,17 @@ a:hover .souligne, a:focus-visible .souligne { /* Survol de la carte */
   aspect-ratio: auto; /* Annule les proportions par défaut des plaques */
   border-radius: 0; /* Les coins de la carte suffisent */
   background: transparent; /* Laisse voir la couleur de la carte */
-  -webkit-mask-image: linear-gradient(to top, #000 55%, transparent); /* Le motif s'efface vers le haut (Safari) */
-  mask-image: linear-gradient(to top, #000 55%, transparent); /* Le motif s'efface vers le haut */
+} /* Fin */
+
+.porte__visuel::before { /* Le motif seul s'efface vers le haut (la forme garde des bords nets) */
+  -webkit-mask-image: var(--motif), linear-gradient(to top, #000 50%, transparent 92%); /* Deux masques : le dessin du motif + un fondu (Safari) */
+  mask-image: var(--motif), linear-gradient(to top, #000 50%, transparent 92%); /* Deux masques : le dessin du motif + un fondu */
+  -webkit-mask-size: var(--motif-taille), 100% 100%; /* Tailles des deux masques (Safari) */
+  mask-size: var(--motif-taille), 100% 100%; /* Tailles des deux masques */
+  -webkit-mask-repeat: repeat, no-repeat; /* Le motif se répète, le fondu non (Safari) */
+  mask-repeat: repeat, no-repeat; /* Le motif se répète, le fondu non */
+  -webkit-mask-composite: source-in; /* On garde ce qui est commun aux deux masques (Safari) */
+  mask-composite: intersect; /* On garde ce qui est commun aux deux masques */
 } /* Fin */
 
 

@@ -3,7 +3,7 @@
    --------------------------------------------------------------------------
    C'est le premier fichier à personnaliser : numéro WhatsApp, e-mail,
    réseaux sociaux, menu, rubriques, proverbes et partenaires.
-   Règle d'or : modifiez uniquement le texte ENTRE les guillemets "…" ou '…'
+   Règle d'or : modifiez uniquement le texte ENTRE les guillemets "…" ou '…'
    et gardez les virgules en fin de ligne.
    ========================================================================== */
 
@@ -63,7 +63,7 @@ const RUBRIQUES = { // Ouvre la liste des rubriques
     num: '01', // Numéro
     url: 'aux-origines.html', // Page de la rubrique
     teinte: 'laterite', // Couleur
-    resume: "Royaumes, symboles et lieux de mémoire : remonter le fil pour comprendre ce qui nous tient debout.", // Description courte
+    resume: "Royaumes, symboles et lieux de mémoire : remonter le fil pour comprendre ce qui nous tient debout.", // Description courte
   }, // Fin de la rubrique 1
   'figures-et-horizons': { // Clé de la rubrique 2
     nom: 'Figures & Horizons', // Nom affiché
@@ -77,14 +77,14 @@ const RUBRIQUES = { // Ouvre la liste des rubriques
     num: '03', // Numéro
     url: 'savoir-faire.html', // Page
     teinte: 'ocre', // Couleur
-    resume: "Tisser, teindre, façonner : les gestes transmis de main en main, documentés avec celles et ceux qui les pratiquent.", // Description
+    resume: "Tisser, teindre, façonner : les gestes transmis de main en main, documentés avec celles et ceux qui les pratiquent.", // Description
   }, // Fin de la rubrique 3
   'evenements': { // Clé de la rubrique 4
     nom: 'Événements', // Nom affiché
     num: '04', // Numéro
     url: 'evenements.html', // Page
     teinte: 'palme', // Couleur
-    resume: "Fêtes, festivals, cérémonies et rencontres du cercle : là où la culture se vit au présent.", // Description
+    resume: "Fêtes, festivals, cérémonies et rencontres du cercle : là où la culture se vit au présent.", // Description
   }, // Fin de la rubrique 4
 }; // Fin des rubriques
 
@@ -105,7 +105,7 @@ const PROVERBES = [ // Ouvre la liste
 /* PARTENAIRES ---------------------------------------------------------------
    Logos affichés sur la page « Devenir partenaire ». Tant que la liste est
    vide, un message d'invitation s'affiche à la place.
-   Modèle d'une ligne : { nom: 'Atelier X', logo: 'assets/partenaires/x.png', url: 'https://…' },  */
+   Modèle d'une ligne : { nom: 'Atelier X', logo: 'assets/partenaires/x.png', url: 'https://…' },  */
 
 const PARTENAIRES = [ // Ouvre la liste (vide pour l'instant)
 ]; // Fin des partenaires
