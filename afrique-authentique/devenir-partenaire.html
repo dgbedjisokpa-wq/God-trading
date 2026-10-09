@@ -1,0 +1,130 @@
+<!DOCTYPE html> <!-- Indique au navigateur qu'il s'agit d'une page HTML moderne -->
+<html lang="fr"> <!-- Début de la page ; lang="fr" : la page est en français -->
+<head> <!-- En-tête invisible : réglages, titre, styles et scripts -->
+  <meta charset="utf-8"> <!-- Encodage des caractères : autorise les accents -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Adapte l'affichage aux téléphones -->
+  <title>Devenir partenaire — Afrique Authentique</title> <!-- Titre de l'onglet et des résultats Google -->
+  <meta name="description" content="Artisans, coopératives, agences, institutions culturelles : proposez un partenariat à Afrique Authentique."> <!-- Résumé affiché dans Google -->
+  <meta property="og:title" content="Devenir partenaire — Afrique Authentique"> <!-- Titre quand la page est partagée -->
+  <meta property="og:description" content="Artisans, coopératives, agences, institutions culturelles : proposez un partenariat à Afrique Authentique."> <!-- Description du partage -->
+  <meta property="og:type" content="website"> <!-- Type de contenu partagé -->
+  <meta name="theme-color" content="#1C1511"> <!-- Couleur de la barre du navigateur sur mobile -->
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"> <!-- Icône de l'onglet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- Prépare la connexion au service de polices -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <!-- Idem pour les fichiers de police -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&amp;family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&amp;family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&amp;display=swap"> <!-- Les 3 polices du site -->
+  <link rel="stylesheet" href="css/1-fondations.css"> <!-- Styles : couleurs, polices, boutons -->
+  <link rel="stylesheet" href="css/2-motifs.css"> <!-- Styles : motifs textiles et visuels -->
+  <link rel="stylesheet" href="css/3-structure.css"> <!-- Styles : en-tête, menu, pied de page, calebasse -->
+  <link rel="stylesheet" href="css/4-sections.css"> <!-- Styles : sections et cartes -->
+  <link rel="stylesheet" href="css/5-pages.css"> <!-- Styles : pages particulières -->
+  <script>document.documentElement.classList.add('js');</script> <!-- Signale que JavaScript fonctionne -->
+  <script src="js/donnees/reglages.js" defer></script> <!-- Contenus : réglages, menu, proverbes -->
+  <script src="js/donnees/recits.js" defer></script> <!-- Contenus : les récits -->
+  <script src="js/donnees/odyssees.js" defer></script> <!-- Contenus : les destinations -->
+  <script src="js/donnees/tresors.js" defer></script> <!-- Contenus : les produits -->
+  <script src="js/donnees/agenda.js" defer></script> <!-- Contenus : les événements -->
+  <script src="js/site.js" defer></script> <!-- Fonctionnement commun -->
+  <script src="js/rendu.js" defer></script> <!-- Affichage des contenus -->
+</head> <!-- Fin de l'en-tête invisible -->
+<body data-page="partenaire"> <!-- Corps de la page ; data-page="partenaire" sert à surligner le bon lien du menu -->
+  <div class="rideau" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div> <!-- Rideau coloré qui se lève à l'ouverture -->
+  <a class="evitement" href="#contenu">Aller au contenu</a> <!-- Lien visible au clavier : saute le menu -->
+  <div data-entete></div> <!-- Emplacement de l'en-tête (construit par js/site.js) -->
+
+  <main id="contenu"> <!-- Contenu principal de la page -->
+
+    <section class="page-tete" aria-labelledby="titre-page"> <!-- En-tête de la page -->
+      <div class="conteneur page-tete__grille"> <!-- Grille : titre | introduction -->
+        <div> <!-- Colonne du titre -->
+          <nav class="fil-ariane etiquette" aria-label="Fil d’Ariane"><a href="index.html">Accueil</a><span aria-hidden="true">/</span><span aria-current="page">Devenir partenaire</span></nav> <!-- Fil d'Ariane -->
+          <h1 class="titre-page" id="titre-page">Devenir <em>partenaire</em></h1> <!-- Titre -->
+        </div> <!-- Fin de la colonne -->
+        <p class="chapo">Artisans, coopératives, agences de voyage, institutions culturelles, marques engagées : construisons ensemble des projets qui profitent à celles et ceux qui font la culture.</p> <!-- Introduction -->
+      </div> <!-- Fin de la grille -->
+    </section> <!-- Fin de l'en-tête -->
+
+    <section class="section" aria-labelledby="titre-types"> <!-- Types de partenariat -->
+      <div class="conteneur"> <!-- Largeur limitée -->
+        <header class="tete-section tete-section--fendue" data-revele> <!-- En-tête de section -->
+          <p class="etiquette tete-section__surtitre"><span class="num">01</span> Pour qui ?</p> <!-- Surtitre numéroté -->
+          <h2 class="titre-section" id="titre-types">Quatre façons <em>de s’associer</em></h2> <!-- Titre -->
+        </header> <!-- Fin de l'en-tête -->
+        <div class="types" data-cascade> <!-- Grille de quatre blocs colorés -->
+          <article class="type" data-teinte="laterite"><p class="num etiquette">01</p><h3>Artisans &amp; coopératives</h3><p>Faire connaître votre travail et vendre vos créations dans les Trésors d’Afrique, à un prix juste.</p></article> <!-- Type 1 (rouge) -->
+          <article class="type" data-teinte="indigo"><p class="num etiquette">02</p><h3>Agences &amp; guides</h3><p>Concevoir avec nous des odyssées respectueuses, en lien avec des hôtes locaux.</p></article> <!-- Type 2 (indigo) -->
+          <article class="type" data-teinte="ocre"><p class="num etiquette">03</p><h3>Institutions culturelles</h3><p>Musées, festivals, centres culturels : relayer et documenter vos programmations dans le carnet et l’agenda.</p></article> <!-- Type 3 (ocre) -->
+          <article class="type" data-teinte="palme"><p class="num etiquette">04</p><h3>Marques &amp; médias</h3><p>Collaborations éditoriales et projets engagés, en accord avec nos valeurs.</p></article> <!-- Type 4 (vert) -->
+        </div> <!-- Fin des types -->
+      </div> <!-- Fin du conteneur -->
+    </section> <!-- Fin de la section -->
+
+    <section class="section section--sombre" aria-labelledby="titre-engagements"> <!-- Nos engagements -->
+      <div class="conteneur"> <!-- Largeur limitée -->
+        <header class="tete-section tete-section--fendue" data-revele> <!-- En-tête de section -->
+          <p class="etiquette tete-section__surtitre"><span class="num">02</span> Nos engagements</p> <!-- Surtitre numéroté -->
+          <h2 class="titre-section" id="titre-engagements">Ce que nous <em>promettons</em></h2> <!-- Titre -->
+        </header> <!-- Fin de l'en-tête -->
+        <div class="principes" data-cascade> <!-- Trois engagements -->
+          <div><h3>Une rémunération juste</h3><p>Les prix sont fixés avec les artisans et les partenaires, jamais contre eux.</p></div> <!-- Engagement 1 -->
+          <div><h3>La transparence</h3><p>Chaque objet, chaque voyage indique son origine et celles et ceux qui l’ont rendu possible.</p></div> <!-- Engagement 2 -->
+          <div><h3>Le respect</h3><p>Des lieux, des savoirs et des personnes : rien n’est montré ni vendu sans leur accord.</p></div> <!-- Engagement 3 -->
+        </div> <!-- Fin des engagements -->
+      </div> <!-- Fin du conteneur -->
+    </section> <!-- Fin de la section -->
+
+    <section class="section section--serree" aria-labelledby="titre-partenaires"> <!-- Mur des partenaires -->
+      <div class="conteneur"> <!-- Largeur limitée -->
+        <header class="tete-section tete-section--fendue" data-revele> <!-- En-tête de section -->
+          <p class="etiquette tete-section__surtitre"><span class="num">03</span> Le cercle des partenaires</p> <!-- Surtitre numéroté -->
+          <h2 class="titre-section" id="titre-partenaires">Ils marchent <em>avec nous</em></h2> <!-- Titre -->
+        </header> <!-- Fin de l'en-tête -->
+        <div data-partenaires></div> <!-- Logos de la liste PARTENAIRES (reglages.js), ou message d'invitation si elle est vide -->
+      </div> <!-- Fin du conteneur -->
+    </section> <!-- Fin de la section -->
+
+    <section class="section" aria-labelledby="titre-proposer"> <!-- Formulaire de partenariat -->
+      <div class="conteneur contact"> <!-- Deux colonnes -->
+        <div> <!-- Colonne de gauche -->
+          <header class="tete-section" data-revele> <!-- En-tête de section -->
+          <p class="etiquette tete-section__surtitre"><span class="num">04</span> Proposer un partenariat</p> <!-- Surtitre numéroté -->
+          <h2 class="titre-section" id="titre-proposer">Parlons <em>de votre projet</em></h2> <!-- Titre -->
+          <p class="chapo">Présentez-nous votre structure en quelques lignes : nous revenons vers vous rapidement pour en discuter.</p> <!-- Texte -->
+        </header> <!-- Fin de l'en-tête -->
+          <dl class="coordonnees"> <!-- Coordonnées (remplies automatiquement depuis reglages.js) -->
+            <div><dt class="etiquette">WhatsApp</dt><dd><a href="#formulaire-partenaire" data-whatsapp="Bonjour Afrique Authentique, je souhaite vous proposer un partenariat."><span data-telephone></span> ↗</a></dd></div> <!-- Numéro WhatsApp -->
+            <div><dt class="etiquette">E-mail</dt><dd><a href="#formulaire-partenaire" data-email></a></dd></div> <!-- Adresse e-mail -->
+          </dl> <!-- Fin des coordonnées -->
+        </div> <!-- Fin de la colonne de gauche -->
+        <div class="carte-formulaire" id="formulaire-partenaire"> <!-- Cadre du formulaire -->
+          <h3>Votre <em>proposition</em></h3> <!-- Titre du formulaire -->
+          <form class="formulaire" data-formulaire="partenaire" data-sujet="Proposition de partenariat — Afrique Authentique" novalidate> <!-- Formulaire (vérifié et envoyé par site.js) -->
+            <div class="formulaire__ligne"> <!-- Deux champs côte à côte -->
+              <div class="champ"><label class="etiquette" for="p-structure">Structure *</label><input id="p-structure" name="structure" type="text" autocomplete="organization" required></div> <!-- Nom de la structure -->
+              <div class="champ"><label class="etiquette" for="p-nom">Votre nom *</label><input id="p-nom" name="nom" type="text" autocomplete="name" required></div> <!-- Nom de la personne -->
+            </div> <!-- Fin de la ligne -->
+            <div class="formulaire__ligne"> <!-- Deux champs côte à côte -->
+              <div class="champ"><label class="etiquette" for="p-email">E-mail *</label><input id="p-email" name="email" type="email" autocomplete="email" required></div> <!-- E-mail -->
+              <div class="champ"><label class="etiquette" for="p-tel">Téléphone / WhatsApp</label><input id="p-tel" name="telephone" type="tel" autocomplete="tel"></div> <!-- Téléphone -->
+            </div> <!-- Fin de la ligne -->
+            <div class="formulaire__ligne"> <!-- Deux champs côte à côte -->
+              <div class="champ"><label class="etiquette" for="p-type">Vous êtes *</label><select id="p-type" name="type" required><option value="">Choisir…</option><option>Artisan ou coopérative</option><option>Agence de voyage ou guide</option><option>Institution culturelle</option><option>Marque ou média</option><option>Autre</option></select></div> <!-- Type de structure -->
+              <div class="champ"><label class="etiquette" for="p-site">Site web ou réseau</label><input id="p-site" name="site" type="url" placeholder="https://" autocomplete="url"></div> <!-- Adresse web (facultative) -->
+            </div> <!-- Fin de la ligne -->
+            <div class="champ"><label class="etiquette" for="p-message">Votre projet *</label><textarea id="p-message" name="message" minlength="20" required></textarea></div> <!-- Description du projet (20 caractères minimum) -->
+            <label class="case"><input type="checkbox" name="consentement" value="oui" required><span>J’accepte que ces informations soient utilisées pour répondre à ma demande (voir la <a href="confidentialite.html">politique de confidentialité</a>). *</span></label> <!-- Case de consentement obligatoire -->
+            <div class="piege" aria-hidden="true"><label for="p-site">Ne pas remplir</label><input id="p-site" name="_site" type="text" tabindex="-1" autocomplete="off"></div> <!-- Champ invisible anti-robots -->
+            <div class="formulaire__envoi"> <!-- Boutons d'envoi -->
+              <button class="bouton bouton--plein" type="submit">Envoyer par e-mail <span class="fleche" aria-hidden="true">→</span></button> <!-- Envoi (par e-mail ou via le service configuré dans reglages.js) -->
+              <button class="bouton bouton--whatsapp" type="button" data-envoi-whatsapp>Envoyer sur WhatsApp</button> <!-- Envoi du même message par WhatsApp -->
+            </div> <!-- Fin des boutons -->
+            <p class="mention">* Champs nécessaires.</p> <!-- Mention -->
+          </form> <!-- Fin du formulaire -->
+        </div> <!-- Fin du cadre -->
+      </div> <!-- Fin des deux colonnes -->
+    </section> <!-- Fin de la section -->
+  </main> <!-- Fin du contenu principal -->
+
+  <div data-pied></div> <!-- Emplacement du pied de page (construit par js/site.js) -->
+</body> <!-- Fin du corps -->
+</html> <!-- Fin de la page -->

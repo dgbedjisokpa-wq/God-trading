@@ -1,0 +1,15 @@
+<!-- MOTIF « NDEBELE » (peintures murales d'Afrique australe) — carreau de 120 × 80.  -->
+<!-- Formes architecturales franches : pyramide à gradins, triangle, barreaux.      -->
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="80" viewBox="0 0 120 80"> <!-- Zone de dessin de 120 × 80 -->
+  <g fill="none" stroke="#000" stroke-width="4"> <!-- Traits noirs épais de 4 -->
+    <path d="M8 72 V56 H20 V40 H32 V24 H48 V40 H60 V56 H72 V72 Z"/> <!-- Pyramide à gradins (contour) -->
+    <path d="M34 72 V58 H46 V72"/> <!-- Petite porte au pied de la pyramide -->
+  </g> <!-- Fin des traits -->
+  <g fill="#000"> <!-- Formes pleines -->
+    <rect x="0" y="0" width="120" height="8"/> <!-- Bande pleine en haut du carreau -->
+    <path d="M84 72 L100 40 L116 72 Z"/> <!-- Triangle plein à droite -->
+    <rect x="84" y="16" width="6" height="14"/> <!-- Barreau 1 -->
+    <rect x="97" y="16" width="6" height="14"/> <!-- Barreau 2 -->
+    <rect x="110" y="16" width="6" height="14"/> <!-- Barreau 3 -->
+  </g> <!-- Fin des formes pleines -->
+</svg> <!-- Fin du dessin -->

@@ -1,0 +1,83 @@
+<!DOCTYPE html> <!-- Indique au navigateur qu'il s'agit d'une page HTML moderne -->
+<html lang="fr"> <!-- Début de la page ; lang="fr" : la page est en français -->
+<head> <!-- En-tête invisible : réglages, titre, styles et scripts -->
+  <meta charset="utf-8"> <!-- Encodage des caractères : autorise les accents -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Adapte l'affichage aux téléphones -->
+  <title>Politique relative aux cookies — Afrique Authentique</title> <!-- Titre de l'onglet et des résultats Google -->
+  <meta name="description" content="Les traceurs utilisés par le site Afrique Authentique et comment gérer vos choix."> <!-- Résumé affiché dans Google -->
+  <meta property="og:title" content="Politique relative aux cookies — Afrique Authentique"> <!-- Titre quand la page est partagée -->
+  <meta property="og:description" content="Les traceurs utilisés par le site Afrique Authentique et comment gérer vos choix."> <!-- Description du partage -->
+  <meta property="og:type" content="website"> <!-- Type de contenu partagé -->
+  <meta name="theme-color" content="#1C1511"> <!-- Couleur de la barre du navigateur sur mobile -->
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"> <!-- Icône de l'onglet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- Prépare la connexion au service de polices -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <!-- Idem pour les fichiers de police -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&amp;family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&amp;family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&amp;display=swap"> <!-- Les 3 polices du site -->
+  <link rel="stylesheet" href="css/1-fondations.css"> <!-- Styles : couleurs, polices, boutons -->
+  <link rel="stylesheet" href="css/2-motifs.css"> <!-- Styles : motifs textiles et visuels -->
+  <link rel="stylesheet" href="css/3-structure.css"> <!-- Styles : en-tête, menu, pied de page, calebasse -->
+  <link rel="stylesheet" href="css/4-sections.css"> <!-- Styles : sections et cartes -->
+  <link rel="stylesheet" href="css/5-pages.css"> <!-- Styles : pages particulières -->
+  <script>document.documentElement.classList.add('js');</script> <!-- Signale que JavaScript fonctionne -->
+  <script src="js/donnees/reglages.js" defer></script> <!-- Contenus : réglages, menu, proverbes -->
+  <script src="js/donnees/recits.js" defer></script> <!-- Contenus : les récits -->
+  <script src="js/donnees/odyssees.js" defer></script> <!-- Contenus : les destinations -->
+  <script src="js/donnees/tresors.js" defer></script> <!-- Contenus : les produits -->
+  <script src="js/donnees/agenda.js" defer></script> <!-- Contenus : les événements -->
+  <script src="js/site.js" defer></script> <!-- Fonctionnement commun -->
+  <script src="js/rendu.js" defer></script> <!-- Affichage des contenus -->
+</head> <!-- Fin de l'en-tête invisible -->
+<body data-page="cookies"> <!-- Corps de la page ; data-page="cookies" sert à surligner le bon lien du menu -->
+  <div class="rideau" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div> <!-- Rideau coloré qui se lève à l'ouverture -->
+  <a class="evitement" href="#contenu">Aller au contenu</a> <!-- Lien visible au clavier : saute le menu -->
+  <div data-entete></div> <!-- Emplacement de l'en-tête (construit par js/site.js) -->
+
+  <main id="contenu"> <!-- Contenu principal de la page -->
+
+    <section class="page-tete" aria-labelledby="titre-page"> <!-- En-tête de la page -->
+      <div class="conteneur page-tete__grille"> <!-- Grille : titre | introduction -->
+        <div> <!-- Colonne du titre -->
+          <nav class="fil-ariane etiquette" aria-label="Fil d’Ariane"><a href="index.html">Accueil</a><span aria-hidden="true">/</span><span aria-current="page">Cookies</span></nav> <!-- Fil d'Ariane -->
+          <h1 class="titre-page" id="titre-page">Les <em>cookies</em></h1> <!-- Titre -->
+        </div> <!-- Fin de la colonne -->
+        <div class="pile"> <!-- Introduction -->
+          <p class="chapo">Ce que le site enregistre dans votre navigateur, pourquoi, et comment garder la main.</p> <!-- Texte -->
+          <p class="etiquette">Dernière mise à jour : <mark class="a-completer">[date]</mark></p> <!-- Date à compléter -->
+        </div> <!-- Fin de l'introduction -->
+      </div> <!-- Fin de la grille -->
+    </section> <!-- Fin de l'en-tête -->
+
+    <div class="conteneur legal"> <!-- Mise en page : sommaire | texte -->
+      <nav class="legal__sommaire" aria-label="Sommaire"><p class="etiquette">Sommaire</p><ol data-sommaire></ol></nav> <!-- Sommaire créé automatiquement à partir des titres -->
+      <div class="legal__contenu"> <!-- Texte -->
+        <p class="mention">Les passages <mark class="a-completer">surlignés</mark> sont à compléter puis à faire valider. Supprimez cette phrase une fois le texte définitif.</p> <!-- Note pour la cliente -->
+        <h2>Qu’est-ce qu’un cookie ?</h2> <!-- Titre de partie -->
+        <p>Un cookie (ou « traceur ») est une petite information enregistrée par votre navigateur lorsque vous visitez un site. Certains sont indispensables au fonctionnement du site ; d’autres, comme la mesure d’audience, nécessitent votre accord.</p> <!-- Paragraphe -->
+        <h2>Ce que le site enregistre</h2> <!-- Titre de partie -->
+        <div class="tableau"> <!-- Tableau défilant sur téléphone -->
+          <table> <!-- Tableau des traceurs -->
+            <thead><tr><th>Nom</th><th>Rôle</th><th>Durée</th><th>Accord requis</th></tr></thead> <!-- En-têtes de colonnes -->
+            <tbody> <!-- Lignes -->
+              <tr><td>aa-calebasse</td><td>Mémorise le contenu de votre calebasse (panier)</td><td>Jusqu’à ce que vous la vidiez</td><td>Non (nécessaire)</td></tr> <!-- Ligne 1 -->
+              <tr><td>aa-cookies</td><td>Mémorise votre choix concernant les cookies</td><td>6 mois</td><td>Non (nécessaire)</td></tr> <!-- Ligne 2 -->
+              <tr><td><mark class="a-completer">[outil de mesure d’audience]</mark></td><td>Statistiques de fréquentation</td><td><mark class="a-completer">[durée]</mark></td><td>Oui</td></tr> <!-- Ligne 3 (si un outil est ajouté) -->
+            </tbody> <!-- Fin des lignes -->
+          </table> <!-- Fin du tableau -->
+        </div> <!-- Fin du conteneur du tableau -->
+        <p>Les deux premiers éléments sont enregistrés dans la mémoire de votre navigateur et ne sont jamais transmis à un serveur.</p> <!-- Paragraphe -->
+        <h2>Services tiers</h2> <!-- Titre de partie -->
+        <ul> <!-- Liste -->
+          <li><strong>Google Fonts</strong> : les polices de caractères sont chargées depuis les serveurs de Google, qui reçoivent à cette occasion votre adresse IP. Pour l’éviter, les polices peuvent être hébergées directement avec le site.</li> <!-- Élément -->
+          <li><strong>WhatsApp, Facebook, Instagram…</strong> : en cliquant sur un lien ou un bouton de partage, vous êtes redirigé·e vers ces services, soumis à leurs propres règles.</li> <!-- Élément -->
+        </ul> <!-- Fin de la liste -->
+        <h2>Gérer vos choix</h2> <!-- Titre de partie -->
+        <p>Vous pouvez modifier votre choix à tout moment : <button class="lien-fleche" type="button" data-cookies-gerer>Modifier mes choix</button>. Vous pouvez aussi effacer ces données depuis les réglages de votre navigateur.</p> <!-- Paragraphe -->
+        <h2>Durée de votre choix</h2> <!-- Titre de partie -->
+        <p>Votre choix est conservé six mois ; il vous sera ensuite demandé à nouveau.</p> <!-- Paragraphe -->
+      </div> <!-- Fin du texte -->
+    </div> <!-- Fin de la mise en page -->
+  </main> <!-- Fin du contenu principal -->
+
+  <div data-pied></div> <!-- Emplacement du pied de page (construit par js/site.js) -->
+</body> <!-- Fin du corps -->
+</html> <!-- Fin de la page -->

@@ -1,0 +1,100 @@
+<!DOCTYPE html> <!-- Indique au navigateur qu'il s'agit d'une page HTML moderne -->
+<html lang="fr"> <!-- Début de la page ; lang="fr" : la page est en français -->
+<head> <!-- En-tête invisible : réglages, titre, styles et scripts -->
+  <meta charset="utf-8"> <!-- Encodage des caractères : autorise les accents -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Adapte l'affichage aux téléphones -->
+  <title>Odyssées — Voyages lents en Afrique — Afrique Authentique</title> <!-- Titre de l'onglet et des résultats Google -->
+  <meta name="description" content="Voyages lents et respectueux en Afrique de l’Ouest : Ouidah, Ganvié, Kumasi, Saint-Louis, avec des guides et des hôtes locaux."> <!-- Résumé affiché dans Google -->
+  <meta property="og:title" content="Odyssées — Voyages lents en Afrique — Afrique Authentique"> <!-- Titre quand la page est partagée -->
+  <meta property="og:description" content="Voyages lents et respectueux en Afrique de l’Ouest : Ouidah, Ganvié, Kumasi, Saint-Louis, avec des guides et des hôtes locaux."> <!-- Description du partage -->
+  <meta property="og:type" content="website"> <!-- Type de contenu partagé -->
+  <meta name="theme-color" content="#1C1511"> <!-- Couleur de la barre du navigateur sur mobile -->
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"> <!-- Icône de l'onglet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- Prépare la connexion au service de polices -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <!-- Idem pour les fichiers de police -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&amp;family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&amp;family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&amp;display=swap"> <!-- Les 3 polices du site -->
+  <link rel="stylesheet" href="css/1-fondations.css"> <!-- Styles : couleurs, polices, boutons -->
+  <link rel="stylesheet" href="css/2-motifs.css"> <!-- Styles : motifs textiles et visuels -->
+  <link rel="stylesheet" href="css/3-structure.css"> <!-- Styles : en-tête, menu, pied de page, calebasse -->
+  <link rel="stylesheet" href="css/4-sections.css"> <!-- Styles : sections et cartes -->
+  <link rel="stylesheet" href="css/5-pages.css"> <!-- Styles : pages particulières -->
+  <script>document.documentElement.classList.add('js');</script> <!-- Signale que JavaScript fonctionne -->
+  <script src="js/donnees/reglages.js" defer></script> <!-- Contenus : réglages, menu, proverbes -->
+  <script src="js/donnees/recits.js" defer></script> <!-- Contenus : les récits -->
+  <script src="js/donnees/odyssees.js" defer></script> <!-- Contenus : les destinations -->
+  <script src="js/donnees/tresors.js" defer></script> <!-- Contenus : les produits -->
+  <script src="js/donnees/agenda.js" defer></script> <!-- Contenus : les événements -->
+  <script src="js/site.js" defer></script> <!-- Fonctionnement commun -->
+  <script src="js/rendu.js" defer></script> <!-- Affichage des contenus -->
+</head> <!-- Fin de l'en-tête invisible -->
+<body data-page="odyssees"> <!-- Corps de la page ; data-page="odyssees" sert à surligner le bon lien du menu -->
+  <div class="rideau" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div> <!-- Rideau coloré qui se lève à l'ouverture -->
+  <a class="evitement" href="#contenu">Aller au contenu</a> <!-- Lien visible au clavier : saute le menu -->
+  <div data-entete></div> <!-- Emplacement de l'en-tête (construit par js/site.js) -->
+
+  <main id="contenu"> <!-- Contenu principal de la page -->
+
+    <section class="tete-rubrique" data-teinte="kola" aria-labelledby="titre-rubrique"> <!-- Grand bloc coloré de la rubrique (couleur choisie avec data-teinte) -->
+      <div class="conteneur tete-rubrique__grille"> <!-- Grille : numéro | textes -->
+        <p class="tete-rubrique__num" aria-hidden="true">05</p> <!-- Énorme numéro en contour -->
+        <div class="tete-rubrique__textes"> <!-- Textes -->
+          <nav class="fil-ariane etiquette" aria-label="Fil d’Ariane"><a href="index.html">Accueil</a><span aria-hidden="true">/</span><span aria-current="page">Odyssées</span></nav> <!-- Fil d'Ariane -->
+          <h1 class="tete-rubrique__titre" id="titre-rubrique"><em>Odyssées</em></h1> <!-- Titre de la rubrique -->
+          <p class="chapo">Des voyages lents, pensés avec des guides et des hôtes locaux, pour rencontrer des lieux à travers celles et ceux qui les habitent.</p> <!-- Introduction -->
+        </div> <!-- Fin des textes -->
+      </div> <!-- Fin de la grille -->
+      <div class="motif tete-rubrique__motif" data-motif="ndebele" aria-hidden="true"></div> <!-- Frise de motif textile (changez data-motif pour en essayer un autre) -->
+    </section> <!-- Fin du bloc de rubrique -->
+
+    <section class="section section--sombre" aria-labelledby="titre-facon"> <!-- Notre façon de voyager -->
+      <div class="conteneur"> <!-- Largeur limitée -->
+        <header class="tete-section tete-section--fendue" data-revele> <!-- En-tête de section -->
+          <p class="etiquette tete-section__surtitre"><span class="num">01</span> Notre façon de voyager</p> <!-- Surtitre numéroté -->
+          <h2 class="titre-section" id="titre-facon">Lentement, <em>ensemble</em></h2> <!-- Titre -->
+          <p class="chapo">Nous ne vendons pas de circuits tout faits : nous ouvrons des portes, avec des partenaires qui vivent sur place.</p> <!-- Texte -->
+        </header> <!-- Fin de l'en-tête -->
+        <div class="principes" data-cascade> <!-- Trois principes -->
+          <div><h3>Prendre le temps</h3><p>Moins d’étapes, plus de rencontres. Une odyssée se savoure ; elle ne se coche pas.</p></div> <!-- Principe 1 -->
+          <div><h3>Voyager avec les gens d’ici</h3><p>Guides, hôtes, artisans : nos parcours sont construits avec celles et ceux qui connaissent les lieux de l’intérieur.</p></div> <!-- Principe 2 -->
+          <div><h3>Respecter les lieux</h3><p>Lieux sacrés, cérémonies, vie quotidienne : on demande, on écoute, on photographie avec permission.</p></div> <!-- Principe 3 -->
+        </div> <!-- Fin des principes -->
+      </div> <!-- Fin du conteneur -->
+    </section> <!-- Fin de la section -->
+
+    <section class="section" aria-labelledby="titre-destinations"> <!-- Liste des destinations -->
+      <div class="conteneur"> <!-- Largeur limitée -->
+        <header class="tete-section tete-section--fendue" data-revele> <!-- En-tête de section -->
+          <p class="etiquette tete-section__surtitre"><span class="num">02</span> Les destinations</p> <!-- Surtitre numéroté -->
+          <h2 class="titre-section" id="titre-destinations">Où <em>partir</em></h2> <!-- Titre -->
+          <p class="chapo">Chaque fiche détaille l’esprit du lieu, un itinéraire indicatif et nos conseils pratiques.</p> <!-- Texte -->
+        </header> <!-- Fin de l'en-tête -->
+        <div class="liste-odyssees" data-odyssees="liste"></div> <!-- Destinations de odyssees.js (affichées automatiquement) -->
+      </div> <!-- Fin du conteneur -->
+    </section> <!-- Fin des destinations -->
+
+    <section class="section section--serree" aria-labelledby="titre-etapes"> <!-- Comment ça se passe -->
+      <div class="conteneur"> <!-- Largeur limitée -->
+        <header class="tete-section tete-section--fendue" data-revele> <!-- En-tête de section -->
+          <p class="etiquette tete-section__surtitre"><span class="num">03</span> Comment ça se passe</p> <!-- Surtitre numéroté -->
+          <h2 class="titre-section" id="titre-etapes">Trois messages <em>et c’est parti</em></h2> <!-- Titre -->
+        </header> <!-- Fin de l'en-tête -->
+        <ol class="etapes" data-cascade> <!-- Trois étapes numérotées automatiquement -->
+          <li><h3>Choisissez une odyssée</h3><p>Parcourez les destinations et repérez celle qui vous appelle — ou proposez-nous la vôtre.</p></li> <!-- Étape 1 -->
+          <li><h3>Écrivez-nous sur WhatsApp</h3><p>Dates, nombre de voyageurs, envies particulières : nous échangeons pour cerner votre projet.</p></li> <!-- Étape 2 -->
+          <li><h3>Partez avec nos partenaires</h3><p>Nous construisons le parcours avec nos partenaires locaux, qui vous accompagnent sur place.</p></li> <!-- Étape 3 -->
+        </ol> <!-- Fin des étapes -->
+        <p class="suite-lien"><a class="bouton bouton--whatsapp" href="rejoindre-le-cercle.html" data-whatsapp="Bonjour Afrique Authentique, je souhaite préparer une odyssée.">Préparer mon odyssée sur WhatsApp <span class="fleche" aria-hidden="true">→</span></a></p> <!-- Bouton WhatsApp (le lien est complété par site.js) -->
+      </div> <!-- Fin du conteneur -->
+    </section> <!-- Fin de la section -->
+
+    <a class="suite" href="tresors.html" data-teinte="encre"> <!-- Grand lien vers la page suivante (dans sa couleur) -->
+      <div class="conteneur suite__grille"> <!-- Contenu -->
+        <div><p class="etiquette">Rubrique suivante · 06</p><p class="suite__titre">Trésors d’Afrique</p></div> <!-- Nom de la page suivante -->
+        <span class="fleche" aria-hidden="true">→</span> <!-- Grande flèche -->
+      </div> <!-- Fin du contenu -->
+    </a> <!-- Fin du lien -->
+  </main> <!-- Fin du contenu principal -->
+
+  <div data-pied></div> <!-- Emplacement du pied de page (construit par js/site.js) -->
+</body> <!-- Fin du corps -->
+</html> <!-- Fin de la page -->

@@ -1,0 +1,459 @@
+/* ==========================================================================
+   AFRIQUE AUTHENTIQUE — 1. FONDATIONS
+   --------------------------------------------------------------------------
+   Ce fichier contient les réglages de base du site :
+   A. Les variables (couleurs, polices, marges) — c'est ICI qu'on change
+      les couleurs ou les polices de tout le site en une seule fois.
+   B. La remise à zéro des styles du navigateur.
+   C. La typographie (titres, étiquettes, paragraphes).
+   D. La mise en page (conteneurs, sections, en-têtes de section).
+   E. Les boutons et liens.
+   F. Les animations d'apparition au défilement.
+   G. Le respect du réglage « réduire les animations ».
+   Les autres fichiers : 2-motifs.css (visuels et motifs textiles),
+   3-structure.css (en-tête, menu, pied de page, calebasse),
+   4-sections.css (blocs de l'accueil et cartes), 5-pages.css (pages).
+   ========================================================================== */
+
+
+/* A. VARIABLES ============================================================== */
+
+:root { /* « :root » = la racine de la page : les variables déclarées ici valent partout */
+  --sable: #F1E7D6; /* Fond principal : beige raphia, couleur « papier » du carnet */
+  --sable-fonce: #E4D5BC; /* Fond secondaire, un ton plus soutenu */
+  --cauri: #FBF6EC; /* Blanc chaud (couleur des coquillages cauris) */
+  --encre: #1C1511; /* Couleur du texte : brun-noir profond */
+  --encre-douce: #4A3F36; /* Texte secondaire (légendes, descriptions) */
+  --laterite: #A63F24; /* Rouge de la terre de latérite — couleur d'accent principale */
+  --ocre: #D3922A; /* Jaune ocre — ne jamais l'utiliser pour du petit texte sur fond clair */
+  --indigo: #1D2645; /* Bleu indigo profond (teintures adire) */
+  --palme: #2E4A33; /* Vert palme (aussi utilisé pour WhatsApp) */
+  --kola: #5E2620; /* Brun-rouge de la noix de kola */
+  --trait: rgba(28, 21, 17, .16); /* Couleur des filets (lignes fines de séparation) */
+  --trait-clair: rgba(241, 231, 214, .18); /* Filets sur fond sombre */
+
+  --f-titre: 'Bodoni Moda', 'Didot', 'Bodoni 72', Georgia, serif; /* Police des grands titres (élégante, contrastée) */
+  --f-texte: 'Newsreader', Georgia, 'Times New Roman', serif; /* Police des paragraphes (confortable à lire) */
+  --f-ui: 'Archivo', 'Helvetica Neue', Arial, sans-serif; /* Police des étiquettes, menus et boutons */
+
+  --marge: clamp(16px, 4vw, 56px); /* Marge latérale : 16 px sur téléphone, jusqu'à 56 px sur grand écran */
+  --largeur: 1360px; /* Largeur maximale du contenu */
+  --largeur-texte: 680px; /* Largeur maximale d'une colonne de lecture (confort) */
+  --espace-section: clamp(72px, 10vw, 150px); /* Espace vertical au-dessus et au-dessous des sections */
+  --hauteur-entete: 0px; /* Hauteur de l'en-tête, mise à jour par JavaScript */
+
+  --ease: cubic-bezier(.2, .7, .1, 1); /* Courbe d'animation : démarrage vif, arrivée en douceur */
+  --ease-ressort: cubic-bezier(.34, 1.4, .64, 1); /* Courbe avec léger rebond */
+} /* Fin des variables */
+
+
+/* B. REMISE À ZÉRO ========================================================== */
+
+*, *::before, *::after { /* Tous les éléments, et leurs décorations ::before / ::after */
+  box-sizing: border-box; /* La largeur inclut les bordures et marges intérieures (plus simple à calculer) */
+} /* Fin */
+
+html { /* L'élément racine de la page */
+  -webkit-text-size-adjust: 100%; /* Empêche l'iPhone de grossir le texte tout seul */
+  text-size-adjust: 100%; /* Même chose pour les autres navigateurs */
+  scroll-behavior: smooth; /* Défilement doux quand on clique sur un lien vers une ancre (#) */
+  scroll-padding-top: calc(var(--hauteur-entete) + 16px); /* Laisse de la place sous l'en-tête fixe quand on saute à une ancre */
+} /* Fin */
+
+html.sans-defilement { /* Classe ajoutée quand le menu ou la calebasse est ouvert */
+  overflow: hidden; /* Bloque le défilement de la page derrière */
+} /* Fin */
+
+body { /* Le corps de la page */
+  margin: 0; /* Retire la marge par défaut du navigateur */
+  background: var(--sable); /* Fond beige raphia */
+  color: var(--encre); /* Texte brun-noir */
+  font-family: var(--f-texte); /* Police de lecture par défaut */
+  font-size: 1.125rem; /* Taille de texte de base : 18 px */
+  line-height: 1.6; /* Interlignage confortable */
+  font-optical-sizing: auto; /* Les polices s'adaptent finement à leur taille d'affichage */
+  -webkit-font-smoothing: antialiased; /* Lissage des caractères sur Mac */
+  overflow-x: clip; /* Empêche tout débordement horizontal (pas de défilement de côté sur mobile) */
+} /* Fin */
+
+body::after { /* Couche de grain de papier posée sur tout le site */
+  content: ""; /* Élément décoratif vide */
+  position: fixed; /* Reste en place pendant le défilement */
+  inset: 0; /* Couvre tout l'écran */
+  z-index: 300; /* Au-dessus de tout… */
+  pointer-events: none; /* …mais ne bloque jamais les clics */
+  background-image: url("../assets/motifs/grain.svg"); /* Texture de bruit */
+  opacity: .07; /* Très discret */
+  mix-blend-mode: multiply; /* Se mélange aux couleurs comme une encre sur papier */
+} /* Fin */
+
+img, svg, video { /* Images, dessins vectoriels et vidéos */
+  display: block; /* Supprime le petit espace sous les images */
+  max-width: 100%; /* Ne dépassent jamais leur conteneur */
+  height: auto; /* Gardent leurs proportions */
+} /* Fin */
+
+a { /* Tous les liens */
+  color: inherit; /* Prennent la couleur du texte autour */
+  text-decoration-thickness: 1px; /* Soulignement fin */
+  text-underline-offset: .2em; /* Soulignement légèrement décollé du texte */
+} /* Fin */
+
+button, input, select, textarea { /* Éléments de formulaire */
+  font: inherit; /* Utilisent la police du site (et non celle du système) */
+  color: inherit; /* Et sa couleur */
+} /* Fin */
+
+button { /* Boutons */
+  background: none; /* Pas de fond gris par défaut */
+  border: 0; /* Pas de bordure par défaut */
+  padding: 0; /* Pas de marge intérieure par défaut */
+  cursor: pointer; /* Curseur « main » au survol */
+} /* Fin */
+
+:focus-visible { /* Élément sélectionné au clavier (touche Tab) */
+  outline: 2px solid var(--laterite); /* Contour rouge bien visible */
+  outline-offset: 3px; /* Légèrement décollé */
+} /* Fin */
+
+::selection { /* Texte surligné à la souris */
+  background: var(--ocre); /* Surlignage ocre */
+  color: var(--encre); /* Texte foncé */
+} /* Fin */
+
+.sr-only { /* Texte réservé aux lecteurs d'écran (invisible à l'œil) */
+  position: absolute; /* Sorti du flux */
+  width: 1px; /* Taille minuscule */
+  height: 1px; /* Taille minuscule */
+  overflow: hidden; /* Contenu masqué */
+  clip: rect(0 0 0 0); /* Découpé à zéro */
+  white-space: nowrap; /* Sur une ligne */
+} /* Fin */
+
+.evitement { /* Lien « Aller au contenu » pour la navigation au clavier */
+  position: absolute; /* Positionné librement */
+  left: 16px; /* À gauche */
+  top: -100px; /* Caché au-dessus de l'écran… */
+  z-index: 400; /* Au-dessus de tout */
+  padding: .8rem 1.2rem; /* Marges intérieures */
+  background: var(--encre); /* Fond foncé */
+  color: var(--sable); /* Texte clair */
+  font-family: var(--f-ui); /* Police des étiquettes */
+  font-size: .85rem; /* Petit texte */
+} /* Fin */
+
+.evitement:focus { /* …et visible quand on l'atteint avec la touche Tab */
+  top: 16px; /* Descend dans l'écran */
+} /* Fin */
+
+
+/* C. TYPOGRAPHIE ============================================================ */
+
+h1, h2, h3, h4 { /* Tous les titres */
+  margin: 0; /* Retire les marges par défaut (on les gère au cas par cas) */
+  font-family: var(--f-titre); /* Police Bodoni Moda */
+  font-weight: 500; /* Graisse moyenne : élégante sans être lourde */
+  line-height: 1.05; /* Lignes serrées, typique des titres de magazine */
+  letter-spacing: -.015em; /* Lettres légèrement rapprochées */
+  text-wrap: balance; /* Équilibre la longueur des lignes du titre */
+} /* Fin */
+
+p { /* Paragraphes */
+  margin: 0; /* Pas de marge par défaut */
+  text-wrap: pretty; /* Évite un mot tout seul en fin de paragraphe */
+} /* Fin */
+
+em { /* Mots en italique */
+  font-style: italic; /* Italique */
+} /* Fin */
+
+.etiquette { /* Petites étiquettes en capitales (surtitres, catégories) */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-stretch: 125%; /* Version « élargie » de la police : très caractéristique */
+  font-size: .68rem; /* Petite taille */
+  font-weight: 600; /* Demi-gras */
+  letter-spacing: .16em; /* Lettres espacées */
+  text-transform: uppercase; /* En capitales */
+  line-height: 1.4; /* Interlignage */
+} /* Fin */
+
+.titre-section { /* Grand titre de section (h2) */
+  font-size: clamp(2.3rem, 5.4vw, 4.8rem); /* Taille fluide : de 37 px (mobile) à 77 px (grand écran) */
+} /* Fin */
+
+.titre-section em, .titre-page em { /* Mot en italique dans un grand titre */
+  color: var(--laterite); /* Mis en valeur en rouge latérite */
+} /* Fin */
+
+.chapo { /* Texte d'introduction sous un titre */
+  font-size: clamp(1.15rem, 1.6vw, 1.4rem); /* Un peu plus grand que le texte courant */
+  line-height: 1.5; /* Interlignage */
+  color: var(--encre-douce); /* Couleur adoucie */
+  max-width: 34em; /* Lignes pas trop longues */
+} /* Fin */
+
+.num { /* Numéros de section (N° 01, 02…) */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-variant-numeric: tabular-nums; /* Chiffres de même largeur */
+  color: var(--laterite); /* Rouge latérite */
+} /* Fin */
+
+
+/* D. MISE EN PAGE =========================================================== */
+
+.conteneur { /* Boîte centrale qui limite la largeur du contenu */
+  width: 100%; /* Prend toute la largeur disponible… */
+  max-width: calc(var(--largeur) + var(--marge) * 2); /* …dans la limite de la largeur maximale */
+  margin-inline: auto; /* Centrée horizontalement */
+  padding-inline: var(--marge); /* Marges latérales */
+} /* Fin */
+
+.section { /* Section de page standard */
+  padding-block: var(--espace-section); /* Grand espace en haut et en bas */
+  position: relative; /* Sert de repère aux éléments décoratifs positionnés */
+} /* Fin */
+
+.section--serree { /* Variante avec moins d'espace vertical */
+  padding-block: calc(var(--espace-section) * .55); /* Un peu plus de la moitié */
+} /* Fin */
+
+.section--sombre { /* Section sur fond foncé */
+  background: var(--encre); /* Fond brun-noir */
+  color: var(--sable); /* Texte clair */
+} /* Fin */
+
+.section--sombre .chapo { /* Introduction dans une section sombre */
+  color: rgba(241, 231, 214, .78); /* Texte clair légèrement atténué */
+} /* Fin */
+
+.tete-section { /* En-tête d'une section : surtitre + titre + texte */
+  display: grid; /* Disposition en grille */
+  gap: 1.2rem; /* Espace entre les éléments */
+  align-content: start; /* Éléments regroupés en haut */
+  margin-bottom: clamp(40px, 6vw, 80px); /* Espace sous l'en-tête */
+} /* Fin */
+
+.tete-section__surtitre { /* Ligne « N° 01 — À la une » */
+  display: flex; /* Éléments côte à côte */
+  align-items: center; /* Centrés verticalement */
+  gap: .9rem; /* Espace entre le numéro et le texte */
+} /* Fin */
+
+.tete-section__surtitre::after { /* Filet horizontal qui prolonge le surtitre */
+  content: ""; /* Élément décoratif */
+  flex: 1; /* Prend toute la place restante */
+  height: 1px; /* Ligne fine */
+  background: currentColor; /* De la couleur du texte */
+  opacity: .25; /* Discrète */
+} /* Fin */
+
+.tete-section .lien-fleche { justify-self: start; } /* Lien dans un en-tête de section : aligné à gauche */
+
+.section--sombre .titre-section em, .section--sombre .num { color: var(--ocre); } /* Sur fond sombre, le mot en italique passe en ocre (meilleur contraste) */
+
+.pile { /* Petite pile d'éléments alignés à gauche */
+  display: grid; /* Empilés */
+  gap: 1.5rem; /* Espaces */
+  justify-items: start; /* Alignés à gauche */
+} /* Fin */
+
+.suite-lien { margin-top: clamp(40px, 5vw, 64px); } /* Lien « Voir tout » sous une liste */
+
+@media (min-width: 900px) { /* À partir de 900 px de large (tablette paysage, ordinateur) */
+  .tete-section--fendue { /* Variante : titre à gauche, texte à droite */
+    grid-template-columns: 1.3fr 1fr; /* Deux colonnes inégales */
+    align-items: end; /* Alignées en bas */
+    column-gap: 4rem; /* Espace entre les colonnes */
+  } /* Fin */
+  .tete-section--fendue .tete-section__surtitre { /* Le surtitre occupe toute la largeur */
+    grid-column: 1 / -1; /* De la première à la dernière colonne */
+  } /* Fin */
+} /* Fin du bloc 900 px */
+
+
+/* E. BOUTONS ET LIENS ======================================================= */
+
+.bouton { /* Bouton de base : rectangle bordé, texte en capitales */
+  display: inline-flex; /* Texte et flèche alignés */
+  align-items: center; /* Centrés verticalement */
+  justify-content: center; /* Centrés horizontalement */
+  gap: .75rem; /* Espace entre le texte et la flèche */
+  min-height: 52px; /* Hauteur minimale confortable au doigt */
+  padding: .9rem 1.5rem; /* Marges intérieures */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-stretch: 112%; /* Légèrement élargie */
+  font-size: .76rem; /* Petite taille */
+  font-weight: 600; /* Demi-gras */
+  letter-spacing: .14em; /* Lettres espacées */
+  text-transform: uppercase; /* Capitales */
+  text-decoration: none; /* Pas de soulignement */
+  color: var(--encre); /* Texte foncé */
+  border: 1.5px solid currentColor; /* Bordure de la couleur du texte */
+  position: relative; /* Repère pour le fond animé */
+  isolation: isolate; /* Garde le fond animé derrière le texte */
+  overflow: hidden; /* Masque le fond animé qui dépasse */
+  transition: color .4s var(--ease), border-color .4s var(--ease); /* Changement de couleur en douceur */
+} /* Fin */
+
+.bouton::before { /* Fond qui « monte » au survol, comme une teinture */
+  content: ""; /* Élément décoratif */
+  position: absolute; /* Posé sur le bouton */
+  inset: 0; /* Couvre tout le bouton */
+  z-index: -1; /* Derrière le texte */
+  background: var(--encre); /* Couleur du fond au survol */
+  transform: scaleY(0); /* Au repos : hauteur zéro (invisible) */
+  transform-origin: bottom; /* Grandit depuis le bas */
+  transition: transform .45s var(--ease); /* Animation douce */
+} /* Fin */
+
+.bouton:hover::before, .bouton:focus-visible::before { /* Au survol ou au clavier */
+  transform: scaleY(1); /* Le fond remplit le bouton */
+} /* Fin */
+
+.bouton:hover, .bouton:focus-visible { /* Au survol ou au clavier */
+  color: var(--sable); /* Le texte devient clair */
+  border-color: var(--encre); /* La bordure suit */
+} /* Fin */
+
+.bouton--plein { /* Variante : bouton plein foncé */
+  background: var(--encre); /* Fond foncé */
+  color: var(--sable); /* Texte clair */
+  border-color: var(--encre); /* Bordure assortie */
+} /* Fin */
+
+.bouton--plein::before { /* Fond de survol du bouton plein */
+  background: var(--laterite); /* Devient rouge latérite */
+} /* Fin */
+
+.bouton--plein:hover, .bouton--plein:focus-visible { /* Survol du bouton plein */
+  color: var(--cauri); /* Texte blanc chaud */
+  border-color: var(--laterite); /* Bordure rouge */
+} /* Fin */
+
+.bouton--whatsapp { /* Variante : commande / contact WhatsApp */
+  background: var(--palme); /* Fond vert palme */
+  border-color: var(--palme); /* Bordure assortie */
+  color: var(--cauri); /* Texte clair */
+} /* Fin */
+
+.bouton--whatsapp::before { /* Fond de survol du bouton WhatsApp */
+  background: var(--encre); /* Devient foncé */
+} /* Fin */
+
+.bouton--clair { /* Variante pour fonds sombres */
+  color: var(--sable); /* Texte clair */
+} /* Fin */
+
+.bouton--clair::before { /* Fond de survol sur fond sombre */
+  background: var(--sable); /* Devient clair */
+} /* Fin */
+
+.bouton--clair:hover, .bouton--clair:focus-visible { /* Survol sur fond sombre */
+  color: var(--encre); /* Le texte devient foncé */
+  border-color: var(--sable); /* Bordure claire */
+} /* Fin */
+
+.bouton--petit { /* Variante compacte */
+  min-height: 44px; /* Hauteur minimale (toujours confortable au doigt) */
+  padding: .6rem 1rem; /* Marges réduites */
+  font-size: .68rem; /* Texte plus petit */
+} /* Fin */
+
+.bouton--large { /* Variante qui prend toute la largeur */
+  width: 100%; /* Pleine largeur */
+} /* Fin */
+
+.bouton[disabled] { /* Bouton désactivé */
+  opacity: .45; /* Grisé */
+  pointer-events: none; /* Non cliquable */
+} /* Fin */
+
+.fleche { /* Petite flèche dans les boutons et liens */
+  display: inline-block; /* Peut bouger indépendamment */
+  font-family: var(--f-ui); /* Police Archivo */
+  transition: transform .4s var(--ease); /* Mouvement doux */
+} /* Fin */
+
+a:hover .fleche, button:hover .fleche { /* Au survol du lien ou bouton */
+  transform: translateX(4px); /* La flèche avance de 4 px */
+} /* Fin */
+
+.lien-fleche { /* Lien texte souligné avec flèche (« Lire le récit → ») */
+  display: inline-flex; /* Texte et flèche alignés */
+  align-items: center; /* Centrés verticalement */
+  gap: .6rem; /* Espace avant la flèche */
+  min-height: 44px; /* Zone cliquable confortable */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-stretch: 112%; /* Légèrement élargie */
+  font-size: .74rem; /* Petite taille */
+  font-weight: 600; /* Demi-gras */
+  letter-spacing: .14em; /* Lettres espacées */
+  text-transform: uppercase; /* Capitales */
+  text-decoration: none; /* Pas de soulignement natif… */
+  background: linear-gradient(currentColor, currentColor) 0 calc(100% - 10px) / 100% 1px no-repeat; /* …mais un trait dessiné sous le texte */
+  transition: background-size .5s var(--ease); /* Le trait s'anime */
+} /* Fin */
+
+.lien-fleche:hover { /* Au survol */
+  background-size: 0 1px; /* Le trait se rétracte : effet élégant */
+  background-position: 100% calc(100% - 10px); /* Il part vers la droite */
+} /* Fin */
+
+.pastille { /* Petite étiquette colorée (nom de rubrique sur les cartes) */
+  display: inline-flex; /* Taille ajustée au texte */
+  align-items: center; /* Centré verticalement */
+  gap: .45rem; /* Espace entre le point et le texte */
+} /* Fin */
+
+.pastille::before { /* Petit losange de couleur devant le nom */
+  content: ""; /* Élément décoratif */
+  width: 7px; /* Largeur */
+  height: 7px; /* Hauteur */
+  background: var(--c, var(--laterite)); /* Couleur de la rubrique (rouge par défaut) */
+  transform: rotate(45deg); /* Tourné en losange */
+} /* Fin */
+
+
+/* F. ANIMATIONS D'APPARITION ================================================ */
+/* Tout élément portant l'attribut data-revele apparaît en glissant vers le haut
+   quand il entre dans l'écran (la classe .est-visible est ajoutée par site.js). */
+
+.js [data-revele] { /* Seulement si JavaScript est actif (sinon tout reste visible) */
+  opacity: 0; /* Invisible au départ */
+  transform: translateY(28px); /* Légèrement plus bas */
+  transition: opacity .9s var(--ease), transform .9s var(--ease); /* Apparition en douceur */
+  transition-delay: calc(var(--i, 0) * 90ms); /* Décalage en cascade : chaque élément attend un peu plus que le précédent */
+} /* Fin */
+
+.js [data-revele].est-visible { /* Quand l'élément est entré dans l'écran */
+  opacity: 1; /* Visible */
+  transform: none; /* À sa place */
+} /* Fin */
+
+@keyframes monte { /* Animation « monte » réutilisable : glisse vers le haut en apparaissant */
+  from { opacity: 0; transform: translateY(24px); } /* Départ : invisible et plus bas */
+  to { opacity: 1; transform: none; } /* Arrivée : visible, à sa place */
+} /* Fin */
+
+@keyframes fondu { /* Animation « fondu » réutilisable */
+  from { opacity: 0; } /* Départ invisible */
+  to { opacity: 1; } /* Arrivée visible */
+} /* Fin */
+
+
+/* G. RÉDUIRE LES ANIMATIONS ================================================= */
+/* Si le visiteur a activé « réduire les animations » dans son système,
+   on coupe tous les mouvements (confort et accessibilité). */
+
+@media (prefers-reduced-motion: reduce) { /* Réglage système « réduire les animations » */
+  *, *::before, *::after { /* Tous les éléments */
+    animation-duration: .01ms !important; /* Animations quasi instantanées */
+    animation-iteration-count: 1 !important; /* Jouées une seule fois */
+    transition-duration: .01ms !important; /* Transitions instantanées */
+    scroll-behavior: auto !important; /* Pas de défilement doux */
+  } /* Fin */
+  .js [data-revele] { /* Éléments à apparition */
+    opacity: 1; /* Directement visibles */
+    transform: none; /* À leur place */
+  } /* Fin */
+} /* Fin du bloc « réduire les animations » */

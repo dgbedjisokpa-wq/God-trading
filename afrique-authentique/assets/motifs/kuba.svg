@@ -1,0 +1,13 @@
+<!-- MOTIF « KUBA » (velours de raphia, RD Congo) — carreau de 80 × 80.                    -->
+<!-- Losanges emboîtés au centre et dans les angles : en se répétant, ils forment un treillis. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"> <!-- Zone de dessin de 80 × 80 -->
+  <g fill="none" stroke="#000" stroke-width="3"> <!-- Traits noirs de 3 -->
+    <path d="M40 6 L74 40 L40 74 L6 40 Z"/> <!-- Grand losange central -->
+    <path d="M40 16 L64 40 L40 64 L16 40 Z"/> <!-- Losange central moyen -->
+    <path d="M40 26 L54 40 L40 54 L26 40 Z"/> <!-- Petit losange central -->
+    <path d="M34 0 L0 34 M46 0 L80 34 M0 46 L34 80 M80 46 L46 80"/> <!-- Quarts de grands losanges dans les 4 angles -->
+    <path d="M24 0 L0 24 M56 0 L80 24 M0 56 L24 80 M80 56 L56 80"/> <!-- Quarts de losanges moyens dans les angles -->
+    <path d="M14 0 L0 14 M66 0 L80 14 M0 66 L14 80 M80 66 L66 80"/> <!-- Quarts de petits losanges dans les angles -->
+  </g> <!-- Fin des traits -->
+  <path d="M40 34 L46 40 L40 46 L34 40 Z" fill="#000"/> <!-- Minuscule losange plein au centre -->
+</svg> <!-- Fin du dessin -->

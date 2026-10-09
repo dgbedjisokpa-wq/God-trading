@@ -1,0 +1,9 @@
+<!-- ICÔNE D'ONGLET (favicon) : un soleil ocre au-dessus d'une bande de kente, sur fond latérite. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"> <!-- Zone de dessin carrée de 64 unités -->
+  <rect width="64" height="64" fill="#A63F24"/> <!-- Fond rouge latérite -->
+  <circle cx="32" cy="28" r="15" fill="#D3922A"/> <!-- Soleil ocre -->
+  <rect y="48" width="64" height="16" fill="#1D2645"/> <!-- Bande indigo en bas -->
+  <rect x="8" y="48" width="8" height="16" fill="#D3922A"/> <!-- Bloc ocre dans la bande -->
+  <rect x="28" y="48" width="8" height="16" fill="#2E4A33"/> <!-- Bloc vert palme -->
+  <rect x="48" y="48" width="8" height="16" fill="#D3922A"/> <!-- Bloc ocre -->
+</svg> <!-- Fin du dessin -->

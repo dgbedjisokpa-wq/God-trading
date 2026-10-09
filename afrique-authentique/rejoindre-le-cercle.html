@@ -1,0 +1,90 @@
+<!DOCTYPE html> <!-- Indique au navigateur qu'il s'agit d'une page HTML moderne -->
+<html lang="fr"> <!-- Début de la page ; lang="fr" : la page est en français -->
+<head> <!-- En-tête invisible : réglages, titre, styles et scripts -->
+  <meta charset="utf-8"> <!-- Encodage des caractères : autorise les accents -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Adapte l'affichage aux téléphones -->
+  <title>Rejoindre le cercle — Contact — Afrique Authentique</title> <!-- Titre de l'onglet et des résultats Google -->
+  <meta name="description" content="Écrire à Afrique Authentique, proposer une histoire ou un savoir-faire, rejoindre la lettre et la communauté du cercle."> <!-- Résumé affiché dans Google -->
+  <meta property="og:title" content="Rejoindre le cercle — Contact — Afrique Authentique"> <!-- Titre quand la page est partagée -->
+  <meta property="og:description" content="Écrire à Afrique Authentique, proposer une histoire ou un savoir-faire, rejoindre la lettre et la communauté du cercle."> <!-- Description du partage -->
+  <meta property="og:type" content="website"> <!-- Type de contenu partagé -->
+  <meta name="theme-color" content="#1C1511"> <!-- Couleur de la barre du navigateur sur mobile -->
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"> <!-- Icône de l'onglet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- Prépare la connexion au service de polices -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <!-- Idem pour les fichiers de police -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&amp;family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&amp;family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&amp;display=swap"> <!-- Les 3 polices du site -->
+  <link rel="stylesheet" href="css/1-fondations.css"> <!-- Styles : couleurs, polices, boutons -->
+  <link rel="stylesheet" href="css/2-motifs.css"> <!-- Styles : motifs textiles et visuels -->
+  <link rel="stylesheet" href="css/3-structure.css"> <!-- Styles : en-tête, menu, pied de page, calebasse -->
+  <link rel="stylesheet" href="css/4-sections.css"> <!-- Styles : sections et cartes -->
+  <link rel="stylesheet" href="css/5-pages.css"> <!-- Styles : pages particulières -->
+  <script>document.documentElement.classList.add('js');</script> <!-- Signale que JavaScript fonctionne -->
+  <script src="js/donnees/reglages.js" defer></script> <!-- Contenus : réglages, menu, proverbes -->
+  <script src="js/donnees/recits.js" defer></script> <!-- Contenus : les récits -->
+  <script src="js/donnees/odyssees.js" defer></script> <!-- Contenus : les destinations -->
+  <script src="js/donnees/tresors.js" defer></script> <!-- Contenus : les produits -->
+  <script src="js/donnees/agenda.js" defer></script> <!-- Contenus : les événements -->
+  <script src="js/site.js" defer></script> <!-- Fonctionnement commun -->
+  <script src="js/rendu.js" defer></script> <!-- Affichage des contenus -->
+</head> <!-- Fin de l'en-tête invisible -->
+<body data-page="cercle"> <!-- Corps de la page ; data-page="cercle" sert à surligner le bon lien du menu -->
+  <div class="rideau" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div> <!-- Rideau coloré qui se lève à l'ouverture -->
+  <a class="evitement" href="#contenu">Aller au contenu</a> <!-- Lien visible au clavier : saute le menu -->
+  <div data-entete></div> <!-- Emplacement de l'en-tête (construit par js/site.js) -->
+
+  <main id="contenu"> <!-- Contenu principal de la page -->
+
+    <section class="page-tete" aria-labelledby="titre-page"> <!-- En-tête de la page -->
+      <div class="conteneur page-tete__grille"> <!-- Grille : titre | introduction -->
+        <div> <!-- Colonne du titre -->
+          <nav class="fil-ariane etiquette" aria-label="Fil d’Ariane"><a href="index.html">Accueil</a><span aria-hidden="true">/</span><span aria-current="page">Rejoindre le cercle</span></nav> <!-- Fil d'Ariane -->
+          <h1 class="titre-page" id="titre-page">Rejoindre <em>le cercle</em></h1> <!-- Titre -->
+        </div> <!-- Fin de la colonne -->
+        <p class="chapo">Le cercle, ce sont les lectrices, lecteurs, artisans, voyageurs et conteurs qui font vivre ce carnet. Une histoire à raconter, un savoir-faire à faire connaître, une question ? Écrivez-nous.</p> <!-- Introduction -->
+      </div> <!-- Fin de la grille -->
+    </section> <!-- Fin de l'en-tête -->
+
+    <section class="section" aria-label="Nous rejoindre et nous écrire"> <!-- Façons de rejoindre + formulaire -->
+      <div class="conteneur contact"> <!-- Deux colonnes -->
+        <div> <!-- Colonne de gauche -->
+          <p class="etiquette tete-section__surtitre"><span class="num">01</span> Quatre façons d’en être</p> <!-- Surtitre -->
+          <ol class="facons" data-cascade> <!-- Liste numérotée -->
+            <li><span class="num">01</span><h2>La lettre du cercle</h2><p>Une lettre par mois : nouveaux récits, prochaines odyssées, trésors tout juste arrivés.</p><a class="lien-fleche" href="#lettre-email">S’inscrire en bas de page <span class="fleche" aria-hidden="true">↓</span></a></li> <!-- Façon 1 : la lettre -->
+            <li><span class="num">02</span><h2>La communauté WhatsApp</h2><p>Les annonces d’événements et de voyages, en avant-première.</p><a class="lien-fleche" href="#formulaire-contact" data-communaute>Nous rejoindre <span aria-hidden="true">↗</span></a></li> <!-- Façon 2 : WhatsApp (lien réglé dans reglages.js) -->
+            <li><span class="num">03</span><h2>Les réseaux</h2><p>Images, coulisses et récits courts, au quotidien.</p><p class="etiquette" data-reseaux></p></li> <!-- Façon 3 : réseaux (liste tirée de reglages.js) -->
+            <li><span class="num">04</span><h2>Raconter une histoire</h2><p>Une personne, un lieu, un geste qui mérite d’être connu ? Proposez-le via le formulaire.</p><a class="lien-fleche" href="#formulaire-contact">Écrire <span class="fleche" aria-hidden="true">→</span></a></li> <!-- Façon 4 : le formulaire -->
+          </ol> <!-- Fin de la liste -->
+          <dl class="coordonnees"> <!-- Coordonnées (remplies automatiquement depuis reglages.js) -->
+            <div><dt class="etiquette">WhatsApp</dt><dd><a href="#formulaire-contact" data-whatsapp="Bonjour Afrique Authentique !"><span data-telephone></span> ↗</a></dd></div> <!-- Numéro WhatsApp -->
+            <div><dt class="etiquette">E-mail</dt><dd><a href="#formulaire-contact" data-email></a></dd></div> <!-- Adresse e-mail -->
+            <div><dt class="etiquette">Basé à</dt><dd data-ville></dd></div> <!-- Ville -->
+          </dl> <!-- Fin des coordonnées -->
+        </div> <!-- Fin de la colonne de gauche -->
+        <div class="carte-formulaire" id="formulaire-contact"> <!-- Cadre du formulaire -->
+          <h2>Nous <em>écrire</em></h2> <!-- Titre du formulaire -->
+          <form class="formulaire" data-formulaire="contact" data-sujet="Message du cercle — Afrique Authentique" novalidate> <!-- Formulaire (vérifié et envoyé par site.js) -->
+            <div class="formulaire__ligne"> <!-- Deux champs côte à côte -->
+              <div class="champ"><label class="etiquette" for="c-nom">Nom et prénom *</label><input id="c-nom" name="nom" type="text" autocomplete="name" required></div> <!-- Nom (obligatoire) -->
+              <div class="champ"><label class="etiquette" for="c-email">E-mail *</label><input id="c-email" name="email" type="email" autocomplete="email" required></div> <!-- E-mail (obligatoire) -->
+            </div> <!-- Fin de la ligne -->
+            <div class="formulaire__ligne"> <!-- Deux champs côte à côte -->
+              <div class="champ"><label class="etiquette" for="c-tel">Téléphone / WhatsApp</label><input id="c-tel" name="telephone" type="tel" autocomplete="tel"></div> <!-- Téléphone (facultatif) -->
+              <div class="champ"><label class="etiquette" for="c-objet">Objet *</label><select id="c-objet" name="objet" required><option value="">Choisir…</option><option>Raconter une histoire</option><option>Proposer un savoir-faire</option><option>Une question sur une commande</option><option>Un voyage, une odyssée</option><option>Autre chose</option></select></div> <!-- Objet (liste déroulante) -->
+            </div> <!-- Fin de la ligne -->
+            <div class="champ"><label class="etiquette" for="c-message">Votre message *</label><textarea id="c-message" name="message" minlength="10" required></textarea></div> <!-- Message (10 caractères minimum) -->
+            <label class="case"><input type="checkbox" name="consentement" value="oui" required><span>J’accepte que ces informations soient utilisées pour répondre à ma demande (voir la <a href="confidentialite.html">politique de confidentialité</a>). *</span></label> <!-- Case de consentement obligatoire -->
+            <div class="piege" aria-hidden="true"><label for="c-site">Ne pas remplir</label><input id="c-site" name="_site" type="text" tabindex="-1" autocomplete="off"></div> <!-- Champ invisible anti-robots -->
+            <div class="formulaire__envoi"> <!-- Boutons d'envoi -->
+              <button class="bouton bouton--plein" type="submit">Envoyer par e-mail <span class="fleche" aria-hidden="true">→</span></button> <!-- Envoi (par e-mail ou via le service configuré dans reglages.js) -->
+              <button class="bouton bouton--whatsapp" type="button" data-envoi-whatsapp>Envoyer sur WhatsApp</button> <!-- Envoi du même message par WhatsApp -->
+            </div> <!-- Fin des boutons -->
+            <p class="mention">* Champs nécessaires.</p> <!-- Mention -->
+          </form> <!-- Fin du formulaire -->
+        </div> <!-- Fin du cadre -->
+      </div> <!-- Fin des deux colonnes -->
+    </section> <!-- Fin de la section -->
+  </main> <!-- Fin du contenu principal -->
+
+  <div data-pied></div> <!-- Emplacement du pied de page (construit par js/site.js) -->
+</body> <!-- Fin du corps -->
+</html> <!-- Fin de la page -->

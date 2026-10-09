@@ -1,0 +1,284 @@
+/* ==========================================================================
+   AFRIQUE AUTHENTIQUE — 2. MOTIFS, TEINTES ET VISUELS
+   --------------------------------------------------------------------------
+   A. Les teintes : data-teinte="laterite|ocre|indigo|palme|kola|sable"
+      donne à un bloc sa couleur de fond, de motif, de forme et de texte.
+   B. Les motifs textiles : data-motif="bogolan|kente|adire|ndebele|kuba|cauris"
+   C. Les « plaques » : les cadres d'image du site.
+      → Tant qu'aucune photo n'est fournie, la plaque affiche une composition
+        (fond coloré + motif textile + forme : soleil, arche…).
+      → Pour mettre une vraie photo, il suffit de placer une balise <img>
+        dans la plaque : elle recouvre automatiquement la composition.
+        Exemple : <figure class="plaque" data-teinte="indigo">
+                    <img src="assets/photos/ganvie.jpg" alt="Pirogues à Ganvié">
+                  </figure>
+   D. Les formes : data-forme="soleil|arche|losange|demi|bandes|aucune"
+   E. La bande de kente (frise tissée animée).
+   F. Le rideau de transition entre les pages.
+   ========================================================================== */
+
+
+/* A. TEINTES ================================================================ */
+/* --c = couleur de fond, --c-texte = texte posé dessus,
+   --c-motif = couleur du motif, --c-forme = couleur de la forme. */
+
+[data-teinte="laterite"] { /* Teinte rouge latérite */
+  --c: var(--laterite); /* Fond rouge */
+  --c-texte: var(--cauri); /* Texte blanc chaud */
+  --c-motif: rgba(94, 38, 32, .55); /* Motif brun kola semi-transparent */
+  --c-forme: var(--ocre); /* Forme ocre */
+} /* Fin */
+
+[data-teinte="ocre"] { /* Teinte jaune ocre */
+  --c: var(--ocre); /* Fond ocre */
+  --c-texte: var(--encre); /* Texte foncé (meilleur contraste sur l'ocre) */
+  --c-motif: rgba(166, 63, 36, .38); /* Motif latérite transparent */
+  --c-forme: var(--indigo); /* Forme indigo */
+} /* Fin */
+
+[data-teinte="indigo"] { /* Teinte bleu indigo */
+  --c: var(--indigo); /* Fond indigo */
+  --c-texte: var(--sable); /* Texte clair */
+  --c-motif: rgba(150, 168, 222, .24); /* Motif bleu pâle transparent */
+  --c-forme: var(--ocre); /* Forme ocre */
+} /* Fin */
+
+[data-teinte="palme"] { /* Teinte vert palme */
+  --c: var(--palme); /* Fond vert */
+  --c-texte: var(--sable); /* Texte clair */
+  --c-motif: rgba(211, 146, 42, .24); /* Motif ocre transparent */
+  --c-forme: var(--laterite); /* Forme rouge */
+} /* Fin */
+
+[data-teinte="kola"] { /* Teinte brun kola */
+  --c: var(--kola); /* Fond brun-rouge */
+  --c-texte: var(--sable); /* Texte clair */
+  --c-motif: rgba(211, 146, 42, .26); /* Motif ocre transparent */
+  --c-forme: var(--sable); /* Forme beige */
+} /* Fin */
+
+[data-teinte="encre"] { /* Teinte brun-noir */
+  --c: var(--encre); /* Fond foncé */
+  --c-texte: var(--sable); /* Texte clair */
+  --c-motif: rgba(211, 146, 42, .2); /* Motif ocre transparent */
+  --c-forme: var(--ocre); /* Forme ocre */
+} /* Fin */
+
+[data-teinte="sable"] { /* Teinte beige (neutre) */
+  --c: var(--sable-fonce); /* Fond beige soutenu */
+  --c-texte: var(--encre); /* Texte foncé */
+  --c-motif: rgba(28, 21, 17, .2); /* Motif brun transparent */
+  --c-forme: var(--laterite); /* Forme rouge */
+} /* Fin */
+
+
+/* B. MOTIFS TEXTILES ======================================================== */
+/* Chaque motif pointe vers un petit dessin SVG (dossier assets/motifs)
+   et indique la taille à laquelle il se répète. */
+
+[data-motif="bogolan"] { --motif: url("../assets/motifs/bogolan.svg"); --motif-taille: 120px; } /* Bogolan : carreau de 120 px */
+[data-motif="kente"] { --motif: url("../assets/motifs/kente.svg"); --motif-taille: 64px; } /* Kente : carreau de 64 px */
+[data-motif="adire"] { --motif: url("../assets/motifs/adire.svg"); --motif-taille: 100px; } /* Adire : carreau de 100 px */
+[data-motif="ndebele"] { --motif: url("../assets/motifs/ndebele.svg"); --motif-taille: 120px; } /* Ndebele : carreau de 120 px */
+[data-motif="kuba"] { --motif: url("../assets/motifs/kuba.svg"); --motif-taille: 72px; } /* Kuba : carreau de 72 px */
+[data-motif="cauris"] { --motif: url("../assets/motifs/cauris.svg"); --motif-taille: 90px; } /* Cauris : carreau de 90 px */
+
+.motif { /* Bloc décoratif rempli d'un motif (utilisable n'importe où) */
+  background: var(--c-motif, rgba(28, 21, 17, .2)); /* Couleur du motif */
+  -webkit-mask: var(--motif, url("../assets/motifs/bogolan.svg")) 0 0 / var(--motif-taille, 120px) repeat; /* Le dessin sert de pochoir (Safari) */
+  mask: var(--motif, url("../assets/motifs/bogolan.svg")) 0 0 / var(--motif-taille, 120px) repeat; /* Le dessin sert de pochoir */
+} /* Fin */
+
+
+/* C. PLAQUES (cadres d'image) =============================================== */
+
+.plaque { /* Le cadre lui-même */
+  position: relative; /* Repère pour les couches internes */
+  margin: 0; /* Retire la marge par défaut des <figure> */
+  overflow: hidden; /* Rien ne dépasse du cadre */
+  aspect-ratio: var(--ratio, 4 / 5); /* Proportions (portrait 4/5 par défaut, modifiable avec --ratio) */
+  background: var(--c, var(--sable-fonce)); /* Couleur de fond (selon la teinte) */
+  isolation: isolate; /* Crée une « pile » de couches indépendante */
+} /* Fin */
+
+.plaque::before { /* Couche 1 : le motif textile */
+  content: ""; /* Élément décoratif */
+  position: absolute; /* Posé dans le cadre */
+  inset: -15%; /* Plus grand que le cadre pour pouvoir glisser au survol */
+  z-index: -1; /* Derrière le reste */
+  background: var(--c-motif, rgba(28, 21, 17, .2)); /* Couleur du motif */
+  -webkit-mask: var(--motif, url("../assets/motifs/bogolan.svg")) 0 0 / var(--motif-taille, 120px) repeat; /* Pochoir (Safari) */
+  mask: var(--motif, url("../assets/motifs/bogolan.svg")) 0 0 / var(--motif-taille, 120px) repeat; /* Pochoir */
+  transition: transform 1.6s var(--ease); /* Glissement lent au survol */
+} /* Fin */
+
+.plaque::after { /* Couche 2 : la forme (soleil, arche…) */
+  content: ""; /* Élément décoratif */
+  position: absolute; /* Posée dans le cadre */
+  z-index: -1; /* Au-dessus du motif mais sous la photo */
+  background: var(--c-forme, var(--ocre)); /* Couleur de la forme */
+  transition: scale 1.2s var(--ease), translate 1.2s var(--ease); /* Mouvement doux au survol */
+} /* Fin */
+
+a:hover .plaque::before, .plaque:hover::before { /* Survol de la plaque (ou du lien qui la contient) */
+  transform: translate(-4%, -3%); /* Le motif glisse légèrement */
+} /* Fin */
+
+a:hover .plaque::after, .plaque:hover::after { /* Survol */
+  scale: 1.06; /* La forme grossit un peu */
+} /* Fin */
+
+.plaque > img, .plaque > video { /* Une vraie photo ou vidéo placée dans la plaque */
+  position: absolute; /* Posée sur la composition */
+  inset: 0; /* Couvre tout le cadre */
+  width: 100%; /* Pleine largeur */
+  height: 100%; /* Pleine hauteur */
+  object-fit: cover; /* Recadrée pour remplir sans se déformer */
+  z-index: 1; /* Au-dessus du motif et de la forme */
+  transition: transform 1.4s var(--ease); /* Zoom doux au survol */
+} /* Fin */
+
+a:hover .plaque > img { /* Survol d'une carte avec photo */
+  transform: scale(1.04); /* Léger zoom */
+} /* Fin */
+
+.plaque__legende { /* Petite légende posée dans le coin de la plaque */
+  position: absolute; /* Positionnée librement */
+  left: .75rem; /* Depuis la gauche */
+  bottom: .75rem; /* Depuis le bas */
+  z-index: 2; /* Au-dessus de la photo */
+  max-width: calc(100% - 1.5rem); /* Ne dépasse pas du cadre */
+  padding: .35rem .6rem; /* Marges intérieures */
+  background: var(--cauri); /* Fond blanc chaud */
+  color: var(--encre); /* Texte foncé */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-size: .6rem; /* Très petit */
+  font-weight: 600; /* Demi-gras */
+  letter-spacing: .14em; /* Lettres espacées */
+  text-transform: uppercase; /* Capitales */
+  line-height: 1.4; /* Interlignage */
+} /* Fin */
+
+
+/* D. FORMES ================================================================= */
+
+.plaque[data-forme="soleil"]::after { /* Forme « soleil » : un disque */
+  width: 54%; /* Largeur du disque */
+  aspect-ratio: 1; /* Carré… */
+  border-radius: 50%; /* …arrondi en cercle */
+  left: 23%; /* Centré horizontalement */
+  top: 16%; /* Placé dans la moitié haute */
+} /* Fin */
+
+.plaque[data-forme="arche"]::after { /* Forme « arche » : une porte arrondie */
+  width: 58%; /* Largeur de l'arche */
+  height: 70%; /* Hauteur de l'arche */
+  left: 21%; /* Centrée horizontalement */
+  bottom: 0; /* Posée en bas */
+  border-radius: 999px 999px 0 0; /* Haut arrondi, bas droit */
+} /* Fin */
+
+.plaque[data-forme="losange"]::after { /* Forme « losange » */
+  width: 46%; /* Largeur */
+  aspect-ratio: 1; /* Carré */
+  left: 27%; /* Centré horizontalement */
+  top: 50%; /* Au milieu… */
+  translate: 0 -50%; /* …exactement */
+  rotate: 45deg; /* Tourné en losange */
+} /* Fin */
+
+.plaque[data-forme="demi"]::after { /* Forme « demi-soleil » qui se lève en bas */
+  width: 84%; /* Largeur */
+  aspect-ratio: 2 / 1; /* Deux fois plus large que haut */
+  left: 8%; /* Centré */
+  bottom: 0; /* Posé en bas */
+  border-radius: 999px 999px 0 0; /* Demi-cercle */
+} /* Fin */
+
+.plaque[data-forme="bandes"]::after { /* Forme « bande de kente » verticale */
+  width: 22%; /* Largeur de la bande */
+  height: 100%; /* Toute la hauteur */
+  top: 0; /* Depuis le haut */
+  left: 60%; /* Décalée vers la droite */
+  background: var(--kente-degrade); /* Rayures multicolores (définies plus bas) */
+  background-size: 100% 220px; /* Taille du motif */
+} /* Fin */
+
+.plaque[data-forme="aucune"]::after { /* Pas de forme */
+  display: none; /* Rien n'est affiché */
+} /* Fin */
+
+.plaque:has(> img)::after, .plaque:has(> img)::before { /* Quand une photo est présente… */
+  display: none; /* …on ne dessine plus la composition derrière (économie) */
+} /* Fin */
+
+
+/* E. BANDE DE KENTE ========================================================= */
+
+:root { /* Déclaration du dégradé de kente (réutilisé à plusieurs endroits) */
+  --kente-degrade: /* Une suite de blocs de couleur nets, comme des fils tissés */
+    repeating-linear-gradient(0deg, rgba(28, 21, 17, .22) 0 1px, transparent 1px 3px), /* Fines lignes : texture de tissage */
+    linear-gradient(180deg, var(--ocre) 0 12%, var(--encre) 12% 14%, var(--palme) 14% 24%, var(--ocre) 24% 32%, var(--laterite) 32% 40%, var(--encre) 40% 42%, var(--ocre) 42% 54%, var(--indigo) 54% 64%, var(--ocre) 64% 72%, var(--laterite) 72% 76%, var(--palme) 76% 86%, var(--encre) 86% 88%, var(--ocre) 88% 100%); /* Blocs de couleurs */
+  --kente-horizontal: /* Même chose, mais les blocs se suivent de gauche à droite */
+    repeating-linear-gradient(90deg, rgba(28, 21, 17, .22) 0 1px, transparent 1px 3px), /* Fines lignes verticales : texture */
+    linear-gradient(90deg, var(--ocre) 0 12%, var(--encre) 12% 14%, var(--palme) 14% 24%, var(--ocre) 24% 32%, var(--laterite) 32% 40%, var(--encre) 40% 42%, var(--ocre) 42% 54%, var(--indigo) 54% 64%, var(--ocre) 64% 72%, var(--laterite) 72% 76%, var(--palme) 76% 86%, var(--encre) 86% 88%, var(--ocre) 88% 100%); /* Blocs de couleurs */
+} /* Fin */
+
+.kente { /* La frise horizontale */
+  height: 14px; /* Hauteur de la bande */
+  background-image: var(--kente-horizontal); /* Rayures de kente horizontales (définies juste au-dessus) */
+  background-size: auto, 260px 100%; /* Le motif de couleurs se répète tous les 260 px */
+  animation: kente-glisse 40s linear infinite; /* La bande glisse lentement, comme sur le métier */
+} /* Fin */
+
+.kente--epaisse { /* Variante plus haute */
+  height: 26px; /* Hauteur */
+} /* Fin */
+
+@keyframes kente-glisse { /* Animation de la frise */
+  to { background-position: 0 0, 260px 0; } /* Décale les couleurs d'un motif complet : boucle parfaite */
+} /* Fin */
+
+
+/* F. RIDEAU DE TRANSITION =================================================== */
+/* Cinq bandes de couleur couvrent l'écran à l'ouverture d'une page puis se
+   lèvent ; elles retombent quand on clique sur un lien interne. */
+
+.rideau { /* Conteneur des cinq bandes */
+  position: fixed; /* Collé à l'écran */
+  inset: 0; /* Couvre tout l'écran */
+  z-index: 500; /* Au-dessus de tout */
+  display: flex; /* Bandes côte à côte */
+  pointer-events: none; /* Ne bloque jamais les clics */
+} /* Fin */
+
+.rideau span { /* Une bande */
+  flex: 1; /* Toutes de même largeur */
+  background: var(--laterite); /* Couleur par défaut */
+  transform-origin: top; /* Se replie vers le haut */
+  animation: rideau-leve .75s var(--ease) both; /* Animation d'ouverture */
+} /* Fin */
+
+.rideau span:nth-child(2) { background: var(--ocre); animation-delay: .06s; } /* 2e bande : ocre, légèrement retardée */
+.rideau span:nth-child(3) { background: var(--indigo); animation-delay: .12s; } /* 3e bande : indigo */
+.rideau span:nth-child(4) { background: var(--palme); animation-delay: .18s; } /* 4e bande : vert palme */
+.rideau span:nth-child(5) { background: var(--kola); animation-delay: .24s; } /* 5e bande : brun kola */
+
+@keyframes rideau-leve { /* Les bandes remontent */
+  from { transform: scaleY(1); } /* Départ : l'écran est couvert */
+  to { transform: scaleY(0); } /* Arrivée : bandes repliées en haut */
+} /* Fin */
+
+.rideau--ferme span { /* Quand on quitte la page (classe ajoutée par site.js) */
+  transform-origin: bottom; /* Les bandes montent depuis le bas */
+  animation: rideau-tombe .5s var(--ease) both; /* Animation de fermeture */
+} /* Fin */
+
+@keyframes rideau-tombe { /* Les bandes recouvrent l'écran */
+  from { transform: scaleY(0); } /* Départ : invisibles */
+  to { transform: scaleY(1); } /* Arrivée : l'écran est couvert */
+} /* Fin */
+
+@media (prefers-reduced-motion: reduce) { /* Si le visiteur préfère moins d'animations */
+  .rideau { display: none; } /* Pas de rideau du tout */
+} /* Fin */

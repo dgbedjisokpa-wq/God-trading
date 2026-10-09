@@ -1,0 +1,31 @@
+<!-- MOTIF « KENTE » (étoffe tissée ashanti et ewe) — carreau de 80 × 80.                        -->
+<!-- Il imite le damier caractéristique du kente : des blocs de rayures horizontales alternent  -->
+<!-- avec des blocs de rayures verticales, comme les bandes tissées cousues côte à côte.        -->
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"> <!-- Zone de dessin de 80 × 80 -->
+  <g fill="#000"> <!-- Toutes les rayures sont des rectangles pleins -->
+    <rect x="0" y="3" width="40" height="3"/> <!-- Quart haut-gauche : rayure horizontale 1 -->
+    <rect x="0" y="9" width="40" height="3"/> <!-- rayure 2 -->
+    <rect x="0" y="15" width="40" height="3"/> <!-- rayure 3 -->
+    <rect x="0" y="21" width="40" height="3"/> <!-- rayure 4 -->
+    <rect x="0" y="27" width="40" height="3"/> <!-- rayure 5 -->
+    <rect x="0" y="33" width="40" height="3"/> <!-- rayure 6 -->
+    <rect x="43" y="0" width="3" height="40"/> <!-- Quart haut-droit : rayure verticale 1 -->
+    <rect x="49" y="0" width="3" height="40"/> <!-- rayure 2 -->
+    <rect x="55" y="0" width="3" height="40"/> <!-- rayure 3 -->
+    <rect x="61" y="0" width="3" height="40"/> <!-- rayure 4 -->
+    <rect x="67" y="0" width="3" height="40"/> <!-- rayure 5 -->
+    <rect x="73" y="0" width="3" height="40"/> <!-- rayure 6 -->
+    <rect x="3" y="40" width="3" height="40"/> <!-- Quart bas-gauche : rayure verticale 1 -->
+    <rect x="9" y="40" width="3" height="40"/> <!-- rayure 2 -->
+    <rect x="15" y="40" width="3" height="40"/> <!-- rayure 3 -->
+    <rect x="21" y="40" width="3" height="40"/> <!-- rayure 4 -->
+    <rect x="27" y="40" width="3" height="40"/> <!-- rayure 5 -->
+    <rect x="33" y="40" width="3" height="40"/> <!-- rayure 6 -->
+    <rect x="40" y="43" width="40" height="3"/> <!-- Quart bas-droit : rayure horizontale 1 -->
+    <rect x="40" y="49" width="40" height="3"/> <!-- rayure 2 -->
+    <rect x="40" y="55" width="40" height="3"/> <!-- rayure 3 -->
+    <rect x="40" y="61" width="40" height="3"/> <!-- rayure 4 -->
+    <rect x="40" y="67" width="40" height="3"/> <!-- rayure 5 -->
+    <rect x="40" y="73" width="40" height="3"/> <!-- rayure 6 -->
+  </g> <!-- Fin des rayures -->
+</svg> <!-- Fin du dessin -->

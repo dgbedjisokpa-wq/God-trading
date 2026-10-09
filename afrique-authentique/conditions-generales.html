@@ -1,0 +1,80 @@
+<!DOCTYPE html> <!-- Indique au navigateur qu'il s'agit d'une page HTML moderne -->
+<html lang="fr"> <!-- Début de la page ; lang="fr" : la page est en français -->
+<head> <!-- En-tête invisible : réglages, titre, styles et scripts -->
+  <meta charset="utf-8"> <!-- Encodage des caractères : autorise les accents -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Adapte l'affichage aux téléphones -->
+  <title>Conditions générales — Afrique Authentique</title> <!-- Titre de l'onglet et des résultats Google -->
+  <meta name="description" content="Conditions générales des commandes de Trésors d’Afrique et des demandes d’Odyssées."> <!-- Résumé affiché dans Google -->
+  <meta property="og:title" content="Conditions générales — Afrique Authentique"> <!-- Titre quand la page est partagée -->
+  <meta property="og:description" content="Conditions générales des commandes de Trésors d’Afrique et des demandes d’Odyssées."> <!-- Description du partage -->
+  <meta property="og:type" content="website"> <!-- Type de contenu partagé -->
+  <meta name="theme-color" content="#1C1511"> <!-- Couleur de la barre du navigateur sur mobile -->
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"> <!-- Icône de l'onglet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- Prépare la connexion au service de polices -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <!-- Idem pour les fichiers de police -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&amp;family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&amp;family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&amp;display=swap"> <!-- Les 3 polices du site -->
+  <link rel="stylesheet" href="css/1-fondations.css"> <!-- Styles : couleurs, polices, boutons -->
+  <link rel="stylesheet" href="css/2-motifs.css"> <!-- Styles : motifs textiles et visuels -->
+  <link rel="stylesheet" href="css/3-structure.css"> <!-- Styles : en-tête, menu, pied de page, calebasse -->
+  <link rel="stylesheet" href="css/4-sections.css"> <!-- Styles : sections et cartes -->
+  <link rel="stylesheet" href="css/5-pages.css"> <!-- Styles : pages particulières -->
+  <script>document.documentElement.classList.add('js');</script> <!-- Signale que JavaScript fonctionne -->
+  <script src="js/donnees/reglages.js" defer></script> <!-- Contenus : réglages, menu, proverbes -->
+  <script src="js/donnees/recits.js" defer></script> <!-- Contenus : les récits -->
+  <script src="js/donnees/odyssees.js" defer></script> <!-- Contenus : les destinations -->
+  <script src="js/donnees/tresors.js" defer></script> <!-- Contenus : les produits -->
+  <script src="js/donnees/agenda.js" defer></script> <!-- Contenus : les événements -->
+  <script src="js/site.js" defer></script> <!-- Fonctionnement commun -->
+  <script src="js/rendu.js" defer></script> <!-- Affichage des contenus -->
+</head> <!-- Fin de l'en-tête invisible -->
+<body data-page="conditions"> <!-- Corps de la page ; data-page="conditions" sert à surligner le bon lien du menu -->
+  <div class="rideau" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div> <!-- Rideau coloré qui se lève à l'ouverture -->
+  <a class="evitement" href="#contenu">Aller au contenu</a> <!-- Lien visible au clavier : saute le menu -->
+  <div data-entete></div> <!-- Emplacement de l'en-tête (construit par js/site.js) -->
+
+  <main id="contenu"> <!-- Contenu principal de la page -->
+
+    <section class="page-tete" aria-labelledby="titre-page"> <!-- En-tête de la page -->
+      <div class="conteneur page-tete__grille"> <!-- Grille : titre | introduction -->
+        <div> <!-- Colonne du titre -->
+          <nav class="fil-ariane etiquette" aria-label="Fil d’Ariane"><a href="index.html">Accueil</a><span aria-hidden="true">/</span><span aria-current="page">Conditions générales</span></nav> <!-- Fil d'Ariane -->
+          <h1 class="titre-page" id="titre-page">Conditions <em>générales</em></h1> <!-- Titre -->
+        </div> <!-- Fin de la colonne -->
+        <div class="pile"> <!-- Introduction -->
+          <p class="chapo">Comment se passent les commandes, les paiements, les livraisons et les voyages.</p> <!-- Texte -->
+          <p class="etiquette">Dernière mise à jour : <mark class="a-completer">[date]</mark></p> <!-- Date à compléter -->
+        </div> <!-- Fin de l'introduction -->
+      </div> <!-- Fin de la grille -->
+    </section> <!-- Fin de l'en-tête -->
+
+    <div class="conteneur legal"> <!-- Mise en page : sommaire | texte -->
+      <nav class="legal__sommaire" aria-label="Sommaire"><p class="etiquette">Sommaire</p><ol data-sommaire></ol></nav> <!-- Sommaire créé automatiquement à partir des titres -->
+      <div class="legal__contenu"> <!-- Texte -->
+        <p class="mention">Les passages <mark class="a-completer">surlignés</mark> sont à compléter puis à faire valider. Supprimez cette phrase une fois le texte définitif.</p> <!-- Note pour la cliente -->
+        <h2>Objet</h2> <!-- Titre de partie -->
+        <p>Les présentes conditions encadrent les commandes de produits (« Trésors d’Afrique ») et les demandes de voyages (« Odyssées ») passées depuis le site Afrique Authentique, édité par <mark class="a-completer">[nom de l’éditeur]</mark>.</p> <!-- Paragraphe -->
+        <h2>Produits</h2> <!-- Titre de partie -->
+        <p>Les produits sont fabriqués à la main par des artisans et des coopératives. Chaque pièce est unique : de légères différences de couleur, de motif ou de dimensions par rapport aux visuels ne constituent pas un défaut. Les visuels ne sont pas contractuels.</p> <!-- Paragraphe -->
+        <h2>Prix</h2> <!-- Titre de partie -->
+        <p>Les prix sont indiqués en francs CFA (FCFA), <mark class="a-completer">[toutes taxes comprises / hors taxes]</mark>, hors frais de livraison sauf mention contraire. Le prix applicable est celui confirmé par écrit lors de la validation de la commande.</p> <!-- Paragraphe -->
+        <h2>Commande</h2> <!-- Titre de partie -->
+        <p>La commande se fait via WhatsApp : le site prépare un message récapitulatif (produits, variantes, quantités, total) que vous nous envoyez. La commande n’est définitive qu’après notre confirmation écrite de la disponibilité, du prix total et des modalités de livraison.</p> <!-- Paragraphe -->
+        <h2>Paiement</h2> <!-- Titre de partie -->
+        <p>Moyens de paiement acceptés : <mark class="a-completer">[Mobile Money, virement, espèces à la livraison…]</mark>. <mark class="a-completer">[Conditions : paiement à la commande, acompte, etc.]</mark></p> <!-- Paragraphe -->
+        <h2>Livraison et retrait</h2> <!-- Titre de partie -->
+        <p>Zones desservies : <mark class="a-completer">[à préciser]</mark>. Délais indicatifs : <mark class="a-completer">[à préciser]</mark>. Frais : <mark class="a-completer">[à préciser]</mark>. Un retrait sur place peut être proposé à <mark class="a-completer">[lieu]</mark>.</p> <!-- Paragraphe -->
+        <h2>Retours et réclamations</h2> <!-- Titre de partie -->
+        <p>Toute réclamation doit nous parvenir dans un délai de <mark class="a-completer">[X jours]</mark> après réception, photos à l’appui. <mark class="a-completer">[Conditions de retour, d’échange ou de remboursement]</mark></p> <!-- Paragraphe -->
+        <h2>Odyssées (voyages)</h2> <!-- Titre de partie -->
+        <p>Les voyages sont organisés et vendus par nos partenaires (agences, guides), selon leurs propres conditions de vente, communiquées avant toute réservation. Afrique Authentique met en relation et accompagne la préparation du projet.</p> <!-- Paragraphe -->
+        <h2>Données personnelles</h2> <!-- Titre de partie -->
+        <p>Voir la <a href="confidentialite.html">politique de confidentialité</a>.</p> <!-- Paragraphe -->
+        <h2>Litiges</h2> <!-- Titre de partie -->
+        <p>Les présentes conditions sont régies par le droit <mark class="a-completer">[du pays de l’éditeur]</mark>. Une solution amiable est toujours recherchée en premier lieu ; à défaut, les tribunaux de <mark class="a-completer">[ville]</mark> seront compétents.</p> <!-- Paragraphe -->
+      </div> <!-- Fin du texte -->
+    </div> <!-- Fin de la mise en page -->
+  </main> <!-- Fin du contenu principal -->
+
+  <div data-pied></div> <!-- Emplacement du pied de page (construit par js/site.js) -->
+</body> <!-- Fin du corps -->
+</html> <!-- Fin de la page -->

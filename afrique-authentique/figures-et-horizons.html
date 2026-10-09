@@ -1,0 +1,68 @@
+<!DOCTYPE html> <!-- Indique au navigateur qu'il s'agit d'une page HTML moderne -->
+<html lang="fr"> <!-- Début de la page ; lang="fr" : la page est en français -->
+<head> <!-- En-tête invisible : réglages, titre, styles et scripts -->
+  <meta charset="utf-8"> <!-- Encodage des caractères : autorise les accents -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Adapte l'affichage aux téléphones -->
+  <title>Figures & Horizons — Afrique Authentique</title> <!-- Titre de l'onglet et des résultats Google -->
+  <meta name="description" content="Portraits de figures africaines d’hier et d’aujourd’hui, et regards sur ce qui s’invente."> <!-- Résumé affiché dans Google -->
+  <meta property="og:title" content="Figures & Horizons — Afrique Authentique"> <!-- Titre quand la page est partagée -->
+  <meta property="og:description" content="Portraits de figures africaines d’hier et d’aujourd’hui, et regards sur ce qui s’invente."> <!-- Description du partage -->
+  <meta property="og:type" content="website"> <!-- Type de contenu partagé -->
+  <meta name="theme-color" content="#1C1511"> <!-- Couleur de la barre du navigateur sur mobile -->
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"> <!-- Icône de l'onglet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- Prépare la connexion au service de polices -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <!-- Idem pour les fichiers de police -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&amp;family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&amp;family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&amp;display=swap"> <!-- Les 3 polices du site -->
+  <link rel="stylesheet" href="css/1-fondations.css"> <!-- Styles : couleurs, polices, boutons -->
+  <link rel="stylesheet" href="css/2-motifs.css"> <!-- Styles : motifs textiles et visuels -->
+  <link rel="stylesheet" href="css/3-structure.css"> <!-- Styles : en-tête, menu, pied de page, calebasse -->
+  <link rel="stylesheet" href="css/4-sections.css"> <!-- Styles : sections et cartes -->
+  <link rel="stylesheet" href="css/5-pages.css"> <!-- Styles : pages particulières -->
+  <script>document.documentElement.classList.add('js');</script> <!-- Signale que JavaScript fonctionne -->
+  <script src="js/donnees/reglages.js" defer></script> <!-- Contenus : réglages, menu, proverbes -->
+  <script src="js/donnees/recits.js" defer></script> <!-- Contenus : les récits -->
+  <script src="js/donnees/odyssees.js" defer></script> <!-- Contenus : les destinations -->
+  <script src="js/donnees/tresors.js" defer></script> <!-- Contenus : les produits -->
+  <script src="js/donnees/agenda.js" defer></script> <!-- Contenus : les événements -->
+  <script src="js/site.js" defer></script> <!-- Fonctionnement commun -->
+  <script src="js/rendu.js" defer></script> <!-- Affichage des contenus -->
+</head> <!-- Fin de l'en-tête invisible -->
+<body data-page="figures-et-horizons"> <!-- Corps de la page ; data-page="figures-et-horizons" sert à surligner le bon lien du menu -->
+  <div class="rideau" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div> <!-- Rideau coloré qui se lève à l'ouverture -->
+  <a class="evitement" href="#contenu">Aller au contenu</a> <!-- Lien visible au clavier : saute le menu -->
+  <div data-entete></div> <!-- Emplacement de l'en-tête (construit par js/site.js) -->
+
+  <main id="contenu"> <!-- Contenu principal de la page -->
+
+    <section class="tete-rubrique" data-teinte="indigo" aria-labelledby="titre-rubrique"> <!-- Grand bloc coloré de la rubrique (couleur choisie avec data-teinte) -->
+      <div class="conteneur tete-rubrique__grille"> <!-- Grille : numéro | textes -->
+        <p class="tete-rubrique__num" aria-hidden="true">02</p> <!-- Énorme numéro en contour -->
+        <div class="tete-rubrique__textes"> <!-- Textes -->
+          <nav class="fil-ariane etiquette" aria-label="Fil d’Ariane"><a href="index.html">Accueil</a><span aria-hidden="true">/</span><span aria-current="page">Figures &amp; Horizons</span></nav> <!-- Fil d'Ariane -->
+          <h1 class="tete-rubrique__titre" id="titre-rubrique">Figures <em>&amp; Horizons</em></h1> <!-- Titre de la rubrique -->
+          <p class="chapo">Reines, rois, prophétesses, musiciens : celles et ceux qui ont marqué le continent, et les regards qui dessinent ses lendemains.</p> <!-- Introduction -->
+          <p class="etiquette tete-rubrique__compte" data-compte-recits></p> <!-- « N récits dans cette rubrique » (calculé automatiquement) -->
+        </div> <!-- Fin des textes -->
+      </div> <!-- Fin de la grille -->
+      <div class="motif tete-rubrique__motif" data-motif="adire" aria-hidden="true"></div> <!-- Frise de motif textile (changez data-motif pour en essayer un autre) -->
+    </section> <!-- Fin du bloc de rubrique -->
+
+    <section class="section" aria-labelledby="titre-liste"> <!-- Liste des récits de la rubrique -->
+      <div class="conteneur"> <!-- Largeur limitée -->
+        <h2 class="sr-only" id="titre-liste">Les récits de la rubrique</h2> <!-- Titre lu seulement par les lecteurs d'écran -->
+        <div class="filtres" data-filtres role="group" aria-label="Filtrer par pays"></div> <!-- Filtres par pays (créés automatiquement) -->
+        <div class="liste-recits" data-liste-recits="figures-et-horizons" data-cascade></div> <!-- Récits dont la rubrique est « figures-et-horizons » dans recits.js -->
+      </div> <!-- Fin du conteneur -->
+    </section> <!-- Fin de la liste -->
+
+    <a class="suite" href="savoir-faire.html" data-teinte="ocre"> <!-- Grand lien vers la page suivante (dans sa couleur) -->
+      <div class="conteneur suite__grille"> <!-- Contenu -->
+        <div><p class="etiquette">Rubrique suivante · 03</p><p class="suite__titre">Savoir-Faire</p></div> <!-- Nom de la page suivante -->
+        <span class="fleche" aria-hidden="true">→</span> <!-- Grande flèche -->
+      </div> <!-- Fin du contenu -->
+    </a> <!-- Fin du lien -->
+  </main> <!-- Fin du contenu principal -->
+
+  <div data-pied></div> <!-- Emplacement du pied de page (construit par js/site.js) -->
+</body> <!-- Fin du corps -->
+</html> <!-- Fin de la page -->

@@ -1,0 +1,782 @@
+/* ==========================================================================
+   AFRIQUE AUTHENTIQUE — 3. STRUCTURE COMMUNE
+   --------------------------------------------------------------------------
+   Éléments présents sur toutes les pages (construits par js/site.js) :
+   A. Bandeau du haut (date, bienvenue, WhatsApp)
+   B. En-tête (menu, logo, calebasse) + ligne des rubriques
+   C. Menu plein écran
+   D. Pied de page
+   E. Calebasse (panier) — tiroir latéral
+   F. Bandeau cookies
+   G. Message bref (« toast »)
+   H. Barre de progression de lecture (pages récit)
+   ========================================================================== */
+
+
+/* A. BANDEAU DU HAUT ======================================================== */
+
+.bandeau { /* Fine barre foncée tout en haut */
+  display: flex; /* Éléments sur une ligne */
+  justify-content: space-between; /* Répartis aux extrémités */
+  align-items: center; /* Centrés verticalement */
+  gap: 1rem; /* Espace minimal entre eux */
+  padding: .5rem var(--marge); /* Marges intérieures */
+  background: var(--encre); /* Fond brun-noir */
+  color: var(--sable); /* Texte clair */
+} /* Fin */
+
+.bandeau .etiquette { /* Textes du bandeau */
+  font-size: .6rem; /* Très petits */
+} /* Fin */
+
+.bandeau a { /* Lien WhatsApp du bandeau */
+  text-decoration: none; /* Pas de soulignement */
+  color: var(--ocre); /* En ocre (bon contraste sur fond foncé) */
+} /* Fin */
+
+.bandeau__milieu, .bandeau__date { /* Bienvenue et date */
+  display: none; /* Masqués sur petit écran (manque de place) */
+} /* Fin */
+
+@media (min-width: 640px) { /* À partir de 640 px */
+  .bandeau__date { display: block; } /* La date apparaît */
+} /* Fin */
+
+@media (min-width: 1000px) { /* À partir de 1000 px */
+  .bandeau__milieu { display: block; } /* Le mot de bienvenue apparaît */
+} /* Fin */
+
+
+/* B. EN-TÊTE ================================================================ */
+
+.entete { /* Barre principale, collée en haut pendant le défilement */
+  position: sticky; /* Reste visible en haut de l'écran */
+  top: 0; /* Collée au bord supérieur */
+  z-index: 60; /* Au-dessus du contenu */
+  background: var(--sable); /* Fond beige (masque le contenu qui défile dessous) */
+  border-bottom: 1px solid var(--trait); /* Filet fin en bas */
+  transition: transform .5s var(--ease); /* Glissement doux quand elle se cache */
+} /* Fin */
+
+.entete--cachee { /* Classe ajoutée quand on défile vers le bas */
+  transform: translateY(-100%); /* L'en-tête remonte hors de l'écran */
+} /* Fin */
+
+.entete__barre { /* Ligne : bouton menu | logo | actions */
+  display: grid; /* Grille */
+  grid-template-columns: 1fr auto 1fr; /* Trois colonnes : le logo reste parfaitement centré */
+  align-items: center; /* Centrées verticalement */
+  gap: 1rem; /* Espace entre colonnes */
+  padding: .8rem var(--marge); /* Marges intérieures */
+} /* Fin */
+
+.bouton-menu { /* Bouton « Menu » à gauche */
+  justify-self: start; /* Collé à gauche */
+  display: inline-flex; /* Icône et texte alignés */
+  align-items: center; /* Centrés */
+  gap: .75rem; /* Espace entre icône et texte */
+  min-height: 44px; /* Zone cliquable confortable */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-stretch: 125%; /* Élargie */
+  font-size: .68rem; /* Petite */
+  font-weight: 600; /* Demi-gras */
+  letter-spacing: .16em; /* Lettres espacées */
+  text-transform: uppercase; /* Capitales */
+} /* Fin */
+
+.icone-menu { /* Icône « trois fils » de longueurs inégales */
+  display: grid; /* Lignes empilées */
+  gap: 4px; /* Espace entre les fils */
+  width: 26px; /* Largeur de l'icône */
+} /* Fin */
+
+.icone-menu span { /* Un fil */
+  display: block; /* Bloc */
+  height: 2px; /* Épaisseur */
+  background: currentColor; /* Couleur du texte */
+  transition: width .4s var(--ease); /* Animation de longueur */
+} /* Fin */
+
+.icone-menu span:nth-child(1) { width: 100%; } /* Fil du haut : long */
+.icone-menu span:nth-child(2) { width: 62%; } /* Fil du milieu : court */
+.icone-menu span:nth-child(3) { width: 84%; } /* Fil du bas : moyen */
+
+.bouton-menu:hover .icone-menu span { width: 100%; } /* Au survol : les fils s'alignent */
+
+.logo { /* Logo typographique (texte), au centre */
+  display: flex; /* Deux lignes empilées */
+  flex-direction: column; /* Verticalement */
+  align-items: center; /* Centrées */
+  text-decoration: none; /* Pas de soulignement */
+  line-height: 1; /* Lignes serrées */
+} /* Fin */
+
+.logo__afrique { /* Mot « Afrique » */
+  font-family: var(--f-titre); /* Police Bodoni */
+  font-style: italic; /* Italique */
+  font-weight: 500; /* Graisse moyenne */
+  font-size: clamp(1.55rem, 3vw, 2.2rem); /* Taille fluide */
+  letter-spacing: -.01em; /* Lettres un peu serrées */
+} /* Fin */
+
+.logo__authentique { /* Mot « AUTHENTIQUE » */
+  margin-top: .3rem; /* Petit espace sous « Afrique » */
+  padding-left: .42em; /* Compense l'espacement des lettres pour un centrage parfait */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-stretch: 125%; /* Élargie */
+  font-weight: 600; /* Demi-gras */
+  font-size: .55rem; /* Très petit */
+  letter-spacing: .42em; /* Très espacé */
+  text-transform: uppercase; /* Capitales */
+} /* Fin */
+
+.logo img { /* Si vous remplacez le logo texte par une image */
+  height: 48px; /* Hauteur du logo */
+  width: auto; /* Largeur proportionnelle */
+} /* Fin */
+
+.entete__actions { /* Zone de droite : « Le cercle » + calebasse */
+  justify-self: end; /* Collée à droite */
+  display: flex; /* En ligne */
+  align-items: center; /* Centrées */
+  gap: 1.4rem; /* Espace entre les liens */
+} /* Fin */
+
+.entete__cercle { /* Lien « Le cercle » */
+  display: none; /* Masqué sur téléphone */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-stretch: 125%; /* Élargie */
+  font-size: .68rem; /* Petite */
+  font-weight: 600; /* Demi-gras */
+  letter-spacing: .16em; /* Espacée */
+  text-transform: uppercase; /* Capitales */
+  text-decoration: none; /* Pas de soulignement */
+} /* Fin */
+
+@media (min-width: 720px) { /* À partir de 720 px */
+  .entete__cercle { display: inline-block; } /* Le lien apparaît */
+} /* Fin */
+
+.bouton-calebasse { /* Bouton de la calebasse (panier) */
+  display: inline-flex; /* Icône et compteur alignés */
+  align-items: center; /* Centrés */
+  gap: .55rem; /* Espace */
+  min-height: 44px; /* Zone cliquable confortable */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-stretch: 125%; /* Élargie */
+  font-size: .68rem; /* Petite */
+  font-weight: 600; /* Demi-gras */
+  letter-spacing: .16em; /* Espacée */
+  text-transform: uppercase; /* Capitales */
+} /* Fin */
+
+.bouton-calebasse__mot { /* Le mot « Calebasse » */
+  display: none; /* Masqué sur téléphone (on garde l'icône) */
+} /* Fin */
+
+@media (min-width: 520px) { /* À partir de 520 px */
+  .bouton-calebasse__mot { display: inline; } /* Le mot apparaît */
+} /* Fin */
+
+.icone-calebasse { /* Petit dessin de calebasse (demi-sphère) */
+  width: 22px; /* Largeur */
+  height: 22px; /* Hauteur */
+} /* Fin */
+
+.compteur { /* Pastille avec le nombre d'articles */
+  display: inline-grid; /* Centre le chiffre */
+  place-items: center; /* Au milieu */
+  min-width: 22px; /* Largeur minimale */
+  height: 22px; /* Hauteur */
+  padding: 0 6px; /* Marge si le nombre est long */
+  border-radius: 999px; /* Forme de pilule */
+  background: var(--encre); /* Fond foncé */
+  color: var(--sable); /* Chiffre clair */
+  font-size: .66rem; /* Petit */
+  letter-spacing: 0; /* Pas d'espacement */
+  font-stretch: 100%; /* Largeur normale */
+} /* Fin */
+
+.compteur--pulse { /* Animation quand on ajoute un article */
+  animation: pulse .6s var(--ease-ressort); /* Petit rebond */
+} /* Fin */
+
+@keyframes pulse { /* Rebond de la pastille */
+  0% { transform: scale(1); } /* Taille normale */
+  40% { transform: scale(1.45); background: var(--laterite); } /* Grossit et rougit */
+  100% { transform: scale(1); } /* Revient */
+} /* Fin */
+
+.rubriques-nav { /* Ligne des rubriques sous le logo (ordinateur seulement) */
+  display: none; /* Masquée sur téléphone et tablette */
+} /* Fin */
+
+@media (min-width: 1000px) { /* À partir de 1000 px */
+  .rubriques-nav { /* La ligne apparaît */
+    display: flex; /* Liens en ligne */
+    justify-content: center; /* Centrés */
+    flex-wrap: wrap; /* Retour à la ligne si besoin */
+    gap: .4rem 2.4rem; /* Espaces vertical / horizontal */
+    padding: .55rem var(--marge) .7rem; /* Marges intérieures */
+    border-top: 1px solid var(--trait); /* Filet au-dessus */
+  } /* Fin */
+} /* Fin */
+
+.rubriques-nav a { /* Un lien de rubrique */
+  position: relative; /* Repère pour le trait de couleur */
+  padding-block: .35rem; /* Zone cliquable */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-stretch: 112%; /* Légèrement élargie */
+  font-size: .7rem; /* Petite */
+  font-weight: 500; /* Normale */
+  letter-spacing: .16em; /* Espacée */
+  text-transform: uppercase; /* Capitales */
+  text-decoration: none; /* Pas de soulignement */
+} /* Fin */
+
+.rubriques-nav a::after { /* Trait de couleur sous le lien */
+  content: ""; /* Décoratif */
+  position: absolute; /* Positionné */
+  left: 0; /* Depuis la gauche */
+  right: 0; /* Jusqu'à droite */
+  bottom: 0; /* En bas */
+  height: 3px; /* Épaisseur */
+  background: var(--c, var(--laterite)); /* Couleur de la rubrique */
+  transform: scaleX(0); /* Invisible au repos */
+  transform-origin: left; /* Se dessine de gauche à droite */
+  transition: transform .45s var(--ease); /* Animation */
+} /* Fin */
+
+.rubriques-nav a:hover::after, .rubriques-nav a[aria-current="page"]::after { /* Survol ou page actuelle */
+  transform: scaleX(1); /* Le trait apparaît */
+} /* Fin */
+
+
+/* C. MENU PLEIN ÉCRAN ======================================================= */
+
+.menu { /* Le panneau du menu */
+  position: fixed; /* Couvre l'écran */
+  inset: 0; /* Bord à bord */
+  z-index: 200; /* Au-dessus de l'en-tête */
+  display: grid; /* Trois zones empilées */
+  grid-template-rows: auto 1fr auto; /* Haut, corps, frise */
+  background: var(--indigo); /* Fond indigo */
+  color: var(--sable); /* Texte clair */
+  overflow-y: auto; /* Défilement interne si l'écran est petit */
+  visibility: hidden; /* Caché par défaut */
+  clip-path: inset(0 0 100% 0); /* Replié vers le haut */
+  transition: clip-path .8s var(--ease), visibility 0s .8s; /* Se replie puis disparaît */
+} /* Fin */
+
+.menu--ouvert { /* Menu ouvert (classe ajoutée par site.js) */
+  visibility: visible; /* Visible */
+  clip-path: inset(0 0 0 0); /* Déplié sur tout l'écran */
+  transition: clip-path .8s var(--ease); /* Se déplie de haut en bas */
+} /* Fin */
+
+.menu::before { /* Motif adire très discret en fond du menu */
+  content: ""; /* Décoratif */
+  position: absolute; /* Positionné */
+  inset: 0; /* Couvre tout */
+  z-index: -1; /* Derrière le contenu */
+  background: rgba(150, 168, 222, .07); /* Couleur très légère */
+  -webkit-mask: url("../assets/motifs/adire.svg") 0 0 / 140px repeat; /* Pochoir adire (Safari) */
+  mask: url("../assets/motifs/adire.svg") 0 0 / 140px repeat; /* Pochoir adire */
+} /* Fin */
+
+.menu__haut { /* Ligne du haut : logo + bouton fermer */
+  display: flex; /* En ligne */
+  justify-content: space-between; /* Aux extrémités */
+  align-items: center; /* Centrés */
+  padding: .8rem var(--marge); /* Marges */
+  border-bottom: 1px solid var(--trait-clair); /* Filet clair */
+} /* Fin */
+
+.menu__fermer { /* Bouton « Fermer » */
+  display: inline-flex; /* Texte et croix alignés */
+  align-items: center; /* Centrés */
+  gap: .6rem; /* Espace */
+  min-height: 44px; /* Zone cliquable */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-stretch: 125%; /* Élargie */
+  font-size: .68rem; /* Petite */
+  font-weight: 600; /* Demi-gras */
+  letter-spacing: .16em; /* Espacée */
+  text-transform: uppercase; /* Capitales */
+} /* Fin */
+
+.menu__fermer span { /* La croix */
+  font-size: 1.5rem; /* Grande */
+  line-height: 1; /* Sans marge */
+  transition: transform .5s var(--ease); /* Animation */
+} /* Fin */
+
+.menu__fermer:hover span { transform: rotate(90deg); } /* Au survol : la croix tourne */
+
+.menu__corps { /* Corps : liste des rubriques + colonne d'infos */
+  display: grid; /* Grille */
+  gap: 3rem; /* Espace entre les colonnes */
+  align-content: center; /* Centré verticalement */
+  padding: 2.5rem var(--marge); /* Marges */
+} /* Fin */
+
+@media (min-width: 900px) { /* Ordinateur */
+  .menu__corps { grid-template-columns: 1.7fr 1fr; align-items: center; } /* Deux colonnes */
+} /* Fin */
+
+.menu__liste { /* Liste des liens principaux */
+  list-style: none; /* Pas de puces */
+  margin: 0; /* Pas de marge */
+  padding: 0; /* Pas de retrait */
+} /* Fin */
+
+.menu__liste li { /* Un élément de la liste */
+  border-bottom: 1px solid var(--trait-clair); /* Filet sous chaque lien */
+} /* Fin */
+
+.menu--ouvert .menu__liste li { /* Quand le menu s'ouvre */
+  animation: monte .7s var(--ease) both; /* Chaque lien monte en apparaissant */
+  animation-delay: calc(.25s + var(--i, 0) * 55ms); /* En cascade */
+} /* Fin */
+
+.menu__lien { /* Un grand lien du menu */
+  display: flex; /* Numéro + texte */
+  align-items: baseline; /* Alignés sur la ligne de base */
+  gap: 1.2rem; /* Espace */
+  padding: .25em 0; /* Marges */
+  font-family: var(--f-titre); /* Police Bodoni */
+  font-size: clamp(2rem, 5.2vw, 4.2rem); /* Très grand */
+  line-height: 1.1; /* Interlignage */
+  text-decoration: none; /* Pas de soulignement */
+} /* Fin */
+
+.menu__lien .num { /* Numéro devant le lien */
+  min-width: 2.2rem; /* Largeur fixe pour aligner les textes */
+  font-size: .68rem; /* Petit */
+  letter-spacing: .14em; /* Espacé */
+  color: var(--ocre); /* Ocre */
+} /* Fin */
+
+.menu__texte { /* Texte du lien */
+  transition: transform .5s var(--ease), color .3s; /* Animation */
+} /* Fin */
+
+.menu__lien:hover .menu__texte, .menu__lien[aria-current="page"] .menu__texte { /* Survol ou page actuelle */
+  font-style: italic; /* Passe en italique */
+  color: var(--ocre); /* Devient ocre */
+  transform: translateX(.25em); /* Avance légèrement */
+} /* Fin */
+
+.menu__cote { /* Colonne d'informations à droite */
+  display: grid; /* Empilé */
+  gap: 1.8rem; /* Espaces */
+  align-content: start; /* En haut */
+} /* Fin */
+
+.menu__cote .etiquette { /* Petits titres de la colonne */
+  color: var(--ocre); /* Ocre */
+  margin-bottom: .5rem; /* Espace dessous */
+} /* Fin */
+
+.menu__cote a { /* Liens de la colonne */
+  display: block; /* Un par ligne */
+  padding-block: .2rem; /* Zone cliquable */
+  font-size: 1.15rem; /* Taille de lecture */
+  text-decoration: none; /* Pas de soulignement */
+} /* Fin */
+
+.menu__cote a:hover { text-decoration: underline; } /* Souligné au survol */
+
+.menu__proverbe { /* Proverbe en bas de la colonne */
+  font-family: var(--f-titre); /* Police Bodoni */
+  font-style: italic; /* Italique */
+  font-size: 1.3rem; /* Assez grand */
+  line-height: 1.35; /* Interlignage */
+  color: rgba(241, 231, 214, .8); /* Clair atténué */
+} /* Fin */
+
+
+/* D. PIED DE PAGE =========================================================== */
+
+.pied { /* Le pied de page */
+  background: var(--encre); /* Fond brun-noir */
+  color: var(--sable); /* Texte clair */
+  overflow: hidden; /* Le grand logo ne dépasse pas */
+} /* Fin */
+
+.pied__haut { /* Partie haute : lettre du cercle + colonnes de liens */
+  display: grid; /* Grille */
+  gap: 3rem; /* Espaces */
+  padding-block: clamp(56px, 8vw, 110px) 3rem; /* Marges haut / bas */
+} /* Fin */
+
+@media (min-width: 900px) { /* Ordinateur */
+  .pied__haut { grid-template-columns: 1.2fr 2fr; gap: 5rem; } /* Deux grandes colonnes */
+} /* Fin */
+
+.pied__lettre h2 { /* Titre « La lettre du cercle » */
+  font-size: clamp(2rem, 3.6vw, 3rem); /* Grand */
+  margin-block: .8rem 1rem; /* Marges */
+} /* Fin */
+
+.pied__lettre h2 em { color: var(--ocre); } /* Mot en italique en ocre */
+
+.pied__lettre p { /* Texte d'accompagnement */
+  color: rgba(241, 231, 214, .75); /* Clair atténué */
+  max-width: 28em; /* Largeur limitée */
+} /* Fin */
+
+.lettre-form { /* Formulaire d'inscription (champ + bouton) */
+  display: flex; /* En ligne */
+  margin-top: 1.6rem; /* Espace au-dessus */
+  border-bottom: 1.5px solid var(--sable); /* Trait sous le champ */
+} /* Fin */
+
+.lettre-form input { /* Champ e-mail */
+  flex: 1; /* Prend la place disponible */
+  min-width: 0; /* Peut rétrécir */
+  padding: .9rem 0; /* Marges */
+  border: 0; /* Sans bordure */
+  background: transparent; /* Transparent */
+  font-size: 1rem; /* 16 px : évite le zoom automatique sur iPhone */
+  outline: none; /* Le trait du dessous suffit */
+} /* Fin */
+
+.lettre-form input::placeholder { color: rgba(241, 231, 214, .55); } /* Texte d'exemple atténué */
+
+.lettre-form button { /* Bouton « S'inscrire » */
+  padding-inline: 1rem; /* Marges */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-stretch: 125%; /* Élargie */
+  font-size: .68rem; /* Petite */
+  font-weight: 600; /* Demi-gras */
+  letter-spacing: .16em; /* Espacée */
+  text-transform: uppercase; /* Capitales */
+  color: var(--ocre); /* Ocre */
+} /* Fin */
+
+.lettre-form:focus-within { border-bottom-color: var(--ocre); } /* Quand on écrit : le trait devient ocre */
+
+.pied__colonnes { /* Colonnes de liens */
+  display: grid; /* Grille */
+  grid-template-columns: repeat(2, 1fr); /* Deux colonnes sur téléphone */
+  gap: 2.4rem 1.5rem; /* Espaces */
+} /* Fin */
+
+@media (min-width: 700px) { /* Tablette et plus */
+  .pied__colonnes { grid-template-columns: repeat(4, 1fr); } /* Quatre colonnes */
+} /* Fin */
+
+.pied__colonnes .etiquette { /* Titre de colonne */
+  color: var(--ocre); /* Ocre */
+  margin-bottom: 1rem; /* Espace dessous */
+} /* Fin */
+
+.pied__colonnes ul { /* Liste de liens */
+  list-style: none; /* Sans puces */
+  margin: 0; /* Sans marge */
+  padding: 0; /* Sans retrait */
+  display: grid; /* Empilés */
+  gap: .35rem; /* Petit espace */
+} /* Fin */
+
+.pied__colonnes a { /* Un lien */
+  display: inline-block; /* Zone cliquable */
+  padding-block: .2rem; /* Hauteur cliquable */
+  font-size: 1rem; /* Taille */
+  text-decoration: none; /* Sans soulignement */
+  color: rgba(241, 231, 214, .85); /* Clair */
+} /* Fin */
+
+.pied__colonnes a:hover { color: var(--ocre); } /* Ocre au survol */
+
+.pied__marque { /* Grand logo en bas, qui occupe toute la largeur */
+  display: block; /* Bloc */
+  padding-inline: var(--marge); /* Marges */
+  font-family: var(--f-titre); /* Police Bodoni */
+  font-size: clamp(2.4rem, 10.3vw, 13rem); /* Énorme et fluide (calculé pour tenir sur une ligne) */
+  line-height: .9; /* Serré */
+  letter-spacing: -.035em; /* Lettres resserrées */
+  white-space: nowrap; /* Sur une seule ligne */
+  color: var(--sable); /* Clair */
+  text-align: center; /* Centré */
+} /* Fin */
+
+.pied__marque em { color: var(--laterite); } /* « Authentique » en latérite */
+
+.pied__bas { /* Dernière ligne : copyright + liens légaux */
+  display: flex; /* En ligne */
+  flex-wrap: wrap; /* Retour à la ligne si besoin */
+  justify-content: space-between; /* Répartis */
+  gap: 1rem 2rem; /* Espaces */
+  padding-block: 1.6rem; /* Marges */
+  margin-top: 2rem; /* Espace au-dessus */
+  border-top: 1px solid var(--trait-clair); /* Filet clair */
+  color: rgba(241, 231, 214, .65); /* Texte atténué */
+} /* Fin */
+
+.pied__bas ul { /* Liste des liens légaux */
+  list-style: none; /* Sans puces */
+  margin: 0; /* Sans marge */
+  padding: 0; /* Sans retrait */
+  display: flex; /* En ligne */
+  flex-wrap: wrap; /* Retour à la ligne */
+  gap: .5rem 1.4rem; /* Espaces */
+} /* Fin */
+
+.pied__bas a, .pied__bas button { /* Liens et bouton « Cookies » */
+  text-decoration: none; /* Sans soulignement */
+  font: inherit; /* Même police que le reste de la ligne */
+  letter-spacing: inherit; /* Même espacement */
+  text-transform: inherit; /* Mêmes capitales */
+} /* Fin */
+
+.pied__bas a:hover, .pied__bas button:hover { color: var(--sable); } /* Plus clair au survol */
+
+
+/* E. CALEBASSE (panier) ===================================================== */
+
+.voile { /* Voile sombre derrière le tiroir */
+  position: fixed; /* Couvre l'écran */
+  inset: 0; /* Bord à bord */
+  z-index: 180; /* Sous le tiroir */
+  background: rgba(28, 21, 17, .55); /* Brun transparent */
+  opacity: 0; /* Invisible */
+  visibility: hidden; /* Inactif */
+  transition: opacity .5s var(--ease), visibility 0s .5s; /* Disparition en fondu */
+} /* Fin */
+
+.voile--visible { /* Voile actif */
+  opacity: 1; /* Visible */
+  visibility: visible; /* Actif */
+  transition: opacity .5s var(--ease); /* Apparition en fondu */
+} /* Fin */
+
+.calebasse { /* Le tiroir latéral */
+  position: fixed; /* Collé à l'écran */
+  top: 0; /* En haut */
+  right: 0; /* À droite */
+  bottom: 0; /* Jusqu'en bas */
+  z-index: 190; /* Au-dessus du voile */
+  width: min(440px, 100%); /* 440 px maximum, plein écran sur téléphone */
+  display: grid; /* Trois zones */
+  grid-template-rows: auto 1fr auto; /* En-tête, liste, pied */
+  background: var(--cauri); /* Fond blanc chaud */
+  box-shadow: -30px 0 60px -30px rgba(28, 21, 17, .5); /* Ombre portée à gauche */
+  transform: translateX(100%); /* Caché à droite */
+  visibility: hidden; /* Inactif */
+  transition: transform .6s var(--ease), visibility 0s .6s; /* Glisse puis disparaît */
+} /* Fin */
+
+.calebasse--ouverte { /* Tiroir ouvert */
+  transform: none; /* Revient dans l'écran */
+  visibility: visible; /* Actif */
+  transition: transform .6s var(--ease); /* Glisse */
+} /* Fin */
+
+.calebasse__tete { /* En-tête du tiroir */
+  display: flex; /* En ligne */
+  justify-content: space-between; /* Titre à gauche, fermer à droite */
+  align-items: center; /* Centrés */
+  padding: 1.2rem 1.5rem; /* Marges */
+  border-bottom: 1px solid var(--trait); /* Filet */
+} /* Fin */
+
+.calebasse__tete h2 { /* Titre « Votre calebasse » */
+  font-size: 1.8rem; /* Grand */
+} /* Fin */
+
+.calebasse__tete h2 em { color: var(--laterite); } /* Mot en italique rouge */
+
+.calebasse__liste { /* Liste des articles */
+  list-style: none; /* Sans puces */
+  margin: 0; /* Sans marge */
+  padding: 0 1.5rem; /* Marges latérales */
+  overflow-y: auto; /* Défile si la liste est longue */
+} /* Fin */
+
+.ligne-calebasse { /* Un article dans la calebasse */
+  display: grid; /* Grille : vignette | infos */
+  grid-template-columns: 72px 1fr; /* Vignette de 72 px */
+  gap: 1rem; /* Espace */
+  padding-block: 1.2rem; /* Marges */
+  border-bottom: 1px solid var(--trait); /* Filet */
+} /* Fin */
+
+.ligne-calebasse .plaque { --ratio: 1; } /* Vignette carrée */
+
+.ligne-calebasse h3 { /* Nom du produit */
+  font-size: 1.15rem; /* Taille */
+  line-height: 1.2; /* Interlignage */
+} /* Fin */
+
+.ligne-calebasse__variante { /* Variante choisie (couleur, taille…) */
+  color: var(--encre-douce); /* Atténué */
+  font-size: .95rem; /* Petit */
+} /* Fin */
+
+.ligne-calebasse__bas { /* Ligne quantité + prix */
+  display: flex; /* En ligne */
+  justify-content: space-between; /* Répartis */
+  align-items: center; /* Centrés */
+  margin-top: .6rem; /* Espace au-dessus */
+} /* Fin */
+
+.quantite { /* Sélecteur de quantité (− 1 +) */
+  display: inline-flex; /* En ligne */
+  align-items: center; /* Centrés */
+  border: 1px solid var(--encre); /* Bordure */
+} /* Fin */
+
+.quantite button { /* Boutons − et + */
+  width: 36px; /* Largeur */
+  height: 36px; /* Hauteur */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-size: 1.1rem; /* Taille du signe */
+} /* Fin */
+
+.quantite button:hover { background: var(--sable-fonce); } /* Fond au survol */
+
+.quantite output, .quantite input { /* Le chiffre de la quantité */
+  min-width: 32px; /* Largeur */
+  border: 0; /* Sans bordure */
+  background: transparent; /* Transparent */
+  text-align: center; /* Centré */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-size: 1rem; /* 16 px */
+  font-variant-numeric: tabular-nums; /* Chiffres de même largeur */
+  -moz-appearance: textfield; /* Retire les flèches dans Firefox */
+} /* Fin */
+
+.quantite input::-webkit-inner-spin-button, .quantite input::-webkit-outer-spin-button { /* Petites flèches des champs numériques */
+  -webkit-appearance: none; /* Retirées (Chrome, Safari) */
+  margin: 0; /* Sans marge */
+} /* Fin */
+
+.ligne-calebasse__retirer { /* Lien « Retirer » */
+  margin-top: .4rem; /* Espace */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-size: .66rem; /* Petit */
+  letter-spacing: .14em; /* Espacé */
+  text-transform: uppercase; /* Capitales */
+  text-decoration: underline; /* Souligné */
+  color: var(--encre-douce); /* Atténué */
+} /* Fin */
+
+.calebasse__vide { /* Message quand la calebasse est vide */
+  padding: 3rem 0; /* Marges */
+  text-align: center; /* Centré */
+  color: var(--encre-douce); /* Atténué */
+} /* Fin */
+
+.calebasse__vide p:first-child { /* Phrase principale */
+  font-family: var(--f-titre); /* Police Bodoni */
+  font-style: italic; /* Italique */
+  font-size: 1.6rem; /* Grande */
+  color: var(--encre); /* Foncée */
+  margin-bottom: .6rem; /* Espace dessous */
+} /* Fin */
+
+.calebasse__pied { /* Bas du tiroir : total + boutons */
+  display: grid; /* Empilé */
+  gap: .8rem; /* Espaces */
+  padding: 1.2rem 1.5rem 1.5rem; /* Marges */
+  border-top: 1px solid var(--trait); /* Filet */
+  background: var(--sable); /* Fond beige */
+} /* Fin */
+
+.calebasse__total { /* Ligne « Total » */
+  display: flex; /* En ligne */
+  justify-content: space-between; /* Répartis */
+  align-items: baseline; /* Alignés sur la ligne de base */
+  margin-bottom: .4rem; /* Espace dessous */
+} /* Fin */
+
+.calebasse__total strong { /* Montant total */
+  font-family: var(--f-titre); /* Police Bodoni */
+  font-size: 1.7rem; /* Grand */
+  font-weight: 500; /* Moyen */
+} /* Fin */
+
+.calebasse__pied .lien-fleche { justify-self: start; } /* « Vider la calebasse » aligné à gauche */
+
+.calebasse__note { /* Petite note explicative */
+  font-size: .9rem; /* Petit */
+  color: var(--encre-douce); /* Atténué */
+} /* Fin */
+
+
+/* F. BANDEAU COOKIES ======================================================== */
+
+.cookies { /* Carte en bas de l'écran */
+  position: fixed; /* Collée à l'écran */
+  left: 16px; /* Depuis la gauche */
+  right: 16px; /* Jusqu'à droite (sur téléphone) */
+  bottom: 16px; /* Depuis le bas */
+  z-index: 170; /* Au-dessus du contenu */
+  max-width: 460px; /* Largeur maximale */
+  display: grid; /* Empilé */
+  gap: 1rem; /* Espaces */
+  padding: 1.4rem; /* Marges */
+  background: var(--cauri); /* Fond blanc chaud */
+  border: 1.5px solid var(--encre); /* Bordure foncée */
+  box-shadow: 10px 10px 0 var(--ocre); /* Ombre décalée ocre (effet « imprimé ») */
+  font-size: 1rem; /* Taille */
+  line-height: 1.5; /* Interlignage */
+  animation: monte .7s var(--ease) both .8s; /* Apparaît après l'ouverture de la page */
+} /* Fin */
+
+.cookies[hidden] { display: none; } /* Masqué quand le choix a été fait */
+
+.cookies__actions { /* Boutons Refuser / Accepter */
+  display: flex; /* En ligne */
+  flex-wrap: wrap; /* Retour à la ligne si besoin */
+  gap: .6rem; /* Espaces */
+} /* Fin */
+
+
+/* G. MESSAGE BREF (« toast ») =============================================== */
+
+.toast { /* Petit message de confirmation en bas de l'écran */
+  position: fixed; /* Collé à l'écran */
+  left: 50%; /* Centré… */
+  bottom: 24px; /* …en bas */
+  z-index: 260; /* Au-dessus de tout */
+  max-width: calc(100% - 32px); /* Ne dépasse pas sur téléphone */
+  padding: .9rem 1.3rem; /* Marges */
+  background: var(--encre); /* Fond foncé */
+  color: var(--sable); /* Texte clair */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-size: .85rem; /* Petit */
+  transform: translate(-50%, calc(100% + 40px)); /* Caché sous l'écran */
+  visibility: hidden; /* Totalement invisible au repos */
+  transition: transform .5s var(--ease-ressort), visibility 0s .5s; /* Arrive avec un léger rebond */
+} /* Fin */
+
+.toast--visible { /* Message affiché */
+  transform: translate(-50%, 0); /* Remonte dans l'écran */
+  visibility: visible; /* Visible */
+  transition: transform .5s var(--ease-ressort); /* Avec rebond */
+} /* Fin */
+
+
+/* H. PROGRESSION DE LECTURE ================================================= */
+
+.progression { /* Barre fine en haut de l'écran sur les pages récit */
+  position: fixed; /* Collée à l'écran */
+  top: 0; /* En haut */
+  left: 0; /* À gauche */
+  right: 0; /* Jusqu'à droite */
+  z-index: 70; /* Au-dessus de l'en-tête */
+  height: 4px; /* Fine */
+  pointer-events: none; /* Ne bloque pas les clics */
+} /* Fin */
+
+.progression span { /* La partie remplie */
+  display: block; /* Bloc */
+  height: 100%; /* Toute la hauteur */
+  background-image: var(--kente-horizontal); /* Rayures de kente */
+  background-size: auto, 260px 100%; /* Taille du motif */
+  transform: scaleX(var(--avancee, 0)); /* Largeur selon l'avancée (0 à 1, mise à jour par JavaScript) */
+  transform-origin: left; /* Grandit depuis la gauche */
+} /* Fin */

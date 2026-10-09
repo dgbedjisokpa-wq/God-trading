@@ -1,0 +1,88 @@
+<!DOCTYPE html> <!-- Indique au navigateur qu'il s'agit d'une page HTML moderne -->
+<html lang="fr"> <!-- Début de la page ; lang="fr" : la page est en français -->
+<head> <!-- En-tête invisible : réglages, titre, styles et scripts -->
+  <meta charset="utf-8"> <!-- Encodage des caractères : autorise les accents -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Adapte l'affichage aux téléphones -->
+  <title>Trésors d’Afrique — Boutique — Afrique Authentique</title> <!-- Titre de l'onglet et des résultats Google -->
+  <meta name="description" content="Kente, bogolan, karité, paniers et bijoux d’artisans africains, commandés simplement via WhatsApp."> <!-- Résumé affiché dans Google -->
+  <meta property="og:title" content="Trésors d’Afrique — Boutique — Afrique Authentique"> <!-- Titre quand la page est partagée -->
+  <meta property="og:description" content="Kente, bogolan, karité, paniers et bijoux d’artisans africains, commandés simplement via WhatsApp."> <!-- Description du partage -->
+  <meta property="og:type" content="website"> <!-- Type de contenu partagé -->
+  <meta name="theme-color" content="#1C1511"> <!-- Couleur de la barre du navigateur sur mobile -->
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"> <!-- Icône de l'onglet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- Prépare la connexion au service de polices -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <!-- Idem pour les fichiers de police -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&amp;family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&amp;family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&amp;display=swap"> <!-- Les 3 polices du site -->
+  <link rel="stylesheet" href="css/1-fondations.css"> <!-- Styles : couleurs, polices, boutons -->
+  <link rel="stylesheet" href="css/2-motifs.css"> <!-- Styles : motifs textiles et visuels -->
+  <link rel="stylesheet" href="css/3-structure.css"> <!-- Styles : en-tête, menu, pied de page, calebasse -->
+  <link rel="stylesheet" href="css/4-sections.css"> <!-- Styles : sections et cartes -->
+  <link rel="stylesheet" href="css/5-pages.css"> <!-- Styles : pages particulières -->
+  <script>document.documentElement.classList.add('js');</script> <!-- Signale que JavaScript fonctionne -->
+  <script src="js/donnees/reglages.js" defer></script> <!-- Contenus : réglages, menu, proverbes -->
+  <script src="js/donnees/recits.js" defer></script> <!-- Contenus : les récits -->
+  <script src="js/donnees/odyssees.js" defer></script> <!-- Contenus : les destinations -->
+  <script src="js/donnees/tresors.js" defer></script> <!-- Contenus : les produits -->
+  <script src="js/donnees/agenda.js" defer></script> <!-- Contenus : les événements -->
+  <script src="js/site.js" defer></script> <!-- Fonctionnement commun -->
+  <script src="js/rendu.js" defer></script> <!-- Affichage des contenus -->
+</head> <!-- Fin de l'en-tête invisible -->
+<body data-page="tresors"> <!-- Corps de la page ; data-page="tresors" sert à surligner le bon lien du menu -->
+  <div class="rideau" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div> <!-- Rideau coloré qui se lève à l'ouverture -->
+  <a class="evitement" href="#contenu">Aller au contenu</a> <!-- Lien visible au clavier : saute le menu -->
+  <div data-entete></div> <!-- Emplacement de l'en-tête (construit par js/site.js) -->
+
+  <main id="contenu"> <!-- Contenu principal de la page -->
+
+    <section class="tete-rubrique" data-teinte="encre" aria-labelledby="titre-rubrique"> <!-- Grand bloc coloré de la rubrique (couleur choisie avec data-teinte) -->
+      <div class="conteneur tete-rubrique__grille"> <!-- Grille : numéro | textes -->
+        <p class="tete-rubrique__num" aria-hidden="true">06</p> <!-- Énorme numéro en contour -->
+        <div class="tete-rubrique__textes"> <!-- Textes -->
+          <nav class="fil-ariane etiquette" aria-label="Fil d’Ariane"><a href="index.html">Accueil</a><span aria-hidden="true">/</span><span aria-current="page">Trésors d’Afrique</span></nav> <!-- Fil d'Ariane -->
+          <h1 class="tete-rubrique__titre" id="titre-rubrique">Trésors <em>d’Afrique</em></h1> <!-- Titre de la rubrique -->
+          <p class="chapo">Des objets choisis pour leur histoire autant que pour leur beauté, achetés directement auprès d’ateliers et de coopératives. La commande se fait simplement, par WhatsApp.</p> <!-- Introduction -->
+        </div> <!-- Fin des textes -->
+      </div> <!-- Fin de la grille -->
+      <div class="motif tete-rubrique__motif" data-motif="bogolan" aria-hidden="true"></div> <!-- Frise de motif textile (changez data-motif pour en essayer un autre) -->
+    </section> <!-- Fin du bloc de rubrique -->
+
+    <section class="section" aria-labelledby="titre-boutique"> <!-- La boutique -->
+      <div class="conteneur"> <!-- Largeur limitée -->
+        <h2 class="sr-only" id="titre-boutique">Les trésors</h2> <!-- Titre lu par les lecteurs d'écran -->
+        <div class="filtres" data-filtres-tresors role="group" aria-label="Filtrer par catégorie"></div> <!-- Filtres par catégorie (créés automatiquement) -->
+        <div class="grille-tresors" data-tresors="tous" data-cascade></div> <!-- Tous les produits de tresors.js -->
+      </div> <!-- Fin du conteneur -->
+    </section> <!-- Fin de la boutique -->
+
+    <section class="section section--sombre" aria-labelledby="titre-commande"> <!-- Mode d'emploi de la commande -->
+      <div class="conteneur"> <!-- Largeur limitée -->
+        <header class="tete-section tete-section--fendue" data-revele> <!-- En-tête de section -->
+          <p class="etiquette tete-section__surtitre"><span class="num">01</span> Commander</p> <!-- Surtitre numéroté -->
+          <h2 class="titre-section" id="titre-commande">Mode <em>d’emploi</em></h2> <!-- Titre -->
+          <p class="chapo">Pas de paiement en ligne ni de compte à créer : tout se règle dans une conversation.</p> <!-- Texte -->
+        </header> <!-- Fin de l'en-tête -->
+        <ol class="etapes" data-cascade> <!-- Trois étapes -->
+          <li><h3>Remplissez votre calebasse</h3><p>Choisissez vos trésors, leurs variantes et leurs quantités. La calebasse s’en souvient, même si vous revenez plus tard.</p></li> <!-- Étape 1 -->
+          <li><h3>Envoyez-la sur WhatsApp</h3><p>Un clic, et votre commande part sous forme de message récapitulatif, total compris.</p></li> <!-- Étape 2 -->
+          <li><h3>Recevez votre trésor</h3><p>Nous confirmons avec vous la disponibilité, la livraison et le paiement. <mark class="a-completer">[Zones et délais de livraison à préciser]</mark></p></li> <!-- Étape 3 -->
+        </ol> <!-- Fin des étapes -->
+        <p class="suite-lien"><button class="bouton bouton--clair" type="button" aria-controls="calebasse" aria-expanded="false" data-calebasse-ouvrir>Voir ma calebasse <span class="fleche" aria-hidden="true">→</span></button></p> <!-- Ouvre la calebasse -->
+      </div> <!-- Fin du conteneur -->
+    </section> <!-- Fin du mode d'emploi -->
+
+    <section class="appel" aria-labelledby="titre-appel"> <!-- Grand bloc rouge d'appel à l'action -->
+      <div class="conteneur appel__grille"> <!-- Contenu -->
+        <h2 class="appel__titre" id="titre-appel" data-revele>Vous êtes <em>artisan</em> ou coopérative ?</h2> <!-- Grand titre -->
+        <div class="appel__texte" data-revele> <!-- Texte + boutons -->
+          <p>Nous cherchons des ateliers qui partagent notre exigence : pièces faites main, origine claire, prix juste.</p> <!-- Texte -->
+          <div class="appel__boutons"> <!-- Boutons -->
+            <a class="bouton bouton--clair" href="devenir-partenaire.html">Devenir partenaire <span class="fleche" aria-hidden="true">→</span></a> <!-- Vers la page partenaires -->
+          </div> <!-- Fin des boutons -->
+        </div> <!-- Fin du texte -->
+      </div> <!-- Fin du contenu -->
+    </section> <!-- Fin de l'appel -->
+  </main> <!-- Fin du contenu principal -->
+
+  <div data-pied></div> <!-- Emplacement du pied de page (construit par js/site.js) -->
+</body> <!-- Fin du corps -->
+</html> <!-- Fin de la page -->

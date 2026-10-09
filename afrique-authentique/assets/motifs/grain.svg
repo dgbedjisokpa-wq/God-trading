@@ -1,0 +1,8 @@
+<!-- GRAIN DE PAPIER — bruit généré par le navigateur, posé en très légère transparence sur tout le site -->
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240"> <!-- Carreau de 240 × 240 pixels -->
+  <filter id="grain"> <!-- Définition d'un filtre nommé « grain » -->
+    <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="3" stitchTiles="stitch"/> <!-- Génère un bruit fin et raccordable -->
+    <feColorMatrix type="saturate" values="0"/> <!-- Retire la couleur : bruit en niveaux de gris -->
+  </filter> <!-- Fin du filtre -->
+  <rect width="100%" height="100%" filter="url(#grain)"/> <!-- Rectangle qui remplit le carreau avec ce bruit -->
+</svg> <!-- Fin du dessin -->

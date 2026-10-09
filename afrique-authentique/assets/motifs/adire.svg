@@ -1,0 +1,16 @@
+<!-- MOTIF « ADIRE » (indigo yoruba, Nigeria) — carreau de 100 × 100.                     -->
+<!-- Cercles concentriques et faisceaux de lignes, comme les réserves nouées ou peintes. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"> <!-- Zone de dessin de 100 × 100 -->
+  <g fill="none" stroke="#000" stroke-width="3"> <!-- Groupe de traits noirs de 3 -->
+    <circle cx="25" cy="25" r="17"/> <!-- Grand cercle en haut à gauche -->
+    <circle cx="25" cy="25" r="9"/> <!-- Cercle moyen, même centre -->
+    <circle cx="75" cy="75" r="17"/> <!-- Grand cercle en bas à droite -->
+    <circle cx="75" cy="75" r="9"/> <!-- Cercle moyen, même centre -->
+    <path d="M58 12 H92 M58 22 H92 M58 32 H92"/> <!-- Trois lignes horizontales en haut à droite -->
+    <path d="M12 58 V92 M22 58 V92 M32 58 V92"/> <!-- Trois lignes verticales en bas à gauche -->
+  </g> <!-- Fin du groupe de traits -->
+  <g fill="#000"> <!-- Formes pleines -->
+    <circle cx="25" cy="25" r="3"/> <!-- Point central du premier soleil -->
+    <circle cx="75" cy="75" r="3"/> <!-- Point central du second soleil -->
+  </g> <!-- Fin des formes pleines -->
+</svg> <!-- Fin du dessin -->

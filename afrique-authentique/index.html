@@ -1,0 +1,212 @@
+<!DOCTYPE html> <!-- Indique au navigateur qu'il s'agit d'une page HTML moderne -->
+<html lang="fr"> <!-- Début de la page ; lang="fr" : la page est en français (utile pour Google et les lecteurs d'écran) -->
+<head> <!-- En-tête invisible : réglages, titre, styles et scripts -->
+  <meta charset="utf-8"> <!-- Encodage des caractères : autorise les accents et les lettres africaines (ɔ, ɛ…) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Adapte l'affichage à la largeur des téléphones -->
+  <title>Afrique Authentique — Récits, gestes et routes d’un continent</title> <!-- Titre de l'onglet et des résultats Google -->
+  <meta name="description" content="Carnet de cultures africaines : récits d’origines, portraits, savoir-faire, événements, voyages et trésors d’artisans."> <!-- Résumé affiché sous le titre dans Google -->
+  <meta property="og:title" content="Afrique Authentique — Carnet de cultures africaines"> <!-- Titre quand la page est partagée (WhatsApp, Facebook…) -->
+  <meta property="og:description" content="Récits d’origines, portraits, savoir-faire, voyages et trésors d’artisans."> <!-- Description du partage -->
+  <meta property="og:type" content="website"> <!-- Type de contenu partagé -->
+  <meta property="og:image" content="assets/partage.jpg"> <!-- Image du partage : déposez une image de 1200 × 630 px sous ce nom -->
+  <meta name="theme-color" content="#1C1511"> <!-- Couleur de la barre du navigateur sur mobile -->
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"> <!-- Petite icône de l'onglet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- Prépare la connexion au service de polices (plus rapide) -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <!-- Idem pour le serveur des fichiers de police -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&amp;family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&amp;family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&amp;display=swap"> <!-- Les 3 polices : Bodoni Moda (titres), Newsreader (lecture), Archivo (étiquettes) -->
+  <link rel="stylesheet" href="css/1-fondations.css"> <!-- Styles : couleurs, polices, boutons -->
+  <link rel="stylesheet" href="css/2-motifs.css"> <!-- Styles : motifs textiles et visuels -->
+  <link rel="stylesheet" href="css/3-structure.css"> <!-- Styles : en-tête, menu, pied de page, calebasse -->
+  <link rel="stylesheet" href="css/4-sections.css"> <!-- Styles : sections et cartes -->
+  <link rel="stylesheet" href="css/5-pages.css"> <!-- Styles : pages particulières -->
+  <script>document.documentElement.classList.add('js');</script> <!-- Signale que JavaScript fonctionne (active les animations d'apparition) -->
+  <script src="js/donnees/reglages.js" defer></script> <!-- Contenus : réglages, menu, proverbes -->
+  <script src="js/donnees/recits.js" defer></script> <!-- Contenus : les récits -->
+  <script src="js/donnees/odyssees.js" defer></script> <!-- Contenus : les destinations -->
+  <script src="js/donnees/tresors.js" defer></script> <!-- Contenus : les produits -->
+  <script src="js/donnees/agenda.js" defer></script> <!-- Contenus : les événements -->
+  <script src="js/site.js" defer></script> <!-- Fonctionnement commun : menu, calebasse, animations… -->
+  <script src="js/rendu.js" defer></script> <!-- Affichage des listes à partir des contenus -->
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Afrique Authentique","description":"Carnet de cultures africaines : récits, savoir-faire, voyages et trésors d’artisans."}</script> <!-- Fiche d'identité lisible par Google (référencement) -->
+</head> <!-- Fin de l'en-tête invisible -->
+<body data-page="accueil"> <!-- Corps de la page ; data-page="accueil" surligne le bon lien du menu -->
+  <div class="rideau" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div> <!-- Rideau de 5 bandes colorées qui se lève à l'ouverture -->
+  <a class="evitement" href="#contenu">Aller au contenu</a> <!-- Lien visible seulement au clavier : saute le menu -->
+  <div data-entete></div> <!-- Emplacement de l'en-tête (construit automatiquement par js/site.js) -->
+
+  <main id="contenu"> <!-- Contenu principal de la page -->
+
+    <!-- ============ 1. OUVERTURE : grand titre + collage ============ -->
+    <section class="ouverture" aria-labelledby="titre-ouverture"> <!-- Haut de page -->
+      <div class="conteneur ouverture__grille"> <!-- Grille : texte à gauche, collage à droite -->
+        <div class="ouverture__texte"> <!-- Colonne de texte -->
+          <p class="etiquette ouverture__surtitre"><span class="puce" aria-hidden="true"></span>Carnet de cultures africaines</p> <!-- Surtitre avec point rouge qui « respire » -->
+          <h1 class="ouverture__titre" id="titre-ouverture"> <!-- Grand titre, ligne par ligne (chaque ligne monte à l'ouverture) -->
+            <span class="ligne" style="--i:0"><span>L’Afrique</span></span> <!-- Ligne 1 ; --i = ordre d'apparition -->
+            <span class="ligne" style="--i:1"><span><em>se raconte</em></span></span> <!-- Ligne 2, en italique -->
+            <span class="ligne" style="--i:2"><span>à hauteur</span></span> <!-- Ligne 3 -->
+            <span class="ligne" style="--i:3"><span><em class="accent">de mains.</em></span></span> <!-- Ligne 4, italique rouge -->
+          </h1> <!-- Fin du grand titre -->
+          <p class="ouverture__chapo">Récits d’origines, portraits, savoir-faire, voyages et trésors d’artisans : Afrique Authentique est un carnet écrit avec celles et ceux qui font vivre le continent.</p> <!-- Introduction -->
+          <div class="ouverture__actions"> <!-- Boutons -->
+            <a class="bouton bouton--plein" href="#a-la-une">Ouvrir le carnet <span class="fleche" aria-hidden="true">↓</span></a> <!-- Descend vers « À la une » -->
+            <a class="lien-fleche" href="odyssees.html">Partir en odyssée <span class="fleche" aria-hidden="true">→</span></a> <!-- Lien vers les voyages -->
+          </div> <!-- Fin des boutons -->
+        </div> <!-- Fin de la colonne de texte -->
+        <div class="ouverture__collage" aria-hidden="true"> <!-- Collage décoratif (retirez aria-hidden si vous y mettez des photos) -->
+          <figure class="plaque collage__principale" data-motif="adire" data-teinte="indigo" data-forme="arche"><figcaption class="plaque__legende">Fig. 01 — Indigo, Abeokuta</figcaption></figure> <!-- Grande image. Pour une photo : ajoutez <img src="assets/photos/…" alt="…"> dans la figure -->
+          <figure class="plaque collage__secondaire" data-motif="bogolan" data-teinte="laterite" data-forme="soleil"></figure> <!-- Petite image penchée -->
+          <p class="collage__ticket"><span>N° 01</span> Abomey · Ouidah · Kumasi · Saint-Louis</p> <!-- « Ticket de voyage » -->
+          <div class="sceau"> <!-- Sceau rond au texte tournant -->
+            <svg viewBox="0 0 200 200"> <!-- Dessin du cercle de texte -->
+              <defs><path id="cercle-sceau" d="M100,100 m-80,0 a80,80 0 1,1 160,0 a80,80 0 1,1 -160,0"/></defs> <!-- Chemin circulaire invisible (rayon 80) -->
+              <text><textPath href="#cercle-sceau" textLength="498" lengthAdjust="spacing">Afrique Authentique · Carnet de cultures · Récits &amp; gestes ·</textPath></text> <!-- Texte posé sur le cercle, étiré pour en faire le tour exact -->
+            </svg> <!-- Fin du dessin -->
+            <span class="sceau__coeur">A</span> <!-- Disque central avec l'initiale -->
+          </div> <!-- Fin du sceau -->
+        </div> <!-- Fin du collage -->
+      </div> <!-- Fin de la grille -->
+      <div class="kente" aria-hidden="true"></div> <!-- Frise de kente qui glisse lentement -->
+    </section> <!-- Fin de l'ouverture -->
+
+    <!-- ============ 2. DÉFILANT : « bienvenue » dans plusieurs langues ============ -->
+    <div class="defilant" data-defilant> <!-- Bande ocre défilante (le contenu est dupliqué par site.js pour boucler) -->
+      <div class="defilant__piste"> <!-- Ruban qui glisse -->
+        <ul class="defilant__groupe"> <!-- Groupe de mots -->
+          <li class="defilant__mot"><span lang="fon">Kwabɔ</span> <span class="defilant__langue">fon</span></li> <!-- Bienvenue en fon (Bénin) -->
+          <li class="defilant__mot"><span lang="tw">Akwaaba</span> <span class="defilant__langue">twi</span></li> <!-- En twi (Ghana) -->
+          <li class="defilant__mot"><span lang="yo">Ẹ káàbọ̀</span> <span class="defilant__langue">yoruba</span></li> <!-- En yoruba (Nigeria, Bénin) -->
+          <li class="defilant__mot"><span lang="ee">Woezɔ</span> <span class="defilant__langue">éwé</span></li> <!-- En éwé (Togo, Ghana) -->
+          <li class="defilant__mot"><span lang="wo">Dalal ak jàmm</span> <span class="defilant__langue">wolof</span></li> <!-- En wolof (Sénégal) -->
+          <li class="defilant__mot"><span lang="ha">Barka da zuwa</span> <span class="defilant__langue">haoussa</span></li> <!-- En haoussa (Niger, Nigeria) -->
+          <li class="defilant__mot"><span lang="sw">Karibu</span> <span class="defilant__langue">swahili</span></li> <!-- En swahili (Afrique de l'Est) -->
+          <li class="defilant__mot"><span lang="zu">Siyakwamukela</span> <span class="defilant__langue">zoulou</span></li> <!-- En zoulou (Afrique du Sud) -->
+          <li class="defilant__mot">Bienvenue <span class="defilant__langue">français</span></li> <!-- En français -->
+        </ul> <!-- Fin du groupe -->
+      </div> <!-- Fin du ruban -->
+    </div> <!-- Fin du défilant -->
+
+    <!-- ============ 3. À LA UNE ============ -->
+    <section class="section" id="a-la-une" aria-labelledby="titre-une"> <!-- Section du récit vedette -->
+      <div class="conteneur"> <!-- Largeur limitée -->
+        <header class="tete-section tete-section--fendue" data-revele> <!-- En-tête de section (titre à gauche, texte à droite) -->
+          <p class="etiquette tete-section__surtitre"><span class="num">N° 01</span> À la une</p> <!-- Surtitre numéroté -->
+          <h2 class="titre-section" id="titre-une">Le récit <em>du moment</em></h2> <!-- Titre -->
+          <p class="chapo">Un récit au long cours pour prendre le temps d’une histoire, d’un lieu ou d’un geste.</p> <!-- Texte -->
+        </header> <!-- Fin de l'en-tête -->
+        <div data-a-la-une></div> <!-- Emplacement rempli automatiquement : récit marqué « une: true » dans recits.js -->
+      </div> <!-- Fin du conteneur -->
+    </section> <!-- Fin de « À la une » -->
+
+    <!-- ============ 4. INDEX DES RUBRIQUES ============ -->
+    <section class="section section--serree" aria-labelledby="titre-portes"> <!-- Les six rubriques -->
+      <div class="conteneur"> <!-- Largeur limitée -->
+        <header class="tete-section tete-section--fendue" data-revele> <!-- En-tête -->
+          <p class="etiquette tete-section__surtitre"><span class="num">N° 02</span> Le carnet</p> <!-- Surtitre -->
+          <h2 class="titre-section" id="titre-portes">Six portes <em>pour entrer</em></h2> <!-- Titre -->
+          <p class="chapo">Des origines aux trésors d’artisans, chaque rubrique a sa couleur, comme les fils d’un même tissage.</p> <!-- Texte -->
+        </header> <!-- Fin de l'en-tête -->
+        <ol class="index" data-suivi data-cascade> <!-- Liste numérotée ; data-suivi : l'aperçu suit la souris ; data-cascade : apparition en cascade -->
+          <li><a class="index__ligne" href="aux-origines.html" data-teinte="laterite"><span class="index__num">01</span><span class="index__titre">Aux origines</span><span class="index__desc">Royaumes, symboles et lieux de mémoire.</span><span class="index__fleche" aria-hidden="true">→</span><span class="plaque index__apercu" data-motif="kuba" data-teinte="laterite" data-forme="soleil" aria-hidden="true"></span></a></li> <!-- Rubrique 1 (rouge latérite) avec son aperçu -->
+          <li><a class="index__ligne" href="figures-et-horizons.html" data-teinte="indigo"><span class="index__num">02</span><span class="index__titre">Figures &amp; Horizons</span><span class="index__desc">Portraits d’hier et regards d’aujourd’hui.</span><span class="index__fleche" aria-hidden="true">→</span><span class="plaque index__apercu" data-motif="adire" data-teinte="indigo" data-forme="arche" aria-hidden="true"></span></a></li> <!-- Rubrique 2 (indigo) -->
+          <li><a class="index__ligne" href="savoir-faire.html" data-teinte="ocre"><span class="index__num">03</span><span class="index__titre">Savoir-Faire</span><span class="index__desc">Tisser, teindre, façonner : les gestes transmis.</span><span class="index__fleche" aria-hidden="true">→</span><span class="plaque index__apercu" data-motif="kente" data-teinte="ocre" data-forme="bandes" aria-hidden="true"></span></a></li> <!-- Rubrique 3 (ocre) -->
+          <li><a class="index__ligne" href="evenements.html" data-teinte="palme"><span class="index__num">04</span><span class="index__titre">Événements</span><span class="index__desc">Fêtes, festivals et rencontres du cercle.</span><span class="index__fleche" aria-hidden="true">→</span><span class="plaque index__apercu" data-motif="cauris" data-teinte="palme" data-forme="demi" aria-hidden="true"></span></a></li> <!-- Rubrique 4 (vert palme) -->
+          <li><a class="index__ligne" href="odyssees.html" data-teinte="kola"><span class="index__num">05</span><span class="index__titre">Odyssées</span><span class="index__desc">Voyages lents, avec les gens d’ici.</span><span class="index__fleche" aria-hidden="true">→</span><span class="plaque index__apercu" data-motif="ndebele" data-teinte="kola" data-forme="losange" aria-hidden="true"></span></a></li> <!-- Voyages (brun kola) -->
+          <li><a class="index__ligne" href="tresors.html" data-teinte="encre"><span class="index__num">06</span><span class="index__titre">Trésors d’Afrique</span><span class="index__desc">Objets d’ateliers, commandés sur WhatsApp.</span><span class="index__fleche" aria-hidden="true">→</span><span class="plaque index__apercu" data-motif="bogolan" data-teinte="encre" data-forme="soleil" aria-hidden="true"></span></a></li> <!-- Boutique (brun-noir) -->
+        </ol> <!-- Fin de l'index -->
+      </div> <!-- Fin du conteneur -->
+    </section> <!-- Fin de l'index des rubriques -->
+
+    <!-- ============ 5. DERNIERS RÉCITS ============ -->
+    <section class="section" aria-labelledby="titre-recits"> <!-- Mosaïque des récits récents -->
+      <div class="conteneur"> <!-- Largeur limitée -->
+        <header class="tete-section tete-section--fendue" data-revele> <!-- En-tête -->
+          <p class="etiquette tete-section__surtitre"><span class="num">N° 03</span> Derniers récits</p> <!-- Surtitre -->
+          <h2 class="titre-section" id="titre-recits">Fraîchement <em>écrits</em></h2> <!-- Titre -->
+          <p class="chapo">Portraits, gestes et mémoires : les dernières pages du carnet.</p> <!-- Texte -->
+        </header> <!-- Fin de l'en-tête -->
+        <div class="mosaique" data-recits-recents="4" data-cascade></div> <!-- Emplacement rempli automatiquement : les 4 derniers récits -->
+      </div> <!-- Fin du conteneur -->
+    </section> <!-- Fin des derniers récits -->
+
+    <!-- ============ 6. PROVERBE ============ -->
+    <section class="proverbe" data-proverbes aria-labelledby="titre-proverbe"> <!-- Grande citation sur fond indigo -->
+      <div class="conteneur proverbe__grille"> <!-- Contenu -->
+        <p class="etiquette" id="titre-proverbe">Ce que disent les anciens</p> <!-- Surtitre -->
+        <blockquote class="proverbe__citation" aria-live="polite"> <!-- Citation (aria-live : le changement est annoncé aux lecteurs d'écran) -->
+          <p class="proverbe__texte" data-proverbe-texte>En Afrique, quand un vieillard meurt, c’est une bibliothèque qui brûle.</p> <!-- Texte (remplacé par la liste de reglages.js) -->
+          <cite class="proverbe__source" data-proverbe-source>Amadou Hampâté Bâ, UNESCO, 1960</cite> <!-- Source -->
+        </blockquote> <!-- Fin de la citation -->
+        <div class="proverbe__actions"> <!-- Bouton + compteur -->
+          <button class="bouton bouton--clair" type="button" data-proverbe-suivant>Un autre proverbe <span class="fleche" aria-hidden="true">→</span></button> <!-- Change de proverbe -->
+          <span class="etiquette proverbe__compteur" data-proverbe-compteur>01 / 05</span> <!-- Position dans la liste -->
+        </div> <!-- Fin -->
+      </div> <!-- Fin du contenu -->
+    </section> <!-- Fin du proverbe -->
+
+    <!-- ============ 7. ODYSSÉES (rangée horizontale) ============ -->
+    <section class="section section--sombre" aria-labelledby="titre-odyssees"> <!-- Section sur fond foncé -->
+      <div class="conteneur"> <!-- Largeur limitée -->
+        <header class="tete-section tete-section--fendue" data-revele> <!-- En-tête -->
+          <p class="etiquette tete-section__surtitre"><span class="num">N° 04</span> Odyssées</p> <!-- Surtitre -->
+          <h2 class="titre-section" id="titre-odyssees">Partir <em>autrement</em></h2> <!-- Titre -->
+          <div class="pile"> <!-- Texte + boutons de défilement -->
+            <p class="chapo">Des voyages lents, pensés avec des guides et des hôtes locaux. On y va pour les lieux ; on en revient avec des visages.</p> <!-- Texte -->
+            <div class="defile__controles"> <!-- Boutons ← → -->
+              <button class="defile__bouton" type="button" data-defile-precedent="defile-odyssees" aria-label="Odyssées précédentes">←</button> <!-- Précédent -->
+              <button class="defile__bouton" type="button" data-defile-suivant="defile-odyssees" aria-label="Odyssées suivantes">→</button> <!-- Suivant -->
+            </div> <!-- Fin des boutons -->
+          </div> <!-- Fin de la pile -->
+        </header> <!-- Fin de l'en-tête -->
+      </div> <!-- Fin du conteneur -->
+      <div class="defile" id="defile-odyssees" data-defile data-odyssees="defile" data-cascade></div> <!-- Rangée défilante, remplie automatiquement avec odyssees.js -->
+      <div class="conteneur suite-lien"><a class="lien-fleche" href="odyssees.html">Toutes les odyssées <span class="fleche" aria-hidden="true">→</span></a></div> <!-- Lien vers la page Odyssées -->
+    </section> <!-- Fin des odyssées -->
+
+    <!-- ============ 8. TRÉSORS D'AFRIQUE ============ -->
+    <section class="section" aria-labelledby="titre-tresors"> <!-- Aperçu de la boutique -->
+      <div class="conteneur"> <!-- Largeur limitée -->
+        <header class="tete-section tete-section--fendue" data-revele> <!-- En-tête -->
+          <p class="etiquette tete-section__surtitre"><span class="num">N° 05</span> Trésors d’Afrique</p> <!-- Surtitre -->
+          <h2 class="titre-section" id="titre-tresors">Des objets <em>qui racontent</em></h2> <!-- Titre -->
+          <p class="chapo">Choisis pour leur histoire autant que pour leur beauté, achetés directement aux ateliers. Glissez-les dans votre calebasse : la commande se règle sur WhatsApp.</p> <!-- Texte -->
+        </header> <!-- Fin de l'en-tête -->
+        <div class="grille-tresors" data-tresors="4" data-cascade></div> <!-- Emplacement rempli automatiquement : 4 produits de tresors.js -->
+        <p class="suite-lien"><a class="bouton" href="tresors.html">Toute la boutique <span class="fleche" aria-hidden="true">→</span></a></p> <!-- Lien vers la boutique -->
+      </div> <!-- Fin du conteneur -->
+    </section> <!-- Fin des trésors -->
+
+    <!-- ============ 9. AGENDA ============ -->
+    <section class="section section--serree" aria-labelledby="titre-agenda"> <!-- Prochains événements -->
+      <div class="conteneur"> <!-- Largeur limitée -->
+        <header class="tete-section tete-section--fendue" data-revele> <!-- En-tête -->
+          <p class="etiquette tete-section__surtitre"><span class="num">N° 06</span> Agenda</p> <!-- Surtitre -->
+          <h2 class="titre-section" id="titre-agenda">Prochains <em>rendez-vous</em></h2> <!-- Titre -->
+          <div class="pile"> <!-- Texte + lien -->
+            <p class="chapo">Veillées, ateliers, festivals : là où l’on se retrouve.</p> <!-- Texte -->
+            <a class="lien-fleche" href="evenements.html">Tout l’agenda <span class="fleche" aria-hidden="true">→</span></a> <!-- Lien vers la page Événements -->
+          </div> <!-- Fin de la pile -->
+        </header> <!-- Fin de l'en-tête -->
+        <div data-agenda="apercu"></div> <!-- Emplacement rempli automatiquement : les 3 prochains événements de agenda.js -->
+      </div> <!-- Fin du conteneur -->
+    </section> <!-- Fin de l'agenda -->
+
+    <!-- ============ 10. APPEL : REJOINDRE LE CERCLE ============ -->
+    <section class="appel" aria-labelledby="titre-appel"> <!-- Grand bloc rouge -->
+      <div class="conteneur appel__grille"> <!-- Contenu -->
+        <h2 class="appel__titre" id="titre-appel" data-revele>Une histoire, un geste, <em>une adresse</em> à partager ?</h2> <!-- Grand titre -->
+        <div class="appel__texte" data-revele> <!-- Texte + boutons -->
+          <p>Le cercle réunit lectrices, lecteurs, artisans et voyageurs. Rejoignez-le pour raconter, proposer, partager.</p> <!-- Texte -->
+          <div class="appel__boutons"> <!-- Boutons -->
+            <a class="bouton bouton--clair" href="rejoindre-le-cercle.html">Rejoindre le cercle <span class="fleche" aria-hidden="true">→</span></a> <!-- Page contact -->
+            <a class="bouton bouton--clair" href="devenir-partenaire.html">Devenir partenaire</a> <!-- Page partenaires -->
+          </div> <!-- Fin des boutons -->
+        </div> <!-- Fin du texte -->
+      </div> <!-- Fin du contenu -->
+    </section> <!-- Fin de l'appel -->
+
+  </main> <!-- Fin du contenu principal -->
+
+  <div data-pied></div> <!-- Emplacement du pied de page (construit par js/site.js) -->
+</body> <!-- Fin du corps -->
+</html> <!-- Fin de la page -->

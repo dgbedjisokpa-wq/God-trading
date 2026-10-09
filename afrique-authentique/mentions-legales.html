@@ -1,0 +1,86 @@
+<!DOCTYPE html> <!-- Indique au navigateur qu'il s'agit d'une page HTML moderne -->
+<html lang="fr"> <!-- Début de la page ; lang="fr" : la page est en français -->
+<head> <!-- En-tête invisible : réglages, titre, styles et scripts -->
+  <meta charset="utf-8"> <!-- Encodage des caractères : autorise les accents -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Adapte l'affichage aux téléphones -->
+  <title>Mentions légales — Afrique Authentique</title> <!-- Titre de l'onglet et des résultats Google -->
+  <meta name="description" content="Mentions légales du site Afrique Authentique : éditeur, hébergement, propriété intellectuelle."> <!-- Résumé affiché dans Google -->
+  <meta property="og:title" content="Mentions légales — Afrique Authentique"> <!-- Titre quand la page est partagée -->
+  <meta property="og:description" content="Mentions légales du site Afrique Authentique : éditeur, hébergement, propriété intellectuelle."> <!-- Description du partage -->
+  <meta property="og:type" content="website"> <!-- Type de contenu partagé -->
+  <meta name="theme-color" content="#1C1511"> <!-- Couleur de la barre du navigateur sur mobile -->
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"> <!-- Icône de l'onglet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- Prépare la connexion au service de polices -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <!-- Idem pour les fichiers de police -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&amp;family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&amp;family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&amp;display=swap"> <!-- Les 3 polices du site -->
+  <link rel="stylesheet" href="css/1-fondations.css"> <!-- Styles : couleurs, polices, boutons -->
+  <link rel="stylesheet" href="css/2-motifs.css"> <!-- Styles : motifs textiles et visuels -->
+  <link rel="stylesheet" href="css/3-structure.css"> <!-- Styles : en-tête, menu, pied de page, calebasse -->
+  <link rel="stylesheet" href="css/4-sections.css"> <!-- Styles : sections et cartes -->
+  <link rel="stylesheet" href="css/5-pages.css"> <!-- Styles : pages particulières -->
+  <script>document.documentElement.classList.add('js');</script> <!-- Signale que JavaScript fonctionne -->
+  <script src="js/donnees/reglages.js" defer></script> <!-- Contenus : réglages, menu, proverbes -->
+  <script src="js/donnees/recits.js" defer></script> <!-- Contenus : les récits -->
+  <script src="js/donnees/odyssees.js" defer></script> <!-- Contenus : les destinations -->
+  <script src="js/donnees/tresors.js" defer></script> <!-- Contenus : les produits -->
+  <script src="js/donnees/agenda.js" defer></script> <!-- Contenus : les événements -->
+  <script src="js/site.js" defer></script> <!-- Fonctionnement commun -->
+  <script src="js/rendu.js" defer></script> <!-- Affichage des contenus -->
+</head> <!-- Fin de l'en-tête invisible -->
+<body data-page="mentions"> <!-- Corps de la page ; data-page="mentions" sert à surligner le bon lien du menu -->
+  <div class="rideau" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div> <!-- Rideau coloré qui se lève à l'ouverture -->
+  <a class="evitement" href="#contenu">Aller au contenu</a> <!-- Lien visible au clavier : saute le menu -->
+  <div data-entete></div> <!-- Emplacement de l'en-tête (construit par js/site.js) -->
+
+  <main id="contenu"> <!-- Contenu principal de la page -->
+
+    <section class="page-tete" aria-labelledby="titre-page"> <!-- En-tête de la page -->
+      <div class="conteneur page-tete__grille"> <!-- Grille : titre | introduction -->
+        <div> <!-- Colonne du titre -->
+          <nav class="fil-ariane etiquette" aria-label="Fil d’Ariane"><a href="index.html">Accueil</a><span aria-hidden="true">/</span><span aria-current="page">Mentions légales</span></nav> <!-- Fil d'Ariane -->
+          <h1 class="titre-page" id="titre-page">Mentions <em>légales</em></h1> <!-- Titre -->
+        </div> <!-- Fin de la colonne -->
+        <div class="pile"> <!-- Introduction -->
+          <p class="chapo">Qui édite le site, qui l’héberge, et les règles qui encadrent son utilisation.</p> <!-- Texte -->
+          <p class="etiquette">Dernière mise à jour : <mark class="a-completer">[date]</mark></p> <!-- Date à compléter -->
+        </div> <!-- Fin de l'introduction -->
+      </div> <!-- Fin de la grille -->
+    </section> <!-- Fin de l'en-tête -->
+
+    <div class="conteneur legal"> <!-- Mise en page : sommaire | texte -->
+      <nav class="legal__sommaire" aria-label="Sommaire"><p class="etiquette">Sommaire</p><ol data-sommaire></ol></nav> <!-- Sommaire créé automatiquement à partir des titres -->
+      <div class="legal__contenu"> <!-- Texte -->
+        <p class="mention">Les passages <mark class="a-completer">surlignés</mark> sont à compléter puis à faire valider. Supprimez cette phrase une fois le texte définitif.</p> <!-- Note pour la cliente -->
+        <h2>Éditeur du site</h2> <!-- Titre de partie -->
+        <p>Le site Afrique Authentique est édité par :</p> <!-- Paragraphe -->
+        <ul> <!-- Liste -->
+          <li>Nom ou raison sociale : <mark class="a-completer">[nom]</mark></li> <!-- Élément -->
+          <li>Statut juridique : <mark class="a-completer">[entreprise individuelle, association, société…]</mark></li> <!-- Élément -->
+          <li>Siège : <mark class="a-completer">[adresse complète]</mark></li> <!-- Élément -->
+          <li>Immatriculation : <mark class="a-completer">[numéro RCCM / IFU, le cas échéant]</mark></li> <!-- Élément -->
+          <li>Téléphone : <mark class="a-completer">[numéro]</mark></li> <!-- Élément -->
+          <li>E-mail : <mark class="a-completer">[adresse e-mail]</mark></li> <!-- Élément -->
+        </ul> <!-- Fin de la liste -->
+        <h2>Direction de la publication</h2> <!-- Titre de partie -->
+        <p><mark class="a-completer">[Nom et prénom]</mark>, en qualité de <mark class="a-completer">[fonction]</mark>.</p> <!-- Paragraphe -->
+        <h2>Conception et réalisation</h2> <!-- Titre de partie -->
+        <p>Conception, développement et intégration : <mark class="a-completer">[nom du prestataire ou de l’équipe]</mark>.</p> <!-- Paragraphe -->
+        <h2>Hébergement</h2> <!-- Titre de partie -->
+        <p>Le site est hébergé par <mark class="a-completer">[nom de l’hébergeur]</mark>, <mark class="a-completer">[adresse]</mark>, <mark class="a-completer">[téléphone ou site web]</mark>.</p> <!-- Paragraphe -->
+        <h2>Propriété intellectuelle</h2> <!-- Titre de partie -->
+        <p>L’ensemble des contenus de ce site (textes, photographies, illustrations, logo, motifs graphiques) est protégé par le droit d’auteur. Toute reproduction ou représentation, totale ou partielle, sans autorisation écrite préalable de l’éditeur est interdite. Les photographies restent la propriété de leurs auteurs, crédités lorsque c’est le cas.</p> <!-- Paragraphe -->
+        <h2>Responsabilité</h2> <!-- Titre de partie -->
+        <p>L’éditeur s’efforce de fournir des informations exactes et à jour, sans pouvoir garantir l’absence d’erreurs. Les informations pratiques (horaires, dates d’événements, conditions de voyage) sont données à titre indicatif et doivent être vérifiées avant tout déplacement.</p> <!-- Paragraphe -->
+        <h2>Liens externes</h2> <!-- Titre de partie -->
+        <p>Le site contient des liens vers des sites tiers (partenaires, réseaux sociaux, billetteries). L’éditeur n’exerce aucun contrôle sur ces sites et décline toute responsabilité quant à leur contenu.</p> <!-- Paragraphe -->
+        <h2>Droit applicable</h2> <!-- Titre de partie -->
+        <p>Les présentes mentions sont régies par le droit <mark class="a-completer">[du pays de l’éditeur]</mark>. En cas de litige, et à défaut de solution amiable, les tribunaux compétents seront ceux de <mark class="a-completer">[ville]</mark>.</p> <!-- Paragraphe -->
+        <h2>Contact</h2> <!-- Titre de partie -->
+        <p>Pour toute question : <mark class="a-completer">[adresse e-mail]</mark>, ou depuis la page <a href="rejoindre-le-cercle.html">Rejoindre le cercle</a>.</p> <!-- Paragraphe -->
+      </div> <!-- Fin du texte -->
+    </div> <!-- Fin de la mise en page -->
+  </main> <!-- Fin du contenu principal -->
+
+  <div data-pied></div> <!-- Emplacement du pied de page (construit par js/site.js) -->
+</body> <!-- Fin du corps -->
+</html> <!-- Fin de la page -->

@@ -1,0 +1,93 @@
+<!DOCTYPE html> <!-- Indique au navigateur qu'il s'agit d'une page HTML moderne -->
+<html lang="fr"> <!-- Début de la page ; lang="fr" : la page est en français -->
+<head> <!-- En-tête invisible : réglages, titre, styles et scripts -->
+  <meta charset="utf-8"> <!-- Encodage des caractères : autorise les accents -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Adapte l'affichage aux téléphones -->
+  <title>Politique de confidentialité — Afrique Authentique</title> <!-- Titre de l'onglet et des résultats Google -->
+  <meta name="description" content="Comment Afrique Authentique collecte, utilise et protège vos données personnelles."> <!-- Résumé affiché dans Google -->
+  <meta property="og:title" content="Politique de confidentialité — Afrique Authentique"> <!-- Titre quand la page est partagée -->
+  <meta property="og:description" content="Comment Afrique Authentique collecte, utilise et protège vos données personnelles."> <!-- Description du partage -->
+  <meta property="og:type" content="website"> <!-- Type de contenu partagé -->
+  <meta name="theme-color" content="#1C1511"> <!-- Couleur de la barre du navigateur sur mobile -->
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"> <!-- Icône de l'onglet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- Prépare la connexion au service de polices -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <!-- Idem pour les fichiers de police -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&amp;family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&amp;family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&amp;display=swap"> <!-- Les 3 polices du site -->
+  <link rel="stylesheet" href="css/1-fondations.css"> <!-- Styles : couleurs, polices, boutons -->
+  <link rel="stylesheet" href="css/2-motifs.css"> <!-- Styles : motifs textiles et visuels -->
+  <link rel="stylesheet" href="css/3-structure.css"> <!-- Styles : en-tête, menu, pied de page, calebasse -->
+  <link rel="stylesheet" href="css/4-sections.css"> <!-- Styles : sections et cartes -->
+  <link rel="stylesheet" href="css/5-pages.css"> <!-- Styles : pages particulières -->
+  <script>document.documentElement.classList.add('js');</script> <!-- Signale que JavaScript fonctionne -->
+  <script src="js/donnees/reglages.js" defer></script> <!-- Contenus : réglages, menu, proverbes -->
+  <script src="js/donnees/recits.js" defer></script> <!-- Contenus : les récits -->
+  <script src="js/donnees/odyssees.js" defer></script> <!-- Contenus : les destinations -->
+  <script src="js/donnees/tresors.js" defer></script> <!-- Contenus : les produits -->
+  <script src="js/donnees/agenda.js" defer></script> <!-- Contenus : les événements -->
+  <script src="js/site.js" defer></script> <!-- Fonctionnement commun -->
+  <script src="js/rendu.js" defer></script> <!-- Affichage des contenus -->
+</head> <!-- Fin de l'en-tête invisible -->
+<body data-page="confidentialite"> <!-- Corps de la page ; data-page="confidentialite" sert à surligner le bon lien du menu -->
+  <div class="rideau" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div> <!-- Rideau coloré qui se lève à l'ouverture -->
+  <a class="evitement" href="#contenu">Aller au contenu</a> <!-- Lien visible au clavier : saute le menu -->
+  <div data-entete></div> <!-- Emplacement de l'en-tête (construit par js/site.js) -->
+
+  <main id="contenu"> <!-- Contenu principal de la page -->
+
+    <section class="page-tete" aria-labelledby="titre-page"> <!-- En-tête de la page -->
+      <div class="conteneur page-tete__grille"> <!-- Grille : titre | introduction -->
+        <div> <!-- Colonne du titre -->
+          <nav class="fil-ariane etiquette" aria-label="Fil d’Ariane"><a href="index.html">Accueil</a><span aria-hidden="true">/</span><span aria-current="page">Politique de confidentialité</span></nav> <!-- Fil d'Ariane -->
+          <h1 class="titre-page" id="titre-page">Confiden<em>tialité</em></h1> <!-- Titre -->
+        </div> <!-- Fin de la colonne -->
+        <div class="pile"> <!-- Introduction -->
+          <p class="chapo">Ce que nous faisons — et ne faisons pas — de vos données personnelles.</p> <!-- Texte -->
+          <p class="etiquette">Dernière mise à jour : <mark class="a-completer">[date]</mark></p> <!-- Date à compléter -->
+        </div> <!-- Fin de l'introduction -->
+      </div> <!-- Fin de la grille -->
+    </section> <!-- Fin de l'en-tête -->
+
+    <div class="conteneur legal"> <!-- Mise en page : sommaire | texte -->
+      <nav class="legal__sommaire" aria-label="Sommaire"><p class="etiquette">Sommaire</p><ol data-sommaire></ol></nav> <!-- Sommaire créé automatiquement à partir des titres -->
+      <div class="legal__contenu"> <!-- Texte -->
+        <p class="mention">Les passages <mark class="a-completer">surlignés</mark> sont à compléter puis à faire valider. Supprimez cette phrase une fois le texte définitif.</p> <!-- Note pour la cliente -->
+        <h2>Qui est responsable de vos données ?</h2> <!-- Titre de partie -->
+        <p>Le responsable du traitement est <mark class="a-completer">[nom de l’éditeur]</mark>, <mark class="a-completer">[adresse]</mark>, joignable à <mark class="a-completer">[adresse e-mail]</mark>.</p> <!-- Paragraphe -->
+        <h2>Quelles données collectons-nous ?</h2> <!-- Titre de partie -->
+        <ul> <!-- Liste -->
+          <li><strong>Formulaires</strong> de contact et de partenariat : nom, adresse e-mail, téléphone (facultatif), structure et message.</li> <!-- Élément -->
+          <li><strong>Lettre du cercle</strong> : adresse e-mail.</li> <!-- Élément -->
+          <li><strong>Commandes et réservations</strong> : lorsque vous nous écrivez sur WhatsApp, nous recevons votre numéro, votre nom de profil et le contenu de votre message.</li> <!-- Élément -->
+          <li><strong>Navigation</strong> : uniquement si vous l’acceptez, des statistiques de fréquentation (voir la <a href="cookies.html">politique relative aux cookies</a>).</li> <!-- Élément -->
+        </ul> <!-- Fin de la liste -->
+        <p>Le contenu de votre calebasse (panier) est enregistré uniquement dans votre navigateur ; il ne nous est transmis que si vous choisissez de nous envoyer votre commande.</p> <!-- Paragraphe -->
+        <h2>Pourquoi ?</h2> <!-- Titre de partie -->
+        <ul> <!-- Liste -->
+          <li>Répondre à vos messages et à vos propositions de partenariat.</li> <!-- Élément -->
+          <li>Traiter vos commandes et vos réservations.</li> <!-- Élément -->
+          <li>Vous envoyer la lettre du cercle si vous y êtes inscrit·e.</li> <!-- Élément -->
+          <li>Améliorer le site grâce aux statistiques, avec votre accord.</li> <!-- Élément -->
+        </ul> <!-- Fin de la liste -->
+        <h2>Sur quelle base ?</h2> <!-- Titre de partie -->
+        <p>Votre consentement (formulaires, lettre, mesure d’audience) et l’exécution de vos demandes (commandes, réservations).</p> <!-- Paragraphe -->
+        <h2>Combien de temps ?</h2> <!-- Titre de partie -->
+        <ul> <!-- Liste -->
+          <li>Messages : <mark class="a-completer">[durée, par ex. 3 ans après le dernier échange]</mark>.</li> <!-- Élément -->
+          <li>Lettre du cercle : jusqu’à votre désinscription.</li> <!-- Élément -->
+          <li>Commandes : <mark class="a-completer">[durée légale de conservation des pièces comptables]</mark>.</li> <!-- Élément -->
+        </ul> <!-- Fin de la liste -->
+        <h2>Qui y a accès ?</h2> <!-- Titre de partie -->
+        <p>Seule l’équipe d’Afrique Authentique. Certains prestataires techniques interviennent pour notre compte : l’hébergeur du site <mark class="a-completer">[nom]</mark>, le service d’envoi des formulaires et de la lettre <mark class="a-completer">[nom, le cas échéant]</mark>, WhatsApp (Meta) lorsque vous choisissez d’échanger par cette messagerie, et Google Fonts pour l’affichage des polices de caractères. Vos données ne sont jamais vendues.</p> <!-- Paragraphe -->
+        <h2>Vos droits</h2> <!-- Titre de partie -->
+        <p>Vous pouvez accéder à vos données, les rectifier, les supprimer, vous opposer à leur utilisation ou retirer votre consentement à tout moment en écrivant à <mark class="a-completer">[adresse e-mail]</mark>. Vous pouvez aussi adresser une réclamation à l’autorité de protection des données compétente : <mark class="a-completer">[par ex. APDP au Bénin, CNIL en France…]</mark>.</p> <!-- Paragraphe -->
+        <h2>Sécurité</h2> <!-- Titre de partie -->
+        <p>Le site est servi en connexion sécurisée (HTTPS). L’accès aux données est limité aux seules personnes qui en ont besoin.</p> <!-- Paragraphe -->
+        <h2>Modifications</h2> <!-- Titre de partie -->
+        <p>Cette politique peut évoluer. La date de dernière mise à jour figure en haut de la page.</p> <!-- Paragraphe -->
+      </div> <!-- Fin du texte -->
+    </div> <!-- Fin de la mise en page -->
+  </main> <!-- Fin du contenu principal -->
+
+  <div data-pied></div> <!-- Emplacement du pied de page (construit par js/site.js) -->
+</body> <!-- Fin du corps -->
+</html> <!-- Fin de la page -->

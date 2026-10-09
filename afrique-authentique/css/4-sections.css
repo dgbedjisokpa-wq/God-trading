@@ -1,0 +1,947 @@
+/* ==========================================================================
+   AFRIQUE AUTHENTIQUE — 4. SECTIONS ET CARTES
+   --------------------------------------------------------------------------
+   A. Ouverture de l'accueil (grand titre + collage + sceau tournant)
+   B. Défilant des mots de bienvenue
+   C. « À la une » (récit vedette)
+   D. Index des rubriques (lignes qui se colorent au survol)
+   E. Cartes de récit + mosaïque + listes
+   F. Filtres
+   G. Proverbe
+   H. Défilement horizontal + cartes d'odyssée
+   I. Cartes des trésors (produits)
+   J. Agenda (événements)
+   K. Appel « Rejoindre le cercle »
+   ========================================================================== */
+
+
+/* A. OUVERTURE DE L'ACCUEIL ================================================= */
+
+.ouverture { /* Toute la zone du haut de l'accueil */
+  position: relative; /* Repère */
+  padding-top: clamp(28px, 5vw, 72px); /* Espace sous l'en-tête */
+} /* Fin */
+
+.ouverture__grille { /* Grille texte + collage */
+  display: grid; /* Grille */
+  gap: 3rem; /* Espace entre texte et collage (sur téléphone, l'un sous l'autre) */
+  padding-bottom: clamp(56px, 8vw, 110px); /* Espace avant la frise */
+} /* Fin */
+
+@media (min-width: 960px) { /* Ordinateur */
+  .ouverture__grille { /* Deux colonnes */
+    grid-template-columns: 1.1fr 1fr; /* Le texte un peu plus large que le collage */
+    align-items: center; /* Centrés verticalement */
+    gap: 2rem; /* Espace */
+  } /* Fin */
+} /* Fin */
+
+.ouverture__surtitre { /* « Carnet de cultures africaines » */
+  display: flex; /* Point + texte */
+  align-items: center; /* Centrés */
+  gap: .7rem; /* Espace */
+  margin-bottom: 1.6rem; /* Espace sous le surtitre */
+  animation: fondu 1s .4s both; /* Apparaît en fondu */
+} /* Fin */
+
+.puce { /* Petit point rouge qui « respire » */
+  width: 9px; /* Largeur */
+  height: 9px; /* Hauteur */
+  border-radius: 50%; /* Rond */
+  background: var(--laterite); /* Rouge */
+  animation: respire 2.6s ease-in-out infinite; /* Pulsation lente */
+} /* Fin */
+
+@keyframes respire { /* Pulsation du point */
+  50% { transform: scale(1.7); opacity: .5; } /* À mi-parcours : plus gros et plus pâle */
+} /* Fin */
+
+.ouverture__titre { /* Le très grand titre */
+  font-size: clamp(3.1rem, 7.8vw, 7.6rem); /* Taille fluide : de 50 px à 122 px */
+  font-weight: 400; /* Graisse fine : contraste élégant */
+  line-height: .9; /* Lignes très serrées */
+  letter-spacing: -.035em; /* Lettres resserrées */
+} /* Fin */
+
+.ouverture__titre .ligne { /* Une ligne du titre */
+  display: block; /* Chaque ligne sur sa propre ligne */
+  white-space: nowrap; /* Jamais coupée en deux */
+  overflow: hidden; /* Cache le texte tant qu'il n'est pas « monté » */
+  padding-bottom: .1em; /* Laisse de la place aux lettres qui descendent (g, p, q) */
+  margin-bottom: -.1em; /* Compense cet espace */
+} /* Fin */
+
+.ouverture__titre .ligne > span { /* Le texte de la ligne */
+  display: inline-block; /* Peut bouger */
+  animation: ligne-monte 1.25s var(--ease) both; /* Monte depuis le bas */
+  animation-delay: calc(.5s + var(--i, 0) * .11s); /* Chaque ligne un peu après la précédente */
+} /* Fin */
+
+.ouverture__titre .ligne:nth-child(2) { padding-left: 1.1em; } /* 2e ligne décalée : composition de magazine */
+.ouverture__titre .ligne:nth-child(4) { padding-left: .55em; } /* 4e ligne légèrement décalée */
+.ouverture__titre .accent { color: var(--laterite); } /* « de mains. » en rouge latérite */
+
+@keyframes ligne-monte { /* Montée des lignes du titre */
+  from { transform: translateY(110%) rotate(3deg); } /* Départ : sous la ligne, légèrement penché */
+  to { transform: none; } /* Arrivée : en place */
+} /* Fin */
+
+.ouverture__chapo { /* Texte d'introduction */
+  margin-top: 2rem; /* Espace au-dessus */
+  max-width: 30em; /* Largeur limitée */
+  font-size: clamp(1.12rem, 1.4vw, 1.3rem); /* Taille */
+  color: var(--encre-douce); /* Atténué */
+  animation: monte 1s var(--ease) 1.05s both; /* Apparaît après le titre */
+} /* Fin */
+
+.ouverture__actions { /* Boutons sous l'introduction */
+  display: flex; /* En ligne */
+  flex-wrap: wrap; /* Retour à la ligne si besoin */
+  align-items: center; /* Centrés */
+  gap: 1rem 2rem; /* Espaces */
+  margin-top: 2.2rem; /* Espace au-dessus */
+  animation: monte 1s var(--ease) 1.2s both; /* Apparaît en dernier */
+} /* Fin */
+
+.ouverture__collage { /* Zone du collage d'images */
+  position: relative; /* Repère pour les éléments superposés */
+  padding: 2.5rem 0 3.5rem; /* Place pour le sceau et le ticket qui dépassent */
+  animation: fondu 1.4s .7s both; /* Apparaît en fondu */
+} /* Fin */
+
+.collage__principale { /* Grande image du collage */
+  --ratio: 4 / 5; /* Format portrait */
+  width: 76%; /* 76 % de la largeur */
+  margin-left: auto; /* Poussée à droite */
+  box-shadow: 0 40px 80px -40px rgba(28, 21, 17, .6); /* Ombre profonde */
+} /* Fin */
+
+.collage__principale .plaque__legende { /* Légende de la grande image… */
+  left: auto; /* …déplacée… */
+  right: .75rem; /* …en haut à droite… */
+  top: .75rem; /* …pour ne pas être cachée par la petite image */
+  bottom: auto; /* Annule la position du bas */
+} /* Fin */
+
+.collage__secondaire { /* Petite image posée de travers */
+  --ratio: 1; /* Carrée */
+  position: absolute; /* Posée sur la grande */
+  left: 0; /* À gauche */
+  bottom: 9%; /* Vers le bas */
+  width: 44%; /* Taille */
+  border: 8px solid var(--cauri); /* Cadre blanc, comme un tirage photo */
+  rotate: -5deg; /* Penchée */
+  box-shadow: 0 30px 50px -25px rgba(28, 21, 17, .6); /* Ombre */
+  animation: flotte 9s ease-in-out infinite; /* Flotte doucement */
+} /* Fin */
+
+@keyframes flotte { /* Flottement lent */
+  50% { translate: 0 -12px; } /* Monte de 12 px à mi-parcours */
+} /* Fin */
+
+.collage__ticket { /* Petit « ticket de voyage » */
+  position: absolute; /* Posé sur le collage */
+  right: 3%; /* À droite */
+  bottom: .4rem; /* En bas */
+  display: flex; /* Numéro + texte */
+  align-items: center; /* Centrés */
+  gap: .8rem; /* Espace */
+  padding: .7rem 1rem; /* Marges */
+  background: var(--cauri); /* Fond blanc chaud */
+  border: 1px dashed var(--encre); /* Bordure pointillée (ticket) */
+  rotate: 2.5deg; /* Légèrement penché */
+  box-shadow: 0 14px 30px -18px rgba(28, 21, 17, .7); /* Ombre */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-stretch: 112%; /* Élargie */
+  font-size: .6rem; /* Petite */
+  font-weight: 600; /* Demi-gras */
+  letter-spacing: .14em; /* Espacée */
+  text-transform: uppercase; /* Capitales */
+} /* Fin */
+
+.collage__ticket span { /* « N° 01 » */
+  color: var(--laterite); /* Rouge */
+  font-weight: 800; /* Gras */
+} /* Fin */
+
+.sceau { /* Sceau rond avec texte qui tourne */
+  position: absolute; /* Posé sur le collage */
+  top: 0; /* En haut */
+  left: 8%; /* À gauche */
+  z-index: 2; /* Au-dessus des images */
+  width: clamp(112px, 12vw, 152px); /* Taille fluide */
+  aspect-ratio: 1; /* Carré */
+  display: grid; /* Pour centrer le cœur */
+  place-items: center; /* Au milieu */
+  border-radius: 50%; /* Rond */
+  background: var(--sable); /* Fond beige (lisibilité du texte) */
+} /* Fin */
+
+.sceau svg { /* Le cercle de texte */
+  position: absolute; /* Couvre le sceau */
+  inset: 0; /* Bord à bord */
+  width: 100%; /* Largeur */
+  height: 100%; /* Hauteur */
+  animation: tourne 28s linear infinite; /* Rotation lente et continue */
+} /* Fin */
+
+.sceau text { /* Le texte circulaire */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-size: 12.5px; /* Taille */
+  font-weight: 600; /* Demi-gras */
+  letter-spacing: .12em; /* Espacée */
+  text-transform: uppercase; /* Capitales */
+  fill: var(--encre); /* Couleur du texte (en SVG on utilise « fill ») */
+} /* Fin */
+
+.sceau__coeur { /* Disque central avec la lettre */
+  width: 44%; /* Taille */
+  aspect-ratio: 1; /* Carré */
+  display: grid; /* Pour centrer */
+  place-items: center; /* Au milieu */
+  border-radius: 50%; /* Rond */
+  background: var(--ocre); /* Ocre */
+  font-family: var(--f-titre); /* Police Bodoni */
+  font-style: italic; /* Italique */
+  font-size: clamp(1.4rem, 2vw, 2rem); /* Taille */
+  line-height: 1; /* Sans marge */
+} /* Fin */
+
+@keyframes tourne { /* Rotation complète */
+  to { transform: rotate(360deg); } /* Un tour */
+} /* Fin */
+
+
+/* B. DÉFILANT DES MOTS DE BIENVENUE ======================================== */
+
+.defilant { /* Bande ocre qui défile */
+  overflow: hidden; /* Cache ce qui sort */
+  padding-block: 1.1rem; /* Marges */
+  background: var(--ocre); /* Fond ocre */
+  color: var(--encre); /* Texte foncé */
+  border-block: 1.5px solid var(--encre); /* Filets haut et bas */
+} /* Fin */
+
+.defilant__piste { /* Le ruban complet (contenu + copie) */
+  display: flex; /* En ligne */
+  width: max-content; /* Aussi large que son contenu */
+  animation: defile 46s linear infinite; /* Défilement continu */
+} /* Fin */
+
+.defilant:hover .defilant__piste { animation-play-state: paused; } /* Pause au survol */
+
+.defilant__groupe { /* Un groupe de mots */
+  display: flex; /* En ligne */
+  align-items: baseline; /* Alignés sur la ligne de base */
+  gap: 3rem; /* Espace entre les mots */
+  padding-right: 3rem; /* Même espace à la fin (raccord parfait) */
+  margin: 0; /* Sans marge */
+  list-style: none; /* Sans puces */
+} /* Fin */
+
+.defilant__mot { /* Un mot de bienvenue */
+  display: flex; /* Mot + langue */
+  align-items: baseline; /* Alignés */
+  gap: .7rem; /* Espace */
+  white-space: nowrap; /* Jamais coupé */
+  font-family: var(--f-titre); /* Police Bodoni */
+  font-style: italic; /* Italique */
+  font-size: clamp(1.6rem, 3.4vw, 2.9rem); /* Grand */
+  line-height: 1.1; /* Interlignage */
+} /* Fin */
+
+.defilant__mot::after { /* Petit losange entre les mots */
+  content: ""; /* Décoratif */
+  align-self: center; /* Centré verticalement */
+  width: 9px; /* Taille */
+  height: 9px; /* Taille */
+  margin-left: 2.3rem; /* Espace avant */
+  background: var(--encre); /* Foncé */
+  rotate: 45deg; /* En losange */
+} /* Fin */
+
+.defilant__langue { /* Nom de la langue */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-style: normal; /* Pas d'italique */
+  font-size: .62rem; /* Petit */
+  font-weight: 600; /* Demi-gras */
+  letter-spacing: .16em; /* Espacé */
+  text-transform: uppercase; /* Capitales */
+} /* Fin */
+
+@keyframes defile { /* Défilement */
+  to { transform: translateX(-50%); } /* Recule de la moitié (= un groupe) : boucle parfaite */
+} /* Fin */
+
+
+/* C. À LA UNE =============================================================== */
+
+.carte-une { /* Le récit vedette (tout le bloc est un lien) */
+  display: grid; /* Grille */
+  gap: 2rem; /* Espace */
+  text-decoration: none; /* Pas de soulignement */
+} /* Fin */
+
+@media (min-width: 900px) { /* Ordinateur */
+  .carte-une { /* Image à gauche, texte à droite */
+    grid-template-columns: 1.35fr 1fr; /* Proportions */
+    gap: 4rem; /* Espace */
+    align-items: end; /* Alignés en bas */
+  } /* Fin */
+} /* Fin */
+
+.carte-une .plaque { --ratio: 4 / 3; } /* Image au format paysage */
+
+.carte-une__texte { /* Colonne de texte */
+  display: grid; /* Empilé */
+  gap: 1.3rem; /* Espaces */
+  padding-bottom: .5rem; /* Petit espace en bas */
+} /* Fin */
+
+.carte-une__titre { /* Titre du récit vedette */
+  font-size: clamp(2.2rem, 4.4vw, 4rem); /* Très grand */
+} /* Fin */
+
+.carte-une__chapo { /* Introduction */
+  font-size: 1.2rem; /* Taille */
+  color: var(--encre-douce); /* Atténuée */
+} /* Fin */
+
+.carte-une__meta { color: var(--encre-douce); } /* Auteur · date · durée, atténués */
+
+.carte-une__texte > .bouton { justify-self: start; margin-top: .4rem; } /* Bouton « Lire le récit » aligné à gauche */
+
+.souligne { /* Titre qui se souligne au survol de sa carte */
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1.5px no-repeat; /* Trait invisible au repos */
+  transition: background-size .7s var(--ease); /* Animation */
+} /* Fin */
+
+a:hover .souligne, a:focus-visible .souligne { /* Survol de la carte */
+  background-size: 100% 1.5px; /* Le trait se dessine */
+} /* Fin */
+
+
+/* D. INDEX DES RUBRIQUES ==================================================== */
+
+.index { /* Liste des 6 rubriques */
+  list-style: none; /* Sans puces */
+  margin: 0; /* Sans marge */
+  padding: 0; /* Sans retrait */
+  border-top: 1.5px solid var(--encre); /* Filet au-dessus */
+} /* Fin */
+
+.index li { /* Un élément */
+  border-bottom: 1.5px solid var(--encre); /* Filet dessous */
+} /* Fin */
+
+.index__ligne { /* La ligne cliquable */
+  position: relative; /* Repère pour le fond coloré et l'aperçu */
+  isolation: isolate; /* Garde le fond derrière le texte */
+  display: grid; /* Grille */
+  grid-template-columns: 2.6rem 1fr auto; /* Numéro | titre | flèche */
+  align-items: center; /* Centrés */
+  gap: .4rem 1.2rem; /* Espaces */
+  padding: 1.4rem .4rem; /* Marges */
+  text-decoration: none; /* Pas de soulignement */
+  transition: color .45s var(--ease), padding .6s var(--ease); /* Animation */
+} /* Fin */
+
+.index__ligne::before { /* Fond coloré qui monte au survol */
+  content: ""; /* Décoratif */
+  position: absolute; /* Couvre la ligne */
+  inset: 0; /* Bord à bord */
+  z-index: -1; /* Derrière le texte */
+  background: var(--c); /* Couleur de la rubrique */
+  transform: scaleY(0); /* Invisible au repos */
+  transform-origin: bottom; /* Monte depuis le bas */
+  transition: transform .55s var(--ease); /* Animation */
+} /* Fin */
+
+.index__ligne:hover, .index__ligne:focus-visible { /* Survol */
+  color: var(--c-texte); /* Texte adapté à la couleur de fond */
+  padding-left: 1.4rem; /* Le contenu glisse vers la droite */
+} /* Fin */
+
+.index__ligne:hover::before, .index__ligne:focus-visible::before { transform: scaleY(1); } /* Le fond remplit la ligne */
+
+.index__num { /* Numéro 01, 02… */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-size: .72rem; /* Petit */
+  font-weight: 600; /* Demi-gras */
+  letter-spacing: .14em; /* Espacé */
+} /* Fin */
+
+.index__titre { /* Nom de la rubrique */
+  font-family: var(--f-titre); /* Police Bodoni */
+  font-size: clamp(1.9rem, 4.6vw, 4rem); /* Très grand */
+  line-height: 1; /* Serré */
+  letter-spacing: -.02em; /* Resserré */
+} /* Fin */
+
+.index__ligne:hover .index__titre { font-style: italic; } /* Italique au survol */
+
+.index__desc { /* Description de la rubrique */
+  grid-column: 2; /* Sous le titre sur téléphone */
+  font-size: 1rem; /* Taille */
+  line-height: 1.45; /* Interlignage */
+  opacity: .78; /* Atténuée */
+  max-width: 30em; /* Largeur limitée */
+} /* Fin */
+
+.index__fleche { /* Flèche à droite */
+  grid-column: 3; /* Dernière colonne */
+  grid-row: 1 / span 2; /* Sur deux lignes */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-size: 1.6rem; /* Grande */
+  transition: transform .5s var(--ease); /* Animation */
+} /* Fin */
+
+.index__ligne:hover .index__fleche { transform: rotate(-45deg); } /* La flèche pointe en diagonale */
+
+@media (min-width: 900px) { /* Ordinateur */
+  .index__ligne { /* Tout sur une seule ligne */
+    grid-template-columns: 4.5rem 1.15fr 1fr 3rem; /* Numéro | titre | description | flèche */
+    padding-block: 1.9rem; /* Plus haut */
+  } /* Fin */
+  .index__desc { grid-column: 3; } /* Description en 3e colonne */
+  .index__fleche { grid-column: 4; grid-row: auto; justify-self: end; } /* Flèche en 4e colonne */
+} /* Fin */
+
+.index__apercu { /* Petite image qui suit la souris au survol */
+  display: none; /* Masquée sur les écrans tactiles */
+} /* Fin */
+
+@media (hover: hover) and (min-width: 900px) { /* Ordinateur avec souris */
+  .index__apercu { /* Image d'aperçu */
+    display: block; /* Affichée */
+    position: absolute; /* Positionnée librement */
+    left: var(--x, 50%); /* Suit la souris horizontalement (valeur donnée par site.js) */
+    top: var(--y, 50%); /* Suit la souris verticalement */
+    z-index: 3; /* Au-dessus du texte */
+    width: 170px; /* Taille */
+    pointer-events: none; /* Ne gêne pas la souris */
+    opacity: 0; /* Invisible au repos */
+    transform: translate(28px, -50%) rotate(-8deg) scale(.5); /* Petite et penchée */
+    transition: opacity .35s var(--ease), transform .5s var(--ease); /* Animation */
+  } /* Fin */
+  .index__ligne:hover .index__apercu { /* Au survol */
+    opacity: 1; /* Visible */
+    transform: translate(28px, -50%) rotate(-4deg) scale(1); /* Taille normale */
+  } /* Fin */
+} /* Fin */
+
+
+/* E. CARTES DE RÉCIT ======================================================== */
+
+.carte__lien { /* Le lien qui englobe toute la carte */
+  display: grid; /* Empilé */
+  gap: 1.1rem; /* Espaces */
+  text-decoration: none; /* Pas de soulignement */
+} /* Fin */
+
+.carte__texte { /* Bloc de texte d'une carte */
+  display: grid; /* Empilé */
+  gap: .9rem; /* Espaces */
+  align-content: end; /* Aligné en bas */
+} /* Fin */
+
+.carte__meta { /* Ligne « Rubrique · Pays » */
+  display: flex; /* En ligne */
+  flex-wrap: wrap; /* Retour à la ligne */
+  align-items: center; /* Centrés */
+  gap: .3rem 1.1rem; /* Espaces */
+} /* Fin */
+
+.carte__titre { /* Titre de la carte */
+  font-size: clamp(1.5rem, 2.2vw, 2.05rem); /* Taille */
+  line-height: 1.1; /* Interlignage */
+} /* Fin */
+
+.carte__chapo { /* Introduction */
+  font-size: 1.02rem; /* Taille */
+  line-height: 1.55; /* Interlignage */
+  color: var(--encre-douce); /* Atténuée */
+} /* Fin */
+
+.carte__pied { /* Bas de carte : durée de lecture + flèche */
+  display: flex; /* En ligne */
+  justify-content: space-between; /* Répartis */
+  align-items: center; /* Centrés */
+  padding-top: .8rem; /* Espace au-dessus */
+  border-top: 1px solid var(--trait); /* Filet */
+} /* Fin */
+
+.mosaique { /* Grille asymétrique des derniers récits (accueil) */
+  display: grid; /* Grille */
+  gap: 3.5rem 2rem; /* Espaces */
+} /* Fin */
+
+@media (min-width: 700px) { /* Tablette */
+  .mosaique { grid-template-columns: repeat(2, 1fr); } /* Deux colonnes */
+} /* Fin */
+
+@media (min-width: 1000px) { /* Ordinateur : composition de magazine sur 12 colonnes */
+  .mosaique { grid-template-columns: repeat(12, 1fr); gap: 4.5rem 2.5rem; } /* 12 colonnes */
+  .mosaique > :nth-child(1) { grid-column: 1 / 7; grid-row: 1 / 3; } /* 1er récit : grand, à gauche, sur deux rangées */
+  .mosaique > :nth-child(1) .plaque { --ratio: 3 / 4; } /* Format portrait */
+  .mosaique > :nth-child(1) .carte__titre { font-size: clamp(2rem, 3.2vw, 3rem); } /* Titre plus grand */
+  .mosaique > :nth-child(2) { grid-column: 8 / 13; } /* 2e récit : à droite */
+  .mosaique > :nth-child(2) .plaque { --ratio: 3 / 2; } /* Format paysage */
+  .mosaique > :nth-child(3) { grid-column: 8 / 12; } /* 3e récit : à droite, plus étroit */
+  .mosaique > :nth-child(3) .plaque { --ratio: 1; } /* Carré */
+  .mosaique > :nth-child(4) { grid-column: 1 / 13; } /* 4e récit : toute la largeur */
+  .mosaique > :nth-child(4) .carte__lien { grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; } /* Image et texte côte à côte */
+  .mosaique > :nth-child(4) .plaque { --ratio: 16 / 9; } /* Format large */
+} /* Fin */
+
+.liste-recits { /* Liste des récits d'une rubrique */
+  display: grid; /* Grille */
+  gap: 4rem 2rem; /* Espaces */
+} /* Fin */
+
+@media (min-width: 700px) { /* Tablette */
+  .liste-recits { grid-template-columns: repeat(2, 1fr); } /* Deux colonnes */
+} /* Fin */
+
+@media (min-width: 1000px) { /* Ordinateur */
+  .liste-recits { grid-template-columns: repeat(3, 1fr); gap: 5rem 2.5rem; } /* Trois colonnes */
+  .liste-recits > .carte:not(.carte--vedette):nth-child(3n) { margin-top: 4rem; } /* Une carte sur trois décalée vers le bas : rythme de magazine */
+} /* Fin */
+
+.carte--vedette { grid-column: 1 / -1; } /* Le premier récit d'une rubrique occupe toute la largeur */
+
+@media (min-width: 900px) { /* Ordinateur */
+  .carte--vedette .carte__lien { grid-template-columns: 1.3fr 1fr; gap: 3.5rem; align-items: end; } /* Image et texte côte à côte */
+} /* Fin */
+
+.carte--vedette .plaque { --ratio: 3 / 2; } /* Format paysage */
+.carte--vedette .carte__titre { font-size: clamp(2.2rem, 4vw, 3.6rem); } /* Grand titre */
+.carte--vedette .carte__chapo { font-size: 1.2rem; } /* Introduction plus grande */
+
+.vide { /* Message « aucun résultat » */
+  grid-column: 1 / -1; /* Toute la largeur */
+  padding: 3rem 0; /* Marges */
+  font-family: var(--f-titre); /* Police Bodoni */
+  font-style: italic; /* Italique */
+  font-size: 1.6rem; /* Grand */
+  color: var(--encre-douce); /* Atténué */
+} /* Fin */
+
+
+/* F. FILTRES ================================================================ */
+
+.filtres { /* Rangée de filtres (pays, catégories) */
+  display: flex; /* En ligne */
+  flex-wrap: wrap; /* Retour à la ligne */
+  align-items: baseline; /* Alignés */
+  gap: .2rem 1.6rem; /* Espaces */
+  margin-bottom: clamp(36px, 5vw, 64px); /* Espace sous les filtres */
+  padding-bottom: 1.2rem; /* Marge */
+  border-bottom: 1px solid var(--trait); /* Filet */
+} /* Fin */
+
+.filtres__titre { /* « Filtrer : » */
+  margin-right: .4rem; /* Petit espace */
+} /* Fin */
+
+.filtre { /* Un filtre (texte cliquable) */
+  min-height: 44px; /* Zone cliquable */
+  font-family: var(--f-titre); /* Police Bodoni */
+  font-size: clamp(1.2rem, 1.8vw, 1.5rem); /* Taille */
+  opacity: .5; /* Atténué quand inactif */
+  transition: opacity .3s; /* Animation */
+} /* Fin */
+
+.filtre sup { /* Petit nombre de résultats */
+  margin-left: .2em; /* Espace */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-size: .6rem; /* Petit */
+  letter-spacing: .1em; /* Espacé */
+} /* Fin */
+
+.filtre:hover { opacity: .85; } /* Plus visible au survol */
+
+.filtre[aria-pressed="true"] { /* Filtre actif */
+  opacity: 1; /* Pleinement visible */
+  font-style: italic; /* Italique */
+  text-decoration: underline; /* Souligné */
+  text-decoration-thickness: 1.5px; /* Épaisseur */
+  text-underline-offset: .2em; /* Décalage */
+} /* Fin */
+
+
+/* G. PROVERBE =============================================================== */
+
+.proverbe { /* Grande section indigo */
+  position: relative; /* Repère pour les décors */
+  overflow: hidden; /* Les décors ne dépassent pas */
+  padding-block: clamp(90px, 12vw, 170px); /* Grandes marges */
+  background: var(--indigo); /* Fond indigo */
+  color: var(--sable); /* Texte clair */
+} /* Fin */
+
+.proverbe::before { /* Motif adire en fond */
+  content: ""; /* Décoratif */
+  position: absolute; /* Couvre la section */
+  inset: 0; /* Bord à bord */
+  background: rgba(150, 168, 222, .09); /* Très discret */
+  -webkit-mask: url("../assets/motifs/adire.svg") 0 0 / 180px repeat; /* Pochoir (Safari) */
+  mask: url("../assets/motifs/adire.svg") 0 0 / 180px repeat; /* Pochoir */
+} /* Fin */
+
+.proverbe::after { /* Bande de kente verticale à droite */
+  content: ""; /* Décoratif */
+  position: absolute; /* Positionnée */
+  top: 0; /* Du haut… */
+  bottom: 0; /* …jusqu'en bas */
+  right: 6%; /* Près du bord droit */
+  width: clamp(18px, 3vw, 46px); /* Largeur fluide */
+  background-image: var(--kente-degrade); /* Rayures de kente verticales */
+  background-size: auto, 100% 300px; /* Taille du motif */
+} /* Fin */
+
+.proverbe__grille { /* Contenu */
+  position: relative; /* Au-dessus du motif */
+  display: grid; /* Empilé */
+  gap: 2.2rem; /* Espaces */
+  padding-right: clamp(40px, 10vw, 140px); /* Laisse de la place à la bande de kente */
+} /* Fin */
+
+.proverbe .etiquette { color: var(--ocre); } /* Surtitre ocre */
+
+.proverbe__citation { /* Bloc citation */
+  margin: 0; /* Sans marge */
+  transition: opacity .45s var(--ease), transform .45s var(--ease); /* Animation au changement */
+} /* Fin */
+
+.proverbe--change .proverbe__citation { /* Pendant le changement de proverbe */
+  opacity: 0; /* Disparaît */
+  transform: translateY(14px); /* Descend un peu */
+} /* Fin */
+
+.proverbe__texte { /* Le proverbe */
+  max-width: 17em; /* Largeur limitée */
+  font-family: var(--f-titre); /* Police Bodoni */
+  font-style: italic; /* Italique */
+  font-weight: 400; /* Fine */
+  font-size: clamp(2.1rem, 5.2vw, 4.8rem); /* Très grand */
+  line-height: 1.08; /* Serré */
+  letter-spacing: -.02em; /* Resserré */
+  text-wrap: balance; /* Lignes équilibrées */
+} /* Fin */
+
+.proverbe__texte::before { content: "« "; color: var(--ocre); } /* Guillemet ouvrant ocre */
+.proverbe__texte::after { content: " »"; color: var(--ocre); } /* Guillemet fermant ocre */
+
+.proverbe__source { /* Auteur ou origine */
+  display: block; /* Sur sa ligne */
+  margin-top: 1.6rem; /* Espace */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-style: normal; /* Pas d'italique */
+  font-stretch: 125%; /* Élargie */
+  font-size: .72rem; /* Petite */
+  font-weight: 600; /* Demi-gras */
+  letter-spacing: .16em; /* Espacée */
+  text-transform: uppercase; /* Capitales */
+  color: var(--ocre); /* Ocre */
+} /* Fin */
+
+.proverbe__actions { /* Bouton « Un autre proverbe » + compteur */
+  display: flex; /* En ligne */
+  flex-wrap: wrap; /* Retour à la ligne */
+  align-items: center; /* Centrés */
+  gap: 1rem 2rem; /* Espaces */
+} /* Fin */
+
+.proverbe__compteur { opacity: .7; } /* Compteur « 1 / 5 » atténué */
+
+
+/* H. DÉFILEMENT HORIZONTAL ET ODYSSÉES ===================================== */
+
+.defile { /* Rangée de cartes qui défile horizontalement */
+  display: flex; /* En ligne */
+  gap: clamp(16px, 2.5vw, 32px); /* Espace entre cartes */
+  overflow-x: auto; /* Défilement horizontal */
+  overscroll-behavior-x: contain; /* N'entraîne pas la page */
+  scroll-snap-type: x mandatory; /* Les cartes s'aimantent */
+  padding-inline: max(var(--marge), calc((100% - var(--largeur)) / 2)); /* Aligné sur le contenu de la page */
+  scroll-padding-inline: max(var(--marge), calc((100% - var(--largeur)) / 2)); /* Aimantation alignée */
+  padding-bottom: 1.6rem; /* Place pour la barre de défilement */
+  scrollbar-width: thin; /* Barre fine (Firefox) */
+  scrollbar-color: currentColor transparent; /* Couleur de la barre */
+  cursor: grab; /* Curseur « main » : on peut glisser */
+} /* Fin */
+
+.defile--glisse { /* Pendant qu'on fait glisser à la souris */
+  cursor: grabbing; /* Main fermée */
+  scroll-snap-type: none; /* Pas d'aimantation pendant le geste */
+  user-select: none; /* Pas de sélection de texte */
+} /* Fin */
+
+.defile > * { /* Chaque carte */
+  flex: 0 0 clamp(260px, 30vw, 400px); /* Largeur fixe et fluide */
+  scroll-snap-align: start; /* S'aimante par le bord gauche */
+} /* Fin */
+
+.defile__controles { /* Boutons précédent / suivant */
+  display: flex; /* En ligne */
+  gap: .6rem; /* Espace */
+} /* Fin */
+
+.defile__bouton { /* Un bouton rond avec flèche */
+  width: 52px; /* Largeur */
+  height: 52px; /* Hauteur */
+  display: grid; /* Pour centrer */
+  place-items: center; /* Au milieu */
+  border: 1.5px solid currentColor; /* Bordure */
+  border-radius: 50%; /* Rond */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-size: 1.2rem; /* Taille de la flèche */
+  transition: background .3s, color .3s; /* Animation */
+} /* Fin */
+
+.defile__bouton:hover { background: var(--sable); color: var(--encre); } /* Inversé au survol */
+
+.carte-odyssee .carte__lien { gap: 1rem; } /* Espaces dans la carte */
+
+.carte-odyssee__visuel { /* Image + grand numéro */
+  position: relative; /* Repère pour le numéro */
+} /* Fin */
+
+.carte-odyssee .plaque { --ratio: 3 / 4; } /* Format portrait */
+
+.carte-odyssee__num { /* Grand numéro posé sur l'image */
+  position: absolute; /* Positionné */
+  top: .9rem; /* En haut */
+  left: 1rem; /* À gauche */
+  z-index: 2; /* Au-dessus de l'image */
+  font-family: var(--f-titre); /* Police Bodoni */
+  font-size: clamp(3rem, 5vw, 4.6rem); /* Très grand */
+  line-height: .85; /* Serré */
+  color: var(--c-texte, var(--cauri)); /* Couleur adaptée au fond */
+} /* Fin */
+
+.carte-odyssee__pays { opacity: .8; } /* Pays atténué */
+
+.carte-odyssee__titre { /* Nom de la destination */
+  font-size: clamp(1.9rem, 2.7vw, 2.6rem); /* Grand */
+} /* Fin */
+
+.carte-odyssee__accroche { /* Phrase d'accroche */
+  font-style: italic; /* Italique */
+  opacity: .82; /* Atténuée */
+  font-size: 1.05rem; /* Taille */
+} /* Fin */
+
+.carte-odyssee__infos { /* Durée · saison */
+  display: flex; /* En ligne */
+  flex-wrap: wrap; /* Retour à la ligne */
+  gap: .3rem 1.2rem; /* Espaces */
+  padding-top: .8rem; /* Marge */
+  border-top: 1px solid currentColor; /* Filet */
+  opacity: .8; /* Atténué */
+} /* Fin */
+
+
+/* I. TRÉSORS (produits) ===================================================== */
+
+.grille-tresors { /* Grille de produits */
+  display: grid; /* Grille */
+  grid-template-columns: repeat(2, 1fr); /* Deux colonnes sur téléphone */
+  gap: 2.6rem 1rem; /* Espaces */
+} /* Fin */
+
+@media (min-width: 900px) { /* Ordinateur */
+  .grille-tresors { grid-template-columns: repeat(4, 1fr); gap: 3.5rem 2rem; } /* Quatre colonnes */
+  .grille-tresors > :nth-child(4n+2) { margin-top: 2.5rem; } /* 2e colonne décalée vers le bas */
+  .grille-tresors > :nth-child(4n+4) { margin-top: 1.2rem; } /* 4e colonne légèrement décalée */
+} /* Fin */
+
+.carte-tresor { /* Une carte produit */
+  position: relative; /* Repère pour le bouton « + » */
+} /* Fin */
+
+.carte-tresor .carte__lien { gap: .8rem; } /* Espaces internes */
+
+.carte-tresor .plaque { --ratio: 1; } /* Image carrée */
+
+.carte-tresor__origine { color: var(--encre-douce); } /* Origine atténuée */
+
+.carte-tresor__nom { /* Nom du produit */
+  font-size: clamp(1.15rem, 1.6vw, 1.45rem); /* Taille */
+  line-height: 1.15; /* Interlignage */
+} /* Fin */
+
+.carte-tresor__prix { /* Prix */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-size: .95rem; /* Taille */
+  font-weight: 600; /* Demi-gras */
+  font-variant-numeric: tabular-nums; /* Chiffres alignés */
+} /* Fin */
+
+.carte-tresor__ajout { /* Bouton rond « + » pour ajouter à la calebasse */
+  position: absolute; /* Posé sur l'image */
+  top: .7rem; /* En haut */
+  right: .7rem; /* À droite */
+  z-index: 3; /* Au-dessus de l'image */
+  width: 46px; /* Largeur */
+  height: 46px; /* Hauteur */
+  display: grid; /* Pour centrer */
+  place-items: center; /* Au milieu */
+  border-radius: 50%; /* Rond */
+  background: var(--cauri); /* Fond clair */
+  border: 1.5px solid var(--encre); /* Bordure */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-size: 1.4rem; /* Signe + bien visible */
+  line-height: 1; /* Sans marge */
+  transition: background .3s, color .3s, transform .5s var(--ease-ressort); /* Animation */
+} /* Fin */
+
+.carte-tresor__ajout:hover { /* Survol du « + » */
+  background: var(--encre); /* Fond foncé */
+  color: var(--cauri); /* Signe clair */
+  transform: rotate(90deg); /* Le + tourne */
+} /* Fin */
+
+
+/* J. AGENDA ================================================================= */
+
+.onglets { /* Onglets « À venir / Passés » */
+  display: flex; /* En ligne */
+  gap: 1.6rem; /* Espace */
+  margin-bottom: 2rem; /* Espace dessous */
+} /* Fin */
+
+.agenda { /* Liste des événements */
+  list-style: none; /* Sans puces */
+  margin: 0; /* Sans marge */
+  padding: 0; /* Sans retrait */
+  border-top: 1.5px solid currentColor; /* Filet au-dessus */
+} /* Fin */
+
+.agenda__ligne { /* Un événement */
+  display: grid; /* Grille */
+  grid-template-columns: 5.2rem 1fr; /* Date | infos */
+  gap: 1rem 1.4rem; /* Espaces */
+  padding-block: 1.8rem; /* Marges */
+  border-bottom: 1px solid var(--trait); /* Filet */
+} /* Fin */
+
+@media (min-width: 900px) { /* Ordinateur */
+  .agenda__ligne { grid-template-columns: 9rem 1fr auto; gap: 3rem; padding-block: 2.4rem; } /* Date | infos | actions */
+} /* Fin */
+
+.agenda__ligne--passe { opacity: .62; } /* Événement passé : atténué */
+
+.agenda__date { /* Bloc date */
+  display: grid; /* Empilé */
+  align-content: start; /* En haut */
+} /* Fin */
+
+.agenda__jour { /* Grand numéro du jour */
+  font-family: var(--f-titre); /* Police Bodoni */
+  font-size: clamp(3.2rem, 6vw, 5.4rem); /* Très grand */
+  line-height: .85; /* Serré */
+  letter-spacing: -.03em; /* Resserré */
+} /* Fin */
+
+.agenda__mois { margin-top: .6rem; } /* Mois et année sous le jour */
+
+.agenda__type { color: var(--laterite); } /* Type d'événement en rouge */
+
+.agenda__titre { /* Nom de l'événement */
+  margin-block: .5rem; /* Marges */
+  font-size: clamp(1.5rem, 2.6vw, 2.3rem); /* Grand */
+} /* Fin */
+
+.agenda__lieu { /* Lieu + heure */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-size: .9rem; /* Taille */
+} /* Fin */
+
+.agenda__desc { /* Description */
+  max-width: 40em; /* Largeur limitée */
+  margin-top: .6rem; /* Espace */
+  font-size: 1.02rem; /* Taille */
+  color: var(--encre-douce); /* Atténuée */
+} /* Fin */
+
+.agenda__confirmer { /* Mention « dates à confirmer » */
+  display: inline-block; /* En ligne */
+  margin-left: .6rem; /* Espace */
+  padding: .15rem .45rem; /* Marges */
+  border: 1px solid currentColor; /* Bordure */
+  font-size: .58rem; /* Très petit */
+} /* Fin */
+
+.agenda__actions { /* Boutons de l'événement */
+  grid-column: 2; /* Sous les infos sur téléphone */
+  display: flex; /* En ligne */
+  flex-wrap: wrap; /* Retour à la ligne */
+  align-items: center; /* Centrés */
+  gap: .6rem 1.4rem; /* Espaces */
+} /* Fin */
+
+@media (min-width: 900px) { /* Ordinateur */
+  .agenda__actions { grid-column: 3; flex-direction: column; align-items: flex-end; } /* Colonne de droite */
+} /* Fin */
+
+
+/* K. APPEL « REJOINDRE LE CERCLE » ========================================= */
+
+.appel { /* Grande section rouge latérite */
+  position: relative; /* Repère */
+  overflow: hidden; /* Décors contenus */
+  background: var(--laterite); /* Fond rouge */
+  color: var(--cauri); /* Texte clair */
+} /* Fin */
+
+.appel::before { /* Motif bogolan en fond */
+  content: ""; /* Décoratif */
+  position: absolute; /* Couvre la section */
+  inset: 0; /* Bord à bord */
+  background: rgba(94, 38, 32, .45); /* Brun kola transparent */
+  -webkit-mask: url("../assets/motifs/bogolan.svg") 0 0 / 150px repeat; /* Pochoir (Safari) */
+  mask: url("../assets/motifs/bogolan.svg") 0 0 / 150px repeat; /* Pochoir */
+  -webkit-mask-image: url("../assets/motifs/bogolan.svg"), linear-gradient(90deg, transparent 30%, #000); /* Motif qui s'efface vers la gauche (Safari) */
+  mask-image: url("../assets/motifs/bogolan.svg"), linear-gradient(90deg, transparent 30%, #000); /* Motif qui s'efface vers la gauche */
+  -webkit-mask-composite: source-in; /* Combine les deux masques (Safari) */
+  mask-composite: intersect; /* Combine les deux masques */
+  -webkit-mask-size: 150px, 100% 100%; /* Tailles (Safari) */
+  mask-size: 150px, 100% 100%; /* Tailles */
+  -webkit-mask-repeat: repeat, no-repeat; /* Répétition (Safari) */
+  mask-repeat: repeat, no-repeat; /* Répétition */
+} /* Fin */
+
+.appel__grille { /* Contenu */
+  position: relative; /* Au-dessus du motif */
+  display: grid; /* Grille */
+  gap: 2.5rem; /* Espaces */
+  padding-block: clamp(80px, 10vw, 150px); /* Grandes marges */
+} /* Fin */
+
+@media (min-width: 900px) { /* Ordinateur */
+  .appel__grille { grid-template-columns: 1.4fr 1fr; align-items: end; gap: 4rem; } /* Titre | texte et boutons */
+} /* Fin */
+
+.appel__titre { /* Grand titre */
+  font-size: clamp(2.7rem, 6.6vw, 6.2rem); /* Très grand */
+  line-height: .95; /* Serré */
+  letter-spacing: -.03em; /* Resserré */
+} /* Fin */
+
+.appel__titre em { color: var(--encre); } /* Mot en italique en brun-noir */
+
+.appel__texte { /* Texte + boutons */
+  display: grid; /* Empilé */
+  gap: 1.6rem; /* Espaces */
+  justify-items: start; /* Alignés à gauche */
+} /* Fin */
+
+.appel__texte p { font-size: 1.15rem; } /* Texte un peu plus grand */
+
+.appel__boutons { /* Boutons */
+  display: flex; /* En ligne */
+  flex-wrap: wrap; /* Retour à la ligne */
+  gap: .8rem; /* Espaces */
+} /* Fin */

@@ -1,0 +1,1106 @@
+/* ==========================================================================
+   AFRIQUE AUTHENTIQUE — 5. PAGES
+   --------------------------------------------------------------------------
+   A. En-tête de rubrique (grand numéro, couleur de la rubrique)
+   B. En-tête de page simple + fil d'Ariane
+   C. Page récit (article / portrait)
+   D. Page destination (odyssée)
+   E. Liste des odyssées + principes + étapes
+   F. Page produit (trésor)
+   G. Formulaires et page contact
+   H. Page partenaires
+   I. Pages légales
+   J. Lien « rubrique suivante » + page introuvable
+   ========================================================================== */
+
+
+/* A. EN-TÊTE DE RUBRIQUE ==================================================== */
+
+.tete-rubrique { /* Grand bloc coloré en haut des pages de rubrique */
+  position: relative; /* Repère */
+  overflow: hidden; /* Décors contenus */
+  padding-top: clamp(48px, 8vw, 120px); /* Espace en haut */
+  background: var(--c); /* Couleur de la rubrique (data-teinte) */
+  color: var(--c-texte); /* Texte adapté */
+} /* Fin */
+
+.tete-rubrique__grille { /* Grand numéro + textes */
+  display: grid; /* Grille */
+  gap: 1.5rem; /* Espaces */
+  padding-bottom: clamp(48px, 7vw, 100px); /* Espace au-dessus de la frise de motif */
+} /* Fin */
+
+@media (min-width: 900px) { /* Ordinateur */
+  .tete-rubrique__grille { grid-template-columns: auto 1fr; align-items: end; gap: 4rem; } /* Numéro à gauche, texte à droite */
+} /* Fin */
+
+.tete-rubrique__num { /* Énorme numéro en contour */
+  font-family: var(--f-titre); /* Police Bodoni */
+  font-size: clamp(7rem, 22vw, 19rem); /* Gigantesque */
+  line-height: .78; /* Très serré */
+  letter-spacing: -.05em; /* Resserré */
+  color: transparent; /* Intérieur vide… */
+  -webkit-text-stroke: 1.5px var(--c-texte); /* …seul le contour est dessiné */
+  animation: monte 1.2s var(--ease) .45s both; /* Apparaît en montant */
+} /* Fin */
+
+.tete-rubrique__textes { /* Colonne de texte */
+  animation: monte 1.2s var(--ease) .6s both; /* Apparaît juste après le numéro */
+} /* Fin */
+
+.tete-rubrique__titre { /* Nom de la rubrique */
+  margin-block: 1rem 1.5rem; /* Marges */
+  font-size: clamp(3rem, 8vw, 7.4rem); /* Très grand */
+  font-weight: 400; /* Fine */
+  line-height: .92; /* Serré */
+  letter-spacing: -.03em; /* Resserré */
+} /* Fin */
+
+.tete-rubrique .chapo { color: inherit; opacity: .9; } /* Introduction dans la couleur du bloc */
+
+.tete-rubrique__compte { margin-top: 1.6rem; } /* « 3 récits dans cette rubrique » */
+
+.tete-rubrique__motif { /* Frise de motif textile en bas du bloc */
+  height: clamp(64px, 9vw, 120px); /* Hauteur */
+} /* Fin */
+
+
+/* B. EN-TÊTE DE PAGE SIMPLE + FIL D'ARIANE ================================== */
+
+.page-tete { /* En-tête des pages sans couleur (contact, légales…) */
+  padding-block: clamp(48px, 8vw, 120px) clamp(40px, 6vw, 80px); /* Marges */
+  border-bottom: 1px solid var(--trait); /* Filet */
+} /* Fin */
+
+.page-tete__grille { /* Titre + introduction */
+  display: grid; /* Grille */
+  gap: 1.5rem 4rem; /* Espaces */
+} /* Fin */
+
+@media (min-width: 900px) { /* Ordinateur */
+  .page-tete__grille { grid-template-columns: 1.5fr 1fr; align-items: end; } /* Deux colonnes */
+} /* Fin */
+
+.titre-page { /* Grand titre de page */
+  margin-block: 1.2rem 0; /* Marges */
+  font-size: clamp(3rem, 8.4vw, 7.6rem); /* Très grand */
+  font-weight: 400; /* Fine */
+  line-height: .92; /* Serré */
+  letter-spacing: -.03em; /* Resserré */
+} /* Fin */
+
+.fil-ariane { /* « Accueil / Rubrique / … » */
+  display: flex; /* En ligne */
+  flex-wrap: wrap; /* Retour à la ligne */
+  gap: .3rem .6rem; /* Espaces */
+} /* Fin */
+
+.fil-ariane a { /* Liens du fil */
+  text-decoration: none; /* Sans soulignement */
+  opacity: .72; /* Atténués */
+} /* Fin */
+
+.fil-ariane a:hover { opacity: 1; text-decoration: underline; } /* Survol */
+
+.fil-ariane span { opacity: .45; } /* Séparateurs « / » */
+
+
+/* C. PAGE RÉCIT ============================================================= */
+
+.recit__tete { /* Haut de l'article */
+  padding-top: clamp(36px, 6vw, 90px); /* Espace */
+} /* Fin */
+
+.recit__tete-texte { /* Textes du haut */
+  display: grid; /* Empilé */
+  gap: 1.4rem; /* Espaces */
+  max-width: 1120px; /* Largeur limitée */
+} /* Fin */
+
+.recit__titre { /* Titre de l'article */
+  font-size: clamp(2.6rem, 6.6vw, 6.2rem); /* Très grand */
+  font-weight: 400; /* Fine */
+  line-height: .96; /* Serré */
+  letter-spacing: -.03em; /* Resserré */
+} /* Fin */
+
+.recit__chapo { /* Introduction en italique */
+  max-width: 36em; /* Largeur limitée */
+  font-size: clamp(1.2rem, 1.9vw, 1.55rem); /* Grande */
+  font-style: italic; /* Italique */
+  line-height: 1.45; /* Interlignage */
+  color: var(--encre-douce); /* Atténuée */
+} /* Fin */
+
+.recit__meta { /* Auteur · date · temps de lecture */
+  display: flex; /* En ligne */
+  flex-wrap: wrap; /* Retour à la ligne */
+  gap: .4rem 1.6rem; /* Espaces */
+  padding-top: 1.2rem; /* Marge */
+  border-top: 1px solid var(--trait); /* Filet */
+  color: var(--encre-douce); /* Atténué */
+} /* Fin */
+
+.recit__visuel { /* Grande image de l'article */
+  --ratio: 4 / 3; /* Format sur téléphone */
+  margin-top: clamp(36px, 5vw, 70px); /* Espace */
+} /* Fin */
+
+@media (min-width: 800px) { /* Écrans larges */
+  .recit__visuel { --ratio: 21 / 9; } /* Format cinéma */
+} /* Fin */
+
+.recit__mise { /* Mise en page : colonne d'infos + texte */
+  display: grid; /* Grille */
+  gap: 3rem; /* Espaces */
+  padding-block: clamp(48px, 7vw, 100px); /* Marges */
+} /* Fin */
+
+@media (min-width: 1000px) { /* Ordinateur */
+  .recit__mise { grid-template-columns: 1fr minmax(0, var(--largeur-texte)) .5fr; gap: 4.5rem; } /* Infos | texte | marge */
+  .recit__cote { position: sticky; top: calc(var(--hauteur-entete) + 2rem); align-self: start; } /* La colonne d'infos reste visible */
+} /* Fin */
+
+.recit__cote { /* Colonne d'infos (fiche portrait + partage) */
+  display: grid; /* Empilé */
+  gap: 2rem; /* Espaces */
+  align-content: start; /* En haut */
+} /* Fin */
+
+.recit__corps { /* Le texte de l'article */
+  font-size: clamp(1.13rem, 1.25vw, 1.24rem); /* Taille de lecture */
+  line-height: 1.75; /* Interlignage aéré */
+} /* Fin */
+
+.recit__corps > * + * { margin-top: 1.4em; } /* Espace entre paragraphes */
+
+.recit__corps > p:first-child::first-letter { /* Lettrine du premier paragraphe */
+  float: left; /* Le texte s'enroule autour */
+  padding: .07em .12em 0 0; /* Espace autour */
+  font-family: var(--f-titre); /* Police Bodoni */
+  font-size: 5.1em; /* Très grande */
+  font-weight: 500; /* Moyenne */
+  line-height: .8; /* Serrée */
+  color: var(--laterite); /* Rouge */
+} /* Fin */
+
+.recit__corps h2 { /* Intertitres */
+  margin-top: 2.2em; /* Grand espace au-dessus */
+  font-size: clamp(1.7rem, 2.6vw, 2.3rem); /* Taille */
+} /* Fin */
+
+.recit__corps a { color: var(--laterite); } /* Liens dans le texte en rouge */
+
+.recit__citation { /* Citation mise en exergue */
+  position: relative; /* Repère pour la bande de kente */
+  margin: 2.4em 0; /* Marges */
+  padding-left: 1.8rem; /* Place pour la bande */
+} /* Fin */
+
+.recit__citation::before { /* Bande de kente verticale à gauche */
+  content: ""; /* Décoratif */
+  position: absolute; /* Positionnée */
+  left: 0; /* À gauche */
+  top: .3em; /* Du haut… */
+  bottom: .3em; /* …au bas */
+  width: 7px; /* Largeur */
+  background-image: var(--kente-degrade); /* Rayures */
+  background-size: auto, 100% 200px; /* Taille du motif */
+} /* Fin */
+
+.recit__citation p { /* Texte de la citation */
+  font-family: var(--f-titre); /* Police Bodoni */
+  font-style: italic; /* Italique */
+  font-size: clamp(1.7rem, 3vw, 2.5rem); /* Grande */
+  line-height: 1.2; /* Interlignage */
+  letter-spacing: -.01em; /* Légèrement resserrée */
+} /* Fin */
+
+.recit__citation cite { /* Source de la citation */
+  display: block; /* Sur sa ligne */
+  margin-top: 1rem; /* Espace */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-style: normal; /* Pas d'italique */
+  font-stretch: 125%; /* Élargie */
+  font-size: .68rem; /* Petite */
+  font-weight: 600; /* Demi-gras */
+  letter-spacing: .16em; /* Espacée */
+  text-transform: uppercase; /* Capitales */
+  color: var(--laterite); /* Rouge */
+} /* Fin */
+
+.recit__figure { margin: 2.6em 0; } /* Image dans le texte */
+
+@media (min-width: 1000px) { /* Ordinateur */
+  .recit__figure { margin-inline: -12%; } /* L'image déborde de la colonne de texte */
+} /* Fin */
+
+.recit__figure .plaque { --ratio: 3 / 2; } /* Format paysage */
+
+.recit__figure figcaption { /* Légende sous l'image */
+  display: flex; /* En ligne */
+  gap: .6rem; /* Espace */
+  margin-top: .8rem; /* Espace au-dessus */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-size: .82rem; /* Petite */
+  line-height: 1.45; /* Interlignage */
+  color: var(--encre-douce); /* Atténuée */
+} /* Fin */
+
+.recit__figure figcaption::before { /* Petit trait avant la légende */
+  content: ""; /* Décoratif */
+  flex: 0 0 24px; /* Largeur fixe */
+  height: 1px; /* Fin */
+  margin-top: .7em; /* Centré sur la première ligne */
+  background: currentColor; /* Couleur du texte */
+} /* Fin */
+
+.fiche { /* Fiche d'identité (portraits) */
+  border: 1.5px solid var(--encre); /* Bordure */
+  background: var(--cauri); /* Fond clair */
+} /* Fin */
+
+.fiche__titre { /* Bandeau « Fiche » */
+  padding: .7rem 1rem; /* Marges */
+  background: var(--encre); /* Fond foncé */
+  color: var(--sable); /* Texte clair */
+} /* Fin */
+
+.fiche dl { /* Liste des informations */
+  margin: 0; /* Sans marge */
+  padding: .3rem 1rem 1.1rem; /* Marges */
+} /* Fin */
+
+.fiche dt { /* Intitulé (« Époque ») */
+  margin-top: .9rem; /* Espace */
+  color: var(--laterite); /* Rouge */
+} /* Fin */
+
+.fiche dd { /* Valeur (« vers 1840 – 1921 ») */
+  margin: .2rem 0 0; /* Petite marge */
+  font-size: 1.02rem; /* Taille */
+  line-height: 1.4; /* Interlignage */
+} /* Fin */
+
+.partage { /* Bloc « Partager » */
+  display: grid; /* Empilé */
+  gap: .7rem; /* Espaces */
+} /* Fin */
+
+.partage__liens { /* Boutons de partage */
+  display: flex; /* En ligne */
+  flex-wrap: wrap; /* Retour à la ligne */
+  gap: .4rem; /* Espaces */
+} /* Fin */
+
+.partage__liens a, .partage__liens button { /* Un bouton de partage */
+  display: inline-flex; /* Centré */
+  align-items: center; /* Verticalement */
+  min-height: 40px; /* Zone cliquable */
+  padding: .4rem .8rem; /* Marges */
+  border: 1px solid var(--trait); /* Bordure fine */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-size: .78rem; /* Petite */
+  text-decoration: none; /* Sans soulignement */
+  transition: border-color .3s, background .3s; /* Animation */
+} /* Fin */
+
+.partage__liens a:hover, .partage__liens button:hover { border-color: var(--encre); background: var(--cauri); } /* Survol */
+
+
+/* D. PAGE DESTINATION ======================================================= */
+
+.destination__tete { /* Haut de la fiche destination */
+  display: grid; /* Grille */
+  gap: 2.5rem; /* Espaces */
+  padding-top: clamp(36px, 6vw, 90px); /* Espace */
+} /* Fin */
+
+@media (min-width: 1000px) { /* Ordinateur */
+  .destination__tete { grid-template-columns: 1.05fr 1fr; align-items: end; gap: 4.5rem; } /* Textes | image */
+} /* Fin */
+
+.destination__textes { display: grid; gap: 1.4rem; } /* Colonne de texte */
+
+.destination__nom { /* Nom de la destination */
+  font-size: clamp(3.4rem, 9vw, 8.4rem); /* Gigantesque */
+  font-weight: 400; /* Fine */
+  line-height: .88; /* Très serré */
+  letter-spacing: -.04em; /* Resserré */
+} /* Fin */
+
+.destination__accroche { /* Phrase d'accroche */
+  font-family: var(--f-titre); /* Police Bodoni */
+  font-style: italic; /* Italique */
+  font-size: clamp(1.3rem, 2vw, 1.8rem); /* Grande */
+  line-height: 1.3; /* Interlignage */
+  color: var(--laterite); /* Rouge */
+} /* Fin */
+
+.destination__visuel .plaque { --ratio: 4 / 5; } /* Image portrait */
+
+.faits { /* Fiche pratique (pays, saison, durée…) */
+  display: grid; /* Grille */
+  grid-template-columns: repeat(2, 1fr); /* Deux colonnes */
+  margin: 1rem 0 0; /* Marges */
+  border-top: 1.5px solid var(--encre); /* Filet */
+} /* Fin */
+
+@media (min-width: 700px) { /* Tablette et plus */
+  .faits { grid-template-columns: repeat(3, 1fr); } /* Trois colonnes */
+} /* Fin */
+
+.faits div { /* Une information */
+  padding: 1rem 1rem 1rem 0; /* Marges */
+  border-bottom: 1px solid var(--trait); /* Filet */
+} /* Fin */
+
+.faits dt { color: var(--encre-douce); } /* Intitulé atténué */
+
+.faits dd { /* Valeur */
+  margin: .3rem 0 0; /* Marge */
+  font-family: var(--f-titre); /* Police Bodoni */
+  font-size: 1.3rem; /* Grande */
+  line-height: 1.2; /* Interlignage */
+} /* Fin */
+
+.destination__intro { /* Texte d'introduction en grand */
+  font-family: var(--f-titre); /* Police Bodoni */
+  font-size: clamp(1.6rem, 3vw, 2.6rem); /* Très grande */
+  line-height: 1.25; /* Interlignage */
+  letter-spacing: -.01em; /* Légèrement resserrée */
+  max-width: 28em; /* Largeur limitée */
+} /* Fin */
+
+.experiences { /* Liste numérotée « À vivre sur place » */
+  list-style: none; /* Sans puces */
+  margin: 0; /* Sans marge */
+  padding: 0; /* Sans retrait */
+  display: grid; /* Grille */
+  gap: 2.4rem 3rem; /* Espaces */
+  counter-reset: exp; /* Compteur remis à zéro */
+} /* Fin */
+
+@media (min-width: 760px) { /* Tablette et plus */
+  .experiences { grid-template-columns: repeat(2, 1fr); } /* Deux colonnes */
+} /* Fin */
+
+.experiences li { /* Une expérience */
+  counter-increment: exp; /* Compteur +1 */
+  display: grid; /* Empilé */
+  gap: .6rem; /* Espaces */
+  padding-top: 1.2rem; /* Marge */
+  border-top: 1.5px solid var(--encre); /* Filet */
+} /* Fin */
+
+.experiences li::before { /* Numéro automatique 01, 02… */
+  content: counter(exp, decimal-leading-zero); /* Affiche le compteur sur deux chiffres */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-size: .72rem; /* Petit */
+  font-weight: 600; /* Demi-gras */
+  letter-spacing: .14em; /* Espacé */
+  color: var(--laterite); /* Rouge */
+} /* Fin */
+
+.experiences h3 { font-size: 1.65rem; } /* Titre de l'expérience */
+
+.experiences p { color: var(--encre-douce); } /* Texte atténué */
+
+.itineraire { /* Frise chronologique (jour par jour) */
+  position: relative; /* Repère pour la ligne verticale */
+  list-style: none; /* Sans puces */
+  margin: 0; /* Sans marge */
+  padding: 0; /* Sans retrait */
+  display: grid; /* Empilé */
+  gap: 2.6rem; /* Espaces */
+} /* Fin */
+
+.itineraire::before { /* Ligne verticale en rayures de kente */
+  content: ""; /* Décoratif */
+  position: absolute; /* Positionnée */
+  left: 11px; /* Alignée sur les pastilles */
+  top: .6rem; /* Du haut… */
+  bottom: .6rem; /* …au bas */
+  width: 3px; /* Fine */
+  background-image: var(--kente-degrade); /* Rayures */
+  background-size: auto, 100% 260px; /* Taille du motif */
+} /* Fin */
+
+.itineraire li { /* Une étape */
+  position: relative; /* Repère pour la pastille */
+  display: grid; /* Empilé */
+  gap: .4rem; /* Espaces */
+  padding-left: 3.4rem; /* Place pour la ligne et la pastille */
+} /* Fin */
+
+.itineraire li::before { /* Pastille ronde sur la ligne */
+  content: ""; /* Décoratif */
+  position: absolute; /* Positionnée */
+  left: 3px; /* Centrée sur la ligne */
+  top: .3rem; /* En haut */
+  width: 19px; /* Taille */
+  height: 19px; /* Taille */
+  border-radius: 50%; /* Ronde */
+  background: var(--sable); /* Fond beige */
+  border: 2.5px solid var(--encre); /* Contour foncé */
+} /* Fin */
+
+.itineraire__moment { color: var(--laterite); } /* « Jour 1 » en rouge */
+
+.itineraire h3 { font-size: clamp(1.5rem, 2.4vw, 2rem); } /* Titre de l'étape */
+
+.itineraire p { color: var(--encre-douce); max-width: 36em; } /* Texte */
+
+.liste-losanges { /* Liste « Bon à savoir » */
+  list-style: none; /* Sans puces classiques */
+  margin: 0; /* Sans marge */
+  padding: 0; /* Sans retrait */
+  display: grid; /* Empilé */
+  gap: 1rem; /* Espaces */
+} /* Fin */
+
+.liste-losanges li { /* Un conseil */
+  position: relative; /* Repère pour le losange */
+  padding-left: 1.7rem; /* Place pour le losange */
+} /* Fin */
+
+.liste-losanges li::before { /* Petit losange ocre en guise de puce */
+  content: ""; /* Décoratif */
+  position: absolute; /* Positionné */
+  left: .2rem; /* À gauche */
+  top: .62em; /* Aligné sur la première ligne */
+  width: 9px; /* Taille */
+  height: 9px; /* Taille */
+  background: var(--ocre); /* Ocre */
+  rotate: 45deg; /* En losange */
+} /* Fin */
+
+.deux-colonnes { /* Mise en page en deux colonnes réutilisable */
+  display: grid; /* Grille */
+  gap: 3rem 5rem; /* Espaces */
+} /* Fin */
+
+@media (min-width: 900px) { /* Ordinateur */
+  .deux-colonnes { grid-template-columns: 1fr 1fr; } /* Deux colonnes égales */
+  .deux-colonnes--etroite { grid-template-columns: .8fr 1.2fr; } /* Variante : gauche plus étroite */
+} /* Fin */
+
+.encadre { /* Encadré foncé (réservation, commande) */
+  display: grid; /* Empilé */
+  gap: 1.4rem; /* Espaces */
+  padding: clamp(28px, 4vw, 56px); /* Marges */
+  background: var(--encre); /* Fond foncé */
+  color: var(--sable); /* Texte clair */
+} /* Fin */
+
+.encadre h2, .encadre h3 { font-size: clamp(1.8rem, 3vw, 2.6rem); } /* Titre de l'encadré */
+
+.encadre h2 em, .encadre h3 em { color: var(--ocre); } /* Mot en italique ocre */
+
+.encadre .bouton--whatsapp { justify-self: start; } /* Bouton aligné à gauche */
+
+.encadre .bouton--whatsapp::before { background: var(--ocre); } /* Sur fond foncé, le survol passe en ocre */
+
+.encadre .bouton--whatsapp:hover, .encadre .bouton--whatsapp:focus-visible { color: var(--encre); border-color: var(--ocre); } /* Texte foncé sur l'ocre */
+
+.destination__conseils { margin-top: 1.6rem; } /* Liste « Bon à savoir » sous son titre */
+
+.encadre .liens-externes { /* Liens vers les partenaires */
+  list-style: none; /* Sans puces */
+  margin: 0; /* Sans marge */
+  padding: 0; /* Sans retrait */
+  display: grid; /* Empilé */
+  border-top: 1px solid var(--trait-clair); /* Filet clair */
+} /* Fin */
+
+.encadre .liens-externes a { /* Un lien partenaire */
+  display: flex; /* Texte + flèche */
+  justify-content: space-between; /* Répartis */
+  align-items: center; /* Centrés */
+  gap: 1rem; /* Espace */
+  min-height: 56px; /* Hauteur */
+  border-bottom: 1px solid var(--trait-clair); /* Filet clair */
+  text-decoration: none; /* Sans soulignement */
+  font-size: 1.1rem; /* Taille */
+} /* Fin */
+
+.encadre .liens-externes a:hover { color: var(--ocre); } /* Ocre au survol */
+
+
+/* E. LISTE DES ODYSSÉES, PRINCIPES, ÉTAPES ================================= */
+
+.liste-odyssees { /* Liste des destinations (page Odyssées) */
+  display: grid; /* Empilé */
+  gap: clamp(64px, 9vw, 140px); /* Grands espaces */
+} /* Fin */
+
+.ligne-odyssee .carte__lien { gap: 2rem; } /* Espaces dans la ligne */
+
+@media (min-width: 900px) { /* Ordinateur */
+  .ligne-odyssee .carte__lien { grid-template-columns: 1.1fr 1fr; gap: 5rem; align-items: center; } /* Image | texte */
+  .ligne-odyssee:nth-child(even) .carte__lien > :first-child { order: 2; } /* Une ligne sur deux : image à droite (zigzag) */
+} /* Fin */
+
+.ligne-odyssee .plaque { --ratio: 5 / 4; } /* Format légèrement paysage */
+
+.ligne-odyssee__textes { display: grid; gap: 1.2rem; } /* Colonne de texte */
+
+.ligne-odyssee__num { /* Grand numéro en contour */
+  font-family: var(--f-titre); /* Police Bodoni */
+  font-size: clamp(4rem, 8vw, 7rem); /* Très grand */
+  line-height: .8; /* Serré */
+  color: transparent; /* Vide */
+  -webkit-text-stroke: 1.2px var(--encre); /* Contour seulement */
+} /* Fin */
+
+.ligne-odyssee__nom { /* Nom de la destination */
+  font-size: clamp(2.6rem, 5.4vw, 4.8rem); /* Très grand */
+  line-height: .95; /* Serré */
+} /* Fin */
+
+.mini-faits { /* Petites infos en ligne (saison, durée…) */
+  display: flex; /* En ligne */
+  flex-wrap: wrap; /* Retour à la ligne */
+  gap: .4rem 1.4rem; /* Espaces */
+  color: var(--encre-douce); /* Atténuées */
+} /* Fin */
+
+.principes { /* Trois principes (« Notre façon de voyager ») */
+  display: grid; /* Grille */
+  gap: 2.5rem; /* Espaces */
+} /* Fin */
+
+@media (min-width: 900px) { /* Ordinateur */
+  .principes { grid-template-columns: repeat(3, 1fr); gap: 3rem; } /* Trois colonnes */
+} /* Fin */
+
+.principes h3 { /* Titre d'un principe */
+  margin-bottom: .8rem; /* Espace */
+  font-size: clamp(1.7rem, 2.6vw, 2.3rem); /* Grand */
+  font-style: italic; /* Italique */
+} /* Fin */
+
+.principes p { color: inherit; opacity: .82; } /* Texte atténué */
+
+.etapes { /* Étapes numérotées (1, 2, 3) */
+  list-style: none; /* Sans puces */
+  margin: 0; /* Sans marge */
+  padding: 0; /* Sans retrait */
+  display: grid; /* Grille */
+  gap: 2.4rem; /* Espaces */
+  counter-reset: etape; /* Compteur à zéro */
+} /* Fin */
+
+@media (min-width: 900px) { /* Ordinateur */
+  .etapes { grid-template-columns: repeat(3, 1fr); gap: 3rem; } /* Trois colonnes */
+} /* Fin */
+
+.etapes li { /* Une étape */
+  counter-increment: etape; /* Compteur +1 */
+  display: grid; /* Empilé */
+  gap: .8rem; /* Espaces */
+  align-content: start; /* En haut */
+  padding-top: 1.6rem; /* Marge */
+  border-top: 1.5px solid currentColor; /* Filet */
+} /* Fin */
+
+.etapes li::before { /* Grand numéro automatique */
+  content: counter(etape, decimal-leading-zero); /* 01, 02, 03 */
+  font-family: var(--f-titre); /* Police Bodoni */
+  font-size: 3.4rem; /* Très grand */
+  line-height: 1; /* Serré */
+  color: var(--laterite); /* Rouge */
+} /* Fin */
+
+.section--sombre .etapes li::before { color: var(--ocre); } /* En ocre sur fond sombre */
+
+.etapes h3 { font-size: 1.6rem; } /* Titre de l'étape */
+
+.etapes p { opacity: .82; } /* Texte atténué */
+
+
+/* F. PAGE PRODUIT =========================================================== */
+
+.produit__fil { padding-top: clamp(28px, 4vw, 56px); } /* Fil d'Ariane au-dessus de la fiche produit */
+
+.produit { /* Mise en page de la fiche produit */
+  display: grid; /* Grille */
+  gap: 3rem; /* Espaces */
+  padding-block: clamp(28px, 5vw, 70px) clamp(64px, 8vw, 120px); /* Marges */
+} /* Fin */
+
+@media (min-width: 960px) { /* Ordinateur */
+  .produit { grid-template-columns: 1.1fr 1fr; gap: 5rem; align-items: start; } /* Galerie | infos */
+  .produit__galerie { position: sticky; top: calc(var(--hauteur-entete) + 1.5rem); } /* La galerie reste visible */
+} /* Fin */
+
+.produit__galerie { display: grid; gap: .8rem; } /* Grande image + vignettes */
+
+.produit__principale .plaque { --ratio: 1; } /* Image principale carrée */
+
+.produit__vignettes { /* Rangée de vignettes */
+  display: grid; /* Grille */
+  grid-template-columns: repeat(3, 1fr); /* Trois vignettes */
+  gap: .8rem; /* Espaces */
+} /* Fin */
+
+.produit__vignette { /* Une vignette (bouton) */
+  outline-offset: 2px; /* Contour clavier décollé */
+  border: 2px solid transparent; /* Bordure invisible par défaut */
+  transition: border-color .3s; /* Animation */
+} /* Fin */
+
+.produit__vignette .plaque { --ratio: 1; } /* Carrée */
+
+.produit__vignette[aria-pressed="true"] { border-color: var(--encre); } /* Vignette sélectionnée : bordure foncée */
+
+.produit__infos { display: grid; gap: 1.5rem; } /* Colonne d'informations */
+
+.produit__nom { /* Nom du produit */
+  font-size: clamp(2.4rem, 5vw, 4.4rem); /* Très grand */
+  font-weight: 400; /* Fine */
+  line-height: .98; /* Serré */
+  letter-spacing: -.025em; /* Resserré */
+} /* Fin */
+
+.produit__prix { /* Prix */
+  font-family: var(--f-titre); /* Police Bodoni */
+  font-size: 2rem; /* Grand */
+  font-variant-numeric: lining-nums; /* Chiffres alignés */
+} /* Fin */
+
+.produit__description { /* Description */
+  font-size: 1.15rem; /* Taille */
+  color: var(--encre-douce); /* Atténuée */
+} /* Fin */
+
+.choix { /* Groupe de variantes (couleur, taille…) */
+  display: grid; /* Empilé */
+  gap: .7rem; /* Espaces */
+  margin: 0; /* Sans marge */
+  padding: 0; /* Sans retrait */
+  border: 0; /* Sans bordure */
+} /* Fin */
+
+.choix legend { padding: 0; margin-bottom: .7rem; } /* Titre du groupe */
+
+.choix__options { /* Les options */
+  display: flex; /* En ligne */
+  flex-wrap: wrap; /* Retour à la ligne */
+  gap: .5rem; /* Espaces */
+} /* Fin */
+
+.choix__option { position: relative; } /* Une option */
+
+.choix__option input { /* Le bouton radio réel */
+  position: absolute; /* Retiré du flux */
+  opacity: 0; /* Invisible (on stylise le texte à la place) */
+  inset: 0; /* Couvre l'option : reste cliquable */
+} /* Fin */
+
+.choix__option span { /* Apparence de l'option */
+  display: inline-flex; /* Centré */
+  align-items: center; /* Verticalement */
+  min-height: 44px; /* Zone cliquable */
+  padding: .5rem 1rem; /* Marges */
+  border: 1px solid var(--encre); /* Bordure */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-size: .86rem; /* Taille */
+  cursor: pointer; /* Curseur main */
+  transition: background .3s, color .3s; /* Animation */
+} /* Fin */
+
+.choix__option input:checked + span { background: var(--encre); color: var(--sable); } /* Option choisie : inversée */
+
+.choix__option input:focus-visible + span { outline: 2px solid var(--laterite); outline-offset: 3px; } /* Sélection au clavier */
+
+.produit__achat { /* Quantité + boutons */
+  display: grid; /* Empilé */
+  gap: .7rem; /* Espaces */
+} /* Fin */
+
+.produit__quantite { /* Ligne « Quantité » */
+  display: flex; /* En ligne */
+  align-items: center; /* Centrés */
+  gap: 1rem; /* Espace */
+} /* Fin */
+
+.produit__quantite .quantite button, .produit__quantite .quantite input { height: 48px; } /* Sélecteur plus grand */
+
+.produit__details details { /* Bloc dépliable (détails, entretien…) */
+  padding-block: 1rem; /* Marges */
+  border-top: 1px solid var(--trait); /* Filet */
+} /* Fin */
+
+.produit__details details:last-child { border-bottom: 1px solid var(--trait); } /* Filet sous le dernier */
+
+.produit__details summary { /* Titre cliquable du bloc */
+  display: flex; /* En ligne */
+  justify-content: space-between; /* Titre + signe */
+  align-items: center; /* Centrés */
+  min-height: 32px; /* Zone cliquable */
+  cursor: pointer; /* Curseur main */
+  list-style: none; /* Retire le triangle par défaut */
+} /* Fin */
+
+.produit__details summary::-webkit-details-marker { display: none; } /* Retire le triangle (Safari) */
+
+.produit__details summary::after { content: "+"; font-size: 1.3rem; } /* Signe + quand fermé */
+
+.produit__details details[open] summary::after { content: "−"; } /* Signe − quand ouvert */
+
+.produit__details dl { /* Liste des caractéristiques */
+  display: grid; /* Grille */
+  grid-template-columns: auto 1fr; /* Intitulé | valeur */
+  gap: .5rem 1.4rem; /* Espaces */
+  margin: 1rem 0 0; /* Marges */
+} /* Fin */
+
+.produit__details dd { margin: 0; } /* Sans retrait */
+
+.produit__details p { margin-top: 1rem; color: var(--encre-douce); } /* Texte dans un bloc */
+
+
+/* G. FORMULAIRES ET PAGE CONTACT ============================================ */
+
+.formulaire { display: grid; gap: 1.6rem; } /* Formulaire : champs empilés */
+
+.formulaire__ligne { display: grid; gap: 1.6rem; } /* Ligne de deux champs */
+
+@media (min-width: 700px) { /* Tablette et plus */
+  .formulaire__ligne { grid-template-columns: 1fr 1fr; } /* Deux champs côte à côte */
+} /* Fin */
+
+.champ { display: grid; gap: .35rem; } /* Un champ : intitulé + zone de saisie */
+
+.champ input, .champ select, .champ textarea { /* Zones de saisie */
+  width: 100%; /* Pleine largeur */
+  padding: .8rem 0; /* Marges */
+  border: 0; /* Pas de cadre… */
+  border-bottom: 1.5px solid var(--encre); /* …juste un trait dessous, comme une ligne de cahier */
+  border-radius: 0; /* Angles droits */
+  background: transparent; /* Transparent */
+  font-family: var(--f-texte); /* Police de lecture */
+  font-size: 1.08rem; /* Au moins 16 px : évite le zoom automatique sur iPhone */
+  transition: border-color .3s, box-shadow .3s; /* Animation */
+} /* Fin */
+
+.champ textarea { min-height: 150px; resize: vertical; line-height: 1.5; } /* Zone de message plus haute */
+
+.champ select { /* Liste déroulante */
+  -webkit-appearance: none; /* Retire le style du système (Safari) */
+  appearance: none; /* Retire le style du système */
+  padding-right: 2rem; /* Place pour la flèche */
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%231C1511' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right .2rem center / 13px; /* Petite flèche dessinée */
+} /* Fin */
+
+.champ input:focus, .champ select:focus, .champ textarea:focus { /* Champ en cours de saisie */
+  outline: none; /* Pas de contour… */
+  border-bottom-color: var(--laterite); /* …le trait devient rouge */
+  box-shadow: 0 1.5px 0 var(--laterite); /* …et s'épaissit */
+} /* Fin */
+
+.champ--erreur input, .champ--erreur select, .champ--erreur textarea { border-bottom-color: var(--laterite); } /* Champ en erreur */
+
+.champ__erreur { /* Message d'erreur sous le champ */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-size: .8rem; /* Petit */
+  color: var(--laterite); /* Rouge */
+} /* Fin */
+
+.case { /* Case à cocher + texte */
+  display: flex; /* En ligne */
+  align-items: flex-start; /* Alignés en haut */
+  gap: .8rem; /* Espace */
+  font-size: .98rem; /* Taille */
+  line-height: 1.5; /* Interlignage */
+} /* Fin */
+
+.case input { /* La case */
+  flex-shrink: 0; /* Ne rétrécit pas */
+  width: 20px; /* Taille */
+  height: 20px; /* Taille */
+  margin-top: .2rem; /* Alignée sur le texte */
+  accent-color: var(--laterite); /* Coche rouge */
+} /* Fin */
+
+.piege { /* Champ invisible anti-robots (les humains ne le voient pas) */
+  position: absolute; /* Sorti du flux */
+  left: -9999px; /* Hors de l'écran */
+  width: 1px; /* Minuscule */
+  height: 1px; /* Minuscule */
+  overflow: hidden; /* Masqué */
+} /* Fin */
+
+.formulaire__envoi { /* Ligne du bouton d'envoi */
+  display: flex; /* En ligne */
+  flex-wrap: wrap; /* Retour à la ligne */
+  align-items: center; /* Centrés */
+  gap: 1rem 1.6rem; /* Espaces */
+} /* Fin */
+
+.formulaire__message { /* Message de confirmation ou d'erreur */
+  padding: 1.1rem 1.2rem; /* Marges */
+  border: 1.5px solid var(--palme); /* Bordure verte */
+  background: rgba(46, 74, 51, .08); /* Fond vert très pâle */
+} /* Fin */
+
+.formulaire__message--erreur { border-color: var(--laterite); background: rgba(166, 63, 36, .08); } /* Variante erreur */
+
+.mention { font-size: .9rem; color: var(--encre-douce); } /* Petite mention */
+
+.contact { /* Page contact : façons de rejoindre + formulaire */
+  display: grid; /* Grille */
+  gap: 4rem; /* Espaces */
+} /* Fin */
+
+@media (min-width: 1000px) { /* Ordinateur */
+  .contact { grid-template-columns: 1fr 1.15fr; gap: 6rem; align-items: start; } /* Deux colonnes */
+} /* Fin */
+
+.facons { /* Liste « Quatre façons d'en être » */
+  list-style: none; /* Sans puces */
+  margin: 0; /* Sans marge */
+  padding: 0; /* Sans retrait */
+  border-top: 1.5px solid var(--encre); /* Filet */
+} /* Fin */
+
+.facons li { /* Une façon */
+  display: grid; /* Grille */
+  grid-template-columns: 2.6rem 1fr; /* Numéro | texte */
+  gap: .3rem 1rem; /* Espaces */
+  padding-block: 1.5rem; /* Marges */
+  border-bottom: 1px solid var(--trait); /* Filet */
+} /* Fin */
+
+.facons .num { /* Numéro */
+  grid-row: span 3; /* Sur toute la hauteur */
+  font-size: .72rem; /* Petit */
+  font-weight: 600; /* Demi-gras */
+  letter-spacing: .14em; /* Espacé */
+  padding-top: .5rem; /* Aligné sur le titre */
+} /* Fin */
+
+.facons h2, .facons h3 { font-size: 1.7rem; } /* Titre */
+
+.facons p { color: var(--encre-douce); font-size: 1.02rem; } /* Texte */
+
+.facons p.etiquette { font-size: .66rem; line-height: 2.2; color: var(--encre); } /* Liste des réseaux sociaux */
+
+.facons a { justify-self: start; } /* Lien aligné à gauche */
+
+.carte-formulaire { /* Cadre du formulaire */
+  padding: clamp(24px, 4vw, 52px); /* Marges */
+  background: var(--cauri); /* Fond clair */
+  border: 1.5px solid var(--encre); /* Bordure */
+  box-shadow: 12px 12px 0 var(--ocre); /* Ombre décalée ocre : effet imprimé */
+} /* Fin */
+
+.carte-formulaire h2, .carte-formulaire h3 { /* Titre du formulaire */
+  margin-bottom: 1.6rem; /* Espace */
+  font-size: clamp(1.9rem, 3vw, 2.6rem); /* Grand */
+} /* Fin */
+
+.carte-formulaire h2 em, .carte-formulaire h3 em { color: var(--laterite); } /* Mot en italique rouge */
+
+.coordonnees { /* Liste des coordonnées */
+  display: grid; /* Grille */
+  gap: 1.2rem; /* Espaces */
+  margin: 2.5rem 0 0; /* Marge */
+} /* Fin */
+
+.coordonnees dt { color: var(--encre-douce); } /* Intitulé atténué */
+
+.coordonnees dd { margin: .2rem 0 0; font-size: 1.2rem; } /* Valeur */
+
+.coordonnees a { text-decoration: none; } /* Sans soulignement */
+
+.coordonnees a:hover { text-decoration: underline; } /* Souligné au survol */
+
+
+/* H. PAGE PARTENAIRES ======================================================= */
+
+.types { /* Grille des types de partenariat */
+  display: grid; /* Grille */
+  gap: 1.5rem; /* Espaces */
+} /* Fin */
+
+@media (min-width: 760px) { /* Tablette et plus */
+  .types { grid-template-columns: repeat(2, 1fr); } /* Deux colonnes */
+} /* Fin */
+
+.type { /* Un type de partenariat */
+  display: grid; /* Empilé */
+  gap: 1rem; /* Espaces */
+  align-content: start; /* En haut */
+  padding: clamp(24px, 3vw, 40px); /* Marges */
+  background: var(--c); /* Couleur (data-teinte) */
+  color: var(--c-texte); /* Texte adapté */
+} /* Fin */
+
+.type .num { color: inherit; opacity: .8; } /* Numéro */
+
+.type h3 { font-size: clamp(1.8rem, 2.8vw, 2.5rem); } /* Titre */
+
+.grille-partenaires { /* Mur de logos des partenaires */
+  display: grid; /* Grille */
+  grid-template-columns: repeat(2, 1fr); /* Deux colonnes */
+  gap: 1px; /* Espace fin : laisse voir le fond comme un filet */
+  background: var(--trait); /* Couleur des filets */
+  border: 1px solid var(--trait); /* Cadre */
+} /* Fin */
+
+@media (min-width: 800px) { /* Tablette et plus */
+  .grille-partenaires { grid-template-columns: repeat(4, 1fr); } /* Quatre colonnes */
+} /* Fin */
+
+.grille-partenaires > * { /* Une case de logo */
+  display: grid; /* Pour centrer */
+  place-items: center; /* Au milieu */
+  aspect-ratio: 3 / 2; /* Format */
+  padding: 1.5rem; /* Marges */
+  background: var(--sable); /* Fond beige */
+  text-align: center; /* Texte centré */
+  text-decoration: none; /* Sans soulignement */
+} /* Fin */
+
+.grille-partenaires img { max-height: 64px; width: auto; filter: grayscale(1); transition: filter .4s; } /* Logos en noir et blanc */
+
+.grille-partenaires a:hover img { filter: none; } /* En couleur au survol */
+
+.partenaires-vide { /* Message quand aucun partenaire n'est encore listé */
+  padding: clamp(32px, 5vw, 64px); /* Marges */
+  border: 1.5px dashed var(--encre); /* Bordure pointillée */
+  font-family: var(--f-titre); /* Police Bodoni */
+  font-style: italic; /* Italique */
+  font-size: clamp(1.4rem, 2.4vw, 2rem); /* Grande */
+  line-height: 1.3; /* Interlignage */
+  text-align: center; /* Centré */
+} /* Fin */
+
+
+/* I. PAGES LÉGALES ========================================================== */
+
+.legal { /* Mise en page : sommaire + texte */
+  display: grid; /* Grille */
+  gap: 3rem; /* Espaces */
+  padding-block: clamp(48px, 6vw, 90px); /* Marges */
+} /* Fin */
+
+@media (min-width: 1000px) { /* Ordinateur */
+  .legal { grid-template-columns: 260px minmax(0, 760px); gap: 5rem; } /* Sommaire | texte */
+  .legal__sommaire { position: sticky; top: calc(var(--hauteur-entete) + 2rem); align-self: start; } /* Sommaire toujours visible */
+} /* Fin */
+
+.legal__sommaire ol { /* Liste du sommaire */
+  list-style: none; /* Sans puces */
+  margin: 1rem 0 0; /* Marge */
+  padding: 0; /* Sans retrait */
+  display: grid; /* Empilé */
+  gap: .2rem; /* Espaces */
+  counter-reset: s; /* Compteur à zéro */
+} /* Fin */
+
+.legal__sommaire li { counter-increment: s; } /* Compteur +1 */
+
+.legal__sommaire a { /* Un lien du sommaire */
+  display: flex; /* Numéro + texte */
+  gap: .7rem; /* Espace */
+  padding-block: .3rem; /* Zone cliquable */
+  font-size: 1rem; /* Taille */
+  line-height: 1.35; /* Interlignage */
+  text-decoration: none; /* Sans soulignement */
+} /* Fin */
+
+.legal__sommaire a::before { /* Numéro automatique */
+  content: counter(s, decimal-leading-zero); /* 01, 02… */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-size: .7rem; /* Petit */
+  padding-top: .25rem; /* Aligné */
+  color: var(--laterite); /* Rouge */
+} /* Fin */
+
+.legal__sommaire a:hover { text-decoration: underline; } /* Survol */
+
+.legal__contenu { font-size: 1.06rem; min-width: 0; } /* Texte légal ; min-width: 0 évite qu'un tableau large fasse déborder la page */
+
+.legal__contenu > * + * { margin-top: 1em; } /* Espaces entre paragraphes */
+
+.legal__contenu h2 { /* Titres de partie */
+  margin-top: 2.4em; /* Grand espace au-dessus */
+  font-size: clamp(1.6rem, 2.4vw, 2.1rem); /* Taille */
+} /* Fin */
+
+.legal__contenu h2:first-child { margin-top: 0; } /* Pas d'espace au-dessus du premier */
+
+.legal__contenu ul { padding-left: 1.2rem; } /* Listes à puces */
+
+.legal__contenu li + li { margin-top: .4rem; } /* Espace entre éléments de liste */
+
+.tableau { overflow-x: auto; } /* Tableau défilant sur petit écran */
+
+.legal__contenu table { /* Tableau (cookies) */
+  width: 100%; /* Pleine largeur */
+  min-width: 520px; /* Largeur minimale (défile sur téléphone) */
+  border-collapse: collapse; /* Bordures fusionnées */
+  font-size: .95rem; /* Taille */
+} /* Fin */
+
+.legal__contenu th, .legal__contenu td { /* Cellules */
+  padding: .7rem .6rem; /* Marges */
+  border-bottom: 1px solid var(--trait); /* Filet */
+  text-align: left; /* À gauche */
+  vertical-align: top; /* En haut */
+} /* Fin */
+
+.legal__contenu th { /* En-têtes de colonnes */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-size: .7rem; /* Petit */
+  letter-spacing: .14em; /* Espacé */
+  text-transform: uppercase; /* Capitales */
+  border-bottom: 1.5px solid var(--encre); /* Filet épais */
+} /* Fin */
+
+.a-completer { /* Texte à remplacer par la cliente (surligné) */
+  padding: 0 .2em; /* Petite marge */
+  background: rgba(211, 146, 42, .35); /* Surlignage ocre */
+  color: inherit; /* Couleur du texte */
+} /* Fin */
+
+
+/* J. RUBRIQUE SUIVANTE + INTROUVABLE ======================================== */
+
+.suite { /* Grand lien vers la rubrique suivante */
+  display: block; /* Bloc */
+  padding-block: clamp(56px, 8vw, 110px); /* Marges */
+  background: var(--c); /* Couleur de la rubrique suivante */
+  color: var(--c-texte); /* Texte adapté */
+  text-decoration: none; /* Sans soulignement */
+} /* Fin */
+
+.suite__grille { /* Contenu */
+  display: flex; /* En ligne */
+  flex-wrap: wrap; /* Retour à la ligne */
+  justify-content: space-between; /* Répartis */
+  align-items: flex-end; /* Alignés en bas */
+  gap: 1.5rem; /* Espaces */
+} /* Fin */
+
+.suite__titre { /* Nom de la rubrique suivante */
+  margin-top: .8rem; /* Espace */
+  font-size: clamp(2.6rem, 7vw, 6.4rem); /* Très grand */
+  line-height: .95; /* Serré */
+} /* Fin */
+
+.suite:hover .suite__titre { font-style: italic; } /* Italique au survol */
+
+.suite .fleche { font-size: clamp(2.4rem, 5vw, 4.4rem); } /* Grande flèche */
+
+.introuvable { /* Message « contenu introuvable » */
+  display: grid; /* Empilé */
+  gap: 1.5rem; /* Espaces */
+  justify-items: start; /* À gauche */
+  padding-block: clamp(80px, 12vw, 160px); /* Grandes marges */
+} /* Fin */
+
+.introuvable h1 { font-size: clamp(2.6rem, 6vw, 5rem); } /* Titre */

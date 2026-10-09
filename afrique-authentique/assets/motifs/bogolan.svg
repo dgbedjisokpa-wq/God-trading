@@ -1,0 +1,22 @@
+<!-- MOTIF « BOGOLAN » (étoffe de terre du Mali) — carreau de 120 × 120 répété à l'infini.          -->
+<!-- Le dessin est en noir car il sert de « pochoir » (masque CSS) : la vraie couleur est choisie   -->
+<!-- dans css/2-motifs.css. Pour modifier le motif, changez les tracés ci-dessous.                 -->
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"> <!-- Zone de dessin de 120 × 120 unités -->
+  <g fill="none" stroke="#000" stroke-width="3" stroke-linecap="square"> <!-- Groupe de traits : pas de remplissage, trait noir de 3 -->
+    <path d="M0 16 L10 6 L20 16 L30 6 L40 16 L50 6 L60 16 L70 6 L80 16 L90 6 L100 16 L110 6 L120 16"/> <!-- Zigzag qui traverse le haut du carreau -->
+    <path d="M0 26 H120"/> <!-- Filet horizontal sous le zigzag -->
+    <path d="M12 42 L36 66 M36 42 L12 66"/> <!-- Croix (deux diagonales) dans le module de gauche -->
+    <path d="M60 38 L82 60 L60 82 L38 60 Z"/> <!-- Losange creux au centre -->
+    <path d="M94 40 V68 M102 40 V68 M110 40 V68"/> <!-- Trois traits verticaux à droite -->
+    <path d="M0 96 H120"/> <!-- Filet horizontal du bas -->
+  </g> <!-- Fin du groupe de traits -->
+  <g fill="#000"> <!-- Groupe de formes pleines (noires) -->
+    <circle cx="60" cy="60" r="4"/> <!-- Point au cœur du losange -->
+    <circle cx="10" cy="108" r="3"/> <!-- Rangée de points du bas : point 1 -->
+    <circle cx="30" cy="108" r="3"/> <!-- point 2 -->
+    <circle cx="50" cy="108" r="3"/> <!-- point 3 -->
+    <circle cx="70" cy="108" r="3"/> <!-- point 4 -->
+    <circle cx="90" cy="108" r="3"/> <!-- point 5 -->
+    <circle cx="110" cy="108" r="3"/> <!-- point 6 -->
+  </g> <!-- Fin du groupe de formes pleines -->
+</svg> <!-- Fin du dessin -->
