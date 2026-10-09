@@ -345,8 +345,9 @@
         </div>`; // En-tête (fil d'Ariane, type, titre, introduction, signature, image) puis colonne (fiche + partage) et texte
       const copier = $('[data-copier]', zoneRecit); // Bouton « Copier le lien »
       copier.addEventListener('click', () => { // Au clic
-        if (navigator.clipboard) navigator.clipboard.writeText(adresse).then(() => afficherMessage('Lien copié.'), () => window.prompt('Copiez ce lien :', adresse)); // Copie automatique (ou fenêtre de secours)
-        else window.prompt('Copiez ce lien :', adresse); // Navigateur ancien : fenêtre de secours
+        const echec = () => afficherMessage('Copie impossible ici : copiez l’adresse depuis la barre du navigateur.'); // Message si la copie est refusée
+        if (navigator.clipboard) navigator.clipboard.writeText(adresse).then(() => afficherMessage('Lien copié.'), echec); // Copie automatique
+        else echec(); // Navigateur ancien : message d'aide
       }); // Fin
       const progression = $('.progression span'); // Barre de progression de lecture
       const corps = $('.recit__corps', zoneRecit); // Le texte

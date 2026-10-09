@@ -670,14 +670,15 @@
       formulaire.addEventListener('input', (e) => { if (e.target.getAttribute('aria-invalid') === 'true') verifierChamp(e.target); }); // Corrige l'erreur en direct pendant la saisie
       formulaire.addEventListener('focusout', (e) => { if (e.target.matches('input, select, textarea') && e.target.value) verifierChamp(e.target); }); // Vérifie un champ rempli quand on le quitte
 
-      $$('[data-envoi-whatsapp]', formulaire).forEach((bouton) => { // Bouton « Envoyer sur WhatsApp » (facultatif)
-        bouton.addEventListener('click', () => { // Au clic
-          if (!formulaireValide(formulaire)) return; // Formulaire incomplet : on arrête
-          const sujet = formulaire.dataset.sujet || 'Message depuis le site'; // Sujet
-          window.open(lienWhatsApp(`${sujet}\n\n${texteFormulaire(formulaire)}`), '_blank', 'noopener'); // Ouvre WhatsApp avec le message prêt
+      $$('[data-envoi-whatsapp]', formulaire).forEach((lien) => { // Lien « Envoyer sur WhatsApp » (facultatif)
+        const sujet = formulaire.dataset.sujet || 'Message depuis le site'; // Sujet du message
+        lien.href = lienWhatsApp(sujet); // Adresse de départ (au cas où le clic arriverait avant toute saisie)
+        lien.addEventListener('click', (e) => { // Au clic
+          if (!formulaireValide(formulaire)) { e.preventDefault(); return; } // Formulaire incomplet : on bloque le lien et on montre les erreurs
+          lien.href = lienWhatsApp(`${sujet}\n\n${texteFormulaire(formulaire)}`); // Met le message complet dans le lien, juste avant son ouverture
           afficherResultat(formulaire, 'WhatsApp s’ouvre avec votre message prêt à partir. Il ne reste qu’à l’envoyer.'); // Confirmation
         }); // Fin
-      }); // Fin des boutons WhatsApp
+      }); // Fin des liens WhatsApp
 
       formulaire.addEventListener('submit', async (e) => { // Envoi du formulaire
         e.preventDefault(); // Bloque l'envoi classique (rechargement de page)
@@ -733,7 +734,15 @@
     } // Fin de l'ajout rapide
     else if (cible.matches('[data-qte]')) calebasse.changer(Number(cible.dataset.index), Number(cible.dataset.qte)); // Boutons − / + du tiroir
     else if (cible.matches('[data-retirer]')) calebasse.retirer(Number(cible.dataset.retirer)); // Bouton « Retirer »
-    else if (cible.matches('[data-calebasse-vider]')) { if (window.confirm('Vider entièrement la calebasse ?')) calebasse.vider(); } // « Vider » (avec confirmation)
+    else if (cible.matches('[data-calebasse-vider]')) { // Bouton « Vider la calebasse » : confirmation en deux clics
+      window.clearTimeout(Number(cible.dataset.minuteur)); // Annule un éventuel retour à l'état normal déjà prévu
+      if (cible.dataset.confirmer === 'oui') { calebasse.vider(); cible.dataset.confirmer = ''; cible.textContent = 'Vider la calebasse'; } // 2e clic : on vide et le bouton revient à son texte d'origine
+      else { // 1er clic : on demande confirmation
+        cible.dataset.confirmer = 'oui'; // Mémorise qu'une confirmation est attendue
+        cible.textContent = 'Confirmer : tout retirer ?'; // Le bouton change de texte
+        cible.dataset.minuteur = window.setTimeout(() => { cible.dataset.confirmer = ''; cible.textContent = 'Vider la calebasse'; }, 4000); // Sans 2e clic sous 4 secondes, rien n'est retiré
+      } // Fin
+    } // Fin du bouton « Vider »
     else if (cible.matches('[data-cookies]')) enregistrerCookies(cible.dataset.cookies); // Boutons Accepter / Refuser
     else if (cible.matches('[data-cookies-gerer]')) $('[data-cookies-bandeau]').hidden = false; // « Gérer les cookies » : rouvre le bandeau
     else if (cible.matches('.menu a[href]')) fermerPanneau(false); // Clic sur un lien du menu : on le referme
