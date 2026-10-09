@@ -1,409 +1,150 @@
 <!doctype html>
 <html lang="fr">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GOD TRADING — Formation en trading des indices synthétiques</title>
-<script src="./vendor/react.js"></script>
-<script src="./vendor/react-dom.js"></script>
-<script src="./support.js"></script>
+<meta name="description" content="Apprends à trader les indices synthétiques (V75, Boom, Crash) avec une vraie méthode : 10 modules, 3 mois de coaching avec Coach Godfrid Mustang, 100 % sur mobile. Paiement par tranches.">
+<link rel="canonical" href="https://godtrading.store/">
+<meta name="theme-color" content="#14120F">
+<link rel="icon" href="assets/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="GOD TRADING">
+<meta property="og:url" content="https://godtrading.store/">
+<meta property="og:title" content="GOD TRADING — Arrête de trader au hasard. Trade avec une méthode.">
+<meta property="og:description" content="Formation au trading des indices synthétiques : 10 modules, 3 mois de coaching, live trading en groupe. 100 % sur mobile, paiement par tranches.">
+<meta property="og:image" content="https://godtrading.store/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="GOD TRADING — Arrête de trader au hasard. Trade avec une méthode.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,700;1,800&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Cinzel:wght@700;900&amp;display=swap">
+<link rel="stylesheet" href="style.css">
+<script>
+  /* L'intro animée ne s'affiche qu'une fois par visite. */
+  (function (d) {
+    d.classList.add('js');
+    try {
+      if (sessionStorage.getItem('gt-intro')) d.classList.add('no-intro');
+      else sessionStorage.setItem('gt-intro', '1');
+    } catch (e) {}
+  })(document.documentElement);
+</script>
+<script src="script.js" defer></script>
 </head>
 <body>
-<x-dc>
-<helmet>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,700;1,800&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Cinzel:wght@700;900&amp;display=swap" rel="stylesheet">
-<style>
-body{margin:0;background:#FAF7F0}
-*{box-sizing:border-box}
-a{color:inherit}
-img{max-width:100%}
-button,a{cursor:pointer;-webkit-tap-highlight-color:transparent}
-a:focus-visible,button:focus-visible{outline:3px solid #85600A;outline-offset:3px;border-radius:12px}
-.wrap{max-width:1200px;margin:0 auto;padding-left:clamp(16px,4vw,40px);padding-right:clamp(16px,4vw,40px)}
-.sec{padding-top:clamp(56px,8vw,104px);padding-bottom:clamp(56px,8vw,104px)}
-.band{background:#F1EADB;position:relative;overflow:hidden}
-.eyebrow{font-size:12.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#85600A}
-.h2{margin:0;font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:clamp(28px,3.6vw,46px);line-height:1.1;letter-spacing:-0.012em;text-wrap:balance}
-.sec-head{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;margin-bottom:clamp(32px,5vw,56px)}
-.sec-head p{margin:0;font-size:16.5px;line-height:1.6;color:#5C5548;max-width:560px}
-.txt{margin:0;font-size:15.5px;line-height:1.65;color:#5C5548;text-wrap:pretty}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:52px;padding:0 28px;border-radius:999px;font-weight:800;font-size:15.5px;text-decoration:none;white-space:nowrap;border:0;font-family:'Manrope',sans-serif;transition:transform .18s,filter .18s}
-.btn:hover{transform:translateY(-2px);filter:brightness(1.05)}
-.btn-gold{background:#E9B63B;color:#1A1714;box-shadow:0 12px 26px -14px rgba(160,110,10,.75)}
-.btn-dark{background:#1A1714;color:#FFFFFF}
-.btn-line{background:#FFFFFF;color:#1A1714;border:1.5px solid #1A1714}
-.chk{display:flex;gap:10px;align-items:flex-start;line-height:1.45}
-.chk::before{content:"";flex:0 0 18px;height:18px;margin-top:1px;background:#85600A;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/contain no-repeat}
-.chk-light::before{background:#E9B63B}
-.lift{transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s}
-.lift:hover{transform:translateY(-4px);box-shadow:0 24px 48px -26px rgba(110,78,8,.4)}
-.marquee{display:flex;width:max-content;animation:mq 40s linear infinite}
-@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.rise{animation:rise .8s cubic-bezier(.2,.8,.2,1) both}
-:root{--intro:1.25s;--ease:cubic-bezier(.16,1,.3,1)}
-.d1{animation-delay:calc(var(--intro) + .05s)}.d2{animation-delay:calc(var(--intro) + .15s)}.d3{animation-delay:calc(var(--intro) + .3s)}.d4{animation-delay:calc(var(--intro) + .45s)}
-.rise{animation-duration:1.1s;animation-timing-function:var(--ease)}
-@keyframes rise{from{opacity:0;transform:translateY(28px);filter:blur(8px)}to{opacity:1;transform:none;filter:blur(0)}}
-@media (prefers-reduced-motion: reduce){.marquee,.rise{animation:none}.btn:hover,.lift:hover{transform:none}}
-/* nav */
-.nav-links{display:flex;gap:28px;font-size:14.5px;font-weight:600}
-.nav-burger{display:none!important}
-.mob-panel{display:none}
-.mbar{display:none}
-/* hero */
-.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
-.hero-art{position:relative;height:500px}
-.arch{position:absolute;right:4%;top:0;width:64%;height:100%;border-radius:999px 999px 0 0;background:#14120F;overflow:hidden;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 1px rgba(233,182,59,.35)}
-.disc{position:absolute;left:2%;bottom:-30px;width:40%;aspect-ratio:1;border-radius:50%;background:#E9B63B;border:8px solid #FAF7F0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-.chip-float{position:absolute;right:0;top:18%;background:#FFFFFF;border:1px solid #ECE4D3;border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 18px 34px -22px rgba(60,40,0,.45)}
-.hero-ctas{display:flex;flex-wrap:wrap;gap:12px}
-.g-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));background:#FFFFFF;border:1px solid #ECE4D3;border-radius:22px;padding:22px 8px}
-.stat{border-left:1px solid #ECE4D3;text-align:center;padding:4px 12px;display:flex;flex-direction:column;gap:4px}
-.stat:first-child{border-left:0}
-/* about */
-.about{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;min-height:440px}
-.blob{position:absolute;left:-12%;top:-30%;width:60%;height:160%;border-radius:0 50% 50% 0;background:#FAF7F0}
-.about-art{position:relative;display:flex;justify-content:center;align-items:center;padding:40px 0}
-/* grids */
-.g-why{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
-.g-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
-.svc{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
-.svc-rev .svc-media{order:2}
-.svc-media{height:340px;border-radius:24px;overflow:hidden;position:relative}
-.g-2col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.nope{display:flex;gap:10px;align-items:flex-start;line-height:1.45;color:#CFC6B2}
-.nope::before{content:"\2715";flex:0 0 18px;font-size:13px;font-weight:900;color:#E5484D;margin-top:2px}
-.micro{font-size:12.5px;font-weight:600;color:#5C5548}
-.g-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;width:100%}
-.g-feat{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 18px}
-.g-faq{display:grid;grid-template-columns:4fr 7fr;gap:56px;align-items:start}
-.g-contact{display:grid;grid-template-columns:5fr 7fr;gap:48px;align-items:stretch}
-.g-foot{display:grid;grid-template-columns:2fr 1fr 1fr 1.3fr;gap:32px}
-/* reviews */
-.rv{display:grid;grid-template-columns:48px 1fr 1.25fr 1fr 48px;align-items:center}
-.rv-mob{display:none}
-.arrow{width:48px;height:48px;border-radius:50%;border:1.5px solid #D9CFBA;background:#FFFFFF;display:inline-flex;align-items:center;justify-content:center;padding:0}
-.hs{scrollbar-width:none}
-.hs::-webkit-scrollbar{display:none}
-/* ---------- tablet ---------- */
-@media (max-width: 1024px){
-  .nav-links{display:none}
-  .nav-burger{display:inline-flex!important}
-  .mob-panel{display:flex}
-  .hero{grid-template-columns:1fr;gap:36px}
-  .hero-art{height:420px;max-width:540px;width:100%;margin:0 auto}
-  .about{grid-template-columns:1fr;gap:0;min-height:0}
-  .blob{display:none}
-  .about-art{padding:40px 0 0}
-  .g-why{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .g-cards{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .g-cards>:last-child{grid-column:1 / -1}
-  .svc{gap:32px}
-  .svc-media{height:260px}
-  .g-feat{grid-template-columns:1fr}
-  .g-2col{grid-template-columns:1fr}
-  .g-steps{grid-template-columns:1fr}
-  .rv{grid-template-columns:48px 1fr 48px;gap:12px}
-  .rv-side{display:none}
-  .g-faq{grid-template-columns:1fr;gap:28px}
-  .g-contact{grid-template-columns:1fr 1fr}
-  .g-foot{grid-template-columns:1fr 1fr}
-  .foot-brand{grid-column:1 / -1}
-}
-/* ---------- mobile ---------- */
-@media (max-width: 640px){
-  .hide-sm{display:none!important}
-  .sec{padding-top:56px;padding-bottom:56px}
-  .h2{font-size:28px}
-  .sec-head{align-items:flex-start;text-align:left;margin-bottom:24px}
-  .sec-head p{font-size:15.5px}
-  .nav-phone{display:none!important}
-  .hero h1{font-size:36px!important}
-  .hero-ctas{flex-direction:column;align-items:stretch}
-  .hero-ctas .btn{width:100%}
-  .hero-art{height:330px;max-width:360px}
-  .arch{width:70%;right:2%}
-  .disc{width:44%;bottom:-18px;border-width:6px}
-  .chip-float{top:auto;bottom:22%;right:-2px;padding:10px 12px}
-  .g-stats{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:18px;padding:18px 4px}
-  .stat:nth-child(3){border-left:0}
-  /* horizontal swipe rows */
-  .hs{display:flex!important;flex-direction:column;gap:12px!important}
-  .hs>*{flex:none;width:100%}
-  .g-cards>:last-child{grid-column:auto}
-  /* offers become cards */
-  .svc{grid-template-columns:1fr;gap:0;background:#FFFFFF;border:1px solid #ECE4D3;border-radius:24px;overflow:hidden}
-  .svc-rev .svc-media{order:0}
-  .svc-media{height:190px;border-radius:0}
-  .svc-body{padding:20px;align-items:stretch!important;text-align:left!important}
-  .svc-body .btn{width:100%}
-  .svc-body .price{justify-content:flex-start!important}
-  .rv{display:none}
-  .rv-dots{display:none!important}
-  .rv-mob{display:flex}
-  .g-contact{grid-template-columns:1fr}
-  .g-foot{grid-template-columns:1fr 1fr;gap:24px}
-  .mbar{display:flex;position:sticky;bottom:0;z-index:20;gap:10px;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(250,247,240,.94);backdrop-filter:blur(10px);border-top:1px solid #ECE4D3}
-}
-
-/* ================= ANIMATIONS PREMIUM ================= */
-html{scroll-behavior:smooth}
-section[id]{scroll-margin-top:84px}
-/* --- intro : rideau + éclair --- */
-.intro{position:fixed;inset:0;z-index:200;background:#0B0A08;display:flex;align-items:center;justify-content:center;pointer-events:none;animation:curtain 1s calc(var(--intro) - .2s) cubic-bezier(.76,0,.24,1) forwards}
-@keyframes curtain{from{clip-path:inset(0 0 0 0)}to{clip-path:inset(0 0 100% 0)}}
-.intro-in{display:flex;flex-direction:column;align-items:center;gap:22px;animation:introout .5s calc(var(--intro) - .35s) ease-in forwards}
-@keyframes introout{to{opacity:0;transform:translateY(-24px) scale(.96)}}
-.intro img{width:120px;height:auto;animation:introlog .9s var(--ease) both}
-@keyframes introlog{from{opacity:0;transform:scale(.8);filter:blur(10px) brightness(.4)}60%{filter:blur(0) brightness(1.6)}to{opacity:1;transform:none;filter:none}}
-.intro-word{font-family:'Cinzel',Georgia,serif;font-weight:900;font-size:15px;letter-spacing:.5em;color:#E9B63B;padding-left:.5em;animation:introword .9s .25s var(--ease) both}
-@keyframes introword{from{opacity:0;letter-spacing:1.2em}to{opacity:1;letter-spacing:.5em}}
-.intro-bar{width:140px;height:2px;background:rgba(233,182,59,.18);overflow:hidden}
-.intro-bar i{display:block;height:100%;background:#E9B63B;transform-origin:left;animation:introbar .85s .2s cubic-bezier(.65,0,.35,1) both}
-@keyframes introbar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-.intro::after{content:"";position:absolute;inset:0;background:radial-gradient(50% 40% at 50% 45%,rgba(255,226,140,.5),transparent 70%);opacity:0;animation:flash 1s .55s ease-out both}
-/* --- barre de progression + en-tête vivant --- */
-.progress{position:fixed;left:0;top:0;height:3px;width:100%;z-index:60;transform-origin:0 50%;transform:scaleX(var(--p,0));background:linear-gradient(90deg,#85600A,#E9B63B);pointer-events:none}
-.progress::after{content:"";position:absolute;right:-4px;top:-3px;width:9px;height:9px;border-radius:50%;background:#E9B63B;box-shadow:0 0 14px 4px rgba(233,182,59,.75);opacity:calc(var(--p,0) * 50)}
-.topbar{position:sticky;top:0;z-index:40;transition:transform .5s var(--ease),background-color .4s,box-shadow .4s}
-html[data-sc] .topbar{background:rgba(255,255,255,.82)!important;backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);box-shadow:0 10px 30px -22px rgba(60,40,0,.5)}
-html[data-down] .topbar{transform:translateY(-100%)}
-/* --- menu : section active --- */
-.nav-item{position:relative;padding:6px 0;transition:color .2s}
-.nav-item::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;border-radius:2px;background:#E9B63B;transform:scaleX(0);transform-origin:right;transition:transform .45s var(--ease)}
-.nav-item:hover::after,.nav-item.on::after{transform:scaleX(1);transform-origin:left}
-.nav-item.on{color:#1A1714!important}
-/* --- héros --- */
-h1.rise{animation-name:h1in;animation-duration:1.3s}
-@keyframes h1in{from{opacity:0;clip-path:inset(0 0 100% 0);transform:translateY(40px);filter:blur(10px)}to{opacity:1;clip-path:inset(0 0 -20% 0);transform:none;filter:blur(0)}}
-h1 em{background:linear-gradient(100deg,#85600A 0%,#85600A 40%,#E9B63B 50%,#85600A 60%,#85600A 100%);background-size:260% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:goldsweep 7s calc(var(--intro) + 1.2s) ease-in-out infinite}
-@keyframes goldsweep{0%,55%{background-position:100% 0}100%{background-position:0 0}}
-.hero-art{perspective:1100px}
-.arch{transform:rotateX(var(--ry,0deg)) rotateY(var(--rx,0deg));transition:transform .9s var(--ease);will-change:transform;clip-path:inset(100% 0 0 0 round 999px 999px 0 0);animation:archin 1.4s calc(var(--intro) + .2s) var(--ease) forwards}
-@keyframes archin{to{clip-path:inset(0 0 0 0 round 999px 999px 0 0)}}
-.arch img{transform:scale(1.15);animation:archimg 1.8s calc(var(--intro) + .2s) var(--ease) forwards,glow 6s calc(var(--intro) + 2.5s) ease-in-out infinite}
-@keyframes archimg{to{transform:scale(1)}}
-@keyframes glow{0%,100%{filter:drop-shadow(0 0 0 rgba(233,182,59,0))}50%{filter:drop-shadow(0 0 22px rgba(233,182,59,.5))}}
-.halo{transition:transform 1.2s var(--ease);transform:translate(calc(var(--mx,0) * -18px),calc(var(--my,0) * -18px));animation:halo 6s ease-in-out infinite}
-@keyframes halo{0%,100%{opacity:.85}50%{opacity:1}}
-.flash{position:absolute;inset:0;background:radial-gradient(60% 40% at 30% 18%,rgba(255,230,150,.95),rgba(233,182,59,0) 70%);opacity:0;animation:flash 1.4s calc(var(--intro) + .9s) ease-out both,flashloop 11s calc(var(--intro) + 6s) ease-out infinite;pointer-events:none;mix-blend-mode:screen}
-@keyframes flash{0%{opacity:0}8%{opacity:1}16%{opacity:.15}24%{opacity:.85}100%{opacity:0}}
-@keyframes flashloop{0%,90%{opacity:0}92%{opacity:.8}94%{opacity:.1}96%{opacity:.6}100%{opacity:0}}
-.dust{position:absolute;inset:-10% -6% 0;width:112%;height:110%;pointer-events:none;z-index:2}
-.disc{translate:calc(var(--mx,0) * 22px) calc(var(--my,0) * 22px);transition:translate 1s var(--ease);animation:pop 1.1s calc(var(--intro) + .75s) cubic-bezier(.3,1.5,.5,1) both;z-index:3}
-@keyframes pop{from{opacity:0;transform:scale(.3) rotate(-35deg)}to{opacity:1;transform:none}}
-.chip-float{z-index:3;animation:slidein 1s calc(var(--intro) + 1s) var(--ease) both,bob 5s calc(var(--intro) + 2s) ease-in-out infinite}
-@keyframes slidein{from{opacity:0;transform:translateX(40px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
-@keyframes bob{0%,100%{translate:0 0}50%{translate:0 -7px}}
-/* --- indicateur de défilement --- */
-.cue{display:flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none;font-size:12px;font-weight:800;letter-spacing:.16em;color:#5C5548;width:fit-content;margin:40px auto 0;transition:opacity .5s,transform .5s var(--ease);animation:rise 1s calc(var(--intro) + 1.4s) var(--ease) both}
-.cue .mouse{width:26px;height:40px;border:2px solid #1A1714;border-radius:14px;position:relative}
-.cue .mouse::after{content:"";position:absolute;left:50%;top:7px;width:4px;height:8px;margin-left:-2px;border-radius:2px;background:#E9B63B;animation:wheel 1.8s ease-in-out infinite}
-@keyframes wheel{0%{opacity:0;transform:translateY(-3px)}30%{opacity:1}100%{opacity:0;transform:translateY(12px)}}
-html[data-sc] .cue{opacity:0;transform:translateY(12px);pointer-events:none}
-/* --- apparitions (pilotées par le script, tous navigateurs) --- */
-[data-r]{opacity:0;transform:translateY(48px) scale(.98);filter:blur(6px);transition:opacity 1s var(--ease) var(--d,0s),transform 1.2s var(--ease) var(--d,0s),filter 1s var(--ease) var(--d,0s)}
-[data-r][data-in]{opacity:1;transform:none;filter:none}
-[data-r][data-done]{transition:transform .35s var(--ease),box-shadow .35s,opacity .3s}
-[data-r] .h2{clip-path:inset(0 0 100% 0);transform:translateY(40%);transition:clip-path 1.1s var(--ease) calc(var(--d,0s) + .1s),transform 1.1s var(--ease) calc(var(--d,0s) + .1s)}
-[data-in] .h2{clip-path:inset(-10% -5% -25% -5%);transform:none}
-.eyebrow{display:inline-flex;align-items:center;gap:10px}
-.eyebrow::before{content:"";width:26px;height:2px;border-radius:2px;background:#E9B63B;transform-origin:left;transition:transform .9s var(--ease) .15s}
-[data-r] .eyebrow::before{transform:scaleX(0)}
-[data-in] .eyebrow::before{transform:scaleX(1)}
-/* compteurs */
-@property --n{syntax:'<integer>';inherits:false;initial-value:0}
-.count{--n:var(--to);counter-reset:n var(--n);font-variant-numeric:tabular-nums;transition:--n 2.2s cubic-bezier(.16,1,.3,1) .25s}
-.count::before{content:counter(n)}
-[data-r]:not([data-in]) .count{--n:0}
-/* médias des offres : volet + zoom */
-.svc .svc-media{transition:clip-path 1.4s var(--ease) .1s}
-.svc .svc-media>*:not(span){transition:transform 1.8s var(--ease) .1s}
-.svc[data-r]:not([data-in]) .svc-media{clip-path:inset(0 100% 0 0 round 24px)}
-.svc-rev[data-r]:not([data-in]) .svc-media{clip-path:inset(0 0 0 100% round 24px)}
-.svc[data-r]:not([data-in]) .svc-media>*:not(span){transform:scale(1.18)}
-.svc[data-r]{transform:none;filter:none}
-.svc-body>*{transition:opacity .9s var(--ease),transform 1s var(--ease)}
-.svc[data-r]:not([data-in]) .svc-body>*{opacity:0;transform:translateY(24px)}
-.svc-body>:nth-child(2){transition-delay:.35s}.svc-body>:nth-child(3){transition-delay:.45s}.svc-body>:nth-child(4){transition-delay:.55s}.svc-body>:nth-child(5){transition-delay:.65s}.svc-body>:nth-child(6){transition-delay:.75s}.svc-body>:first-child{transition-delay:.25s}
-/* chemin du programme */
-.path{position:relative;height:4px;border-radius:4px;background:#DDD2BC;margin:0 auto 28px;max-width:860px}
-.path i{position:absolute;inset:0;border-radius:4px;background:linear-gradient(90deg,#85600A,#E9B63B);transform-origin:left;transition:transform 1.8s cubic-bezier(.65,0,.35,1) .2s}
-.path b{position:absolute;top:50%;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;background:#FAF7F0;border:3px solid #E9B63B;transition:transform .6s cubic-bezier(.3,1.6,.5,1),background-color .4s}
-.path b:nth-of-type(1){transition-delay:.2s}.path b:nth-of-type(2){transition-delay:1.1s}.path b:nth-of-type(3){transition-delay:2s}
-.path[data-r]{transform:none;filter:none}
-.path[data-r]:not([data-in]) i{transform:scaleX(0)}
-.path[data-r]:not([data-in]) b{transform:scale(0)}
-.path[data-in] b{background:#E9B63B;box-shadow:0 0 0 6px rgba(233,182,59,.22)}
-/* tracé des graphiques */
-.draw{stroke-dasharray:1;stroke-dashoffset:0;transition:stroke-dashoffset 2.4s cubic-bezier(.65,0,.35,1) .4s}
-[data-r]:not([data-in]) .draw{stroke-dashoffset:1}
-/* --- cartes : projecteur doré qui suit la souris --- */
-.lift{position:relative;isolation:isolate}
-.lift::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .4s;background:radial-gradient(320px circle at var(--cx,50%) var(--cy,50%),rgba(233,182,59,.22),transparent 60%);z-index:-1}
-.lift:hover::after{opacity:1}
-.lift:hover span svg{animation:wiggle .6s ease-in-out}
-@keyframes wiggle{0%,100%{transform:rotate(0)}30%{transform:rotate(-12deg) scale(1.1)}60%{transform:rotate(8deg)}}
-/* --- boutons : magnétiques, reflet, remplissage --- */
-.btn{translate:var(--bx,0) var(--by,0);transition:transform .25s var(--ease),filter .2s,translate .5s var(--ease),background-color .3s,color .3s}
-.btn:active{transform:scale(.97)!important}
-.btn-gold{position:relative;overflow:hidden;isolation:isolate}
-.btn-gold::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.7),transparent);transform:skewX(-20deg);animation:shine 5.5s calc(var(--intro) + 2s) ease-in-out infinite;z-index:-1}
-@keyframes shine{0%,72%{left:-60%}100%{left:130%}}
-.btn-line,.btn-dark{position:relative;overflow:hidden;isolation:isolate}
-.btn-line::before,.btn-dark::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;transform:translateY(102%);transition:transform .5s var(--ease)}
-.btn-line::before{background:#1A1714}.btn-dark::before{background:#E9B63B}
-.btn-line:hover{color:#FFFFFF}.btn-dark:hover{color:#1A1714}
-.btn-line:hover::before,.btn-dark:hover::before{transform:none}
-.btn svg{transition:transform .35s var(--ease)}
-.btn:hover svg{transform:translate(3px,-3px)}
-/* --- bandeau : penche avec la vitesse de défilement --- */
-.tick{transform:skewX(var(--sk,0deg));transition:transform .4s var(--ease)}
-.marquee:hover{animation-play-state:paused}
-/* --- livre : flottement parallaxe --- */
-.book{translate:0 var(--py,0px);transition:translate .2s linear}
-.book img{transition:transform .8s var(--ease)}
-.book:hover img{transform:rotate(0deg) scale(1.03)!important}
-/* --- avis --- */
-.rv figure{transition:box-shadow .4s}
-/* --- FAQ --- */
-.ans{animation:ans .5s var(--ease) both}
-@keyframes ans{from{opacity:0;transform:translateY(-8px);clip-path:inset(0 0 100% 0)}to{opacity:1;transform:none;clip-path:inset(0 0 -10% 0)}}
-/* --- curseur doré (souris uniquement) --- */
-.cur,.cur-dot{position:fixed;left:0;top:0;z-index:150;pointer-events:none;border-radius:50%;opacity:0;transition:opacity .3s,width .35s var(--ease),height .35s var(--ease),margin .35s var(--ease),background-color .3s,border-color .3s}
-.cur{width:36px;height:36px;margin:-18px 0 0 -18px;border:1.5px solid rgba(133,96,10,.55)}
-.cur-dot{width:6px;height:6px;margin:-3px 0 0 -3px;background:#85600A}
-html[data-cur] .cur,html[data-cur] .cur-dot{opacity:1}
-html[data-hov] .cur{width:64px;height:64px;margin:-32px 0 0 -32px;background:rgba(233,182,59,.16);border-color:rgba(233,182,59,.8)}
-html[data-hov] .cur-dot{opacity:0}
-/* --- menu mobile --- */
-.mob-panel a{animation:menuin .55s var(--ease) both}
-.mob-panel a:nth-child(2){animation-delay:.05s}.mob-panel a:nth-child(3){animation-delay:.1s}.mob-panel a:nth-child(4){animation-delay:.15s}.mob-panel a:nth-child(5){animation-delay:.2s}.mob-panel a:nth-child(6){animation-delay:.25s}.mob-panel a:nth-child(7){animation-delay:.3s}
-@keyframes menuin{from{opacity:0;transform:translateY(16px);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
-@media (max-width: 640px){
-  .cue{display:none}
-  .mbar{transform:translateY(110%);transition:transform .6s var(--ease)}
-  html[data-sc] .mbar{transform:none}
-  [data-r]{transform:translateY(32px);filter:none}
-}
-@media (hover: none){.cur,.cur-dot{display:none}}
-@media (prefers-reduced-motion: reduce){
-  html{scroll-behavior:auto}
-  *,*::before,*::after{animation:none!important;transition:none!important}
-  .intro,.dust,.cur,.cur-dot{display:none}
-  .arch{clip-path:none}.arch img{transform:none}
-  [data-r]{opacity:1!important;transform:none!important;filter:none!important}
-  [data-r] .h2{clip-path:none!important;transform:none!important}
-  .progress{display:none}
-}
-</style>
-</helmet>
-<div style="background: #FAF7F0; color: #1A1714; font-family: 'Manrope', 'Helvetica Neue', sans-serif; font-size: 16px; overflow-x: clip">
-  <div class="intro" aria-hidden="true"><div class="intro-in"><img src="./assets/65d9f762b0b68ce39fd041873338a4bb.jpg" alt=""><span class="intro-word">GOD TRADING</span><span class="intro-bar"><i></i></span></div></div>
+<a class="skip" href="#contenu">Aller au contenu</a>
+<div class="page">
+  <div class="intro" aria-hidden="true"><div class="intro-in"><img src="assets/embleme-carre.jpg" alt="" width="120" height="120"><span class="intro-word">GOD TRADING</span><span class="intro-bar"><i></i></span></div></div>
   <div class="progress" aria-hidden="true"></div>
   <div class="cur" aria-hidden="true"></div><div class="cur-dot" aria-hidden="true"></div>
 
   <!-- ===== NAV ===== -->
-  <header class="topbar" style="background: #FFFFFF; border-bottom: 1px solid #ECE4D3">
-    <nav class="wrap" aria-label="Navigation principale" style="height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 16px">
-      <a href="#top" aria-label="GOD TRADING, accueil" style="display: flex; align-items: center; gap: 10px; text-decoration: none">
-        <img src="./assets/65d9f762b0b68ce39fd041873338a4bb.jpg" alt="" width="40" height="40" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; background: #14120F">
-        <span style="font-family: 'Cinzel', Georgia, serif; font-weight: 900; font-size: 17px; letter-spacing: 0.05em; white-space: nowrap">GOD TRADING</span>
+  <header class="topbar">
+    <nav class="wrap nav" aria-label="Navigation principale">
+      <a class="brand" href="#top" aria-label="GOD TRADING, retour en haut de page">
+        <img src="assets/embleme-carre.jpg" alt="" width="40" height="40">
+        <span>GOD TRADING</span>
       </a>
       <div class="nav-links">
-        <sc-for list="{{navItems}}" as="n" hint-placeholder-count="6">
-          <sc-if value="{{n.on}}" hint-placeholder-val="{{false}}"><a class="nav-item on" href="{{n.href}}" aria-current="true" style="text-decoration: none; color: #5C5548">{{n.label}}</a></sc-if>
-          <sc-if value="{{n.off}}" hint-placeholder-val="{{true}}"><a class="nav-item" href="{{n.href}}" style="text-decoration: none; color: #5C5548">{{n.label}}</a></sc-if>
-        </sc-for>
+        <a class="nav-item" href="#pourquoi">Pourquoi nous</a>
+        <a class="nav-item" href="#programme">Programme</a>
+        <a class="nav-item" href="#offres">Offres</a>
+        <a class="nav-item" href="#avis">Avis</a>
+        <a class="nav-item" href="#faq">FAQ</a>
+        <a class="nav-item" href="#contact">Contact</a>
       </div>
-      <div style="display: flex; align-items: center; gap: 10px">
-        <a class="nav-phone" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20j%E2%80%99ai%20une%20question." style="display: flex; align-items: center; gap: 8px; text-decoration: none; font-weight: 700; font-size: 14.5px; height: 44px">
-          <span style="width: 36px; height: 36px; border-radius: 50%; background: #F1EADB; display: inline-flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#85600A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"></path></svg></span>
-          <span style="white-space: nowrap">+229&nbsp;01&nbsp;93&nbsp;32&nbsp;44&nbsp;39</span>
+      <div class="nav-actions">
+        <a class="nav-wa nav-phone" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20j%E2%80%99ai%20une%20question." target="_blank" rel="noopener" aria-label="Nous écrire sur WhatsApp au +229 01 93 32 44 39">
+          <span class="nav-wa-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.5 8.5 0 1 1 21 11.5z"></path></svg></span>
+          <span>+229&nbsp;01&nbsp;93&nbsp;32&nbsp;44&nbsp;39</span>
         </a>
-        <a class="btn btn-gold nav-phone" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation." style="height: 44px; padding: 0 20px; font-size: 14.5px; box-shadow: none">Rejoindre</a>
-        <button class="nav-burger" onClick="{{toggleMenu}}" aria-label="Menu" aria-expanded="{{menuOpen}}" style="width: 48px; height: 48px; border-radius: 50%; border: 1px solid #ECE4D3; background: #FFFFFF; align-items: center; justify-content: center; padding: 0">
-          <sc-if value="{{menuClosed}}" hint-placeholder-val="{{true}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A1714" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></sc-if>
-          <sc-if value="{{menuOpen}}" hint-placeholder-val="{{false}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A1714" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></sc-if>
+        <a class="btn btn-gold btn-sm nav-phone" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation." target="_blank" rel="noopener">Rejoindre</a>
+        <button class="nav-burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu-mobile">
+          <svg class="ic-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+          <svg class="ic-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg>
         </button>
       </div>
     </nav>
-    <sc-if value="{{menuOpen}}" hint-placeholder-val="{{false}}">
-      <div class="mob-panel wrap" style="flex-direction: column; padding-bottom: 16px; gap: 2px">
-        <a href="#pourquoi" onClick="{{closeMenu}}" style="text-decoration: none; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 22px; height: 56px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #ECE4D3">Pourquoi nous <span style="color: #85600A; font-family: 'Manrope', sans-serif; font-size: 13px">01</span></a>
-        <a href="#programme" onClick="{{closeMenu}}" style="text-decoration: none; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 22px; height: 56px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #ECE4D3">Programme <span style="color: #85600A; font-family: 'Manrope', sans-serif; font-size: 13px">02</span></a>
-        <a href="#offres" onClick="{{closeMenu}}" style="text-decoration: none; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 22px; height: 56px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #ECE4D3">Offres <span style="color: #85600A; font-family: 'Manrope', sans-serif; font-size: 13px">03</span></a>
-        <a href="#avis" onClick="{{closeMenu}}" style="text-decoration: none; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 22px; height: 56px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #ECE4D3">Avis <span style="color: #85600A; font-family: 'Manrope', sans-serif; font-size: 13px">04</span></a>
-        <a href="#faq" onClick="{{closeMenu}}" style="text-decoration: none; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 22px; height: 56px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #ECE4D3">FAQ <span style="color: #85600A; font-family: 'Manrope', sans-serif; font-size: 13px">05</span></a>
-        <a href="#contact" onClick="{{closeMenu}}" style="text-decoration: none; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 22px; height: 56px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #ECE4D3">Contact <span style="color: #85600A; font-family: 'Manrope', sans-serif; font-size: 13px">06</span></a>
-        <a class="btn btn-gold" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation." style="margin-top: 10px; width: 100%">Je réserve ma place</a>
-      </div>
-    </sc-if>
+    <div class="mob-panel wrap" id="menu-mobile" hidden>
+      <a href="#pourquoi">Pourquoi nous <span>01</span></a>
+      <a href="#programme">Programme <span>02</span></a>
+      <a href="#offres">Offres <span>03</span></a>
+      <a href="#avis">Avis <span>04</span></a>
+      <a href="#faq">FAQ <span>05</span></a>
+      <a href="#contact">Contact <span>06</span></a>
+      <a class="btn btn-gold" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation." target="_blank" rel="noopener">Je réserve ma place</a>
+    </div>
   </header>
 
-  <!-- ===== HERO ===== -->
-  <section id="top" class="wrap" style="padding-top: clamp(32px, 6vw, 80px)">
+  <main id="contenu">
+  <!-- ===== HÉROS ===== -->
+  <section id="top" class="wrap hero-sec">
     <div class="hero">
-      <div style="display: flex; flex-direction: column; gap: 22px; align-items: flex-start">
-        <span class="rise d1" style="display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; background: #FFFFFF; border: 1px solid #ECE4D3; padding: 8px 14px; border-radius: 999px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #178A53"></span>Inscriptions ouvertes · places limitées</span>
-        <h1 class="rise d2" style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 800; font-size: clamp(36px, 5vw, 64px); line-height: 1.05; letter-spacing: -0.02em; text-wrap: balance">Arrête de trader au hasard. <em style="color: #85600A">Trade avec une méthode.</em></h1>
-        <p class="txt rise d3" style="font-size: 17.5px; max-width: 520px">En 3&nbsp;mois, apprends à lire les indices synthétiques, à protéger ton capital et à suivre un plan clair. Accompagné pas à pas par Coach Godfrid Mustang, 100&nbsp;% depuis ton téléphone.</p>
+      <div class="hero-copy">
+        <span class="badge rise d1"><span class="badge-dot" aria-hidden="true"></span>Inscriptions ouvertes · places limitées</span>
+        <h1 class="rise d2">Arrête de trader au hasard. <em>Trade avec une méthode.</em></h1>
+        <p class="txt lead rise d3">En 3&nbsp;mois, apprends à lire les indices synthétiques, à protéger ton capital et à suivre un plan clair. Accompagné pas à pas par Coach Godfrid Mustang, 100&nbsp;% depuis ton téléphone.</p>
         <div class="hero-ctas rise d4">
-          <a class="btn btn-gold" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation.">Je réserve ma place <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"></path></svg></a>
+          <a class="btn btn-gold" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation." target="_blank" rel="noopener">Je réserve ma place <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"></path></svg></a>
           <a class="btn btn-line" href="#programme">Découvrir le programme</a>
         </div>
-        <div class="rise d4" style="display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 13.5px; color: #5C5548; font-weight: 600">
-          <span class="chk">Paiement par tranches</span>
-          <span class="chk">Mobile Money, Wave, carte</span>
-          <span class="chk">100&nbsp;% sur mobile</span>
-        </div>
+        <ul class="hero-checks rise d4">
+          <li class="chk">Paiement par tranches</li>
+          <li class="chk">Mobile Money, Wave, carte</li>
+          <li class="chk">100&nbsp;% sur mobile</li>
+        </ul>
       </div>
       <div class="hero-art rise d3">
-        <div class="halo" aria-hidden="true" style="position: absolute; inset: 4% 0 0 10%; border-radius: 50%; background: radial-gradient(circle, rgba(233,182,59,.38), transparent 64%)"></div>
+        <div class="halo" aria-hidden="true"></div>
         <canvas class="dust" aria-hidden="true"></canvas>
-        <div class="arch"><img src="./assets/6f9d4b8f5b1c455fbd0fa63ddf49ae8c.jpg" alt="Logo GOD TRADING" style="width: 100%; height: auto"><div class="flash" aria-hidden="true"></div></div>
+        <div class="arch"><img src="assets/embleme.jpg" alt="Emblème GOD TRADING : Zeus doré tenant un éclair, entouré de chandeliers de trading" width="640" height="522" fetchpriority="high"><div class="flash" aria-hidden="true"></div></div>
         <div class="disc">
-          <span style="font-family: 'Playfair Display', Georgia, serif; font-weight: 800; font-size: clamp(28px, 3.6vw, 44px); line-height: 1">200&nbsp;$</span>
-          <span style="font-weight: 700; font-size: clamp(11.5px, 1.2vw, 13.5px); line-height: 1.3; padding: 0 12px">formation<br>complète</span>
+          <span class="disc-price">200&nbsp;$</span>
+          <span class="disc-label">formation<br>complète</span>
         </div>
         <div class="chip-float">
-          <span style="width: 36px; height: 36px; border-radius: 10px; background: #14120F; display: inline-flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E9B63B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"></path><path d="M14 7h7v7"></path></svg></span>
-          <span style="display: flex; flex-direction: column"><span style="font-weight: 800; font-size: 15px">Marchés 24/7</span><span style="font-size: 12px; color: #5C5548; font-weight: 600">V75 · Boom · Crash</span></span>
+          <span class="chip-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"></path><path d="M14 7h7v7"></path></svg></span>
+          <span class="chip-txt"><strong>Marchés 24/7</strong><span>V75 · Boom · Crash</span></span>
         </div>
       </div>
     </div>
-    <a class="cue" href="#pourquoi" aria-label="Découvrir la suite"><span class="mouse"></span>DÉCOUVRIR</a>
-    <div class="g-stats" style="margin-top: clamp(32px, 4vw, 48px)">
-      <div class="stat"><span style="font-family: 'Playfair Display', Georgia, serif; font-weight: 800; font-size: clamp(26px, 3vw, 36px); line-height: 1"><span class="count" style="--to: 10"></span><span style="color: #85600A">+1</span></span><span style="font-size: 13.5px; color: #5C5548; font-weight: 600">Modules + bonus</span></div>
-      <div class="stat"><span style="font-family: 'Playfair Display', Georgia, serif; font-weight: 800; font-size: clamp(26px, 3vw, 36px); line-height: 1"><span class="count" style="--to: 120"></span><span style="color: #85600A">+</span></span><span style="font-size: 13.5px; color: #5C5548; font-weight: 600">Pages de manuel</span></div>
-      <div class="stat"><span style="font-family: 'Playfair Display', Georgia, serif; font-weight: 800; font-size: clamp(26px, 3vw, 36px); line-height: 1"><span class="count" style="--to: 3"></span><span style="color: #85600A">&nbsp;mois</span></span><span style="font-size: 13.5px; color: #5C5548; font-weight: 600">D’accompagnement</span></div>
-      <div class="stat"><span style="font-family: 'Playfair Display', Georgia, serif; font-weight: 800; font-size: clamp(26px, 3vw, 36px); line-height: 1"><span class="count" style="--to: 24"></span><span style="color: #85600A">/7</span></span><span style="font-size: 13.5px; color: #5C5548; font-weight: 600">Marchés ouverts</span></div>
+    <a class="cue" href="#pourquoi"><span class="mouse" aria-hidden="true"></span>DÉCOUVRIR</a>
+    <div class="g-stats">
+      <div class="stat"><span class="sr-only">10 modules + 1 bonus</span><span class="stat-num" aria-hidden="true"><span class="count" style="--to: 10"></span><span class="gold">+1</span></span><span class="stat-label" aria-hidden="true">Modules + bonus</span></div>
+      <div class="stat"><span class="sr-only">Plus de 120 pages de manuel</span><span class="stat-num" aria-hidden="true"><span class="count" style="--to: 120"></span><span class="gold">+</span></span><span class="stat-label" aria-hidden="true">Pages de manuel</span></div>
+      <div class="stat"><span class="sr-only">3 mois d’accompagnement</span><span class="stat-num" aria-hidden="true"><span class="count" style="--to: 3"></span><span class="gold">&nbsp;mois</span></span><span class="stat-label" aria-hidden="true">D’accompagnement</span></div>
+      <div class="stat"><span class="sr-only">Marchés ouverts 24 heures sur 24, 7 jours sur 7</span><span class="stat-num" aria-hidden="true"><span class="count" style="--to: 24"></span><span class="gold">/7</span></span><span class="stat-label" aria-hidden="true">Marchés ouverts</span></div>
     </div>
   </section>
 
-  <!-- ===== TICKER ===== -->
-  <div aria-hidden="true" style="margin-top: clamp(48px, 6vw, 72px); background: #14120F; color: #F3EEE2; overflow: hidden; padding: 14px 0">
-    <div class="tick"><div class="marquee" style="font-weight: 800; font-size: 13px; letter-spacing: 0.14em; white-space: nowrap">
-      <span style="padding-right: 32px">VOLATILITY 75 <span style="color: #E9B63B">◆</span> BOOM 1000 <span style="color: #E9B63B">◆</span> CRASH 500 <span style="color: #E9B63B">◆</span> STEP INDEX <span style="color: #E9B63B">◆</span> JUMP 10 <span style="color: #E9B63B">◆</span> VOLATILITY 25 <span style="color: #E9B63B">◆</span> BOOM 500 <span style="color: #E9B63B">◆</span> CRASH 1000 <span style="color: #E9B63B">◆</span></span>
-      <span style="padding-right: 32px">VOLATILITY 75 <span style="color: #E9B63B">◆</span> BOOM 1000 <span style="color: #E9B63B">◆</span> CRASH 500 <span style="color: #E9B63B">◆</span> STEP INDEX <span style="color: #E9B63B">◆</span> JUMP 10 <span style="color: #E9B63B">◆</span> VOLATILITY 25 <span style="color: #E9B63B">◆</span> BOOM 500 <span style="color: #E9B63B">◆</span> CRASH 1000 <span style="color: #E9B63B">◆</span></span>
+  <!-- ===== BANDEAU ===== -->
+  <div class="ticker" aria-hidden="true">
+    <div class="tick"><div class="marquee">
+      <span>VOLATILITY 75 <b>◆</b> BOOM 1000 <b>◆</b> CRASH 500 <b>◆</b> STEP INDEX <b>◆</b> JUMP 10 <b>◆</b> VOLATILITY 25 <b>◆</b> BOOM 500 <b>◆</b> CRASH 1000 <b>◆</b></span>
+      <span>VOLATILITY 75 <b>◆</b> BOOM 1000 <b>◆</b> CRASH 500 <b>◆</b> STEP INDEX <b>◆</b> JUMP 10 <b>◆</b> VOLATILITY 25 <b>◆</b> BOOM 500 <b>◆</b> CRASH 1000 <b>◆</b></span>
     </div></div>
   </div>
 
-  <!-- ===== À PROPOS (bande courbe) ===== -->
-  <section class="band">
+  <!-- ===== À PROPOS ===== -->
+  <section class="band" aria-labelledby="apropos-titre">
     <div class="blob" aria-hidden="true"></div>
-    <div class="wrap about" style="position: relative">
+    <div class="wrap about">
       <div class="about-art">
-        <div class="book" style="position: relative; width: min(100%, 300px)">
-          <img src="./assets/5149e153c34d47fc46ea65e16b02b3f8.jpg" alt="Couverture du livre Le Manuel du Trader Divin, par Coach Godfrid Mustang" loading="lazy" style="width: 100%; height: auto; border-radius: 8px; transform: rotate(-4deg); box-shadow: 0 36px 70px -28px rgba(60,40,0,.55)">
-          <span style="position: absolute; right: -14px; bottom: 18px; background: #14120F; color: #FFFFFF; border-radius: 14px; padding: 10px 14px; font-size: 13px; font-weight: 700">Édition&nbsp;2025 · 120+&nbsp;pages</span>
+        <div class="book">
+          <img src="assets/manuel.jpg" alt="Couverture du livre Le Manuel du Trader Divin, par Coach Godfrid Mustang" width="336" height="454" loading="lazy">
+          <span class="book-tag">Édition&nbsp;2025 · 120+&nbsp;pages</span>
         </div>
       </div>
-      <div style="display: flex; flex-direction: column; gap: 18px; padding: clamp(40px, 6vw, 80px) 0">
+      <div class="about-copy">
         <span class="eyebrow">À propos</span>
-        <span style="font-family: 'Cinzel', Georgia, serif; font-weight: 900; font-size: clamp(26px, 3vw, 36px); letter-spacing: 0.04em">GOD TRADING</span>
-        <p class="txt" style="font-size: 16.5px; color: #3E382E">Une communauté fondée par <strong>Coach Godfrid Mustang</strong> pour former des traders capables de comprendre, d’analyser et de trader les indices synthétiques avec méthode. Ici, pas de promesse de gains faciles : on développe une vraie stratégie, une gestion du risque solide et une discipline de fer.</p>
-        <blockquote style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-weight: 700; font-size: clamp(19px, 2vw, 23px); line-height: 1.35; border-left: 4px solid #E9B63B; padding-left: 16px">« Le savoir est une arme, la discipline est la clé. »<br><span style="font-family: 'Manrope', sans-serif; font-style: normal; font-size: 13.5px; font-weight: 700; color: #5C5548">Coach Godfrid Mustang, fondateur</span></blockquote>
+        <h2 id="apropos-titre" class="about-title">GOD TRADING</h2>
+        <p class="txt">Une communauté fondée par <strong>Coach Godfrid Mustang</strong> pour former des traders capables de comprendre, d’analyser et de trader les indices synthétiques avec méthode. Ici, pas de promesse de gains faciles&nbsp;: on développe une vraie stratégie, une gestion du risque solide et une discipline de fer.</p>
+        <blockquote class="quote">«&nbsp;Le savoir est une arme, la discipline est la clé.&nbsp;»<cite>Coach Godfrid Mustang, fondateur</cite></blockquote>
       </div>
     </div>
   </section>
@@ -413,43 +154,43 @@ html[data-hov] .cur-dot{opacity:0}
     <div class="sec-head">
       <span class="eyebrow">Ce qui fait la différence</span>
       <h2 class="h2">Tu n’as pas besoin de chance. Tu as besoin d’une méthode.</h2>
-      <p>La plupart des débutants perdent parce qu’ils tradent sans plan, sans gestion du risque et sous le coup des émotions. Voici comment on corrige ça.</p>
+      <p>La plupart des débutants perdent parce qu’ils tradent sans plan, sans gestion du risque et sous le coup des émotions. Voici comment on corrige&nbsp;ça.</p>
     </div>
-    <div class="g-why hs">
-      <div class="lift" style="background: #FFFFFF; border: 1px solid #ECE4D3; border-radius: 22px; padding: 26px; display: flex; flex-direction: column; gap: 12px">
-        <span style="width: 52px; height: 52px; border-radius: 16px; background: #F1EADB; display: inline-flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#85600A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 4-6 8-6s8 2 8 6"></path></svg></span>
-        <h3 style="margin: 0; font-size: 17.5px; font-weight: 800">Coaching personnalisé</h3>
-        <p class="txt" style="font-size: 15px">Un accompagnement individuel pendant les 3&nbsp;mois de formation.</p>
+    <div class="g-why">
+      <div class="card lift">
+        <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 4-6 8-6s8 2 8 6"></path></svg></span>
+        <h3>Coaching personnalisé</h3>
+        <p class="txt">Un accompagnement individuel pendant les 3&nbsp;mois de formation.</p>
       </div>
-      <div class="lift" style="background: #FFFFFF; border: 1px solid #ECE4D3; border-radius: 22px; padding: 26px; display: flex; flex-direction: column; gap: 12px">
-        <span style="width: 52px; height: 52px; border-radius: 16px; background: #F1EADB; display: inline-flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#85600A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="13" rx="2"></rect><path d="M8 21h8M12 17v4"></path><path d="M6 13l3-3 2 2 4-4"></path></svg></span>
-        <h3 style="margin: 0; font-size: 17.5px; font-weight: 800">Live trading en groupe</h3>
-        <p class="txt" style="font-size: 15px">Analyse, entrée, gestion et sortie en direct sur MetaTrader&nbsp;5.</p>
+      <div class="card lift">
+        <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="13" rx="2"></rect><path d="M8 21h8M12 17v4"></path><path d="M6 13l3-3 2 2 4-4"></path></svg></span>
+        <h3>Live trading en groupe</h3>
+        <p class="txt">Analyse, entrée, gestion et sortie en direct sur MetaTrader&nbsp;5.</p>
       </div>
-      <div class="lift" style="background: #FFFFFF; border: 1px solid #ECE4D3; border-radius: 22px; padding: 26px; display: flex; flex-direction: column; gap: 12px">
-        <span style="width: 52px; height: 52px; border-radius: 16px; background: #F1EADB; display: inline-flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#85600A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z"></path><path d="M9 12l2 2 4-4"></path></svg></span>
-        <h3 style="margin: 0; font-size: 17.5px; font-weight: 800">Gestion du risque</h3>
-        <p class="txt" style="font-size: 15px">Taille de lot, ratio risque/récompense, drawdown : protéger ton capital avant tout.</p>
+      <div class="card lift">
+        <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z"></path><path d="M9 12l2 2 4-4"></path></svg></span>
+        <h3>Gestion du risque</h3>
+        <p class="txt">Taille de lot, ratio risque/récompense, drawdown&nbsp;: protéger ton capital avant tout.</p>
       </div>
-      <div class="lift" style="background: #FFFFFF; border: 1px solid #ECE4D3; border-radius: 22px; padding: 26px; display: flex; flex-direction: column; gap: 12px">
-        <span style="width: 52px; height: 52px; border-radius: 16px; background: #F1EADB; display: inline-flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#85600A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"></circle><circle cx="17" cy="9" r="2.5"></circle><path d="M2.5 20c0-3.5 3-5.5 6.5-5.5s6.5 2 6.5 5.5M15.5 14.5c3 0 6 1.5 6 5"></path></svg></span>
-        <h3 style="margin: 0; font-size: 17.5px; font-weight: 800">Communauté privée</h3>
-        <p class="txt" style="font-size: 15px">Échange, partage tes trades et progresse avec des traders motivés.</p>
+      <div class="card lift">
+        <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"></circle><circle cx="17" cy="9" r="2.5"></circle><path d="M2.5 20c0-3.5 3-5.5 6.5-5.5s6.5 2 6.5 5.5M15.5 14.5c3 0 6 1.5 6 5"></path></svg></span>
+        <h3>Communauté privée</h3>
+        <p class="txt">Échange, partage tes trades et progresse avec des traders motivés.</p>
       </div>
-      <div class="lift" style="background: #FFFFFF; border: 1px solid #ECE4D3; border-radius: 22px; padding: 26px; display: flex; flex-direction: column; gap: 12px">
-        <span style="width: 52px; height: 52px; border-radius: 16px; background: #F1EADB; display: inline-flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#85600A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"></path><path d="M7 15l4-4 3 3 5-6"></path></svg></span>
-        <h3 style="margin: 0; font-size: 17.5px; font-weight: 800">Suivi de performance</h3>
-        <p class="txt" style="font-size: 15px">Journal de trading, KPIs et revue de tes résultats jusqu’à l’autonomie.</p>
+      <div class="card lift">
+        <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"></path><path d="M7 15l4-4 3 3 5-6"></path></svg></span>
+        <h3>Suivi de performance</h3>
+        <p class="txt">Journal de trading, KPIs et revue de tes résultats jusqu’à l’autonomie.</p>
       </div>
-      <div class="lift" style="background: #14120F; color: #F3EEE2; border-radius: 22px; padding: 26px; display: flex; flex-direction: column; gap: 12px">
-        <span style="width: 52px; height: 52px; border-radius: 16px; background: #E9B63B; display: inline-flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A1714" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2"></path><path d="M8 7h7"></path></svg></span>
-        <h3 style="margin: 0; font-size: 17.5px; font-weight: 800">Le manuel inclus</h3>
-        <p style="margin: 0; font-size: 15px; line-height: 1.65; color: #CFC6B2">Le Manuel du Trader Divin pour réviser chaque module à ton rythme.</p>
+      <div class="card card-dark lift">
+        <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2"></path><path d="M8 7h7"></path></svg></span>
+        <h3>Le manuel inclus</h3>
+        <p class="txt">Le Manuel du Trader Divin pour réviser chaque module à ton rythme.</p>
       </div>
     </div>
   </section>
 
-  <!-- ===== PROGRAMME (bande, 3 phases) ===== -->
+  <!-- ===== PROGRAMME ===== -->
   <section id="programme" class="band sec">
     <div class="wrap">
       <div class="sec-head">
@@ -458,127 +199,159 @@ html[data-hov] .cur-dot{opacity:0}
         <p>10&nbsp;modules organisés en 3&nbsp;étapes. Chaque notion est mise en pratique en direct avant de passer à la suivante.</p>
       </div>
       <div class="path hide-sm" aria-hidden="true"><i></i><b style="left: 0"></b><b style="left: 50%"></b><b style="left: 100%"></b></div>
-      <div class="g-cards hs">
-        <sc-for list="{{phases}}" as="p" hint-placeholder-count="3">
-          <div class="lift" style="background: #FFFFFF; border-radius: 22px; overflow: hidden; display: flex; flex-direction: column">
-            <div style="background: #14120F; color: #F3EEE2; padding: 22px 24px; display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; min-height: 140px">
-              <span style="display: flex; flex-direction: column; gap: 8px"><span style="font-size: 12px; font-weight: 800; letter-spacing: 0.14em; color: #E9B63B">{{p.phase}}</span><span style="font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 22px; line-height: 1.15">{{p.title}}</span></span>
-              <span style="font-family: 'Playfair Display', Georgia, serif; font-weight: 800; font-size: 36px; line-height: 1; color: #E9B63B; font-variant-numeric: lining-nums; white-space: nowrap">{{p.range}}</span>
-            </div>
-            <div style="padding: 20px 24px 24px; display: flex; flex-direction: column; gap: 14px; flex: 1">
-              <p class="txt" style="font-size: 14.5px">{{p.desc}}</p>
-              <div style="display: flex; flex-direction: column; gap: 9px; padding-top: 14px; border-top: 1px solid #ECE4D3; font-size: 14.5px; font-weight: 600">
-                <sc-for list="{{p.mods}}" as="m" hint-placeholder-count="3">
-                  <span class="chk">{{m}}</span>
-                </sc-for>
-              </div>
-            </div>
+      <div class="g-cards">
+        <article class="phase lift">
+          <div class="phase-top">
+            <span class="phase-name"><span class="phase-step">ÉTAPE 1</span><span class="phase-title">Les fondations</span></span>
+            <span class="phase-range"><span aria-hidden="true">01–03</span><span class="sr-only">Modules 1 à 3</span></span>
           </div>
-        </sc-for>
+          <div class="phase-body">
+            <p class="txt">Comprendre les indices synthétiques, maîtriser MetaTrader&nbsp;5 et lire un graphique comme un pro.</p>
+            <ul class="phase-mods">
+              <li class="chk">Les fondations du dieu des marchés</li>
+              <li class="chk">Maîtrise de MetaTrader&nbsp;5</li>
+              <li class="chk">L’art divin de l’analyse technique</li>
+            </ul>
+          </div>
+        </article>
+        <article class="phase lift">
+          <div class="phase-top">
+            <span class="phase-name"><span class="phase-step">ÉTAPE 2</span><span class="phase-title">Stratégie et risque</span></span>
+            <span class="phase-range"><span aria-hidden="true">04–06</span><span class="sr-only">Modules 4 à 6</span></span>
+          </div>
+          <div class="phase-body">
+            <p class="txt">Des stratégies par indice, une gestion du risque solide et la structure du marché synthétique.</p>
+            <ul class="phase-mods">
+              <li class="chk">Stratégies pour dominer le marché</li>
+              <li class="chk">Gestion des risques</li>
+              <li class="chk">La structure du marché synthétique</li>
+            </ul>
+          </div>
+        </article>
+        <article class="phase lift">
+          <div class="phase-top">
+            <span class="phase-name"><span class="phase-step">ÉTAPE 3</span><span class="phase-title">Pratique et liberté</span></span>
+            <span class="phase-range"><span aria-hidden="true">07–10</span><span class="sr-only">Modules 7 à 10</span></span>
+          </div>
+          <div class="phase-body">
+            <p class="txt">Le mental, la pratique en conditions réelles, le suivi de performance et le business du trader.</p>
+            <ul class="phase-mods">
+              <li class="chk">L’ascension du trader profitable</li>
+              <li class="chk">Immersion en conditions réelles</li>
+              <li class="chk">Suivi de performance et KPIs</li>
+              <li class="chk">Le business du trader libre</li>
+              <li class="chk">Bonus&nbsp;: style de vie du trader d’élite</li>
+            </ul>
+          </div>
+        </article>
       </div>
-      <div style="display: flex; justify-content: center; margin-top: 32px">
-        <a class="btn btn-dark" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation.">Je commence mon parcours</a>
+      <div class="center-cta">
+        <a class="btn btn-dark" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation." target="_blank" rel="noopener">Je commence mon parcours</a>
       </div>
     </div>
   </section>
 
   <!-- ===== POUR QUI ===== -->
-  <section id="pourqui" class="wrap sec" style="padding-bottom: 0">
+  <section id="pourqui" class="wrap sec sec-tight">
     <div class="sec-head">
-      <span class="eyebrow">Pour qui ?</span>
+      <span class="eyebrow">Pour qui&nbsp;?</span>
       <h2 class="h2">Sois honnête avec toi-même</h2>
-      <p>On préfère te le dire maintenant : cette formation n’est pas faite pour tout le monde.</p>
+      <p>On préfère te le dire maintenant&nbsp;: cette formation n’est pas faite pour tout le monde.</p>
     </div>
     <div class="g-2col">
-      <div style="background: #FFFFFF; border: 1px solid #ECE4D3; border-radius: 24px; padding: clamp(22px, 3vw, 32px); display: flex; flex-direction: column; gap: 14px">
-        <span style="font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 22px">C’est pour toi si…</span>
-        <span class="chk">Tu débutes ou tu trades déjà, mais sans résultats réguliers</span>
-        <span class="chk">Tu veux comprendre ce que tu fais au lieu de copier des signaux</span>
-        <span class="chk">Tu es prêt à suivre un plan et à respecter une gestion du risque</span>
-        <span class="chk">Tu veux être accompagné plutôt qu’apprendre seul sur YouTube</span>
+      <div class="fit">
+        <h3 class="fit-title">C’est pour toi si…</h3>
+        <ul class="fit-list">
+          <li class="chk">Tu débutes ou tu trades déjà, mais sans résultats réguliers</li>
+          <li class="chk">Tu veux comprendre ce que tu fais au lieu de copier des signaux</li>
+          <li class="chk">Tu es prêt à suivre un plan et à respecter une gestion du risque</li>
+          <li class="chk">Tu veux être accompagné plutôt qu’apprendre seul sur YouTube</li>
+        </ul>
       </div>
-      <div style="background: #14120F; color: #F3EEE2; border-radius: 24px; padding: clamp(22px, 3vw, 32px); display: flex; flex-direction: column; gap: 14px">
-        <span style="font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 22px">Ce n’est pas pour toi si…</span>
-        <span class="nope">Tu cherches à devenir riche en une semaine</span>
-        <span class="nope">Tu veux trader l’argent dont tu as besoin pour vivre</span>
-        <span class="nope">Tu n’es pas prêt à pratiquer et à te remettre en question</span>
+      <div class="fit fit-dark">
+        <h3 class="fit-title">Ce n’est pas pour toi si…</h3>
+        <ul class="fit-list">
+          <li class="nope">Tu cherches à devenir riche en une semaine</li>
+          <li class="nope">Tu veux trader l’argent dont tu as besoin pour vivre</li>
+          <li class="nope">Tu n’es pas prêt à pratiquer et à te remettre en question</li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <!-- ===== OFFRES (zig-zag) ===== -->
+  <!-- ===== OFFRES ===== -->
   <section id="offres" class="wrap sec">
     <div class="sec-head">
       <span class="eyebrow">Les offres</span>
       <h2 class="h2">Choisis ton point de départ</h2>
       <p>Découvre la méthode avec le manuel, ou fais-toi accompagner jusqu’au bout avec la formation complète.</p>
     </div>
-    <div style="display: flex; flex-direction: column; gap: clamp(20px, 6vw, 72px)">
-      <div class="svc">
-        <div class="svc-media" style="background: #14120F; display: flex; align-items: center; justify-content: center; padding: 20px 28px">
-          <span style="position: absolute; left: 16px; top: 16px; font-size: 11.5px; font-weight: 800; letter-spacing: 0.1em; background: #E9B63B; color: #1A1714; padding: 6px 12px; border-radius: 999px">RECOMMANDÉ</span>
-          <svg viewBox="0 0 320 140" style="width: 100%; max-width: 420px; height: auto" role="img" aria-label="Illustration d’un graphique en chandeliers">
+    <div class="offers">
+      <article class="svc">
+        <div class="svc-media svc-media-dark">
+          <span class="tag tag-gold">RECOMMANDÉ</span>
+          <svg viewBox="0 0 320 140" role="img" aria-label="Illustration d’un graphique en chandeliers">
             <path class="draw" pathLength="1" d="M0 120 C60 112 100 95 140 85 S220 55 260 45 S300 30 320 22" fill="none" stroke="#E9B63B" stroke-width="2.5"></path>
             <g stroke-width="2"><line x1="20" y1="100" x2="20" y2="132" stroke="#E5484D"></line><rect x="15" y="106" width="10" height="18" fill="#E5484D"></rect><line x1="48" y1="90" x2="48" y2="124" stroke="#22B573"></line><rect x="43" y="96" width="10" height="22" fill="#22B573"></rect><line x1="76" y1="82" x2="76" y2="112" stroke="#22B573"></line><rect x="71" y="86" width="10" height="18" fill="#22B573"></rect><line x1="104" y1="80" x2="104" y2="108" stroke="#E5484D"></line><rect x="99" y="86" width="10" height="14" fill="#E5484D"></rect><line x1="132" y1="68" x2="132" y2="104" stroke="#22B573"></line><rect x="127" y="74" width="10" height="24" fill="#22B573"></rect><line x1="160" y1="58" x2="160" y2="88" stroke="#22B573"></line><rect x="155" y="62" width="10" height="18" fill="#22B573"></rect><line x1="188" y1="58" x2="188" y2="84" stroke="#E5484D"></line><rect x="183" y="63" width="10" height="14" fill="#E5484D"></rect><line x1="216" y1="44" x2="216" y2="78" stroke="#22B573"></line><rect x="211" y="50" width="10" height="20" fill="#22B573"></rect><line x1="244" y1="36" x2="244" y2="64" stroke="#22B573"></line><rect x="239" y="40" width="10" height="16" fill="#22B573"></rect><line x1="272" y1="30" x2="272" y2="56" stroke="#E5484D"></line><rect x="267" y="35" width="10" height="12" fill="#E5484D"></rect><line x1="300" y1="16" x2="300" y2="46" stroke="#22B573"></line><rect x="295" y="21" width="10" height="18" fill="#22B573"></rect></g>
           </svg>
         </div>
-        <div class="svc-body" style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
-          <h3 style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: clamp(24px, 2.6vw, 32px); line-height: 1.15">Formation complète</h3>
-          <p class="txt">Pour ceux qui veulent un coach à leurs côtés : tu apprends, tu pratiques en direct et on te suit jusqu’à ce que tu trades seul.</p>
-          <div class="g-feat" style="font-size: 14.5px; font-weight: 600">
-            <span class="chk">10 modules + bonus</span><span class="chk">3 mois de coaching</span><span class="chk">Live trading en groupe</span><span class="chk">Communauté privée</span><span class="chk">Suivi de performance</span><span class="chk">Le manuel inclus</span>
-          </div>
-          <p class="price" style="margin: 4px 0 0; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap"><span style="font-family: 'Playfair Display', Georgia, serif; font-weight: 800; font-size: 40px; line-height: 1">200&nbsp;$</span><span style="font-size: 14px; font-weight: 700; color: #85600A">ou en plusieurs tranches</span></p>
-          <a class="btn btn-gold" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation.">Je réserve ma place</a>
+        <div class="svc-body">
+          <h3 class="svc-title">Formation complète</h3>
+          <p class="txt">Pour ceux qui veulent un coach à leurs côtés&nbsp;: tu apprends, tu pratiques en direct et on te suit jusqu’à ce que tu trades seul.</p>
+          <ul class="g-feat">
+            <li class="chk">10 modules + bonus</li><li class="chk">3 mois de coaching</li><li class="chk">Live trading en groupe</li><li class="chk">Communauté privée</li><li class="chk">Suivi de performance</li><li class="chk">Le manuel inclus</li>
+          </ul>
+          <p class="price"><span class="price-num">200&nbsp;$</span><span class="price-note">ou en plusieurs tranches</span></p>
+          <a class="btn btn-gold" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation." target="_blank" rel="noopener">Je réserve ma place</a>
           <span class="micro">Réponse rapide sur WhatsApp · Mobile Money, Wave ou carte</span>
         </div>
-      </div>
+      </article>
 
-      <div class="svc svc-rev">
-        <div class="svc-media" style="background: #F1EADB; display: flex; align-items: center; justify-content: center; padding: 22px">
-          <span style="position: absolute; right: 16px; top: 16px; font-size: 11.5px; font-weight: 800; letter-spacing: 0.1em; background: #A3361F; color: #FFFFFF; padding: 6px 12px; border-radius: 999px">PRIX PROMO</span>
-          <img src="./assets/5149e153c34d47fc46ea65e16b02b3f8.jpg" alt="Couverture du livre Le Manuel du Trader Divin" loading="lazy" style="height: 100%; width: auto; border-radius: 6px; box-shadow: 0 18px 34px -18px rgba(60,40,0,.55)">
+      <article class="svc svc-rev">
+        <div class="svc-media svc-media-sand">
+          <span class="tag tag-red">PRIX PROMO</span>
+          <img src="assets/manuel.jpg" alt="Couverture du livre Le Manuel du Trader Divin" width="336" height="454" loading="lazy">
         </div>
-        <div class="svc-body" style="display: flex; flex-direction: column; gap: 14px; align-items: flex-end; text-align: right">
-          <h3 style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: clamp(24px, 2.6vw, 32px); line-height: 1.15">Le Manuel du Trader Divin</h3>
-          <p class="txt">Pour découvrir la méthode avant de t’engager : tout le programme GOD TRADING en plus de 120&nbsp;pages, à lire à ton rythme.</p>
-          <div style="display: flex; flex-direction: column; gap: 8px; font-size: 14.5px; font-weight: 600; text-align: left">
-            <span class="chk">Les 10 modules + le bonus, détaillés</span><span class="chk">1 mois offert au groupe communautaire</span><span class="chk">Journal de trading et check-lists inclus</span>
-          </div>
-          <p class="price" style="margin: 4px 0 0; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; justify-content: flex-end"><span style="font-family: 'Playfair Display', Georgia, serif; font-weight: 800; font-size: 40px; line-height: 1">9&nbsp;$</span><span style="font-size: 16px; font-weight: 800; color: #85600A">4&nbsp;999&nbsp;FCFA</span></p>
-          <a class="btn btn-line" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20commander%20le%20Manuel%20du%20Trader%20Divin.">Je veux le manuel</a>
+        <div class="svc-body">
+          <h3 class="svc-title">Le Manuel du Trader Divin</h3>
+          <p class="txt">Pour découvrir la méthode avant de t’engager&nbsp;: tout le programme GOD TRADING en plus de 120&nbsp;pages, à lire à ton rythme.</p>
+          <ul class="svc-list">
+            <li class="chk">Les 10 modules + le bonus, détaillés</li><li class="chk">1 mois offert au groupe communautaire</li><li class="chk">Journal de trading et check-lists inclus</li>
+          </ul>
+          <p class="price"><span class="price-num">9&nbsp;$</span><span class="price-note price-fcfa">4&nbsp;999&nbsp;FCFA</span></p>
+          <a class="btn btn-line" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20commander%20le%20Manuel%20du%20Trader%20Divin." target="_blank" rel="noopener">Je veux le manuel</a>
           <span class="micro">Accès instantané après paiement</span>
         </div>
-      </div>
+      </article>
     </div>
   </section>
 
-  <!-- ===== COMMENT S'INSCRIRE (bande courbe) ===== -->
-  <section class="band" style="padding: clamp(56px, 7vw, 96px) 0">
-    <div aria-hidden="true" style="position: absolute; right: -10%; top: -40%; width: 45%; height: 180%; border-radius: 50%; background: #FAF7F0"></div>
-    <div class="wrap promo-in" style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 32px">
-      <div class="sec-head" style="margin-bottom: 0">
+  <!-- ===== COMMENT S'INSCRIRE ===== -->
+  <section class="band steps-sec" aria-labelledby="inscription-titre">
+    <div class="steps-blob" aria-hidden="true"></div>
+    <div class="wrap promo-in">
+      <div class="sec-head">
         <span class="eyebrow">Comment s’inscrire</span>
-        <h2 class="h2">Tu peux commencer aujourd’hui</h2>
+        <h2 id="inscription-titre" class="h2">Tu peux commencer aujourd’hui</h2>
       </div>
-      <div class="g-steps">
-        <div style="display: flex; flex-direction: column; gap: 10px; background: #FFFFFF; border-radius: 22px; padding: 24px">
-          <span style="width: 44px; height: 44px; border-radius: 50%; background: #14120F; color: #E9B63B; display: inline-flex; align-items: center; justify-content: center; font-weight: 800">1</span>
-          <span style="font-weight: 800; font-size: 17px">Écris-nous sur WhatsApp</span>
-          <span class="txt" style="font-size: 14.5px">Un message suffit. On répond à tes questions et on t’explique tout.</span>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 10px; background: #FFFFFF; border-radius: 22px; padding: 24px">
-          <span style="width: 44px; height: 44px; border-radius: 50%; background: #14120F; color: #E9B63B; display: inline-flex; align-items: center; justify-content: center; font-weight: 800">2</span>
-          <span style="font-weight: 800; font-size: 17px">Choisis ton paiement</span>
-          <span class="txt" style="font-size: 14.5px">Mobile Money, Wave ou carte. En une fois ou par tranches pour la formation.</span>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 10px; background: #FFFFFF; border-radius: 22px; padding: 24px">
-          <span style="width: 44px; height: 44px; border-radius: 50%; background: #E9B63B; color: #1A1714; display: inline-flex; align-items: center; justify-content: center; font-weight: 800">3</span>
-          <span style="font-weight: 800; font-size: 17px">Reçois ton accès</span>
-          <span class="txt" style="font-size: 14.5px">Tu rejoins le groupe et tu démarres le module&nbsp;1 tout de suite.</span>
-        </div>
-      </div>
-      <a class="btn btn-dark" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation.">Je fais le premier pas</a>
+      <ol class="g-steps">
+        <li class="step">
+          <span class="step-n" aria-hidden="true">1</span>
+          <h3 class="step-title">Écris-nous sur WhatsApp</h3>
+          <p class="txt">Un message suffit. On répond à tes questions et on t’explique tout.</p>
+        </li>
+        <li class="step">
+          <span class="step-n" aria-hidden="true">2</span>
+          <h3 class="step-title">Choisis ton paiement</h3>
+          <p class="txt">Mobile Money, Wave ou carte. En une fois ou par tranches pour la formation.</p>
+        </li>
+        <li class="step">
+          <span class="step-n step-n-gold" aria-hidden="true">3</span>
+          <h3 class="step-title">Reçois ton accès</h3>
+          <p class="txt">Tu rejoins le groupe et tu démarres le module&nbsp;1 tout de suite.</p>
+        </li>
+      </ol>
+      <a class="btn btn-dark" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation." target="_blank" rel="noopener">Je fais le premier pas</a>
     </div>
   </section>
 
@@ -588,64 +361,80 @@ html[data-hov] .cur-dot{opacity:0}
       <span class="eyebrow">Avis des élèves</span>
       <h2 class="h2">Ils ont arrêté de trader au hasard</h2>
     </div>
+    <!--
+      AVIS FICTIFS — exemples rédigés pour remplir la maquette.
+      À remplacer par de vrais témoignages d'élèves (avec leur accord) avant
+      de les présenter comme authentiques. Chaque avis = un bloc <figure>.
+    -->
     <div class="rv">
-      <button class="arrow" onClick="{{prevRev}}" aria-label="Avis précédent"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1714" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></button>
-      <div class="rv-side" style="background: #F1EADB; padding: 28px 22px; min-height: 250px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; border-radius: 18px 0 0 18px">
-        <span style="width: 48px; height: 48px; border-radius: 50%; background: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-weight: 800">{{revPrev.initial}}</span>
-        <p class="txt" style="font-size: 14px">{{revPrev.text}}</p>
-      </div>
-      <figure style="margin: 0; background: #FFFFFF; padding: 36px 30px; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; border-radius: 22px; box-shadow: 0 26px 52px -28px rgba(60,40,0,.45); position: relative; z-index: 1">
-        <span style="width: 64px; height: 64px; border-radius: 50%; background: #E9B63B; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 20px">{{revCur.initial}}</span>
-        <figcaption style="font-weight: 800">{{revCur.name}}</figcaption>
-        <blockquote class="txt" style="margin: 0">{{revCur.text}}</blockquote>
-      </figure>
-      <div class="rv-side" style="background: #F1EADB; padding: 28px 22px; min-height: 250px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; border-radius: 0 18px 18px 0">
-        <span style="width: 48px; height: 48px; border-radius: 50%; background: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-weight: 800">{{revNext.initial}}</span>
-        <p class="txt" style="font-size: 14px">{{revNext.text}}</p>
-      </div>
-      <button class="arrow" onClick="{{nextRev}}" aria-label="Avis suivant" style="justify-self: end"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1714" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></button>
-    </div>
-    <div class="rv-dots" style="display: flex; justify-content: center; gap: 2px; margin-top: 20px">
-      <sc-for list="{{dots}}" as="d" hint-placeholder-count="4">
-        <button onClick="{{d.go}}" aria-label="{{d.label}}" style="width: 32px; height: 32px; border: 0; background: transparent; display: inline-flex; align-items: center; justify-content: center; padding: 0">
-          <sc-if value="{{d.on}}" hint-placeholder-val="{{false}}"><span style="width: 22px; height: 8px; border-radius: 4px; background: #1A1714"></span></sc-if>
-          <sc-if value="{{d.off}}" hint-placeholder-val="{{true}}"><span style="width: 8px; height: 8px; border-radius: 50%; background: #D9CFBA"></span></sc-if>
-        </button>
-      </sc-for>
-    </div>
-    <!-- mobile : liste à faire glisser -->
-    <div class="rv-mob hs" style="gap: 12px">
-      <sc-for list="{{reviews}}" as="r" hint-placeholder-count="4">
-        <figure style="margin: 0; background: #FFFFFF; border: 1px solid #ECE4D3; border-radius: 22px; padding: 22px; display: flex; flex-direction: column; gap: 14px">
-          <div style="display: flex; align-items: center; gap: 12px"><span style="width: 44px; height: 44px; flex: 0 0 44px; border-radius: 50%; background: #E9B63B; display: inline-flex; align-items: center; justify-content: center; font-weight: 800">{{r.initial}}</span><figcaption style="font-weight: 800">{{r.name}}</figcaption></div>
-          <blockquote class="txt" style="margin: 0">{{r.text}}</blockquote>
+      <div class="rv-track" tabindex="0" role="region" aria-label="Avis des élèves, faire défiler horizontalement">
+        <figure class="rv-card">
+          <blockquote class="txt">Avant, j’ouvrais des positions sur le V75 au feeling et je vidais mon compte démo en quelques jours. Maintenant j’ai un plan&nbsp;: je sais où entrer, où sortir et combien risquer. Le module sur la gestion des risques a tout changé pour moi.</blockquote>
+          <figcaption class="rv-who"><span class="rv-av" aria-hidden="true">A</span><span class="rv-meta"><strong>Arnaud K.</strong><span>Cotonou · Formation complète</span></span></figcaption>
         </figure>
-      </sc-for>
+        <figure class="rv-card">
+          <blockquote class="txt">Je partais de zéro et j’avais peur de ne rien comprendre. Le coach explique simplement, et les lives en groupe m’ont montré comment on analyse vraiment un graphique. Aujourd’hui je remplis mon journal de trading après chaque séance.</blockquote>
+          <figcaption class="rv-who"><span class="rv-av" aria-hidden="true">F</span><span class="rv-meta"><strong>Fatou D.</strong><span>Dakar · Formation complète</span></span></figcaption>
+        </figure>
+        <figure class="rv-card">
+          <blockquote class="txt">J’ai d’abord pris le manuel pour voir si la méthode me parlait. C’est clair, bien structuré, avec des check-lists que j’utilise encore. Du coup j’ai rejoint la formation complète pour être suivi.</blockquote>
+          <figcaption class="rv-who"><span class="rv-av" aria-hidden="true">K</span><span class="rv-meta"><strong>Kossi A.</strong><span>Lomé · Manuel puis formation</span></span></figcaption>
+        </figure>
+        <figure class="rv-card">
+          <blockquote class="txt">Mon vrai problème, c’était les émotions&nbsp;: après une perte, je voulais toujours me refaire. Le travail sur le mental et la discipline m’a appris à m’arrêter quand mon plan le dit. Je prends moins de trades, mais je sais pourquoi je les prends.</blockquote>
+          <figcaption class="rv-who"><span class="rv-av" aria-hidden="true">M</span><span class="rv-meta"><strong>Mariam T.</strong><span>Abidjan · Formation complète</span></span></figcaption>
+        </figure>
+        <figure class="rv-card">
+          <blockquote class="txt">Je n’ai pas d’ordinateur, donc c’était important que tout se fasse sur téléphone. La configuration de MetaTrader&nbsp;5 est expliquée pas à pas, le coach répond vite sur WhatsApp et le groupe motive à rester régulier.</blockquote>
+          <figcaption class="rv-who"><span class="rv-av" aria-hidden="true">P</span><span class="rv-meta"><strong>Prince H.</strong><span>Porto-Novo · Formation complète</span></span></figcaption>
+        </figure>
+        <figure class="rv-card">
+          <blockquote class="txt">Ce qui m’a convaincue, c’est qu’on ne m’a jamais promis de gains faciles. On apprend d’abord à protéger son capital. Le suivi de performance m’a fait voir mes vraies erreurs, chiffres à l’appui.</blockquote>
+          <figcaption class="rv-who"><span class="rv-av" aria-hidden="true">E</span><span class="rv-meta"><strong>Estelle M.</strong><span>Douala · Formation complète</span></span></figcaption>
+        </figure>
+      </div>
+      <div class="rv-nav">
+        <button class="arrow" type="button" data-prev aria-label="Avis précédent"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></button>
+        <div class="rv-dots"></div>
+        <button class="arrow" type="button" data-next aria-label="Avis suivant"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></button>
+      </div>
     </div>
   </section>
 
   <!-- ===== FAQ ===== -->
   <section id="faq" class="band sec">
     <div class="wrap g-faq">
-      <div style="display: flex; flex-direction: column; gap: 14px">
+      <div class="faq-intro">
         <span class="eyebrow">FAQ</span>
-        <h2 class="h2">Tu hésites encore ?</h2>
+        <h2 class="h2">Tu hésites encore&nbsp;?</h2>
         <p class="txt">C’est normal. Voici les réponses aux questions qu’on nous pose le plus. Pour le reste, écris-nous directement.</p>
-        <a class="btn btn-dark" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20j%E2%80%99ai%20une%20question." style="align-self: flex-start">Poser ma question</a>
+        <a class="btn btn-dark" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20j%E2%80%99ai%20une%20question." target="_blank" rel="noopener">Poser ma question</a>
       </div>
-      <div style="display: flex; flex-direction: column; gap: 10px">
-        <sc-for list="{{faqs}}" as="f" hint-placeholder-count="5">
-          <div style="background: #FFFFFF; border-radius: 18px; overflow: hidden">
-            <button onClick="{{f.toggle}}" aria-expanded="{{f.open}}" style="width: 100%; background: transparent; border: 0; color: #1A1714; font-family: 'Manrope', sans-serif; font-size: 16px; font-weight: 800; text-align: left; padding: 16px 18px; display: flex; gap: 14px; align-items: center; min-height: 60px">
-              <span style="flex: 1">{{f.q}}</span>
-              <sc-if value="{{f.open}}" hint-placeholder-val="{{false}}"><span style="width: 32px; height: 32px; flex: 0 0 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: #14120F"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E9B63B" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"></path></svg></span></sc-if>
-              <sc-if value="{{f.closed}}" hint-placeholder-val="{{true}}"><span style="width: 32px; height: 32px; flex: 0 0 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: #F1EADB"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#85600A" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></span></sc-if>
-            </button>
-            <sc-if value="{{f.open}}" hint-placeholder-val="{{false}}">
-              <p class="ans" style="margin: 0; padding: 0 18px 18px; color: #5C5548; font-size: 15px; line-height: 1.65">{{f.a}}</p>
-            </sc-if>
-          </div>
-        </sc-for>
+      <div class="faq-list">
+        <details class="faq-item" name="faq" open>
+          <summary>Je débute complètement, est-ce que je vais suivre&nbsp;?<span class="faq-ic" aria-hidden="true"></span></summary>
+          <p class="ans">Oui. Le module&nbsp;1 part de zéro&nbsp;: ce que sont les indices synthétiques, comment fonctionne Deriv et comment installer MetaTrader&nbsp;5. Et ton coach est là si tu bloques.</p>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary>Je n’ai pas beaucoup d’argent pour trader. C’est un problème&nbsp;?<span class="faq-ic" aria-hidden="true"></span></summary>
+          <p class="ans">Non. Tu commences sur un compte démo, sans risquer d’argent. La formation t’apprend ensuite à définir un capital adapté et à gérer ton risque avant de passer en réel.</p>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary>Je n’ai pas d’ordinateur, je peux quand même suivre&nbsp;?<span class="faq-ic" aria-hidden="true"></span></summary>
+          <p class="ans">Oui, pas besoin d’ordinateur. Tout se fait sur téléphone avec MetaTrader&nbsp;5 mobile, et la configuration est expliquée pas à pas.</p>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary>Puis-je payer en plusieurs fois&nbsp;?<span class="faq-ic" aria-hidden="true"></span></summary>
+          <p class="ans">Oui, la formation peut se payer par tranches. Écris-nous sur WhatsApp pour choisir les modalités qui te conviennent.</p>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary>Quand puis-je commencer&nbsp;?<span class="faq-ic" aria-hidden="true"></span></summary>
+          <p class="ans">Dès aujourd’hui. Les inscriptions sont ouvertes en continu&nbsp;: tu reçois ton accès et tu démarres le module&nbsp;1 tout de suite.</p>
+        </details>
+        <details class="faq-item" name="faq">
+          <summary>Est-ce que je vais forcément gagner de l’argent&nbsp;?<span class="faq-ic" aria-hidden="true"></span></summary>
+          <p class="ans">Non, et méfie-toi de ceux qui te le promettent. Le trading comporte des risques. Notre rôle est de te donner une méthode, une gestion du risque et une discipline solides pour mettre toutes les chances de ton côté.</p>
+        </details>
       </div>
     </div>
   </section>
@@ -653,268 +442,73 @@ html[data-hov] .cur-dot{opacity:0}
   <!-- ===== CONTACT ===== -->
   <section id="contact" class="wrap sec">
     <div class="g-contact">
-      <div style="display: flex; flex-direction: column; gap: 22px">
+      <div class="contact-info">
         <span class="eyebrow">Contact</span>
-        <h2 class="h2">Une question avant de te lancer ?</h2>
-        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px">
-          <div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 13px; font-weight: 700; color: #5C5548">Localisation</span><span style="font-weight: 700">[Ville], Bénin</span></div>
-          <div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 13px; font-weight: 700; color: #5C5548">Horaires</span><span style="font-weight: 700">[Lun–Sam, 9&nbsp;h–20&nbsp;h]</span></div>
-          <div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 13px; font-weight: 700; color: #5C5548">WhatsApp</span><a href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20j%E2%80%99ai%20une%20question." style="font-weight: 700; text-decoration: none">+229&nbsp;01&nbsp;93&nbsp;32&nbsp;44&nbsp;39</a></div>
-          <div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 13px; font-weight: 700; color: #5C5548">Réseaux</span><span style="font-weight: 700">[@godtrading]</span></div>
-        </div>
+        <h2 class="h2">Une question avant de te lancer&nbsp;?</h2>
+        <dl class="facts">
+          <div><dt>WhatsApp</dt><dd><a href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20j%E2%80%99ai%20une%20question." target="_blank" rel="noopener">+229&nbsp;01&nbsp;93&nbsp;32&nbsp;44&nbsp;39</a></dd></div>
+          <div><dt>Localisation</dt><dd>Bénin · 100&nbsp;% en ligne</dd></div>
+          <div><dt>Paiement</dt><dd>Mobile Money, Wave, carte</dd></div>
+          <div><dt>Format</dt><dd>Sur ton téléphone</dd></div>
+        </dl>
       </div>
-      <div style="background: #14120F; color: #F3EEE2; border-radius: 24px; min-height: 340px; padding: clamp(28px, 4vw, 44px); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 18px; position: relative; overflow: hidden">
-        <div aria-hidden="true" style="position: absolute; right: -90px; bottom: -90px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(233,182,59,.38), transparent 70%)"></div>
-        <img src="./assets/65d9f762b0b68ce39fd041873338a4bb.jpg" alt="" style="width: 100px; height: 88px; object-fit: contain; position: relative">
-        <p style="margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: clamp(22px, 2.6vw, 30px); line-height: 1.25; position: relative">Dans 3&nbsp;mois, tu peux encore trader au hasard… ou suivre une méthode.</p>
-        <p style="margin: 0; color: #CFC6B2; font-size: 15px; position: relative">Les places de coaching sont limitées pour garder un vrai suivi individuel.</p>
-        <a class="btn btn-gold" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation." style="position: relative">Je réserve ma place</a>
+      <div class="cta-card">
+        <div class="cta-glow" aria-hidden="true"></div>
+        <img src="assets/embleme-carre.jpg" alt="" width="96" height="96" loading="lazy">
+        <p class="cta-title">Dans 3&nbsp;mois, tu peux encore trader au hasard… ou suivre une méthode.</p>
+        <p class="cta-sub">Les places de coaching sont limitées pour garder un vrai suivi individuel.</p>
+        <a class="btn btn-gold" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation." target="_blank" rel="noopener">Je réserve ma place</a>
       </div>
     </div>
   </section>
+  </main>
 
-  <!-- ===== FOOTER ===== -->
-  <footer style="background: #F1EADB">
-    <div class="wrap" style="padding-top: 48px; padding-bottom: 28px; display: flex; flex-direction: column; gap: 28px">
+  <!-- ===== PIED DE PAGE ===== -->
+  <footer class="foot">
+    <div class="wrap foot-in">
       <div class="g-foot">
-        <div class="foot-brand" style="display: flex; flex-direction: column; gap: 10px">
-          <span style="font-family: 'Cinzel', Georgia, serif; font-weight: 900; font-size: 24px; letter-spacing: 0.04em">GOD TRADING</span>
-          <span style="font-size: 14.5px; color: #5C5548; max-width: 320px; line-height: 1.55">Domine le marché, impose ta vision. Formation, stratégie, accompagnement.</span>
-          <div style="display: flex; gap: 8px; margin-top: 6px">
-            <a href="[LIEN TIKTOK]" aria-label="TikTok" style="width: 44px; height: 44px; border-radius: 50%; background: #FFFFFF; display: inline-flex; align-items: center; justify-content: center"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#1A1714" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v11a4 4 0 1 1-4-4"></path><path d="M14 3c.5 3 2.5 5 6 5"></path></svg></a>
-            <a href="[LIEN FACEBOOK]" aria-label="Facebook" style="width: 44px; height: 44px; border-radius: 50%; background: #FFFFFF; display: inline-flex; align-items: center; justify-content: center"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#1A1714" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
-            <a href="[LIEN YOUTUBE]" aria-label="YouTube" style="width: 44px; height: 44px; border-radius: 50%; background: #FFFFFF; display: inline-flex; align-items: center; justify-content: center"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#1A1714" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9l5 3-5 3z"></path></svg></a>
-          </div>
+        <div class="foot-brand">
+          <span class="foot-logo">GOD TRADING</span>
+          <span class="foot-tagline">Domine le marché, impose ta vision. Formation, stratégie, accompagnement.</span>
+          <!--
+            Réseaux sociaux : remplacer les liens puis décommenter.
+            <div class="socials">
+              <a href="https://www.tiktok.com/@VOTRE_COMPTE" aria-label="TikTok" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v11a4 4 0 1 1-4-4"></path><path d="M14 3c.5 3 2.5 5 6 5"></path></svg></a>
+              <a href="https://www.facebook.com/VOTRE_PAGE" aria-label="Facebook" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+              <a href="https://www.youtube.com/@VOTRE_CHAINE" aria-label="YouTube" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9l5 3-5 3z"></path></svg></a>
+            </div>
+          -->
         </div>
-        <nav aria-label="Pied de page" style="display: flex; flex-direction: column; gap: 2px; font-size: 14.5px">
-          <span style="font-weight: 800; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px">Navigation</span>
-          <a href="#pourquoi" style="text-decoration: none; min-height: 34px; display: flex; align-items: center">Pourquoi nous</a>
-          <a href="#programme" style="text-decoration: none; min-height: 34px; display: flex; align-items: center">Programme</a>
-          <a href="#avis" style="text-decoration: none; min-height: 34px; display: flex; align-items: center">Avis</a>
-          <a href="#faq" style="text-decoration: none; min-height: 34px; display: flex; align-items: center">FAQ</a>
+        <nav class="foot-col" aria-label="Pied de page">
+          <span class="foot-h">Navigation</span>
+          <a href="#pourquoi">Pourquoi nous</a>
+          <a href="#programme">Programme</a>
+          <a href="#avis">Avis</a>
+          <a href="#faq">FAQ</a>
         </nav>
-        <div style="display: flex; flex-direction: column; gap: 2px; font-size: 14.5px">
-          <span style="font-weight: 800; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px">Offres</span>
-          <a href="#offres" style="text-decoration: none; min-height: 34px; display: flex; align-items: center">Formation · 200&nbsp;$</a>
-          <a href="#offres" style="text-decoration: none; min-height: 34px; display: flex; align-items: center">Manuel · 9&nbsp;$</a>
+        <div class="foot-col">
+          <span class="foot-h">Offres</span>
+          <a href="#offres">Formation · 200&nbsp;$</a>
+          <a href="#offres">Manuel · 9&nbsp;$</a>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 2px; font-size: 14.5px">
-          <span style="font-weight: 800; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px">Contact</span>
-          <a href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20j%E2%80%99ai%20une%20question." style="text-decoration: none; min-height: 34px; display: flex; align-items: center; font-weight: 700">+229&nbsp;01&nbsp;93&nbsp;32&nbsp;44&nbsp;39</a>
-          <span style="min-height: 34px; display: flex; align-items: center; color: #5C5548">[Ville], Bénin</span>
+        <div class="foot-col">
+          <span class="foot-h">Contact</span>
+          <a class="strong" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20j%E2%80%99ai%20une%20question." target="_blank" rel="noopener">+229&nbsp;01&nbsp;93&nbsp;32&nbsp;44&nbsp;39</a>
+          <span class="muted">Bénin · 100&nbsp;% en ligne</span>
         </div>
       </div>
-      <div style="border-top: 1px solid #DDD2BC; padding-top: 18px; display: flex; flex-direction: column; gap: 6px">
-        <p style="margin: 0; font-size: 12.5px; line-height: 1.6; color: #5C5548">Avertissement : le trading comporte un risque élevé de perte en capital. Les contenus de GOD TRADING sont à visée éducative et ne constituent pas un conseil en investissement. Aucun résultat n’est garanti. Ne trade que l’argent que tu peux te permettre de perdre.</p>
-        <p style="margin: 0; font-size: 12.5px; font-weight: 700">©&nbsp;GOD TRADING · Tous droits réservés</p>
+      <div class="foot-legal">
+        <p>Avertissement&nbsp;: le trading comporte un risque élevé de perte en capital. Les contenus de GOD TRADING sont à visée éducative et ne constituent pas un conseil en investissement. Aucun résultat n’est garanti. Ne trade que l’argent que tu peux te permettre de perdre.</p>
+        <p class="strong">©&nbsp;<span data-year>2026</span> GOD TRADING · Tous droits réservés</p>
       </div>
     </div>
   </footer>
 
   <!-- ===== BARRE D'ACTION MOBILE ===== -->
   <div class="mbar" role="region" aria-label="Actions rapides">
-    <a class="btn btn-gold" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation." style="flex: 1; height: 50px; box-shadow: none">Je réserve ma place</a>
-    <a href="#offres" aria-label="Voir les offres" style="flex: 0 0 auto; height: 50px; padding: 0 18px; border-radius: 999px; border: 1.5px solid #1A1714; background: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px; text-decoration: none">Offres</a>
+    <a class="btn btn-gold" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation." target="_blank" rel="noopener">Je réserve ma place</a>
+    <a class="mbar-alt" href="#offres">Offres</a>
   </div>
 </div>
-</x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":8600}}'>
-class Component extends DCLogic {
-  constructor(props) {
-    super(props);
-    this.state = { menu: false, rev: 0, faq: 0, active: '' };
-  }
-  componentDidMount() {
-    try {
-      const ids = ['pourquoi', 'programme', 'offres', 'avis', 'faq', 'contact'];
-      const els = ids.map((id) => document.getElementById(id)).filter(Boolean);
-      if (els.length && typeof IntersectionObserver !== 'undefined') {
-        this._io = new IntersectionObserver((entries) => {
-          entries.forEach((e) => { if (e.isIntersecting) this.setState({ active: e.target.id }); });
-        }, { rootMargin: '-40% 0px -55% 0px' });
-        els.forEach((el) => this._io.observe(el));
-      }
-    } catch (err) {}
-    try { this._fx(); } catch (err) {}
-  }
-  _fx() {
-    const doc = document.documentElement;
-    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const cleanups = [];
-    this._cleanups = cleanups;
-    const on = (t, ev, fn, o) => { t.addEventListener(ev, fn, o); cleanups.push(() => t.removeEventListener(ev, fn, o)); };
-    if (reduce) return;
-    /* 1. apparitions en cascade */
-    const sel = '.sec-head, .g-stats, .about > *, .svc, .path, .g-faq > *, .g-contact > *, .g-why > *, .g-cards > *, .rv, .rv-mob > *, .promo-in, .g-steps > *, .g-2col > *, .g-foot > *';
-    const targets = Array.from(new Set(document.querySelectorAll(sel)));
-    if (typeof IntersectionObserver !== 'undefined') {
-      targets.forEach((el) => {
-        const sib = el.parentElement ? Array.from(el.parentElement.children).filter((c) => targets.includes(c)) : [el];
-        const idx = Math.max(0, sib.indexOf(el));
-        el.style.setProperty('--d', Math.min(idx * 0.09, 0.45) + 's');
-        el.setAttribute('data-r', '');
-      });
-      const rio = new IntersectionObserver((entries) => {
-        entries.forEach((e) => {
-          if (!e.isIntersecting) return;
-          const el = e.target;
-          el.setAttribute('data-in', '');
-          rio.unobserve(el);
-          setTimeout(() => el.setAttribute('data-done', ''), 2400);
-        });
-      }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
-      targets.forEach((el) => rio.observe(el));
-      cleanups.push(() => rio.disconnect());
-    }
-    /* 2. défilement : progression, en-tête, bandeau, parallaxe */
-    const tick = document.querySelector('.tick');
-    const book = document.querySelector('.book');
-    let lastY = window.scrollY, vel = 0, raf = 0;
-    const onScroll = () => {
-      if (raf) return;
-      raf = requestAnimationFrame(() => {
-        raf = 0;
-        const y = window.scrollY;
-        const max = Math.max(1, doc.scrollHeight - window.innerHeight);
-        doc.style.setProperty('--p', (y / max).toFixed(4));
-        if (y > 40) doc.setAttribute('data-sc', ''); else doc.removeAttribute('data-sc');
-        const dy = y - lastY;
-        if (y > 640 && dy > 6) doc.setAttribute('data-down', '');
-        else if (dy < -4 || y < 640) doc.removeAttribute('data-down');
-        vel = Math.max(-12, Math.min(12, dy * 0.6));
-        if (tick) tick.style.setProperty('--sk', (-vel * 0.6).toFixed(2) + 'deg');
-        if (book) {
-          const r = book.getBoundingClientRect();
-          const c = (r.top + r.height / 2 - window.innerHeight / 2) / window.innerHeight;
-          book.style.setProperty('--py', (c * -60).toFixed(1) + 'px');
-        }
-        lastY = y;
-        clearTimeout(this._skT);
-        this._skT = setTimeout(() => { if (tick) tick.style.setProperty('--sk', '0deg'); }, 120);
-      });
-    };
-    on(window, 'scroll', onScroll, { passive: true });
-    onScroll();
-    /* 3. souris : curseur doré, boutons magnétiques, projecteur, héros 3D */
-    const fine = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    if (fine) {
-      const cur = document.querySelector('.cur'), dot = document.querySelector('.cur-dot');
-      const art = document.querySelector('.hero-art');
-      let mx = -100, my = -100, cx = -100, cy = -100, loop = 0, mag = null;
-      const follow = () => {
-        cx += (mx - cx) * 0.18; cy += (my - cy) * 0.18;
-        if (cur) cur.style.transform = 'translate(' + cx + 'px,' + cy + 'px)';
-        loop = (Math.abs(mx - cx) + Math.abs(my - cy) > 0.3) ? requestAnimationFrame(follow) : 0;
-      };
-      on(document, 'mousemove', (e) => {
-        mx = e.clientX; my = e.clientY;
-        doc.setAttribute('data-cur', '');
-        if (dot) dot.style.transform = 'translate(' + mx + 'px,' + my + 'px)';
-        if (!loop) loop = requestAnimationFrame(follow);
-        const t = e.target && e.target.closest ? e.target : null;
-        const hov = t && t.closest('a, button');
-        if (hov) doc.setAttribute('data-hov', ''); else doc.removeAttribute('data-hov');
-        const card = t && t.closest('.lift');
-        if (card) { const r = card.getBoundingClientRect(); card.style.setProperty('--cx', (e.clientX - r.left) + 'px'); card.style.setProperty('--cy', (e.clientY - r.top) + 'px'); }
-        const b = t && t.closest('.btn');
-        if (mag && mag !== b) { mag.style.setProperty('--bx', '0px'); mag.style.setProperty('--by', '0px'); }
-        mag = b || null;
-        if (b) { const r = b.getBoundingClientRect(); b.style.setProperty('--bx', ((e.clientX - r.left - r.width / 2) * 0.22).toFixed(1) + 'px'); b.style.setProperty('--by', ((e.clientY - r.top - r.height / 2) * 0.35).toFixed(1) + 'px'); }
-        if (art) {
-          const r = art.getBoundingClientRect();
-          if (r.bottom > 0 && r.top < window.innerHeight) {
-            const nx = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (window.innerWidth / 2)));
-            const ny = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / (window.innerHeight / 2)));
-            art.style.setProperty('--mx', nx.toFixed(3)); art.style.setProperty('--my', ny.toFixed(3));
-            art.style.setProperty('--rx', (nx * 7).toFixed(2) + 'deg'); art.style.setProperty('--ry', (-ny * 5).toFixed(2) + 'deg');
-          }
-        }
-      }, { passive: true });
-      on(document, 'mouseleave', () => { doc.removeAttribute('data-cur'); });
-    }
-    /* 4. poussière d'or dans le héros */
-    const cv = document.querySelector('.dust');
-    if (cv && cv.getContext) {
-      const ctx = cv.getContext('2d');
-      const dpr = Math.min(2, window.devicePixelRatio || 1);
-      let W = 0, H = 0, run = true, id = 0;
-      const size = () => { const r = cv.getBoundingClientRect(); W = r.width; H = r.height; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
-      size(); on(window, 'resize', size);
-      const N = window.innerWidth < 640 ? 22 : 46;
-      const ps = Array.from({ length: N }, () => ({ x: Math.random(), y: Math.random(), r: 0.6 + Math.random() * 1.8, s: 0.0006 + Math.random() * 0.0016, w: Math.random() * 6.28, a: 0.25 + Math.random() * 0.6 }));
-      const draw = (t) => {
-        if (!run) { id = 0; return; }
-        ctx.clearRect(0, 0, W, H);
-        for (const p of ps) {
-          p.y -= p.s; p.w += 0.01;
-          if (p.y < -0.05) { p.y = 1.05; p.x = Math.random(); }
-          const x = (p.x + Math.sin(p.w) * 0.015) * W, y = p.y * H;
-          const fade = Math.min(1, p.y * 3, (1.05 - p.y) * 4);
-          ctx.beginPath(); ctx.arc(x, y, p.r, 0, 6.283);
-          ctx.fillStyle = 'rgba(233,182,59,' + (p.a * fade * (0.6 + 0.4 * Math.sin(t / 600 + p.w))).toFixed(3) + ')';
-          ctx.shadowColor = 'rgba(233,182,59,.8)'; ctx.shadowBlur = 6;
-          ctx.fill();
-        }
-        id = requestAnimationFrame(draw);
-      };
-      if (typeof IntersectionObserver !== 'undefined') {
-        const vio = new IntersectionObserver((es) => { run = es[0].isIntersecting && !document.hidden; if (run && !id) id = requestAnimationFrame(draw); });
-        vio.observe(cv); cleanups.push(() => vio.disconnect());
-      } else { id = requestAnimationFrame(draw); }
-      cleanups.push(() => { run = false; if (id) cancelAnimationFrame(id); });
-    }
-  }
-  _swap() {
-    try {
-      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      document.querySelectorAll('.rv figure, .rv-side').forEach((el, i) => {
-        if (el.animate) el.animate([{ opacity: 0, transform: 'translateY(14px) scale(.98)', filter: 'blur(6px)' }, { opacity: 1, transform: 'none', filter: 'blur(0)' }], { duration: 650, delay: i * 60, easing: 'cubic-bezier(.16,1,.3,1)' });
-      });
-    } catch (err) {}
-  }
-  componentWillUnmount() {
-    try { if (this._io) this._io.disconnect(); } catch (err) {}
-    try { (this._cleanups || []).forEach((f) => f()); } catch (err) {}
-  }
-  renderVals() {
-    const phases = [
-      { phase: 'ÉTAPE 1', range: '01\u201303', title: 'Les fondations', desc: 'Comprendre les indices synthétiques, maîtriser MetaTrader\u00a05 et lire un graphique comme un pro.', mods: ['Les fondations du dieu des marchés', 'Maîtrise de MetaTrader\u00a05', 'L\u2019art divin de l\u2019analyse technique'] },
-      { phase: 'ÉTAPE 2', range: '04\u201306', title: 'Stratégie et risque', desc: 'Des stratégies par indice, une gestion du risque solide et la structure du marché synthétique.', mods: ['Stratégies pour dominer le marché', 'Gestion des risques', 'La structure du marché synthétique'] },
-      { phase: 'ÉTAPE 3', range: '07\u201310', title: 'Pratique et liberté', desc: 'Le mental, la pratique en conditions réelles, le suivi de performance et le business du trader.', mods: ['L\u2019ascension du trader profitable', 'Immersion en conditions réelles', 'Suivi de performance et KPIs', 'Le business du trader libre', 'Bonus\u202f: style de vie du trader d\u2019élite'] }
-    ];
-    const reviews = [
-      { initial: 'A', name: '[Prénom], [Ville]', text: '[Avant la formation\u202f: … — Ce qui a changé\u202f: … — Le module qui m\u2019a le plus aidé\u202f: …]' },
-      { initial: 'B', name: '[Prénom], [Ville]', text: '[Avant la formation\u202f: … — Ce qui a changé\u202f: … — Le module qui m\u2019a le plus aidé\u202f: …]' },
-      { initial: 'C', name: '[Prénom], [Ville]', text: '[Avant la formation\u202f: … — Ce qui a changé\u202f: … — Le module qui m\u2019a le plus aidé\u202f: …]' },
-      { initial: 'D', name: '[Prénom], [Ville]', text: '[Avant la formation\u202f: … — Ce qui a changé\u202f: … — Le module qui m\u2019a le plus aidé\u202f: …]' }
-    ];
-    const n = reviews.length, r = this.state.rev;
-    const dots = reviews.map((_, i) => ({ on: i === r, off: i !== r, label: 'Avis ' + (i + 1), go: () => { this.setState({ rev: i }); this._swap(); } }));
-    const faqData = [
-      { q: 'Je débute complètement, est-ce que je vais suivre\u202f?', a: 'Oui. Le module\u00a01 part de zéro\u202f: ce que sont les indices synthétiques, comment fonctionne Deriv et comment installer MetaTrader\u00a05. Et ton coach est là si tu bloques.' },
-      { q: 'Je n\u2019ai pas beaucoup d\u2019argent pour trader. C\u2019est un problème\u202f?', a: 'Non. Tu commences sur un compte démo, sans risquer d\u2019argent. La formation t\u2019apprend ensuite à définir un capital adapté et à gérer ton risque avant de passer en réel.' },
-      { q: 'Je n\u2019ai pas d\u2019ordinateur.', a: 'Pas besoin. Tout se fait sur téléphone avec MetaTrader\u00a05 mobile, et la configuration est expliquée pas à pas.' },
-      { q: 'Puis-je payer en plusieurs fois\u202f?', a: 'Oui, la formation peut se payer par tranches. Écris-nous sur WhatsApp pour choisir les modalités qui te conviennent.' },
-      { q: 'Quand puis-je commencer\u202f?', a: 'Dès aujourd\u2019hui. Les inscriptions sont ouvertes en continu\u202f: tu reçois ton accès et tu démarres le module\u00a01 tout de suite.' },
-      { q: 'Est-ce que je vais forcément gagner de l\u2019argent\u202f?', a: 'Non, et méfie-toi de ceux qui te le promettent. Le trading comporte des risques. Notre rôle est de te donner une méthode, une gestion du risque et une discipline solides pour mettre toutes les chances de ton côté.' }
-    ];
-    const faqs = faqData.map((f, i) => {
-      const open = this.state.faq === i;
-      return { ...f, open, closed: !open, toggle: () => this.setState({ faq: open ? -1 : i }) };
-    });
-    const navDef = [['pourquoi', 'Pourquoi nous'], ['programme', 'Programme'], ['offres', 'Offres'], ['avis', 'Avis'], ['faq', 'FAQ'], ['contact', 'Contact']];
-    const navItems = navDef.map(([id, label]) => ({ href: '#' + id, label, on: this.state.active === id, off: this.state.active !== id }));
-    return {
-      phases, reviews, dots, faqs, navItems,
-      revCur: reviews[r], revPrev: reviews[(r - 1 + n) % n], revNext: reviews[(r + 1) % n],
-      prevRev: () => { this.setState({ rev: (r - 1 + n) % n }); this._swap(); },
-      nextRev: () => { this.setState({ rev: (r + 1) % n }); this._swap(); },
-      menuOpen: this.state.menu, menuClosed: !this.state.menu,
-      toggleMenu: () => this.setState({ menu: !this.state.menu }),
-      closeMenu: () => this.setState({ menu: false })
-    };
-  }
-}
-</script>
 </body>
 </html>
