@@ -34,13 +34,16 @@
 
   <main id="contenu"> <!-- Contenu principal de la page -->
 
-    <section class="tete-rubrique" data-teinte="kola" aria-labelledby="titre-rubrique"> <!-- Grand bloc coloré de la rubrique (couleur choisie avec data-teinte) -->
+    <section class="tete-rubrique" data-teinte="kola" aria-labelledby="titre-rubrique"> <!-- En-tête de la rubrique : fumée animée + infos de la page (couleurs choisies avec data-teinte) -->
+      <canvas class="fumee" data-fumee aria-hidden="true"></canvas> <!-- Fumée animée, dessinée par js/site.js (pour une vidéo : voir la ligne suivante) -->
+      <!-- Vidéo à la place de la fumée : remplacez la ligne précédente par <video class="fumee" autoplay muted loop playsinline><source src="assets/videos/fumee.mp4" type="video/mp4"></video> -->
       <div class="conteneur tete-rubrique__grille"> <!-- Grille : numéro | textes -->
         <p class="tete-rubrique__num" aria-hidden="true">05</p> <!-- Énorme numéro en contour -->
         <div class="tete-rubrique__textes"> <!-- Textes -->
           <nav class="fil-ariane etiquette" aria-label="Fil d’Ariane"><a href="index.html">Accueil</a><span aria-hidden="true">/</span><span aria-current="page">Odyssées</span></nav> <!-- Fil d'Ariane -->
           <h1 class="tete-rubrique__titre" id="titre-rubrique"><em>Odyssées</em></h1> <!-- Titre de la rubrique -->
           <p class="chapo">Des voyages lents, pensés avec des guides et des hôtes locaux, pour rencontrer des lieux à travers celles et ceux qui les habitent.</p> <!-- Introduction -->
+          <p class="etiquette tete-rubrique__compte" data-compte-destinations></p> <!-- « N destinations » (calculé automatiquement) -->
         </div> <!-- Fin des textes -->
       </div> <!-- Fin de la grille -->
       <div class="motif tete-rubrique__motif" data-motif="ndebele" aria-hidden="true"></div> <!-- Frise de motif textile (changez data-motif pour en essayer un autre) -->

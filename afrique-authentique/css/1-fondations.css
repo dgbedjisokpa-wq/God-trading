@@ -19,9 +19,9 @@
 /* A. VARIABLES ============================================================== */
 
 :root { /* « :root » = la racine de la page : les variables déclarées ici valent partout */
-  --sable: #F1E7D6; /* Fond principal : beige raphia, couleur « papier » du carnet */
-  --sable-fonce: #E4D5BC; /* Fond secondaire, un ton plus soutenu */
-  --cauri: #FBF6EC; /* Blanc chaud (couleur des coquillages cauris) */
+  --sable: #FFFFFF; /* Fond principal : blanc (la variable garde son nom d'origine « sable ») */
+  --sable-fonce: #F3EFE9; /* Fond secondaire : blanc cassé très léger (zones discrètes, survols) */
+  --cauri: #FFFFFF; /* Blanc des cartes, des formulaires et des textes posés sur la couleur */
   --encre: #1C1511; /* Couleur du texte : brun-noir profond */
   --encre-douce: #4A3F36; /* Texte secondaire (légendes, descriptions) */
   --laterite: #A63F24; /* Rouge de la terre de latérite — couleur d'accent principale */
@@ -41,6 +41,9 @@
   --largeur-texte: 680px; /* Largeur maximale d'une colonne de lecture (confort) */
   --espace-section: clamp(72px, 10vw, 150px); /* Espace vertical au-dessus et au-dessous des sections */
   --hauteur-entete: 0px; /* Hauteur de l'en-tête, mise à jour par JavaScript */
+  --rayon: 22px; /* Arrondi des cartes et des encadrés */
+  --rayon-image: 14px; /* Arrondi des images */
+  --rayon-pilule: 999px; /* Arrondi complet : boutons en forme de « pilule » */
 
   --ease: cubic-bezier(.2, .7, .1, 1); /* Courbe d'animation : démarrage vif, arrivée en douceur */
   --ease-ressort: cubic-bezier(.34, 1.4, .64, 1); /* Courbe avec léger rebond */
@@ -66,7 +69,7 @@ html.sans-defilement { /* Classe ajoutée quand le menu ou la calebasse est ouve
 
 body { /* Le corps de la page */
   margin: 0; /* Retire la marge par défaut du navigateur */
-  background: var(--sable); /* Fond beige raphia */
+  background: var(--sable); /* Fond blanc */
   color: var(--encre); /* Texte brun-noir */
   font-family: var(--f-texte); /* Police de lecture par défaut */
   font-size: 1.125rem; /* Taille de texte de base : 18 px */
@@ -83,7 +86,7 @@ body::after { /* Couche de grain de papier posée sur tout le site */
   z-index: 300; /* Au-dessus de tout… */
   pointer-events: none; /* …mais ne bloque jamais les clics */
   background-image: url("../assets/motifs/grain.svg"); /* Texture de bruit */
-  opacity: .07; /* Très discret */
+  opacity: .035; /* Très discret (à peine visible sur le blanc) */
   mix-blend-mode: multiply; /* Se mélange aux couleurs comme une encre sur papier */
 } /* Fin */
 
@@ -289,6 +292,7 @@ em { /* Mots en italique */
   text-decoration: none; /* Pas de soulignement */
   color: var(--encre); /* Texte foncé */
   border: 1.5px solid currentColor; /* Bordure de la couleur du texte */
+  border-radius: var(--rayon-pilule); /* Bouton arrondi aux quatre coins */
   position: relative; /* Repère pour le fond animé */
   isolation: isolate; /* Garde le fond animé derrière le texte */
   overflow: hidden; /* Masque le fond animé qui dépasse */

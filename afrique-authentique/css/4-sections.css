@@ -4,7 +4,7 @@
    A. Ouverture de l'accueil (grand titre + collage + sceau tournant)
    B. Défilant des mots de bienvenue
    C. « À la une » (récit vedette)
-   D. Index des rubriques (lignes qui se colorent au survol)
+   D. Les six portes (cartes colorées des rubriques)
    E. Cartes de récit + mosaïque + listes
    F. Filtres
    G. Proverbe
@@ -111,6 +111,7 @@
 
 .collage__principale { /* Grande image du collage */
   --ratio: 4 / 5; /* Format portrait */
+  border-radius: 20px; /* Coins arrondis */
   width: 76%; /* 76 % de la largeur */
   margin-left: auto; /* Poussée à droite */
   box-shadow: 0 40px 80px -40px rgba(28, 21, 17, .6); /* Ombre profonde */
@@ -174,7 +175,7 @@
   display: grid; /* Pour centrer le cœur */
   place-items: center; /* Au milieu */
   border-radius: 50%; /* Rond */
-  background: var(--sable); /* Fond beige (lisibilité du texte) */
+  background: var(--sable); /* Fond blanc (lisibilité du texte) */
 } /* Fin */
 
 .sceau svg { /* Le cercle de texte */
@@ -321,113 +322,107 @@ a:hover .souligne, a:focus-visible .souligne { /* Survol de la carte */
 } /* Fin */
 
 
-/* D. INDEX DES RUBRIQUES ==================================================== */
+/* D. LES SIX PORTES (cartes des rubriques) ================================= */
 
-.index { /* Liste des 6 rubriques */
+.portes { /* Grille des six cartes */
   list-style: none; /* Sans puces */
   margin: 0; /* Sans marge */
   padding: 0; /* Sans retrait */
-  border-top: 1.5px solid var(--encre); /* Filet au-dessus */
-} /* Fin */
-
-.index li { /* Un élément */
-  border-bottom: 1.5px solid var(--encre); /* Filet dessous */
-} /* Fin */
-
-.index__ligne { /* La ligne cliquable */
-  position: relative; /* Repère pour le fond coloré et l'aperçu */
-  isolation: isolate; /* Garde le fond derrière le texte */
   display: grid; /* Grille */
-  grid-template-columns: 2.6rem 1fr auto; /* Numéro | titre | flèche */
-  align-items: center; /* Centrés */
-  gap: .4rem 1.2rem; /* Espaces */
-  padding: 1.4rem .4rem; /* Marges */
+  gap: clamp(14px, 2vw, 24px); /* Espace entre les cartes */
+} /* Fin */
+
+@media (min-width: 600px) { /* Tablette */
+  .portes { grid-template-columns: repeat(2, 1fr); } /* Deux colonnes */
+} /* Fin */
+
+@media (min-width: 1000px) { /* Ordinateur */
+  .portes { grid-template-columns: repeat(3, 1fr); } /* Trois colonnes */
+  .portes > li:nth-child(3n+2) { margin-top: 48px; } /* Colonne du milieu décalée vers le bas : rythme de magazine */
+} /* Fin */
+
+.porte { /* Une carte (toute la carte est un lien) */
+  position: relative; /* Repère pour le visuel */
+  isolation: isolate; /* Garde le visuel derrière le texte */
+  overflow: hidden; /* Le visuel ne dépasse pas des coins arrondis */
+  display: flex; /* Contenu empilé… */
+  flex-direction: column; /* …verticalement */
+  gap: .7rem; /* Espaces */
+  min-height: clamp(340px, 32vw, 430px); /* Hauteur de la carte */
+  padding: clamp(20px, 2.4vw, 30px); /* Marges intérieures */
+  border-radius: var(--rayon); /* Coins arrondis */
+  background: var(--c); /* Couleur de la rubrique (data-teinte) */
+  color: var(--c-texte); /* Texte adapté à cette couleur */
   text-decoration: none; /* Pas de soulignement */
-  transition: color .45s var(--ease), padding .6s var(--ease); /* Animation */
+  transition: transform .6s var(--ease), box-shadow .6s var(--ease); /* Animation au survol */
 } /* Fin */
 
-.index__ligne::before { /* Fond coloré qui monte au survol */
-  content: ""; /* Décoratif */
-  position: absolute; /* Couvre la ligne */
-  inset: 0; /* Bord à bord */
-  z-index: -1; /* Derrière le texte */
-  background: var(--c); /* Couleur de la rubrique */
-  transform: scaleY(0); /* Invisible au repos */
-  transform-origin: bottom; /* Monte depuis le bas */
-  transition: transform .55s var(--ease); /* Animation */
+.porte:hover, .porte:focus-visible { /* Survol de la carte */
+  transform: translateY(-6px); /* La carte se soulève */
+  box-shadow: 0 30px 50px -30px rgba(28, 21, 17, .55); /* Ombre portée */
 } /* Fin */
 
-.index__ligne:hover, .index__ligne:focus-visible { /* Survol */
-  color: var(--c-texte); /* Texte adapté à la couleur de fond */
-  padding-left: 1.4rem; /* Le contenu glisse vers la droite */
+.porte__haut { /* Ligne du haut : numéro + flèche */
+  display: flex; /* En ligne */
+  justify-content: space-between; /* Aux extrémités */
+  align-items: center; /* Centrés */
 } /* Fin */
 
-.index__ligne:hover::before, .index__ligne:focus-visible::before { transform: scaleY(1); } /* Le fond remplit la ligne */
-
-.index__num { /* Numéro 01, 02… */
+.porte__num { /* Numéro 01, 02… */
   font-family: var(--f-ui); /* Police Archivo */
+  font-stretch: 125%; /* Élargie */
   font-size: .72rem; /* Petit */
   font-weight: 600; /* Demi-gras */
-  letter-spacing: .14em; /* Espacé */
+  letter-spacing: .16em; /* Espacé */
 } /* Fin */
 
-.index__titre { /* Nom de la rubrique */
+.porte__fleche { /* Flèche dans un rond */
+  width: 44px; /* Largeur */
+  height: 44px; /* Hauteur */
+  display: grid; /* Pour centrer */
+  place-items: center; /* Au milieu */
+  border: 1.5px solid currentColor; /* Cercle de la couleur du texte */
+  border-radius: 50%; /* Rond */
+  font-family: var(--f-ui); /* Police Archivo */
+  font-size: 1.1rem; /* Taille */
+  transition: transform .5s var(--ease), background .4s, color .4s; /* Animation */
+} /* Fin */
+
+.porte:hover .porte__fleche { /* Survol */
+  transform: rotate(-45deg); /* La flèche pointe en diagonale */
+  background: var(--c-texte); /* Le rond se remplit… */
+  color: var(--c); /* …et la flèche prend la couleur de la carte */
+} /* Fin */
+
+.porte__titre { /* Nom de la rubrique */
+  margin-top: .6rem; /* Espace sous la ligne du haut */
   font-family: var(--f-titre); /* Police Bodoni */
-  font-size: clamp(1.9rem, 4.6vw, 4rem); /* Très grand */
+  font-size: clamp(2rem, 3vw, 2.8rem); /* Grand */
   line-height: 1; /* Serré */
   letter-spacing: -.02em; /* Resserré */
 } /* Fin */
 
-.index__ligne:hover .index__titre { font-style: italic; } /* Italique au survol */
+.porte:hover .porte__titre { font-style: italic; } /* Italique au survol */
 
-.index__desc { /* Description de la rubrique */
-  grid-column: 2; /* Sous le titre sur téléphone */
+.porte__desc { /* Description courte */
+  max-width: 22em; /* Largeur limitée */
   font-size: 1rem; /* Taille */
   line-height: 1.45; /* Interlignage */
-  opacity: .78; /* Atténuée */
-  max-width: 30em; /* Largeur limitée */
+  opacity: .88; /* Légèrement atténuée */
 } /* Fin */
 
-.index__fleche { /* Flèche à droite */
-  grid-column: 3; /* Dernière colonne */
-  grid-row: 1 / span 2; /* Sur deux lignes */
-  font-family: var(--f-ui); /* Police Archivo */
-  font-size: 1.6rem; /* Grande */
-  transition: transform .5s var(--ease); /* Animation */
-} /* Fin */
-
-.index__ligne:hover .index__fleche { transform: rotate(-45deg); } /* La flèche pointe en diagonale */
-
-@media (min-width: 900px) { /* Ordinateur */
-  .index__ligne { /* Tout sur une seule ligne */
-    grid-template-columns: 4.5rem 1.15fr 1fr 3rem; /* Numéro | titre | description | flèche */
-    padding-block: 1.9rem; /* Plus haut */
-  } /* Fin */
-  .index__desc { grid-column: 3; } /* Description en 3e colonne */
-  .index__fleche { grid-column: 4; grid-row: auto; justify-self: end; } /* Flèche en 4e colonne */
-} /* Fin */
-
-.index__apercu { /* Petite image qui suit la souris au survol */
-  display: none; /* Masquée sur les écrans tactiles */
-} /* Fin */
-
-@media (hover: hover) and (min-width: 900px) { /* Ordinateur avec souris */
-  .index__apercu { /* Image d'aperçu */
-    display: block; /* Affichée */
-    position: absolute; /* Positionnée librement */
-    left: var(--x, 50%); /* Suit la souris horizontalement (valeur donnée par site.js) */
-    top: var(--y, 50%); /* Suit la souris verticalement */
-    z-index: 3; /* Au-dessus du texte */
-    width: 170px; /* Taille */
-    pointer-events: none; /* Ne gêne pas la souris */
-    opacity: 0; /* Invisible au repos */
-    transform: translate(28px, -50%) rotate(-8deg) scale(.5); /* Petite et penchée */
-    transition: opacity .35s var(--ease), transform .5s var(--ease); /* Animation */
-  } /* Fin */
-  .index__ligne:hover .index__apercu { /* Au survol */
-    opacity: 1; /* Visible */
-    transform: translate(28px, -50%) rotate(-4deg) scale(1); /* Taille normale */
-  } /* Fin */
+.porte__visuel { /* Motif et forme dans la moitié basse de la carte */
+  position: absolute; /* Posé dans la carte */
+  left: 0; /* Bord gauche */
+  right: 0; /* Bord droit */
+  bottom: 0; /* En bas */
+  z-index: -1; /* Derrière le texte */
+  height: 48%; /* Moitié basse */
+  aspect-ratio: auto; /* Annule les proportions par défaut des plaques */
+  border-radius: 0; /* Les coins de la carte suffisent */
+  background: transparent; /* Laisse voir la couleur de la carte */
+  -webkit-mask-image: linear-gradient(to top, #000 55%, transparent); /* Le motif s'efface vers le haut (Safari) */
+  mask-image: linear-gradient(to top, #000 55%, transparent); /* Le motif s'efface vers le haut */
 } /* Fin */
 
 
@@ -871,6 +866,7 @@ a:hover .souligne, a:focus-visible .souligne { /* Survol de la carte */
   margin-left: .6rem; /* Espace */
   padding: .15rem .45rem; /* Marges */
   border: 1px solid currentColor; /* Bordure */
+  border-radius: var(--rayon-pilule); /* Arrondie */
   font-size: .58rem; /* Très petit */
 } /* Fin */
 

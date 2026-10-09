@@ -16,7 +16,7 @@ Site complet en HTML, CSS et JavaScript (sans outil à installer), conçu d'apr�
 
 | Page | Fichier | Rôle |
 |---|---|---|
-| Accueil | `index.html` | Ouverture, à la une, rubriques, récits, proverbe, odyssées, trésors, agenda |
+| Accueil | `index.html` | Ouverture, à la une, six cartes des rubriques, récits, proverbe, odyssées, trésors, agenda |
 | Aux origines | `aux-origines.html` | Rubrique 01 (récits filtrables par pays) |
 | Figures & Horizons | `figures-et-horizons.html` | Rubrique 02 (portraits) |
 | Savoir-Faire | `savoir-faire.html` | Rubrique 03 |
@@ -90,13 +90,27 @@ Tant qu'il n'y a pas de photo, chaque cadre affiche une composition graphique
 
 Conseil : photos en `.jpg` ou `.webp`, environ 1600 px de large, moins de 400 Ko.
 
-## 7. Changer les couleurs ou les polices
+## 7. La fumée animée des en-têtes (ou une vidéo)
 
-Tout est en haut de `css/1-fondations.css` : `--laterite`, `--ocre`, `--indigo`, `--palme`,
-`--kola`, `--sable`… Changez un code couleur et tout le site suit. Les polices
+Les en-têtes des rubriques, d'« Odyssées », de « Trésors », du « Cercle » et de « Devenir partenaire »
+ont un fond de fumée animée, dessiné en direct par le navigateur (aucun fichier à charger).
+Ses couleurs suivent la rubrique (`--fumee-fond`, `--fumee-volute`, `--fumee-lueur` dans
+`css/2-motifs.css`). Elle s'arrête quand elle n'est plus visible et reste fixe si le visiteur
+a demandé à réduire les animations.
+
+**Pour mettre une vraie vidéo** (fumée filmée, paysage, atelier…) : déposez le fichier dans
+`assets/videos/` puis, dans la page, remplacez la ligne `<canvas class="fumee" …>` par :
+`<video class="fumee" autoplay muted loop playsinline><source src="assets/videos/fumee.mp4" type="video/mp4"></video>`.
+Conseil : vidéo courte (10 à 20 s), sans son, moins de 3 Mo.
+
+## 8. Changer les couleurs, les arrondis ou les polices
+
+Tout est en haut de `css/1-fondations.css` : `--sable` (fond principal, blanc), `--laterite`, `--ocre`,
+`--indigo`, `--palme`, `--kola`… Changez un code couleur et tout le site suit. Les arrondis se règlent
+au même endroit : `--rayon` (cartes, encadrés), `--rayon-image` (images), `--rayon-pilule` (boutons). Les polices
 (`--f-titre`, `--f-texte`, `--f-ui`) se chargent depuis Google Fonts dans l'en-tête de chaque page.
 
-## 8. Commandes, formulaires, cookies
+## 9. Commandes, formulaires, cookies
 
 - **Calebasse (panier)** : mémorisée dans le navigateur du visiteur. Le bouton
   « Commander via WhatsApp » envoie un récapitulatif (articles, variantes, quantités, total).
@@ -107,12 +121,12 @@ Tout est en haut de `css/1-fondations.css` : `--laterite`, `--ocre`, `--indigo`,
 - **Cookies** : le bandeau demande l'accord. Un outil de mesure d'audience éventuel se colle
   dans la fonction `chargerMesureAudience()` de `js/site.js` : il ne se charge qu'avec l'accord du visiteur.
 
-## 9. Mise en ligne
+## 10. Mise en ligne
 
 Copiez tout le contenu de ce dossier chez l'hébergeur (dossier `public_html` ou `www`).
 Aucune base de données ni installation n'est nécessaire.
 
-## 10. Direction artistique
+## 11. Direction artistique
 
 Le site est pensé comme un **carnet de cultures**, à la manière d'un magazine imprimé, et non
 comme un modèle de site standard :
@@ -123,12 +137,13 @@ comme un modèle de site standard :
   mises en page asymétriques.
 - **Typographie** : Bodoni Moda (titres de magazine), Newsreader (lecture longue), Archivo élargie
   (étiquettes).
-- **Couleurs** : terre de latérite, ocre, indigo, vert palme, brun kola, sur un papier couleur raphia
-  avec un léger grain.
+- **Couleurs** : terre de latérite, ocre, indigo, vert palme, brun kola, sur un fond blanc
+  avec un grain à peine perceptible.
 - **Motifs** : dessinés d'après le bogolan, le kente, l'adire, les peintures ndebele, le velours
   kuba et les cauris. Ils sont recolorables et servent de visuels en attendant les photos.
+- **Formes** : boutons arrondis en « pilule », cartes et images aux coins adoucis.
 - **Détails** : rideau de couleurs entre les pages, sceau qui tourne, « bienvenue » dans neuf
-  langues, numérotation de magazine, index des rubriques avec aperçu qui suit la souris,
-  calebasse à la place du panier.
+  langues, numérotation de magazine, six cartes colorées pour les rubriques, en-têtes à fumée
+  animée, calebasse à la place du panier.
 - **Accessibilité** : navigation au clavier, contrastes vérifiés, respect du réglage
   « réduire les animations », textes alternatifs prévus pour chaque image.

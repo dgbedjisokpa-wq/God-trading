@@ -34,7 +34,9 @@
 
   <main id="contenu"> <!-- Contenu principal de la page -->
 
-    <section class="tete-rubrique" data-teinte="ocre" aria-labelledby="titre-rubrique"> <!-- Grand bloc coloré de la rubrique (couleur choisie avec data-teinte) -->
+    <section class="tete-rubrique" data-teinte="ocre" aria-labelledby="titre-rubrique"> <!-- En-tête de la rubrique : fumée animée + infos de la page (couleurs choisies avec data-teinte) -->
+      <canvas class="fumee" data-fumee aria-hidden="true"></canvas> <!-- Fumée animée, dessinée par js/site.js (pour une vidéo : voir la ligne suivante) -->
+      <!-- Vidéo à la place de la fumée : remplacez la ligne précédente par <video class="fumee" autoplay muted loop playsinline><source src="assets/videos/fumee.mp4" type="video/mp4"></video> -->
       <div class="conteneur tete-rubrique__grille"> <!-- Grille : numéro | textes -->
         <p class="tete-rubrique__num" aria-hidden="true">03</p> <!-- Énorme numéro en contour -->
         <div class="tete-rubrique__textes"> <!-- Textes -->

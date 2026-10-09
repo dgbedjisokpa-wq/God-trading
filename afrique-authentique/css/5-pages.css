@@ -1,7 +1,7 @@
 /* ==========================================================================
    AFRIQUE AUTHENTIQUE — 5. PAGES
    --------------------------------------------------------------------------
-   A. En-tête de rubrique (grand numéro, couleur de la rubrique)
+   A. En-tête de rubrique (fumée animée ou vidéo, grand numéro, infos)
    B. En-tête de page simple + fil d'Ariane
    C. Page récit (article / portrait)
    D. Page destination (odyssée)
@@ -14,14 +14,67 @@
    ========================================================================== */
 
 
-/* A. EN-TÊTE DE RUBRIQUE ==================================================== */
+/* A. EN-TÊTE DE RUBRIQUE (fumée animée) ===================================== */
+/* La fumée est dessinée par js/site.js dans la balise <canvas class="fumee">.
+   Pour une vraie vidéo à la place, mettez dans l'en-tête :
+   <video class="fumee" autoplay muted loop playsinline>
+     <source src="assets/videos/fumee.mp4" type="video/mp4">
+   </video>                                                                    */
 
-.tete-rubrique { /* Grand bloc coloré en haut des pages de rubrique */
-  position: relative; /* Repère */
+.tete-rubrique { /* Grand en-tête des pages de rubrique */
+  position: relative; /* Repère pour la fumée et le voile */
+  isolation: isolate; /* Pile de couches indépendante */
   overflow: hidden; /* Décors contenus */
+  display: flex; /* Contenu empilé… */
+  flex-direction: column; /* …verticalement… */
+  justify-content: flex-end; /* …et posé en bas du bloc */
+  min-height: clamp(440px, 66vh, 700px); /* Grande hauteur, sans occuper tout l'écran */
   padding-top: clamp(48px, 8vw, 120px); /* Espace en haut */
-  background: var(--c); /* Couleur de la rubrique (data-teinte) */
+  background: var(--fumee-fond, var(--c)); /* Fond affiché avant la fumée (et si elle ne peut pas être dessinée) */
   color: var(--c-texte); /* Texte adapté */
+} /* Fin */
+
+.fumee { /* Fumée animée (canvas) ou vidéo de fond */
+  position: absolute; /* Posée derrière le contenu */
+  inset: 0; /* Couvre tout le bloc */
+  z-index: 0; /* Tout au fond */
+  display: block; /* Bloc */
+  width: 100%; /* Pleine largeur */
+  height: 100%; /* Pleine hauteur */
+  object-fit: cover; /* Une vidéo est recadrée pour remplir le bloc */
+  opacity: 0; /* Invisible le temps du premier dessin… */
+  transition: opacity 1.8s var(--ease); /* …puis apparaît en fondu */
+} /* Fin */
+
+.fumee--prete, video.fumee { opacity: 1; } /* Fumée prête (classe ajoutée par site.js) ou vidéo : visible */
+
+.tete-rubrique:has(video.fumee) canvas.fumee { display: none; } /* Si une vidéo est présente, la fumée dessinée n'est pas utilisée */
+
+.tete-rubrique::after { /* Voile dégradé : garde le texte lisible au-dessus de la fumée */
+  content: ""; /* Décoratif */
+  position: absolute; /* Couvre le bloc */
+  inset: 0; /* Bord à bord */
+  z-index: 0; /* Au-dessus de la fumée, sous le texte */
+  pointer-events: none; /* Ne bloque pas les clics */
+  background: linear-gradient(to top, color-mix(in srgb, var(--fumee-fond) 85%, transparent) 0%, color-mix(in srgb, var(--fumee-fond) 35%, transparent) 55%, transparent 100%); /* Plus dense en bas, là où se trouve le texte */
+} /* Fin */
+
+.tete-rubrique > .conteneur, .tete-rubrique__motif { /* Textes et frise… */
+  position: relative; /* …positionnés… */
+  z-index: 1; /* …au-dessus de la fumée et du voile */
+} /* Fin */
+
+.tete-rubrique.fumee--repli { /* Si le navigateur ne sait pas dessiner la fumée : nuages en dégradés animés */
+  background: /* Trois couches */
+    radial-gradient(45% 60% at 20% 70%, color-mix(in srgb, var(--fumee-volute) 70%, transparent), transparent 70%), /* Nuage de volutes */
+    radial-gradient(40% 50% at 75% 35%, color-mix(in srgb, var(--fumee-lueur) 35%, transparent), transparent 70%), /* Lueur chaude */
+    var(--fumee-fond); /* Fond */
+  background-size: 160% 160%, 160% 160%, auto; /* Nuages plus grands que le bloc (pour pouvoir glisser) */
+  animation: fumee-repli 18s ease-in-out infinite alternate; /* Les nuages dérivent lentement */
+} /* Fin */
+
+@keyframes fumee-repli { /* Dérive des nuages de repli */
+  to { background-position: 100% 60%, 0% 40%, 0 0; } /* Position d'arrivée */
 } /* Fin */
 
 .tete-rubrique__grille { /* Grand numéro + textes */
@@ -58,10 +111,22 @@
 
 .tete-rubrique .chapo { color: inherit; opacity: .9; } /* Introduction dans la couleur du bloc */
 
-.tete-rubrique__compte { margin-top: 1.6rem; } /* « 3 récits dans cette rubrique » */
+.tete-rubrique__compte { /* Info de la page : « 3 récits dans cette rubrique », « 4 destinations »… */
+  display: inline-flex; /* Taille ajustée au texte */
+  margin-top: 1.6rem; /* Espace au-dessus */
+  padding: .55rem 1rem; /* Marges intérieures */
+  border: 1px solid currentColor; /* Contour */
+  border-radius: var(--rayon-pilule); /* Pastille arrondie */
+} /* Fin */
+
+.tete-rubrique__compte:empty { display: none; } /* Pas d'info : pastille masquée */
+
+@media (min-width: 900px) { /* Ordinateur */
+  .tete-rubrique--page .tete-rubrique__grille { grid-template-columns: 1fr; } /* En-tête sans grand numéro : une seule colonne */
+} /* Fin */
 
 .tete-rubrique__motif { /* Frise de motif textile en bas du bloc */
-  height: clamp(64px, 9vw, 120px); /* Hauteur */
+  height: clamp(48px, 6vw, 84px); /* Hauteur */
 } /* Fin */
 
 
@@ -256,6 +321,8 @@
 } /* Fin */
 
 .fiche { /* Fiche d'identité (portraits) */
+  overflow: hidden; /* Le bandeau suit les coins arrondis */
+  border-radius: 16px; /* Coins arrondis */
   border: 1.5px solid var(--encre); /* Bordure */
   background: var(--cauri); /* Fond clair */
 } /* Fin */
@@ -299,6 +366,7 @@
   min-height: 40px; /* Zone cliquable */
   padding: .4rem .8rem; /* Marges */
   border: 1px solid var(--trait); /* Bordure fine */
+  border-radius: var(--rayon-pilule); /* Arrondi */
   font-family: var(--f-ui); /* Police Archivo */
   font-size: .78rem; /* Petite */
   text-decoration: none; /* Sans soulignement */
@@ -441,7 +509,7 @@
   width: 19px; /* Taille */
   height: 19px; /* Taille */
   border-radius: 50%; /* Ronde */
-  background: var(--sable); /* Fond beige */
+  background: var(--sable); /* Fond blanc */
   border: 2.5px solid var(--encre); /* Contour foncé */
 } /* Fin */
 
@@ -489,6 +557,7 @@
   display: grid; /* Empilé */
   gap: 1.4rem; /* Espaces */
   padding: clamp(28px, 4vw, 56px); /* Marges */
+  border-radius: var(--rayon); /* Coins arrondis */
   background: var(--encre); /* Fond foncé */
   color: var(--sable); /* Texte clair */
 } /* Fin */
@@ -646,7 +715,9 @@
 
 .produit__vignette { /* Une vignette (bouton) */
   outline-offset: 2px; /* Contour clavier décollé */
+  overflow: hidden; /* L'image suit l'arrondi */
   border: 2px solid transparent; /* Bordure invisible par défaut */
+  border-radius: calc(var(--rayon-image) + 2px); /* Coins arrondis */
   transition: border-color .3s; /* Animation */
 } /* Fin */
 
@@ -704,6 +775,7 @@
   min-height: 44px; /* Zone cliquable */
   padding: .5rem 1rem; /* Marges */
   border: 1px solid var(--encre); /* Bordure */
+  border-radius: var(--rayon-pilule); /* Arrondi */
   font-family: var(--f-ui); /* Police Archivo */
   font-size: .86rem; /* Taille */
   cursor: pointer; /* Curseur main */
@@ -891,7 +963,8 @@
 
 .carte-formulaire { /* Cadre du formulaire */
   padding: clamp(24px, 4vw, 52px); /* Marges */
-  background: var(--cauri); /* Fond clair */
+  border-radius: var(--rayon); /* Coins arrondis */
+  background: var(--cauri); /* Fond blanc */
   border: 1.5px solid var(--encre); /* Bordure */
   box-shadow: 12px 12px 0 var(--ocre); /* Ombre décalée ocre : effet imprimé */
 } /* Fin */
@@ -934,6 +1007,7 @@
   gap: 1rem; /* Espaces */
   align-content: start; /* En haut */
   padding: clamp(24px, 3vw, 40px); /* Marges */
+  border-radius: var(--rayon); /* Coins arrondis */
   background: var(--c); /* Couleur (data-teinte) */
   color: var(--c-texte); /* Texte adapté */
 } /* Fin */
@@ -946,6 +1020,8 @@
   display: grid; /* Grille */
   grid-template-columns: repeat(2, 1fr); /* Deux colonnes */
   gap: 1px; /* Espace fin : laisse voir le fond comme un filet */
+  overflow: hidden; /* Les cases suivent l'arrondi */
+  border-radius: var(--rayon); /* Coins arrondis */
   background: var(--trait); /* Couleur des filets */
   border: 1px solid var(--trait); /* Cadre */
 } /* Fin */
@@ -959,7 +1035,7 @@
   place-items: center; /* Au milieu */
   aspect-ratio: 3 / 2; /* Format */
   padding: 1.5rem; /* Marges */
-  background: var(--sable); /* Fond beige */
+  background: var(--sable); /* Fond blanc */
   text-align: center; /* Texte centré */
   text-decoration: none; /* Sans soulignement */
 } /* Fin */
@@ -971,6 +1047,7 @@
 .partenaires-vide { /* Message quand aucun partenaire n'est encore listé */
   padding: clamp(32px, 5vw, 64px); /* Marges */
   border: 1.5px dashed var(--encre); /* Bordure pointillée */
+  border-radius: var(--rayon); /* Coins arrondis */
   font-family: var(--f-titre); /* Police Bodoni */
   font-style: italic; /* Italique */
   font-size: clamp(1.4rem, 2.4vw, 2rem); /* Grande */

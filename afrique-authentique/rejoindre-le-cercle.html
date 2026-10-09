@@ -34,14 +34,17 @@
 
   <main id="contenu"> <!-- Contenu principal de la page -->
 
-    <section class="page-tete" aria-labelledby="titre-page"> <!-- En-tête de la page -->
-      <div class="conteneur page-tete__grille"> <!-- Grille : titre | introduction -->
-        <div> <!-- Colonne du titre -->
+    <section class="tete-rubrique tete-rubrique--page" data-teinte="laterite" aria-labelledby="titre-page"> <!-- En-tête de la page : fumée animée + infos (couleurs choisies avec data-teinte) -->
+      <canvas class="fumee" data-fumee aria-hidden="true"></canvas> <!-- Fumée animée, dessinée par js/site.js (pour une vidéo : voir la ligne suivante) -->
+      <!-- Vidéo à la place de la fumée : remplacez la ligne précédente par <video class="fumee" autoplay muted loop playsinline><source src="assets/videos/fumee.mp4" type="video/mp4"></video> -->
+      <div class="conteneur tete-rubrique__grille"> <!-- Grille (une seule colonne ici) -->
+        <div class="tete-rubrique__textes"> <!-- Textes -->
           <nav class="fil-ariane etiquette" aria-label="Fil d’Ariane"><a href="index.html">Accueil</a><span aria-hidden="true">/</span><span aria-current="page">Rejoindre le cercle</span></nav> <!-- Fil d'Ariane -->
-          <h1 class="titre-page" id="titre-page">Rejoindre <em>le cercle</em></h1> <!-- Titre -->
-        </div> <!-- Fin de la colonne -->
-        <p class="chapo">Le cercle, ce sont les lectrices, lecteurs, artisans, voyageurs et conteurs qui font vivre ce carnet. Une histoire à raconter, un savoir-faire à faire connaître, une question ? Écrivez-nous.</p> <!-- Introduction -->
+          <h1 class="tete-rubrique__titre" id="titre-page">Rejoindre <em>le cercle</em></h1> <!-- Titre -->
+          <p class="chapo">Le cercle, ce sont les lectrices, lecteurs, artisans, voyageurs et conteurs qui font vivre ce carnet. Une histoire à raconter, un savoir-faire à faire connaître, une question ? Écrivez-nous.</p> <!-- Introduction -->
+        </div> <!-- Fin des textes -->
       </div> <!-- Fin de la grille -->
+      <div class="motif tete-rubrique__motif" data-motif="cauris" aria-hidden="true"></div> <!-- Frise de motif textile -->
     </section> <!-- Fin de l'en-tête -->
 
     <section class="section" aria-label="Nous rejoindre et nous écrire"> <!-- Façons de rejoindre + formulaire -->

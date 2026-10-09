@@ -10,7 +10,7 @@
     6. Rideau de transition entre les pages
     7. En-tête qui se cache quand on descend
     8. Animations d'apparition au défilement
-    9. Défilant, proverbes, défilement horizontal, aperçus
+    9. Défilant, proverbes, défilement horizontal, fumée des en-têtes
    10. Formulaires (vérification + envoi)
    11. Démarrage
    Les contenus (textes, produits…) sont dans le dossier js/donnees/.
@@ -495,7 +495,7 @@
   } // Fin de initApparitions
 
 
-  /* 9. DÉFILANT, PROVERBES, DÉFILEMENT HORIZONTAL, APERÇUS ================== */
+  /* 9. DÉFILANT, PROVERBES, DÉFILEMENT HORIZONTAL, FUMÉE ==================== */
 
   function initDefilants() { // Duplique le contenu des bandes défilantes pour une boucle sans fin
     $$('[data-defilant] .defilant__piste').forEach((piste) => { // Chaque bande
@@ -562,17 +562,103 @@
     }); // Fin des rangées
   } // Fin de initDefiles
 
-  function initApercus() { // L'image d'aperçu de l'index des rubriques suit la souris
-    $$('[data-suivi]').forEach((zone) => { // Chaque zone concernée
-      zone.addEventListener('pointermove', (e) => { // La souris bouge dans la zone
-        const ligne = e.target.closest('.index__ligne'); // Ligne survolée
-        if (!ligne) return; // Aucune : on arrête
-        const cadre = ligne.getBoundingClientRect(); // Position de la ligne à l'écran
-        ligne.style.setProperty('--x', (e.clientX - cadre.left) + 'px'); // Position horizontale de la souris dans la ligne
-        ligne.style.setProperty('--y', (e.clientY - cadre.top) + 'px'); // Position verticale
+  const SHADER_SOMMETS = [ // Programme (langage GLSL) qui place les sommets : un grand triangle qui couvre toute la zone
+    'attribute vec2 position;', // Position reçue pour chaque sommet
+    'void main() { gl_Position = vec4(position, 0.0, 1.0); }', // Le sommet est placé tel quel
+  ].join('\n'); // Assemble les lignes
+
+  const SHADER_FUMEE = [ // Programme (langage GLSL) qui colore chaque pixel : une fumée qui ondule et monte
+    'precision mediump float;', // Précision moyenne : rapide, suffisante pour des volutes
+    'uniform vec2 u_taille;', // Taille de la zone en pixels
+    'uniform float u_temps;', // Temps écoulé, en secondes
+    'uniform vec3 u_fond;', // Couleur de fond
+    'uniform vec3 u_volute;', // Couleur des volutes
+    'uniform vec3 u_lueur;', // Couleur des reflets
+    'float hasard(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }', // Nombre pseudo-aléatoire attaché à un point
+    'float bruit(vec2 p) {', // Bruit doux : valeurs aléatoires lissées entre les points d'une grille
+    '  vec2 i = floor(p);', // Case de la grille
+    '  vec2 f = fract(p);', // Position dans la case
+    '  vec2 u = f * f * (3.0 - 2.0 * f);', // Courbe de lissage
+    '  return mix(mix(hasard(i), hasard(i + vec2(1.0, 0.0)), u.x), mix(hasard(i + vec2(0.0, 1.0)), hasard(i + vec2(1.0, 1.0)), u.x), u.y);', // Mélange des valeurs des 4 coins
+    '}', // Fin de bruit
+    'float fbm(vec2 p) {', // Superposition de couches de bruit : donne l'aspect « nuageux »
+    '  float v = 0.0;', // Valeur cumulée
+    '  float a = 0.5;', // Force de la couche
+    '  mat2 m = mat2(1.6, 1.2, -1.2, 1.6);', // Rotation et agrandissement entre deux couches
+    '  for (int i = 0; i < 5; i++) { v += a * bruit(p); p = m * p; a *= 0.5; }', // 5 couches, de plus en plus fines
+    '  return v;', // Résultat
+    '}', // Fin de fbm
+    'void main() {', // Calcul de la couleur d'un pixel
+    '  vec2 uv = gl_FragCoord.xy / u_taille.y;', // Position du pixel (proportions respectées)
+    '  float t = u_temps * 0.07;', // Temps ralenti : la fumée bouge lentement
+    '  vec2 p = uv * 1.7 + vec2(0.0, -t * 0.8);', // Le motif monte doucement
+    '  vec2 q = vec2(fbm(p + vec2(0.0, t)), fbm(p + vec2(5.2, 1.3) - t * 0.5));', // Première déformation
+    '  vec2 r = vec2(fbm(p + 3.0 * q + vec2(1.7, 9.2) + t * 0.7), fbm(p + 3.0 * q + vec2(8.3, 2.8) - t * 0.4));', // Seconde déformation : les volutes s'enroulent
+    '  float f = fbm(p + 2.6 * r);', // Densité de fumée en ce point
+    '  vec3 couleur = mix(u_fond, u_volute, smoothstep(0.22, 0.85, f));', // Plus de fumée = couleur des volutes
+    '  couleur = mix(couleur, u_lueur, smoothstep(0.55, 1.05, f * length(r)) * 0.55);', // Reflets chauds dans les volutes les plus denses
+    '  couleur = mix(couleur, u_fond, (1.0 - gl_FragCoord.y / u_taille.y) * 0.3);', // Bas un peu plus sombre
+    '  gl_FragColor = vec4(couleur, 1.0);', // Couleur finale du pixel
+    '}', // Fin de main
+  ].join('\n'); // Assemble les lignes
+
+  function couleurVersRVB(texte) { // Convertit « #A63F24 » en trois nombres entre 0 et 1 (rouge, vert, bleu)
+    const hex = String(texte || '').trim().replace('#', ''); // Retire le # et les espaces
+    if (hex.length !== 6) return [0, 0, 0]; // Format inattendu : noir
+    return [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255); // Deux caractères par couleur
+  } // Fin de couleurVersRVB
+
+  function initFumees() { // Dessine la fumée animée des en-têtes (balises <canvas data-fumee>)
+    $$('canvas[data-fumee]').forEach((toile) => { // Chaque zone de fumée
+      if (getComputedStyle(toile).display === 'none') return; // Masquée (une vidéo la remplace) : rien à faire
+      const bloc = toile.parentElement; // L'en-tête qui contient la fumée
+      const gl = toile.getContext('webgl', { antialias: false, alpha: false }); // Outil de dessin accéléré du navigateur (WebGL)
+      if (!gl) { bloc.classList.add('fumee--repli'); return; } // Pas de WebGL : nuages en dégradés CSS à la place
+      const compiler = (type, source) => { const s = gl.createShader(type); gl.shaderSource(s, source); gl.compileShader(s); return s; }; // Prépare un programme de dessin
+      const programme = gl.createProgram(); // Programme complet
+      gl.attachShader(programme, compiler(gl.VERTEX_SHADER, SHADER_SOMMETS)); // Ajoute le placement des sommets
+      gl.attachShader(programme, compiler(gl.FRAGMENT_SHADER, SHADER_FUMEE)); // Ajoute la coloration des pixels
+      gl.linkProgram(programme); // Assemble le tout
+      if (!gl.getProgramParameter(programme, gl.LINK_STATUS)) { bloc.classList.add('fumee--repli'); return; } // Échec : repli CSS
+      gl.useProgram(programme); // Active le programme
+      gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer()); // Mémoire pour les sommets
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW); // Un triangle plus grand que la zone : il la couvre entièrement
+      const position = gl.getAttribLocation(programme, 'position'); // Emplacement de l'attribut « position »
+      gl.enableVertexAttribArray(position); // Active l'attribut
+      gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0); // Deux nombres (x, y) par sommet
+      const styles = getComputedStyle(bloc); // Couleurs choisies dans le CSS (selon data-teinte)
+      ['fond', 'volute', 'lueur'].forEach((nom) => { // Pour chacune des trois couleurs…
+        gl.uniform3fv(gl.getUniformLocation(programme, 'u_' + nom), couleurVersRVB(styles.getPropertyValue('--fumee-' + nom))); // …on l'envoie au programme
       }); // Fin
-    }); // Fin
-  } // Fin de initApercus
+      const uTaille = gl.getUniformLocation(programme, 'u_taille'); // Emplacement de la taille
+      const uTemps = gl.getUniformLocation(programme, 'u_temps'); // Emplacement du temps
+      const ajuster = () => { // Adapte la résolution à la taille de l'en-tête
+        const echelle = Math.min(window.devicePixelRatio || 1, 2) * 0.5; // Demi-résolution : la fumée est floue par nature, et c'est plus léger
+        toile.width = Math.max(1, Math.round(toile.clientWidth * echelle)); // Largeur en pixels
+        toile.height = Math.max(1, Math.round(toile.clientHeight * echelle)); // Hauteur en pixels
+        gl.viewport(0, 0, toile.width, toile.height); // Zone de dessin
+        gl.uniform2f(uTaille, toile.width, toile.height); // Envoie la taille au programme
+      }; // Fin de ajuster
+      const depart = Math.random() * 60; // Point de départ au hasard : la fumée n'est jamais tout à fait la même
+      const dessiner = (ms) => { gl.uniform1f(uTemps, depart + ms / 1000); gl.drawArrays(gl.TRIANGLES, 0, 3); }; // Dessine une image
+      ajuster(); // Premier réglage
+      dessiner(0); // Première image
+      toile.classList.add('fumee--prete'); // Fait apparaître la fumée en fondu
+      window.addEventListener('resize', () => { ajuster(); dessiner(performance.now()); }); // Redimensionnement de la fenêtre
+      if (mouvementReduit) return; // Animations réduites : la fumée reste fixe
+      let visible = true; // L'en-tête est-il à l'écran ?
+      let enCours = false; // Une boucle d'animation tourne-t-elle ?
+      const boucle = (ms) => { // Boucle d'animation (environ 60 images par seconde)
+        if (!visible || document.hidden) { enCours = false; return; } // Hors écran ou onglet caché : pause (économie de batterie)
+        dessiner(ms); // Dessine l'image suivante
+        window.requestAnimationFrame(boucle); // Prévoit la suivante
+      }; // Fin de la boucle
+      const relancer = () => { if (!enCours && visible && !document.hidden) { enCours = true; window.requestAnimationFrame(boucle); } }; // Relance l'animation si elle s'était arrêtée
+      if ('IntersectionObserver' in window) new IntersectionObserver(([entree]) => { visible = entree.isIntersecting; relancer(); }).observe(bloc); // Surveille si l'en-tête est visible
+      document.addEventListener('visibilitychange', relancer); // Reprend au retour sur l'onglet
+      relancer(); // Démarre l'animation
+    }); // Fin des zones de fumée
+  } // Fin de initFumees
 
 
   function initLiensReglages() { // Remplit les liens de contact à partir de reglages.js (un seul endroit à modifier)
@@ -762,7 +848,7 @@
     initDefilants(); // Bandes défilantes
     initProverbes(); // Proverbes
     initDefiles(); // Rangées horizontales
-    initApercus(); // Aperçus qui suivent la souris
+    initFumees(); // Fumée animée des en-têtes
     initLiensReglages(); // Liens WhatsApp, e-mail, réseaux
     initFormulaires(); // Formulaires
     initApparitions(); // Animations d'apparition

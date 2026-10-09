@@ -34,14 +34,17 @@
 
   <main id="contenu"> <!-- Contenu principal de la page -->
 
-    <section class="page-tete" aria-labelledby="titre-page"> <!-- En-tête de la page -->
-      <div class="conteneur page-tete__grille"> <!-- Grille : titre | introduction -->
-        <div> <!-- Colonne du titre -->
+    <section class="tete-rubrique tete-rubrique--page" data-teinte="indigo" aria-labelledby="titre-page"> <!-- En-tête de la page : fumée animée + infos (couleurs choisies avec data-teinte) -->
+      <canvas class="fumee" data-fumee aria-hidden="true"></canvas> <!-- Fumée animée, dessinée par js/site.js (pour une vidéo : voir la ligne suivante) -->
+      <!-- Vidéo à la place de la fumée : remplacez la ligne précédente par <video class="fumee" autoplay muted loop playsinline><source src="assets/videos/fumee.mp4" type="video/mp4"></video> -->
+      <div class="conteneur tete-rubrique__grille"> <!-- Grille (une seule colonne ici) -->
+        <div class="tete-rubrique__textes"> <!-- Textes -->
           <nav class="fil-ariane etiquette" aria-label="Fil d’Ariane"><a href="index.html">Accueil</a><span aria-hidden="true">/</span><span aria-current="page">Devenir partenaire</span></nav> <!-- Fil d'Ariane -->
-          <h1 class="titre-page" id="titre-page">Devenir <em>partenaire</em></h1> <!-- Titre -->
-        </div> <!-- Fin de la colonne -->
-        <p class="chapo">Artisans, coopératives, agences de voyage, institutions culturelles, marques engagées : construisons ensemble des projets qui profitent à celles et ceux qui font la culture.</p> <!-- Introduction -->
+          <h1 class="tete-rubrique__titre" id="titre-page">Devenir <em>partenaire</em></h1> <!-- Titre -->
+          <p class="chapo">Artisans, coopératives, agences de voyage, institutions culturelles, marques engagées : construisons ensemble des projets qui profitent à celles et ceux qui font la culture.</p> <!-- Introduction -->
+        </div> <!-- Fin des textes -->
       </div> <!-- Fin de la grille -->
+      <div class="motif tete-rubrique__motif" data-motif="kente" aria-hidden="true"></div> <!-- Frise de motif textile -->
     </section> <!-- Fin de l'en-tête -->
 
     <section class="section" aria-labelledby="titre-types"> <!-- Types de partenariat -->

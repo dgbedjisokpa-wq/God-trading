@@ -231,6 +231,13 @@
     afficher(''); // Premier affichage : tout
   }); // Fin
 
+  const compteurs = { // Petites infos affichées dans les en-têtes (Événements, Odyssées, Trésors)
+    '[data-compte-evenements]': () => `${EVENEMENTS.filter((e) => !estPasse(e)).length} rendez-vous à venir`, // Événements pas encore passés
+    '[data-compte-destinations]': () => `${DESTINATIONS.length} destination${DESTINATIONS.length > 1 ? 's' : ''}`, // Nombre de destinations
+    '[data-compte-tresors]': () => `${PRODUITS.length} trésor${PRODUITS.length > 1 ? 's' : ''} d’artisans`, // Nombre de produits
+  }; // Fin des compteurs
+  Object.entries(compteurs).forEach(([selecteur, texte]) => $$(selecteur).forEach((el) => { el.textContent = texte(); })); // Remplit chaque compteur présent dans la page
+
   $$('[data-odyssees]').forEach((zone) => { // Emplacements des destinations
     const mode = zone.dataset.odyssees; // « defile » (rangée) ou « liste » (grandes lignes)
     zone.innerHTML = DESTINATIONS.map(mode === 'liste' ? ligneOdyssee : carteOdyssee).join(''); // Affiche toutes les destinations

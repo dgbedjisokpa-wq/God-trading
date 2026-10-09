@@ -1,8 +1,9 @@
 /* ==========================================================================
    AFRIQUE AUTHENTIQUE — 2. MOTIFS, TEINTES ET VISUELS
    --------------------------------------------------------------------------
-   A. Les teintes : data-teinte="laterite|ocre|indigo|palme|kola|sable"
-      donne à un bloc sa couleur de fond, de motif, de forme et de texte.
+   A. Les teintes : data-teinte="laterite|ocre|indigo|palme|kola|encre|sable"
+      donne à un bloc sa couleur de fond, de motif, de forme, de texte
+      et les couleurs de la fumée animée des en-têtes.
    B. Les motifs textiles : data-motif="bogolan|kente|adire|ndebele|kuba|cauris"
    C. Les « plaques » : les cadres d'image du site.
       → Tant qu'aucune photo n'est fournie, la plaque affiche une composition
@@ -27,6 +28,9 @@
   --c-texte: var(--cauri); /* Texte blanc chaud */
   --c-motif: rgba(94, 38, 32, .55); /* Motif brun kola semi-transparent */
   --c-forme: var(--ocre); /* Forme ocre */
+  --fumee-fond: #5A1D10; /* En-tête à fumée : couleur de fond (latérite sombre) */
+  --fumee-volute: #C2603B; /* En-tête à fumée : volutes (latérite clair) */
+  --fumee-lueur: #E2A040; /* En-tête à fumée : reflets (ocre) */
 } /* Fin */
 
 [data-teinte="ocre"] { /* Teinte jaune ocre */
@@ -34,6 +38,9 @@
   --c-texte: var(--encre); /* Texte foncé (meilleur contraste sur l'ocre) */
   --c-motif: rgba(166, 63, 36, .38); /* Motif latérite transparent */
   --c-forme: var(--indigo); /* Forme indigo */
+  --fumee-fond: #C88A2A; /* En-tête à fumée : couleur de fond (ocre) */
+  --fumee-volute: #F4CF7E; /* En-tête à fumée : volutes (ocre très clair) */
+  --fumee-lueur: #FFF4DC; /* En-tête à fumée : reflets (crème) */
 } /* Fin */
 
 [data-teinte="indigo"] { /* Teinte bleu indigo */
@@ -41,6 +48,9 @@
   --c-texte: var(--sable); /* Texte clair */
   --c-motif: rgba(150, 168, 222, .24); /* Motif bleu pâle transparent */
   --c-forme: var(--ocre); /* Forme ocre */
+  --fumee-fond: #0C1229; /* En-tête à fumée : couleur de fond (indigo nuit) */
+  --fumee-volute: #34457E; /* En-tête à fumée : volutes (indigo clair) */
+  --fumee-lueur: #C98A2A; /* En-tête à fumée : reflets (ocre) */
 } /* Fin */
 
 [data-teinte="palme"] { /* Teinte vert palme */
@@ -48,13 +58,19 @@
   --c-texte: var(--sable); /* Texte clair */
   --c-motif: rgba(211, 146, 42, .24); /* Motif ocre transparent */
   --c-forme: var(--laterite); /* Forme rouge */
+  --fumee-fond: #142619; /* En-tête à fumée : couleur de fond (vert profond) */
+  --fumee-volute: #4B7552; /* En-tête à fumée : volutes (vert clair) */
+  --fumee-lueur: #C98A2A; /* En-tête à fumée : reflets (ocre) */
 } /* Fin */
 
 [data-teinte="kola"] { /* Teinte brun kola */
   --c: var(--kola); /* Fond brun-rouge */
   --c-texte: var(--sable); /* Texte clair */
   --c-motif: rgba(211, 146, 42, .26); /* Motif ocre transparent */
-  --c-forme: var(--sable); /* Forme beige */
+  --c-forme: var(--sable); /* Forme blanche */
+  --fumee-fond: #2E0F0C; /* En-tête à fumée : couleur de fond (kola sombre) */
+  --fumee-volute: #84392B; /* En-tête à fumée : volutes (kola clair) */
+  --fumee-lueur: #D39A3A; /* En-tête à fumée : reflets (ocre) */
 } /* Fin */
 
 [data-teinte="encre"] { /* Teinte brun-noir */
@@ -62,13 +78,19 @@
   --c-texte: var(--sable); /* Texte clair */
   --c-motif: rgba(211, 146, 42, .2); /* Motif ocre transparent */
   --c-forme: var(--ocre); /* Forme ocre */
+  --fumee-fond: #0B0807; /* En-tête à fumée : couleur de fond (brun-noir) */
+  --fumee-volute: #4A3B2E; /* En-tête à fumée : volutes (brun) */
+  --fumee-lueur: #C98A2A; /* En-tête à fumée : reflets (ocre) */
 } /* Fin */
 
-[data-teinte="sable"] { /* Teinte beige (neutre) */
-  --c: var(--sable-fonce); /* Fond beige soutenu */
+[data-teinte="sable"] { /* Teinte neutre (blanc cassé) */
+  --c: var(--sable-fonce); /* Fond blanc cassé */
   --c-texte: var(--encre); /* Texte foncé */
   --c-motif: rgba(28, 21, 17, .2); /* Motif brun transparent */
   --c-forme: var(--laterite); /* Forme rouge */
+  --fumee-fond: #F3EFE9; /* En-tête à fumée : couleur de fond (blanc cassé) */
+  --fumee-volute: #FFFFFF; /* En-tête à fumée : volutes (blanc) */
+  --fumee-lueur: #E9D3A6; /* En-tête à fumée : reflets (sable doré) */
 } /* Fin */
 
 
@@ -99,6 +121,7 @@
   aspect-ratio: var(--ratio, 4 / 5); /* Proportions (portrait 4/5 par défaut, modifiable avec --ratio) */
   background: var(--c, var(--sable-fonce)); /* Couleur de fond (selon la teinte) */
   isolation: isolate; /* Crée une « pile » de couches indépendante */
+  border-radius: var(--rayon-image); /* Coins arrondis */
 } /* Fin */
 
 .plaque::before { /* Couche 1 : le motif textile */
@@ -149,7 +172,8 @@ a:hover .plaque > img { /* Survol d'une carte avec photo */
   z-index: 2; /* Au-dessus de la photo */
   max-width: calc(100% - 1.5rem); /* Ne dépasse pas du cadre */
   padding: .35rem .6rem; /* Marges intérieures */
-  background: var(--cauri); /* Fond blanc chaud */
+  background: var(--cauri); /* Fond blanc */
+  border-radius: var(--rayon-pilule); /* Étiquette arrondie */
   color: var(--encre); /* Texte foncé */
   font-family: var(--f-ui); /* Police Archivo */
   font-size: .6rem; /* Très petit */
