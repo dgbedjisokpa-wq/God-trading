@@ -13,10 +13,11 @@
       v: 1,
       onboarded: false,
       createdAt: U.dayKey(),
-      profile: { name: '', reason: '', feeling: '', dailyGoal: 20 },
+      profile: { name: '', reasons: [], feeling: -1, gender: '', dailyGoal: 20 },
       settings: {
         sound: true, haptics: true, theme: 'auto', reduceMotion: false,
-        voiceURI: '', rate: 0.95, srLang: 'fr-FR', mic: true
+        voiceURI: '', rate: 0.95, srLang: 'fr-FR', mic: true,
+        reminder: '', lastExportAt: 0, snooze: {}
       },
       progress: {},          // id de leçon -> { count, best, last }
       chests: {},            // id de coffre -> true
@@ -29,6 +30,8 @@
         zeroFillers: 0, units: 0, minutes: 0
       },
       speeches: [],          // historique des analyses de parole
+      assessments: [],       // bilans vocaux : départ, mi-parcours, final
+      diploma: null,         // { at } quand le parcours est terminé
       mistakes: [],          // exercices ratés à revoir
       quests: { day: '', list: [] },
       badges: {},            // id -> palier atteint (1..n)
@@ -54,6 +57,20 @@
     var saved = null;
     try { saved = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { saved = null; }
     state = merge(defaults(), saved);
+    migrate(state);
+  }
+
+  /* Anciennes sauvegardes : une seule motivation (texte), ressenti en texte. */
+  function migrate(s) {
+    var p = s.profile;
+    if (!Array.isArray(p.reasons)) p.reasons = [];
+    if (typeof p.reason === 'string' && p.reason && !p.reasons.length) {
+      var map = { 'Réussir mes entretiens et ma carrière': 'carriere', 'Briller à mes examens et oraux': 'etudes', 'Prendre confiance en moi': 'confiance', 'Parler devant un public': 'public', 'Mieux convaincre au quotidien': 'convaincre', 'Juste pour progresser': 'progresser' };
+      if (map[p.reason]) p.reasons = [map[p.reason]];
+    }
+    delete p.reason;
+    if (typeof p.feeling !== 'number') p.feeling = -1;
+    if (!s.settings.snooze || typeof s.settings.snooze !== 'object') s.settings.snooze = {};
   }
 
   function save() {
@@ -76,6 +93,7 @@
     var data = JSON.parse(txt);
     if (!data || typeof data !== 'object' || !data.xp || !data.progress) throw new Error('Fichier non reconnu');
     state = merge(defaults(), data);
+    migrate(state);
     save();
   };
 
@@ -84,13 +102,16 @@
   var TITLES = ['Murmure', 'Petite voix', 'Voix qui s\'éveille', 'Apprenti orateur', 'Parole assurée', 'Conteur',
     'Voix posée', 'Orateur', 'Rhéteur', 'Tribun', 'Grand orateur', 'Virtuose du verbe', 'Maître de la parole',
     'Griot', 'Légende de l\'éloquence'];
+  var TITLES_F = ['Murmure', 'Petite voix', 'Voix qui s\'éveille', 'Apprentie oratrice', 'Parole assurée', 'Conteuse',
+    'Voix posée', 'Oratrice', 'Rhétoricienne', 'Voix qui porte', 'Grande oratrice', 'Virtuose du verbe', 'Maîtresse de la parole',
+    'Griotte', 'Légende de l\'éloquence'];
   S.levelFor = function (xp) {
     var l = 0;
     while (l + 1 < LEVELS.length && xp >= LEVELS[l + 1]) l++;
     var cur = LEVELS[l], next = LEVELS[l + 1];
     return {
       level: l + 1,
-      title: TITLES[l],
+      title: (state && state.profile.gender === 'f' ? TITLES_F : TITLES)[l],
       max: !next,
       xpIn: xp - cur,
       xpNeed: next ? next - cur : 0,
@@ -291,6 +312,23 @@
   S.canSpeak = function () {
     return state.settings.mic !== false && Date.now() > (state.cantSpeakUntil || 0);
   };
+  /* Bilans vocaux (départ, mi-parcours, final) pour mesurer la progression. */
+  S.recordAssessment = function (kind, a) {
+    state.assessments = state.assessments.filter(function (x) { return x.kind !== kind; });
+    state.assessments.push({
+      kind: kind, at: Date.now(), dur: Math.round(a.speakSpan || a.duration || 0),
+      wpm: a.wpm || null, fillers: typeof a.fillers === 'number' ? a.fillers : null,
+      fpm: typeof a.fillersPerMin === 'number' ? a.fillersPerMin : null,
+      pitch: typeof a.pitchVar === 'number' ? a.pitchVar : null,
+      pauses: typeof a.pausesPerMin === 'number' ? a.pausesPerMin : null,
+      score: typeof a.score === 'number' ? a.score : null
+    });
+    save();
+  };
+  S.assessment = function (kind) {
+    return state.assessments.filter(function (x) { return x.kind === kind; })[0] || null;
+  };
+
   S.recordSpeech = function (a) {
     state.speeches.push({
       at: Date.now(), kind: a.kind || 'libre', dur: Math.round(a.duration || 0), words: a.words || 0,

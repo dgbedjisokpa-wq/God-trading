@@ -47,9 +47,6 @@
     s += '<ellipse cx="85" cy="232" rx="11" ry="6" fill="' + C.dressDark + '"/>';
     s += '<ellipse cx="115" cy="232" rx="11" ry="6" fill="' + C.dressDark + '"/>';
 
-    // Bras (derrière le corps quand ils pendent ; devant quand ils se lèvent, géré en CSS)
-    s += arm('l', 74, 186);
-    s += arm('r', 126, 186);
 
     // Corps (robe)
     s += '<rect x="90" y="150" width="20" height="24" rx="6" fill="' + C.skinDark + '"/>';
@@ -58,6 +55,9 @@
     s += '<path d="M66 216 Q100 230 134 216" fill="none" stroke="' + C.gold + '" stroke-width="3" stroke-linecap="round" stroke-dasharray="1 7"/>';
     // Col
     s += '<path d="M84 176 Q100 192 116 176" fill="none" stroke="' + C.wrapLight + '" stroke-width="5" stroke-linecap="round"/>';
+    // Bras le long du corps (devant la robe, manches un peu plus foncées)
+    s += arm('l', 74, 186, '#6D28D9');
+    s += arm('r', 126, 186, '#6D28D9');
 
     if (o.scarf) {
       s += '<path d="M72 178 Q100 196 128 178 L126 188 Q100 206 74 188 Z" fill="' + C.gold + '"/>';
@@ -161,9 +161,9 @@
     return s;
   }
 
-  function arm(side, x, y) {
+  function arm(side, x, y, fill) {
     return '<g class="ah-arm ah-arm-' + side + '" style="transform-origin:' + x + 'px ' + y + 'px">' +
-      '<rect x="' + (x - 8) + '" y="' + (y - 4) + '" width="16" height="38" rx="8" fill="' + C.dress + '"/>' +
+      '<rect x="' + (x - 8) + '" y="' + (y - 4) + '" width="16" height="38" rx="8" fill="' + (fill || C.dress) + '"/>' +
       '<circle cx="' + x + '" cy="' + (y + 38) + '" r="8.5" fill="' + C.skin + '"/></g>';
   }
 
@@ -187,7 +187,7 @@
     w.appendChild(el({ mood: opts.mood || 'talk', size: opts.size || 96 }));
     var b = document.createElement('div');
     b.className = 'bubble';
-    b.innerHTML = text;
+    b.innerHTML = App.U ? App.U.fr(text) : text;
     w.appendChild(b);
     if (opts.talkFor !== 0) {
       setTimeout(function () { setMood(w, opts.after || 'idle'); }, opts.talkFor || Math.min(4000, 600 + text.length * 35));

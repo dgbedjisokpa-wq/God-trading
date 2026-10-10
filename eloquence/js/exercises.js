@@ -624,6 +624,7 @@
       clearTimeout(autoStop);
       var s = session; session = null;
       micBtn.classList.remove('rec');
+      meter.classList.remove('live');
       micBtn.disabled = true;
       bars.forEach(function (b) { b.style.height = '6px'; });
       s.stop().then(function (r) {
@@ -658,6 +659,7 @@
       });
       session.start().then(function () {
         micBtn.classList.add('rec');
+        meter.classList.add('live');
         label.textContent = 'Enregistrement… appuie pour arrêter';
         autoStop = setTimeout(function () { if (session) stop(); }, 15000);
       }).catch(function (err) {
@@ -874,7 +876,7 @@
       phaseBox.appendChild(h('div.center', null, [num, h('p.muted', { text: 'Trouve ton idée principale et deux arguments.', style: { fontWeight: 700, marginTop: '8px' } })]));
       var t = tipsRow();
       if (t) phaseBox.appendChild(t);
-      var ready = h('button.btn', { type: 'button', text: 'Je suis prêt(e)' });
+      var ready = h('button.btn', { type: 'button', text: 'Je suis ' + U.g('prêt', 'prête', 'prêt(e)') });
       ready.addEventListener('click', speak);
       phaseBox.appendChild(h('div.center', null, ready));
       prepTick = setInterval(function () {
@@ -950,6 +952,7 @@
       });
       session.start().then(function () {
         startedAt = Date.now();
+        meter.classList.add('live');
         status.textContent = 'Parle ! Je t\'écoute.';
         App.Sound.play('start');
         speakTick = setInterval(updateTimer, 250);
@@ -1007,6 +1010,7 @@
       if (readAcc !== null) m.appendChild(metric('Lecture', readAcc + ' %', readAcc >= 90 ? 'Très précise' : readAcc >= 75 ? 'Correcte' : 'Des mots manqués', readAcc >= 90 ? 'good' : readAcc >= 75 ? 'mid' : 'bad'));
       if (r.wpm !== null) m.appendChild(metric('Débit', r.wpm + ' <small>mots/min</small>', r.wpm < 110 ? 'Un peu lent' : r.wpm > 180 ? 'Trop rapide' : 'Idéal', ratingFor('debit', r)));
       if (r.fillers !== null) m.appendChild(metric('Tics', String(r.fillers), r.fillers === 0 ? 'Aucun, bravo !' : U.num(r.fillersPerMin) + ' par minute', ratingFor('tics', r)));
+      if (r.audioMuted) phaseBox.appendChild(h('div.alert', { html: App.icon('bulb') + '<span>Ton téléphone n\'a pas pu enregistrer le son pendant la transcription : je n\'ai pas mesuré tes pauses ni ta mélodie cette fois.</span>' }));
       if (r.pausesPerMin !== null) m.appendChild(metric('Pauses', String(r.pauses), r.longPauses ? U.plural(r.longPauses, 'blanc') + ' de plus de 2 s' : r.pausesPerMin < 2.5 ? 'Peu de pauses' : 'Bien rythmé', ratingFor('pauses', r)));
       if (r.pitchVar !== null) m.appendChild(metric('Intonation', U.num(r.pitchVar) + ' <small>demi-tons</small>', r.pitchVar >= 3 ? 'Expressive' : r.pitchVar >= 2 ? 'Vivante' : 'Plutôt monotone', ratingFor('intonation', r)));
       if (r.richness !== null) m.appendChild(metric('Vocabulaire', Math.round(r.richness * 100) + ' %', r.richness >= 0.7 ? 'Varié' : 'Des répétitions', ratingFor('vocabulaire', r)));
@@ -1052,13 +1056,25 @@
       again.addEventListener('click', function () { intro(); });
       phaseBox.appendChild(h('div.center', null, again));
 
+      if (step.assessment) {
+        var dep = Store.assessment('depart');
+        if (step.assessment !== 'depart' && dep) {
+          var cmp = App.Plan.compareTable(dep, {
+            score: score, wpm: r.wpm, fpm: r.fillersPerMin, pitch: r.pitchVar
+          }, ['Départ', 'Aujourd\'hui']);
+          if (cmp) phaseBox.insertBefore(h('div.card', null, [h('h3', { text: 'Ton évolution depuis le départ' }), cmp]), phaseBox.children[1] || null);
+        } else if (step.assessment === 'depart') {
+          phaseBox.insertBefore(h('div.alert.good', { html: App.icon('check') + '<span>Ton bilan de départ est enregistré. Tu le compareras à mi-parcours et à la fin.</span>' }), phaseBox.children[1] || null);
+        }
+      }
       if (!reported) {
         reported = true;
         Store.recordSpeech(Object.assign({}, r, { score: score }));
+        if (step.assessment) Store.recordAssessment(step.assessment, Object.assign({}, r, { score: score }));
         var counts = { speeches: 1, speakSecs: r.speakSpan || r.duration || 0, speakOk: 1 };
         if (r.hasText && r.fillers === 0 && (r.speakSpan || 0) >= 30) counts.zeroFillers = 1;
         ctx.complete({ activity: true, quiet: true, counts: counts, bonusXP: 5 });
-        var says = App.Mascot.says(score === null ? 'Super, tu as osé parler !' : score >= 80 ? 'Wahou, quelle aisance !' : 'Chaque prise de parole te rend plus fort(e) !', { mood: mood, size: 80, talkFor: 1800, after: mood === 'talk' ? 'happy' : mood });
+        var says = App.Mascot.says(score === null ? 'Super, tu as osé parler !' : score >= 80 ? 'Wahou, quelle aisance !' : 'Chaque prise de parole te rend plus ' + U.g('fort', 'forte', 'fort(e)') + ' !', { mood: mood, size: 80, talkFor: 1800, after: mood === 'talk' ? 'happy' : mood });
         phaseBox.insertBefore(says, phaseBox.children[1] || null);
       }
     }
@@ -1086,6 +1102,7 @@
               reported = true;
               var score = Math.round((answers.structure + answers.tics + answers.voix) / 6 * 100);
               Store.recordSpeech({ kind: isRead ? 'lecture' : 'libre', duration: secs, score: score });
+              if (step.assessment) Store.recordAssessment(step.assessment, { duration: secs, score: score });
               ctx.complete({ activity: true, quiet: true, counts: { speeches: 1, speakSecs: secs }, bonusXP: 5 });
             }
           });

@@ -144,7 +144,17 @@
     var ctx = {
       unit: unit,
       complete: function (res) { finishStep(res); },
-      offerNoSpeak: function () { UI.toast('Pas de micro ? Appuie sur « Je ne peux pas parler ».', 'micFill', 4000); }
+      offerNoSpeak: function () {
+        UI.modal({
+          title: 'Le micro n\'est pas accessible',
+          body: '<p>Autorise le micro dans ton navigateur (icône à gauche de l\'adresse), ou continue sans exercices de parole. Tu pourras les réactiver dans Réglages.</p>',
+          mascot: 'think',
+          actions: [
+            { label: 'Continuer sans micro', onClick: function () { Store.update(function (s) { s.settings.mic = false; }); dropSpeaking('Exercices de parole désactivés. Réactive-les dans Réglages.'); } },
+            { label: 'Réessayer', cls: 'flat' }
+          ]
+        });
+      }
     };
 
     function record(step, correct) {
@@ -178,8 +188,9 @@
       record(step, res.correct);
       App.Sound.play(res.correct ? 'correct' : 'wrong');
       if (!res.correct) U.vibrate(120);
-      if (res.correct || res.noRequeue) { L.doneCount++; setProgress(); }
-      if (!res.correct && !res.noRequeue) { L.queue.push(step); Store.addMistake(step); }
+      var noRequeue = res.noRequeue || opts.noRetry;
+      if (res.correct || noRequeue) { L.doneCount++; setProgress(); }
+      if (!res.correct && !noRequeue) { L.queue.push(step); Store.addMistake(step); }
       if (!res.correct && res.noRequeue && step.type !== 'speak') Store.addMistake(step);
       if (res.correct && opts.kind === 'mistakes') Store.removeMistake(step);
       footer('feedback', res);
@@ -197,7 +208,7 @@
         if (opts.kind === 'mistakes') Store.removeMistake(step);
       } else {
         U.vibrate(120);
-        L.queue.push(step);
+        if (opts.noRetry) { L.doneCount++; setProgress(); } else L.queue.push(step);
         Store.addMistake(step);
       }
       footer('feedback', res);
@@ -209,7 +220,7 @@
       var step = L.queue[0];
       record(step, false);
       App.Sound.play('wrong');
-      L.queue.push(step);
+      if (opts.noRetry) { L.doneCount++; setProgress(); } else L.queue.push(step);
       Store.addMistake(step);
       res.correct = false;
       res.title = 'Réponse passée';
@@ -225,7 +236,10 @@
     }
     function cantSpeak() {
       Store.update(function (s) { s.cantSpeakUntil = Date.now() + 60 * 60 * 1000; });
-      UI.toast('Exercices de parole en pause pendant 1 heure.', 'micFill');
+      dropSpeaking('Exercices de parole en pause pendant 1 heure.');
+    }
+    function dropSpeaking(msg) {
+      UI.toast(msg, 'micFill', 3500);
       L.ex.destroy && L.ex.destroy();
       var before = L.queue.length;
       L.queue = L.queue.filter(function (s) { return !SPEAKING.test(s.type); });
@@ -265,7 +279,7 @@
       if (document.querySelector('.modal-back')) return;
       var tag = (e.target && e.target.tagName) || '';
       if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
-      if (e.key === 'Escape') { askQuit(); return; }
+      if (e.key === 'Escape') { if (!document.querySelector('.screen')) askQuit(); return; }
       if (e.key === 'Enter') {
         // Entrée valide la réponse (comme Duolingo), sauf sur les autres boutons (écouter, micro…)
         if (tag === 'BUTTON' && e.target !== L.primary && !e.target.closest('.lesson-foot') && !e.target.matches('.choice, .chip, .tw')) return;
@@ -291,6 +305,7 @@
     }
 
     function destroy() {
+      releaseBack();
       if (L.ex && L.ex.destroy) L.ex.destroy();
       document.removeEventListener('keydown', onKey);
       root.remove();
@@ -314,6 +329,8 @@
         unitDone: opts.kind === 'review' && !wasUnitDone
       });
       summary.accuracy = accuracy;
+      summary.results = steps.filter(function (s) { return L.firstTry[s._id] !== undefined; })
+        .map(function (s) { return { unit: s._unit, type: s.type, ok: L.firstTry[s._id] }; });
       var secs = (Date.now() - L.started) / 1000;
       destroy();
       showEndScreens(summary, { accuracy: accuracy, secs: secs, perfect: perfect, kind: opts.kind, unit: unit }, function () {
@@ -321,6 +338,8 @@
       });
     }
 
+    // Le bouton « retour » du téléphone demande confirmation au lieu de quitter l'application
+    var releaseBack = UI.guardBack(function () { if (!document.querySelector('.modal-back')) askQuit(); });
     setProgress();
     show();
     if (removedSpeaking) UI.toast('Exercices de parole masqués pendant ta pause micro.', 'micFill');
@@ -338,7 +357,8 @@
     s.appendChild(h('div.screen-foot', null, footIn));
     document.body.appendChild(s);
     document.body.style.overflow = 'hidden';
-    function go() { document.removeEventListener('keydown', key); s.remove(); document.body.style.overflow = ''; onNext(); }
+    var release = UI.guardBack(function () { /* on reste sur l'écran de fin */ });
+    function go() { release(); document.removeEventListener('keydown', key); s.remove(); document.body.style.overflow = ''; onNext(); }
     function key(e) { if (e.key === 'Enter') { e.preventDefault(); go(); } }
     btn.addEventListener('click', go);
     document.addEventListener('keydown', key);

@@ -597,7 +597,7 @@
     /* ================= UNITÉ 10 ================= */
     {
       id: 'u10', title: 'Prendre la parole en public', desc: 'Corps, pitch, entretien, grand oral',
-      color: '#B07D00', dark: '#8C6400',
+      color: '#C026D3', dark: '#9A1BA8',
       guide: [
         'Ton corps doit dire la même chose que tes mots.',
         'Regarde chaque personne 3 à 5 secondes, puis passe à une autre zone.',

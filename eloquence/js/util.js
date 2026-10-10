@@ -124,6 +124,13 @@
     var m = Math.floor(secs / 60), s = secs % 60;
     return m + ' min' + (s ? ' ' + pad(s) : '');
   };
+  /* Accord selon la préférence (profil) : U.g('prêt', 'prête', 'prêt(e)') */
+  U.g = function (m, f, n) {
+    var g = App.Store && App.Store.get() ? App.Store.get().profile.gender : '';
+    if (g === 'f') return f;
+    if (g === 'm') return m;
+    return n !== undefined ? n : m;
+  };
   U.plural = function (n, one, many) { return U.num(n) + ' ' + (n >= 2 ? (many || one + 's') : one); };
   /* Nombre à la française : 2,4 */
   U.num = function (n) { return String(n).replace('.', ','); };

@@ -149,7 +149,11 @@
     var tx = A.text(rec.transcript || '');
     var fl = A.findFillers(rec.transcript || '');
     var hasText = tx.words >= 3;
-    var span = au.speakSpan || rec.duration || 0;
+    // Certains téléphones ne partagent pas le micro entre la transcription et l'enregistrement :
+    // l'audio est alors muet alors que le texte existe. On se fie au texte et à la durée.
+    var audioMuted = hasText && au.voicedSecs < 1;
+    if (audioMuted) au = { voicedSecs: 0, pauses: 0, longPauses: 0, pitchVar: null, pitchMedian: null, contour: [] };
+    var span = audioMuted ? (rec.duration || 0) : (au.speakSpan || rec.duration || 0);
     var minutes = Math.max(span, 1) / 60;
 
     var r = {
@@ -167,7 +171,8 @@
       richness: tx.richness,
       pauses: au.pauses,
       longPauses: au.longPauses,
-      pausesPerMin: span >= 5 ? Math.round(au.pauses / minutes * 10) / 10 : null,
+      pausesPerMin: span >= 5 && !audioMuted ? Math.round(au.pauses / minutes * 10) / 10 : null,
+      audioMuted: audioMuted,
       pitchVar: au.pitchVar,
       pitchMedian: au.pitchMedian,
       contour: au.contour,
@@ -217,7 +222,7 @@
       else if (r.pitchVar >= 3) good.push('Ta voix est expressive et vivante.');
     }
     if (r.repeated && r.repeated.length) tips.push('Tu répètes souvent « ' + r.repeated[0].word + ' » (' + r.repeated[0].n + ' fois). Cherche un synonyme.');
-    if (r.target && r.speakSpan < r.target * 0.6) tips.push('Tu t\'es arrêté(e) tôt. Entraîne-toi à développer : une idée, une raison, un exemple.');
+    if (r.target && r.speakSpan < r.target * 0.6) tips.push('Tu t\'es ' + U.g('arrêté', 'arrêtée', 'arrêté(e)') + ' tôt. Entraîne-toi à développer : une idée, une raison, un exemple.');
     return { good: good, tips: tips };
   }
 

@@ -155,10 +155,10 @@ async function playStep(page) {
       });
       var start = page.locator('.step .btn', { hasText: /Préparer|Je commence/ });
       await start.click();
-      var ready = page.getByRole('button', { name: 'Je suis prêt(e)' });
+      var ready = page.getByRole('button', { name: /^Je suis prêt/ });
       if (await ready.count()) await ready.click();
       await page.getByRole('button', { name: 'Terminer' }).waitFor();
-      await page.waitForTimeout(6500);
+      await page.waitForTimeout(8500);
       await page.getByRole('button', { name: 'Terminer' }).click();
       await page.locator('.report-head, .seg').first().waitFor({ timeout: 8000 });
       await foot.getByRole('button', { name: 'Continuer' }).click();
@@ -198,18 +198,49 @@ async function finishScreens(page, shotPrefix) {
   var base = 'http://127.0.0.1:' + srv.address().port + '/';
   var browser = await chromium.launch({ args: ['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream', '--autoplay-policy=no-user-gesture-required'] });
   try {
-    /* 1. Accueil + première leçon, sur téléphone */
+    /* 1. Accueil personnalisé + première leçon, sur téléphone */
     var page = await newPage(browser, 390, 844);
     await page.goto(base);
+    var onbFoot = page.locator('.onb .lesson-foot');
     await page.getByRole('button', { name: 'C\'est parti !' }).click();
     await page.fill('#onb-name', 'Rania');
-    await page.locator('.lesson-foot .btn').click();
-    await page.locator('.choice').nth(2).click();
-    await page.locator('.lesson-foot .btn').click();
-    await page.locator('.choice').nth(1).click();
-    await page.locator('.lesson-foot .btn').click();
-    await page.locator('.lesson-foot .btn').click();
-    await page.locator('.lesson-foot .btn').click();
+    await page.getByRole('radio', { name: 'Au féminin' }).click();
+    await onbFoot.getByRole('button', { name: 'Continuer' }).click();
+    // Motivations : plusieurs choix possibles (on coche, décoche, recoche)
+    var boxes = page.locator('.onb [role=checkbox]');
+    ok(await boxes.count() === 6, 'six motivations proposées');
+    ok(await onbFoot.getByRole('button', { name: 'Continuer' }).isDisabled(), 'au moins une motivation exigée');
+    await boxes.nth(0).click();
+    await boxes.nth(3).click();
+    await boxes.nth(4).click();
+    await boxes.nth(3).click();
+    ok(await page.locator('.onb [role=checkbox][aria-checked=true]').count() === 2, 'deux motivations cochées');
+    await page.screenshot({ path: path.join(SHOTS, 'm-onb-reasons.png') });
+    await onbFoot.getByRole('button', { name: 'Continuer' }).click();
+    await page.locator('.onb [role=radio]').nth(1).click();
+    await onbFoot.getByRole('button', { name: 'Continuer' }).click();
+    await page.locator('.onb [role=radio]', { hasText: 'Sérieux' }).click();
+    await onbFoot.getByRole('button', { name: 'Continuer' }).click();
+    await page.locator('.onb [role=radio]', { hasText: 'Le soir' }).click();
+    await onbFoot.getByRole('button', { name: 'Continuer' }).click();
+    // Micro : niveau sonore (micro factice de Chromium), puis reconnaissance vocale
+    await page.locator('.onb .mic-btn').click();
+    await page.locator('.onb-mic-msg', { hasText: 'Bonjour Ahouéfa' }).waitFor({ timeout: 8000 });
+    await page.evaluate(function () { window.__say = 'Bonjour Ahouéfa'; });
+    await page.locator('.onb .mic-btn').click();
+    await page.locator('.onb .mic-btn.ok').waitFor({ timeout: 8000 });
+    await page.screenshot({ path: path.join(SHOTS, 'm-onb-mic.png') });
+    await onbFoot.getByRole('button', { name: 'Continuer' }).click();
+    await page.locator('.onb-final').waitFor();
+    ok(await page.locator('.plan-list li').count() >= 3, 'plan personnalisé affiché');
+    ok(await page.getByRole('button', { name: /Rappel à 19 h/ }).count() === 1, 'rappel proposé dans l\'agenda');
+    await page.waitForTimeout(500);
+    await page.screenshot({ path: path.join(SHOTS, 'm-onb-plan.png') });
+    var prof = await page.evaluate(function () { var s = App.Store.get(); return { p: s.profile, r: s.settings.reminder, mic: s.settings.micOkAt, sr: s.settings.srOkAt }; });
+    ok(prof.p.name === 'Rania' && prof.p.gender === 'f', 'prénom et accord enregistrés');
+    ok(JSON.stringify(prof.p.reasons) === '["carriere","convaincre"]', 'motivations enregistrées : ' + prof.p.reasons);
+    ok(prof.p.feeling === 1 && prof.p.dailyGoal === 30 && prof.r === '19:00', 'ressenti, objectif et rappel enregistrés');
+    ok(prof.mic > 0 && prof.sr > 0, 'micro et reconnaissance vocale vérifiés');
     await page.getByRole('button', { name: 'Ma première leçon' }).click();
     await page.locator('.lesson').waitFor();
     var steps = await playLesson(page, 'm-u1l1');
@@ -222,6 +253,26 @@ async function finishScreens(page, shotPrefix) {
     ok(st.xp.total >= 15, 'XP gagnés : ' + st.xp.total);
     ok(await page.locator('.node-wrap.is-current').count() === 1, 'nœud courant affiché');
     await page.screenshot({ path: path.join(SHOTS, 'm-path-after.png') });
+
+    /* 1b. Le bouton « retour » du téléphone pendant une leçon demande confirmation */
+    await page.evaluate(function () { App.Pages.startLesson('u1l2'); });
+    await page.locator('.lesson').waitFor();
+    await page.goBack();
+    await page.locator('.modal').getByRole('button', { name: 'Continuer la leçon' }).click();
+    ok(await page.locator('.lesson').count() === 1, 'retour : la leçon continue');
+    await page.goBack();
+    await page.locator('.modal').getByRole('button', { name: 'Quitter' }).click();
+    ok(await page.locator('.lesson').count() === 0, 'retour puis Quitter : leçon fermée');
+
+    /* 1c. Bilan vocal de départ depuis la carte du parcours */
+    await page.locator('.top-card', { hasText: 'bilan de départ' }).getByRole('button', { name: 'Commencer' }).click();
+    await page.locator('.lesson').waitFor();
+    ok(await page.evaluate(function () { return App.Lesson.active().step().assessment; }) === 'depart', 'exercice du bilan de départ');
+    await playLesson(page, 'm-depart');
+    await finishScreens(page);
+    var dep = await page.evaluate(function () { return App.Store.assessment('depart'); });
+    ok(dep && typeof dep.wpm === 'number', 'bilan de départ enregistré : ' + JSON.stringify(dep));
+    ok(await page.locator('.top-card', { hasText: 'bilan de départ' }).count() === 0, 'carte du bilan masquée une fois fait');
 
     /* 2. Toutes les leçons de l'unité 1 puis la révision, avec la parole */
     for (var l = 2; l <= 5; l++) {
@@ -311,6 +362,48 @@ async function finishScreens(page, shotPrefix) {
     var jst = await jpage.evaluate(function () { return { done: App.Course.isDone('u2l5') && App.Course.isDone('u1-review'), cur: App.Course.state().current.id }; });
     ok(jst.done && jst.cur === 'u3l1', 'unités 1 et 2 débloquées, reprise à ' + jst.cur);
     await jpage.context().close();
+
+    /* 7b. Test de niveau proposé aux personnes à l'aise : tout juste → unité 10 */
+    var ppage = await newPage(browser, 390, 844, JSON.stringify({ onboarded: true, profile: { name: 'Sam', gender: 'm', reasons: ['public'], feeling: 3, dailyGoal: 20 } }));
+    await ppage.goto(base);
+    await ppage.evaluate(function () { App.Pages.placementTest(); });
+    await ppage.locator('.lesson').waitFor();
+    var pn = await playLesson(ppage, null);
+    ok(pn >= 19, 'test de niveau joué (' + pn + ' étapes)');
+    await finishScreens(ppage);
+    await ppage.locator('.modal', { hasText: 'unité 10' }).waitFor();
+    await ppage.locator('.modal').getByRole('button', { name: 'Voir mon parcours' }).click();
+    var pst = await ppage.evaluate(function () { return App.Course.state().current.id; });
+    ok(pst === 'u10l1', 'test de niveau : reprise à ' + pst);
+
+    /* 7c. Diplôme de fin de parcours */
+    await ppage.evaluate(function () {
+      App.Store.update(function (s) {
+        App.Course.units.forEach(function (u) {
+          u.lessons.map(function (l) { return l.id; }).concat([u.id + '-review']).forEach(function (id) { s.progress[id] = { count: 1, best: 1, last: App.U.dayKey() }; });
+        });
+      });
+      App.render();
+    });
+    ok(await ppage.evaluate(function () { return App.Plan.diplomaEarned(); }), 'diplôme obtenu');
+    ok(await ppage.locator('.top-card', { hasText: 'bilan final' }).count() === 1, 'bilan final proposé');
+    await ppage.locator('.path-end .btn', { hasText: 'Voir mon diplôme' }).click();
+    await ppage.locator('.modal .diploma-img').waitFor({ timeout: 8000 });
+    await ppage.screenshot({ path: path.join(SHOTS, 'm-diploma.png') });
+    var dsize = await ppage.evaluate(function () { var i = document.querySelector('.modal .diploma-img'); return i.naturalWidth || i.width; });
+    ok(dsize >= 1000, 'image du diplôme générée (' + dsize + ' px)');
+    await ppage.locator('.modal .modal-actions .btn').last().click();
+
+    /* 7d. Réglages : motivations à choix multiples, rappel dans l'agenda */
+    await ppage.goto(base + '#/reglages');
+    var sboxes = ppage.locator('.chips [role=checkbox]');
+    await sboxes.nth(1).click();
+    await sboxes.nth(2).click();
+    var reasons = await ppage.evaluate(function () { return App.Store.get().profile.reasons; });
+    ok(reasons.length === 3 && reasons.indexOf('public') >= 0, 'réglages : plusieurs motivations (' + reasons + ')');
+    var ics = await ppage.evaluate(function () { return App.Plan.ics('07:45'); });
+    ok(/RRULE:FREQ=DAILY/.test(ics) && /DTSTART:\d{8}T074500/.test(ics) && /BEGIN:VALARM/.test(ics), 'fichier d\'agenda quotidien valide');
+    await ppage.context().close();
 
     /* 8. Ordinateur : parcours avec colonne de droite, thème sombre */
     var dpage = await newPage(browser, 1366, 860, await page.evaluate(function () { return localStorage.getItem('ahouefa-eloquence-v1'); }));

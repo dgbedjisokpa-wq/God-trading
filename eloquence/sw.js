@@ -1,11 +1,11 @@
 /* Service worker : rend l'application utilisable hors ligne.
    Pense à changer VERSION à chaque mise à jour des fichiers. */
-var VERSION = 'ahouefa-v1';
+var VERSION = 'ahouefa-v2';
 var FILES = [
   './', 'index.html', 'manifest.webmanifest', 'css/app.css',
   'js/util.js', 'js/icons.js', 'js/store.js', 'js/sound.js', 'js/mascot.js', 'js/speech.js', 'js/analysis.js',
   'js/data/banks.js', 'js/data/course.js', 'js/generators.js', 'js/ui.js', 'js/exercises.js', 'js/lesson.js',
-  'js/pages.js', 'js/onboarding.js', 'js/app.js',
+  'js/plan.js', 'js/pages.js', 'js/onboarding.js', 'js/app.js',
   'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png', 'icons/apple-touch-icon.png'
 ];
 

@@ -12,7 +12,7 @@
       toastBox = h('div.toasts', { role: 'status', 'aria-live': 'polite' });
       document.body.appendChild(toastBox);
     }
-    var t = h('div.toast', { html: (icon ? App.icon(icon) : '') + '<span>' + U.esc(text) + '</span>' });
+    var t = h('div.toast', { html: (icon ? '<span class="toast-ic">' + App.icon(icon) + '</span>' : '') + '<span>' + U.esc(text) + '</span>' });
     toastBox.appendChild(t);
     setTimeout(function () {
       t.style.transition = 'opacity .3s, transform .3s';
@@ -22,12 +22,31 @@
     }, ms || 2600);
   };
 
+  /* ---------- Bouton « retour » du téléphone / navigateur ---------- */
+  /* Pendant une leçon, une modale ou l'accueil, « retour » appelle fn au lieu de quitter la page. */
+  var guards = [];
+  UI.guardBack = function (fn) {
+    var g = { fn: fn };
+    try { history.pushState({ ahouefa: true }, ''); } catch (e) { /* historique indisponible */ }
+    guards.push(g);
+    return function release() {
+      var i = guards.indexOf(g);
+      if (i >= 0) guards.splice(i, 1);
+    };
+  };
+  window.addEventListener('popstate', function () {
+    if (!guards.length) return;
+    var g = guards[guards.length - 1];
+    try { history.pushState({ ahouefa: true }, ''); } catch (e) { /* rien */ }
+    g.fn();
+  });
+
   /* ---------- Modale ---------- */
   /* UI.modal({title, body (HTML ou nœud), mascot: 'happy', actions: [{label, cls, onClick}], wide, onClose}) */
   UI.modal = function (o) {
     var prevFocus = document.activeElement;
     var back = h('div.modal-back', { role: 'dialog', 'aria-modal': 'true' });
-    var box = h('div.modal' + (o.wide ? '.wide' : ''));
+    var box = h('div.modal' + (o.wide ? '.wide' : '') + (o.cls ? '.' + o.cls : ''));
     if (o.style) Object.assign(box.style, o.style);
     if (o.mascot) box.appendChild(App.Mascot.el({ mood: o.mascot, size: o.mascotSize || 110 }));
     if (o.title) {
@@ -51,7 +70,9 @@
     box.appendChild(actions);
     back.appendChild(box);
 
+    var releaseBack = UI.guardBack(function () { if (o.dismissable !== false) close(); });
     function close() {
+      releaseBack();
       document.removeEventListener('keydown', onKey, true);
       back.remove();
       if (o.onClose) o.onClose();

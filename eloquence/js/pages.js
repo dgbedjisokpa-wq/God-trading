@@ -45,30 +45,70 @@
     if (openPop && !e.target.closest('.popover') && !e.target.closest('.node')) closePop();
   });
 
+  /* Cartes en haut du parcours : micro coupé, bilan vocal à faire, sauvegarde */
+  function snoozed(key) { return Store.get().settings.snooze[key] === U.dayKey(); }
+  function snooze(key) { Store.update(function (s) { s.settings.snooze[key] = U.dayKey(); }); App.render(); }
+  function topCards() {
+    var s = Store.get(), out = [];
+    if (s.settings.mic === false && !snoozed('mic')) {
+      var on = h('button.btn.sm', { type: 'button', html: App.icon('micFill') + '<span>Activer le micro</span>' });
+      on.addEventListener('click', function () { P.micTest(function () { Store.update(function (x) { x.settings.mic = true; x.cantSpeakUntil = 0; }); UI.toast('Micro activé ! Les exercices de parole sont de retour.', 'micFill'); App.render(); }); });
+      var no = h('button.btn.flat.sm', { type: 'button', text: 'Plus tard' });
+      no.addEventListener('click', function () { snooze('mic'); });
+      out.push(h('div.top-card', null, [
+        h('span.top-ic', { html: App.icon('micFill'), style: { '--tc': '#FF4B91' } }),
+        h('div.grow', null, [h('div.t', { text: 'Exercices de parole désactivés' }), h('div.s', { text: 'Active ton micro pour t\'entraîner à voix haute : c\'est là que tu progresses le plus.' })]),
+        h('div.top-actions', null, [on, no])
+      ]));
+    }
+    var due = App.Plan.dueAssessment();
+    if (due && !snoozed('assess')) {
+      var a = App.Plan.ASSESS[due];
+      var go = h('button.btn.sm', { type: 'button', text: 'Commencer' });
+      go.addEventListener('click', function () { App.Plan.startAssessment(due); });
+      var later = h('button.btn.flat.sm', { type: 'button', text: 'Plus tard' });
+      later.addEventListener('click', function () { snooze('assess'); });
+      out.push(h('div.top-card.assess', null, [
+        App.Mascot.el({ mood: due === 'final' ? 'celebrate' : 'talk', size: 64 }),
+        h('div.grow', null, [h('div.t', { text: a.title + ' · 1 min' }), h('div.s', { text: a.desc })]),
+        h('div.top-actions', null, [go, later])
+      ]));
+    }
+    var weekAgo = Date.now() - 30 * 86400000;
+    if (s.stats.lessons >= 10 && (s.settings.lastExportAt || 0) < weekAgo && !snoozed('backup') && !App.PREVIEW) {
+      var ex = h('button.btn.ghost.sm', { type: 'button', html: App.icon('download') + '<span>Sauvegarder</span>' });
+      ex.addEventListener('click', function () { P.exportData(); App.render(); });
+      var nb = h('button.btn.flat.sm', { type: 'button', text: 'Plus tard' });
+      nb.addEventListener('click', function () { snooze('backup'); });
+      out.push(h('div.top-card', null, [
+        h('span.top-ic', { html: App.icon('download'), style: { '--tc': '#1CB0F6' } }),
+        h('div.grow', null, [h('div.t', { text: 'Sauvegarde ta progression' }), h('div.s', { text: 'Elle reste sur ce téléphone : garde une copie au cas où tu en changes.' })]),
+        h('div.top-actions', null, [ex, nb])
+      ]));
+    }
+    return out;
+  }
+
   P.learn = function (main) {
     var st = C.state();
     var wrap = h('div.learn');
+    topCards().forEach(function (c) { wrap.appendChild(c); });
     C.units.forEach(function (u, ui) {
       var sec = h('section.unit', { 'aria-labelledby': 'unit-' + u.id });
       sec.style.setProperty('--uc', u.color);
       sec.style.setProperty('--ud', u.dark);
       var nodes = C.nodes(u);
       var unitLocked = st.map[nodes[0].id] === 'locked';
-      var guideBtn = h('button.unit-guide', { type: 'button', html: App.icon('book') + '<span>Guide</span>' });
+      var guideBtn = h('button.unit-guide', { type: 'button', 'aria-label': 'Guide de l\'unité ' + (ui + 1), html: App.icon('book') + '<span>Guide</span>' });
       guideBtn.addEventListener('click', function () { showGuide(u, ui); });
-      var right = h('div', { style: { display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'flex-end' } }, [guideBtn]);
-      if (unitLocked && ui > 0) {
-        var jump = h('button.unit-guide', { type: 'button', html: App.icon('next') + '<span>Sauter ici ?</span>' });
-        jump.addEventListener('click', function () { jumpTest(ui); });
-        right.appendChild(jump);
-      }
+      var done = C.unitDone(u);
       sec.appendChild(h('div.unit-banner', null, [
-        h('div', null, [
-          h('div.over', { text: 'Unité ' + (ui + 1) }),
-          h('h2', { id: 'unit-' + u.id, text: u.title }),
+        h('div.unit-text', null, [
+          h('div.over', { text: 'Unité ' + (ui + 1) + (done ? ' · terminée' : '') }),
+          h('h2', { id: 'unit-' + u.id, html: U.esc(u.title) + (done ? ' ' + App.icon('crown', 'crown-done') : '') }),
           h('div.desc', { text: u.desc })
         ]),
-        right
+        h('div.unit-actions', null, [guideBtn])
       ]));
 
       var path = h('div.path');
@@ -103,6 +143,12 @@
         });
         path.appendChild(nw);
       });
+      // « Sauter ici ? » posé sur le premier nœud d'une unité verrouillée
+      if (unitLocked && ui > 0) {
+        var jb = h('button.jump-bubble', { type: 'button', html: App.icon('next') + '<span>Sauter ici ?</span>' });
+        jb.addEventListener('click', function (e) { e.stopPropagation(); jumpTest(ui); });
+        path.firstChild.appendChild(jb);
+      }
       // Ahouéfa à côté du chemin
       var moods = ['wave', 'talk', 'happy', 'think', 'idle'];
       var pm = h('div.path-mascot', { 'aria-hidden': 'true', html: App.Mascot.svg({ mood: moods[ui % moods.length], size: 120, label: false }) });
@@ -112,15 +158,30 @@
       sec.appendChild(path);
       wrap.appendChild(sec);
     });
-    var allDone = C.units.every(C.unitDone);
-    wrap.appendChild(h('div.path-end', null, allDone
-      ? [App.Mascot.el({ mood: 'celebrate', size: 120 }), h('p', { text: 'Bravo ! Tu as terminé tout le parcours. Continue à t\'entraîner chaque jour dans l\'onglet Entraînement.' })]
-      : [h('p', { text: 'De nouvelles unités arrivent bientôt. En attendant, l\'onglet Entraînement t\'attend !' })]));
+    // Le diplôme, au bout du chemin
+    var allDone = App.Plan.diplomaEarned();
+    var dip = h('button.diploma-node' + (allDone ? '.earned' : ''), { type: 'button', 'aria-label': allDone ? 'Voir mon diplôme' : 'Diplôme (termine les 10 unités)', html: App.icon('medal') });
+    dip.addEventListener('click', function () {
+      if (allDone) App.Plan.showDiploma();
+      else UI.toast('Termine les 10 unités pour obtenir ton diplôme !', 'medal', 3000);
+    });
+    var endKids = [dip, h('h3', { text: allDone ? 'Ton diplôme d\'éloquence' : 'Le diplôme d\'éloquence' }),
+      h('p', { text: allDone ? 'Bravo ! Tu as terminé tout le parcours. Continue à t\'entraîner chaque jour pour garder ta série.' : 'Termine les 10 unités pour le recevoir.' })];
+    if (allDone) {
+      var see = h('button.btn.sm', { type: 'button', text: 'Voir mon diplôme' });
+      see.addEventListener('click', App.Plan.showDiploma);
+      endKids.push(see);
+    }
+    wrap.appendChild(h('div.path-end', null, endKids));
     main.appendChild(wrap);
 
     setTimeout(function () {
       var cur = U.$('.node-wrap.is-current');
-      if (cur && !P._scrolled) { P._scrolled = true; cur.scrollIntoView({ block: 'center' }); }
+      if (!cur || P._scrolled) return;
+      P._scrolled = true;
+      /* On ne fait défiler que si le nœud courant est hors de vue (sinon les cartes du haut disparaissent) */
+      var r = cur.getBoundingClientRect();
+      if (r.bottom > window.innerHeight - 110 || r.top < 0) cur.scrollIntoView({ block: 'center' });
     }, 30);
   };
 
@@ -135,14 +196,14 @@
       else if (state === 'done') pop.appendChild(h('p', { text: 'Leçon ' + (li + 1) + ' sur ' + u.lessons.length + ' · Terminée. Refais-la pour t\'entraîner !' }));
       else pop.appendChild(h('p', { text: 'Leçon ' + (li + 1) + ' sur ' + u.lessons.length }));
       var b = h('button.btn', { type: 'button', text: state === 'locked' ? 'Verrouillé' : (state === 'done' ? 'Refaire +10 XP' : 'Commencer +10 XP') });
-      if (state === 'locked') b.disabled = true;
+      if (state === 'locked') { b.disabled = true; b.innerHTML = App.icon('lock') + '<span>Verrouillé</span>'; }
       else b.addEventListener('click', function () { closePop(); P.startLesson(n.id); });
       pop.appendChild(b);
     } else {
       pop.appendChild(h('h3', { text: 'Révision : ' + u.title }));
       pop.appendChild(h('p', { text: state === 'locked' ? 'Termine les leçons de l\'unité pour débloquer la révision.' : 'Prouve que tu maîtrises cette unité. 10 exercices variés.' }));
       var rb = h('button.btn', { type: 'button', text: state === 'locked' ? 'Verrouillé' : (state === 'done' ? 'Réviser +20 XP' : 'Commencer +20 XP') });
-      if (state === 'locked') rb.disabled = true;
+      if (state === 'locked') { rb.disabled = true; rb.innerHTML = App.icon('lock') + '<span>Verrouillé</span>'; }
       else rb.addEventListener('click', function () { closePop(); P.startLesson(n.id); });
       pop.appendChild(rb);
     }
@@ -166,44 +227,50 @@
     UI.confetti(1800);
     UI.modal({
       title: 'Coffre ouvert !',
-      body: '<div style="display:flex;justify-content:center;gap:8px;align-items:center;font-size:32px;font-weight:900;color:#A855F7;margin:8px 0">' + App.icon('gem') + '+' + gems + '</div><p>Des améthystes, les pierres préférées d\'Ahouéfa ! Dépense-les dans la boutique.</p>',
-      mascot: 'happy',
+      body: '<div class="chest-reward">' + App.icon('chestOpen') + '</div><div class="gem-gain">' + App.icon('gem') + '+' + gems + '</div><p>Des améthystes, les pierres préférées d\'Ahouéfa ! Dépense-les dans la boutique.</p>',
       actions: [{ label: 'Super !', onClick: function () { App.render(); } }]
     });
   }
 
   function showGuide(u, ui) {
     var body = h('div', null, [
-      h('p', { text: u.desc }),
-      h('ul.guide-list', { style: { '--uc': u.color } }, u.guide.map(function (g) { return h('li', { text: g }); }))
+      h('div.guide-head', { style: { '--uc': u.color, '--ud': u.dark } }, [
+        h('div.over', { text: 'Guide · Unité ' + (ui + 1) }),
+        h('p', { text: u.desc }),
+        App.Mascot.el({ mood: 'talk', size: 72 })
+      ]),
+      h('ol.guide-list', { style: { '--uc': u.color, '--ud': u.dark } }, u.guide.map(function (g) {
+        var i = g.indexOf(' : ');
+        return h('li', null, i > 0 ? [h('span', null, [h('strong', { text: g.slice(0, i) }), ' : ' + g.slice(i + 3)])] : [h('span', { text: g })]);
+      }))
     ]);
-    UI.modal({ title: 'Guide · Unité ' + (ui + 1) + ' : ' + u.title, body: body, wide: true, actions: [{ label: 'Compris !' }] });
+    UI.modal({ title: u.title, body: body, wide: true, cls: 'guide', actions: [{ label: 'Compris !' }] });
   }
 
   function jumpTest(ui) {
     var prev = C.units[ui - 1];
     UI.modal({
       title: 'Sauter à l\'unité ' + (ui + 1) + ' ?',
-      body: '<p>Réussis un test de 10 questions sur l\'unité ' + ui + ' (« ' + U.esc(prev.title) + ' ») avec au moins 80 % de bonnes réponses du premier coup, et tout ce qui précède sera débloqué.</p>',
+      body: '<p>Réussis un test de 12 exercices sur ' + (ui === 1 ? 'l\'unité 1' : 'les unités 1 à ' + ui) + ' avec au moins 80 % de bonnes réponses, et tout ce qui précède sera débloqué.</p>',
       mascot: 'think',
       actions: [
         {
           label: 'Passer le test', onClick: function () {
-            var steps = [];
-            for (var k = Math.max(0, ui - 2); k < ui; k++) steps = steps.concat(C.reviewSteps(C.units[k], 12));
-            steps = U.sample(steps.filter(function (s) { return !/^(speak|voice|free)$/.test(s.type); }), 10);
+            var graded = [], speak = [];
+            for (var k = 0; k < ui; k++) {
+              C.reviewSteps(C.units[k], 10).forEach(function (s) {
+                if (/^(mcq|tf|fill|order|match|tap)$/.test(s.type)) graded.push(s);
+                else if (s.type === 'speak') speak.push(s);
+              });
+            }
+            var steps = U.sample(graded, Store.canSpeak() && speak.length ? 10 : 12);
+            if (Store.canSpeak()) steps = steps.concat(U.sample(speak, 2));
+            steps = U.shuffle(steps);
             App.Lesson.start({
-              id: null, kind: 'jump', title: 'Test de niveau', unit: prev, steps: steps, xp: 10,
+              id: null, kind: 'jump', title: 'Test de niveau', unit: prev, steps: steps, xp: 10, noRetry: true,
               onExit: function (done, sum) {
                 if (done && sum && sum.accuracy >= 0.8) {
-                  Store.update(function (s) {
-                    for (var j = 0; j < ui; j++) {
-                      var u = C.units[j];
-                      u.lessons.map(function (l) { return l.id; }).concat([u.id + '-review']).forEach(function (id) {
-                        if (!s.progress[id]) s.progress[id] = { count: 1, best: 0, last: U.dayKey(), skipped: true };
-                      });
-                    }
-                  });
+                  markUnitsDone(ui);
                   UI.toast('Unité ' + (ui + 1) + ' débloquée ! Bravo !', 'trophy', 3500);
                 } else if (done) {
                   UI.toast('Pas tout à fait : ' + Math.round((sum ? sum.accuracy : 0) * 100) + ' %. Réessaie plus tard !', 'alert', 3500);
@@ -217,6 +284,65 @@
       ]
     });
   }
+
+  /* Marque comme faites (sans XP) toutes les leçons des unités 0..n-1 */
+  function markUnitsDone(n) {
+    Store.update(function (s) {
+      for (var j = 0; j < n; j++) {
+        var u = C.units[j];
+        u.lessons.map(function (l) { return l.id; }).concat([u.id + '-review']).forEach(function (id) {
+          if (!s.progress[id]) s.progress[id] = { count: 1, best: 0, last: U.dayKey(), skipped: true };
+        });
+      }
+    });
+  }
+
+  /* Test de niveau progressif : 2 questions par unité (unités 1 à 9) et quelques phrases à lire.
+     On commence à la première unité où une réponse est fausse. */
+  P.placementTest = function () {
+    var steps = [{ type: 'info', mood: 'think', title: 'Trouvons ton niveau', bullets: [
+      'Quelques questions sur les **9 premières unités**, de plus en plus difficiles.',
+      'Chaque unité réussie sans faute est **débloquée** : tu commences juste après.',
+      'Pas de pression : tu peux toujours revoir les unités sautées.'
+    ] }];
+    for (var ui = 0; ui < 9; ui++) {
+      var pool = C.reviewSteps(C.units[ui], 10);
+      U.sample(pool.filter(function (s) { return /^(mcq|tf|fill|tap)$/.test(s.type); }), 2).forEach(function (s) { s._unit = ui; steps.push(s); });
+      if (Store.canSpeak() && (ui === 2 || ui === 5 || ui === 8)) {
+        var sp = pool.filter(function (s) { return s.type === 'speak'; })[0];
+        if (sp) { sp._unit = ui; steps.push(sp); }
+      }
+    }
+    App.Lesson.start({
+      id: null, kind: 'placement', title: 'Trouver mon niveau', unit: C.units[0], steps: steps, xp: 15, noRetry: true,
+      onExit: function (done, sum) {
+        if (!done || !sum) { App.render(); return; }
+        var level = 0;
+        for (var u = 0; u < 9; u++) {
+          var rs = sum.results.filter(function (r) { return r.unit === u; });
+          if (rs.length && rs.every(function (r) { return r.ok; })) level = u + 1; else break;
+        }
+        if (level > 0) markUnitsDone(level);
+        App.render();
+        UI.modal({
+          title: level > 0 ? 'Tu commences à l\'unité ' + (level + 1) + ' !' : 'On commence au début',
+          body: '<p>' + (level > 0
+            ? 'Bravo ! Les unités 1' + (level > 1 ? ' à ' + level : '') + ' sont débloquées. Tu peux toujours les revoir pour t\'entraîner.'
+            : 'C\'est parfait pour poser des bases solides : respiration, posture, trac. Ça ira vite !') + '</p>',
+          mascot: level > 0 ? 'celebrate' : 'happy',
+          actions: [{ label: 'C\'est parti', onClick: function () { var c = C.state().current; if (c) P.startLesson(c.id); } }, { label: 'Voir mon parcours', cls: 'flat' }]
+        });
+      }
+    });
+  };
+
+  P.exportData = function () {
+    var blob = new Blob([Store.exportJSON()], { type: 'application/json' });
+    var a = h('a', { href: URL.createObjectURL(blob), download: 'ahouefa-progression-' + U.dayKey() + '.json' });
+    document.body.appendChild(a); a.click(); a.remove();
+    Store.update(function (s) { s.settings.lastExportAt = Date.now(); });
+    UI.toast('Sauvegarde téléchargée. Garde-la précieusement !', 'check', 3500);
+  };
 
   /* ================= ENTRAÎNEMENT ================= */
   var TOOLS = [
@@ -244,6 +370,7 @@
     if (sub === 'miroir') return mirrorPage(main);
 
     main.appendChild(UI.pageHead('Entraînement', 'happy', 'Exercices libres, à refaire autant que tu veux.'));
+    var rec = App.Plan.recommendedTools();
     var mistakes = Store.get().mistakes.length;
     var grid = h('div.tools');
     var mis = h('button.tool.wide', { type: 'button', style: { '--tc': '#FFC800', '--td': '#E5A400' } }, [
@@ -258,9 +385,14 @@
       });
     });
     grid.appendChild(mis);
-    TOOLS.forEach(function (t) {
-      var b = h('button.tool', { type: 'button', style: { '--tc': t.c[0], '--td': t.c[1] } }, [
-        h('div.ti', { html: App.icon(t.icon) }), h('h3', { text: t.name }), h('p', { text: t.desc })
+    TOOLS.slice().sort(function (a, b) {
+      var ra = rec.indexOf(a.id), rb = rec.indexOf(b.id);
+      return (ra < 0 ? 99 : ra) - (rb < 0 ? 99 : rb);
+    }).forEach(function (t) {
+      var forYou = rec.indexOf(t.id) >= 0;
+      var b = h('button.tool' + (forYou ? '.for-you' : ''), { type: 'button', style: { '--tc': t.c[0], '--td': t.c[1] } }, [
+        h('div.tool-top', null, [h('div.ti', { html: App.icon(t.icon) }), forYou ? h('span.pill.for-you-pill', { html: App.icon('star') + 'Pour toi' }) : null]),
+        h('h3', { text: t.name }), h('p', { text: t.desc })
       ]);
       b.addEventListener('click', function () { runTool(t); });
       grid.appendChild(b);
@@ -597,7 +729,7 @@
 
   P.profile = function (main) {
     var s = Store.get(), lv = Store.level();
-    var name = s.profile.name || 'Orateur';
+    var name = s.profile.name || U.g('Orateur', 'Oratrice', 'Orateur');
     var head = h('div.profile-head', null, [
       h('div.avatar', { text: name.charAt(0), 'aria-hidden': 'true' }),
       h('div', { style: { flex: '1', minWidth: '0' } }, [
@@ -616,7 +748,42 @@
     ]);
     main.appendChild(head);
 
-    main.appendChild(h('h2.section-title', { text: 'Statistiques' }));
+    // Objectifs choisis à l'accueil
+    var rs = App.Plan.reasons();
+    if (rs.length) {
+      main.appendChild(h('div.goal-chips', null, rs.map(function (r) {
+        return h('span.goal-chip', { style: { '--tc': r.color }, html: App.icon(r.icon) + '<span>' + U.esc(r.label) + '</span>' });
+      })));
+    }
+
+    // Progression mesurée par les bilans vocaux
+    var dep = Store.assessment('depart');
+    var lastA = Store.assessment('final') || Store.assessment('milieu');
+    main.appendChild(h('h2.section-title', { text: 'Ta progression à l\'oral' }));
+    var pc = h('div.card');
+    if (!dep) {
+      var startA = h('button.btn.sm', { type: 'button', text: 'Faire mon bilan de départ' });
+      startA.addEventListener('click', function () { App.Plan.startAssessment('depart'); });
+      pc.appendChild(h('div.card-row', null, [App.Mascot.el({ mood: 'talk', size: 64 }), h('div.grow', null, [
+        h('div', { text: 'Mesure ton point de départ', style: { fontWeight: 900 } }),
+        h('p.muted', { text: 'Présente-toi pendant 45 secondes. Tu pourras comparer à mi-parcours et à la fin.', style: { fontWeight: 600, margin: '4px 0 10px' } }),
+        startA
+      ])]));
+    } else if (!lastA) {
+      pc.appendChild(h('p', { style: { fontWeight: 700, margin: '0 0 6px' }, text: 'Bilan de départ le ' + new Date(dep.at).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }) + (typeof dep.score === 'number' ? ' : ' + dep.score + '/100.' : '.') }));
+      pc.appendChild(h('p.muted', { style: { fontWeight: 600, margin: 0 }, text: 'Ton bilan de mi-parcours se débloque à la fin de l\'unité 5. Tu verras ici le chemin parcouru.' }));
+    } else {
+      var t = App.Plan.compareTable(dep, lastA, ['Départ', lastA.kind === 'final' ? 'Final' : 'Mi-parcours']);
+      if (t) pc.appendChild(t); else pc.appendChild(h('p.muted', { text: 'Bilans enregistrés. Les mesures détaillées apparaîtront avec la reconnaissance vocale.' }));
+    }
+    main.appendChild(pc);
+    if (App.Plan.diplomaEarned()) {
+      var dipBtn = h('button.btn.gold.sm', { type: 'button', html: App.icon('medal') + '<span>Voir mon diplôme</span>' });
+      dipBtn.addEventListener('click', App.Plan.showDiploma);
+      main.appendChild(h('div.card.diploma-card', null, [h('div.card-row', null, [h('span.diploma-ic', { html: App.icon('medal') }), h('div.grow', null, [h('div', { text: 'Diplôme d\'éloquence', style: { fontWeight: 900, fontSize: '18px' } }), h('p.muted', { text: 'Parcours terminé. Bravo !', style: { margin: '2px 0 10px', fontWeight: 700 } }), dipBtn])])]));
+    }
+
+    main.appendChild(h('h2.section-title', { text: 'Statistiques', style: { marginTop: '28px' } }));
     var acc = s.stats.answered ? Math.round(s.stats.correct / s.stats.answered * 100) + ' %' : '—';
     var items = [
       ['flame', s.streak.count, 'Jours de série'],
@@ -742,7 +909,57 @@
       seg.appendChild(b);
     });
     card1.appendChild(h('div.field', null, [h('div.lbl', { text: 'Objectif quotidien' }), seg]));
+    var gseg = h('div.seg', { role: 'radiogroup', 'aria-label': 'Je te parle' });
+    [['f', 'Au féminin'], ['m', 'Au masculin'], ['', 'Peu importe']].forEach(function (g) {
+      var on = (s.profile.gender || '') === g[0];
+      var b = h('button.choice' + (on ? '.sel' : ''), { type: 'button', role: 'radio', 'aria-checked': on ? 'true' : 'false', text: g[1] });
+      b.addEventListener('click', function () { Store.update(function (st) { st.profile.gender = g[0]; }); App.render(); });
+      gseg.appendChild(b);
+    });
+    card1.appendChild(h('div.field', null, [h('div.lbl', { text: 'Ahouéfa te parle' }), gseg]));
+    var rbox = h('div.chips.left', { role: 'group', 'aria-label': 'Mes motivations' });
+    App.Plan.REASONS.forEach(function (r) {
+      var on = (s.profile.reasons || []).indexOf(r.key) >= 0;
+      var b = h('button.chip.sm-chip' + (on ? '.sel' : ''), { type: 'button', role: 'checkbox', 'aria-checked': on ? 'true' : 'false', html: App.icon(on ? 'check' : r.icon) + '<span>' + U.esc(r.label) + '</span>' });
+      b.addEventListener('click', function () {
+        Store.update(function (st) {
+          var list = st.profile.reasons || (st.profile.reasons = []);
+          var i = list.indexOf(r.key);
+          if (i >= 0) list.splice(i, 1); else list.push(r.key);
+        });
+        App.render();
+      });
+      rbox.appendChild(b);
+    });
+    card1.appendChild(h('div.field', null, [h('div.lbl', { text: 'Mes motivations (plusieurs choix)' }), rbox]));
     main.appendChild(card1);
+
+    // Rappel quotidien et installation
+    var cardR = h('div.card');
+    cardR.appendChild(h('h3', { text: 'Rappel et application' }));
+    var remSel = h('select.input', { id: 'set-reminder' });
+    remSel.appendChild(h('option', { value: '', text: 'Pas de rappel' }));
+    App.Plan.REMINDERS.forEach(function (r) {
+      var o = h('option', { value: r[0], text: r[1] + ' (' + r[2] + ')' });
+      if (s.settings.reminder === r[0]) o.selected = true;
+      remSel.appendChild(o);
+    });
+    remSel.addEventListener('change', function () { Store.update(function (st) { st.settings.reminder = remSel.value; }); App.render(); });
+    cardR.appendChild(h('div.field', null, [h('label', { for: 'set-reminder', text: 'Rappel quotidien' }), remSel]));
+    var rowR = h('div', { style: { display: 'flex', gap: '10px', flexWrap: 'wrap' } });
+    if (s.settings.reminder) {
+      var cal = h('button.btn.ghost.sm', { type: 'button', html: App.icon('clock') + '<span>Ajouter à mon agenda</span>' });
+      cal.addEventListener('click', function () { App.Plan.addToCalendar(s.settings.reminder); });
+      rowR.appendChild(cal);
+    }
+    if (App.Plan.canInstall()) {
+      var inst = h('button.btn.ghost.sm', { type: 'button', html: App.icon('download') + '<span>Installer l\'application</span>' });
+      inst.addEventListener('click', App.Plan.install);
+      rowR.appendChild(inst);
+    }
+    if (rowR.children.length) cardR.appendChild(rowR);
+    cardR.appendChild(h('p.hint', { style: { marginTop: '12px' }, text: 'Le rappel s\'ajoute à l\'agenda de ton téléphone. L\'application te le rappelle aussi quand tu l\'ouvres.' }));
+    main.appendChild(cardR);
 
     // Préférences
     var card2 = h('div.card');
@@ -806,19 +1023,16 @@
     card4.appendChild(h('h3', { text: 'Mes données' }));
     card4.appendChild(h('p.muted', { text: 'Ta progression est enregistrée uniquement sur cet appareil. Exporte-la pour la sauvegarder ou la transférer.', style: { fontWeight: 600 } }));
     var exp = h('button.btn.ghost.sm', { type: 'button', html: App.icon('download') + '<span>Exporter</span>' });
-    exp.addEventListener('click', function () {
-      var blob = new Blob([Store.exportJSON()], { type: 'application/json' });
-      var a = h('a', { href: URL.createObjectURL(blob), download: 'ahouefa-progression-' + U.dayKey() + '.json' });
-      document.body.appendChild(a); a.click(); a.remove();
-    });
+    exp.addEventListener('click', function () { P.exportData(); });
     var file = h('input', { type: 'file', accept: 'application/json,.json', class: 'hidden' });
     file.addEventListener('change', function () {
       var f = file.files && file.files[0];
       if (!f) return;
       var rd = new FileReader();
       rd.onload = function () {
-        try { Store.importJSON(rd.result); UI.toast('Progression importée !', 'check'); App.applyTheme(); App.render(); }
-        catch (e) { UI.toast('Fichier invalide.', 'alert'); }
+        try { Store.importJSON(rd.result); App.afterImport(); }
+        catch (e) { UI.toast('Ce fichier n\'est pas une sauvegarde Ahouéfa.', 'alert'); }
+        file.value = '';
       };
       rd.readAsText(f);
     });
@@ -827,7 +1041,7 @@
     var reset = h('button.btn.red.sm', { type: 'button', html: App.icon('trash') + '<span>Tout effacer</span>' });
     reset.addEventListener('click', function () {
       UI.confirm({ title: 'Tout effacer ?', body: 'Ta progression, tes XP, ta série et tes badges seront supprimés. C\'est définitif.', yes: 'Tout effacer', yesCls: 'red', no: 'Annuler' }).then(function (ok) {
-        if (ok) { Store.reset(); location.hash = '#/apprendre'; App.applyTheme(); App.render(); }
+        if (ok) { Store.reset(); App.applyTheme(); App.startOnboarding(); }
       });
     });
     card4.appendChild(h('div', { style: { display: 'flex', gap: '10px', flexWrap: 'wrap' } }, [exp, imp, reset, file]));
@@ -844,27 +1058,34 @@
   }
 
   /* Test du micro : vu-mètre pendant quelques secondes */
-  P.micTest = function () {
-    var meter = h('div.level-meter', { style: { justifyContent: 'center', margin: '16px 0' } });
-    var bars = [];
-    for (var i = 0; i < 20; i++) { var b = h('i'); bars.push(b); meter.appendChild(b); }
-    var msg = h('p', { text: 'Autorise le micro, puis dis quelques mots.' });
-    var session = null, best = 0;
+  P.micTest = function (onOk) {
+    var IDLE = [10, 16, 24, 32, 22, 14, 26, 36, 28, 18, 12, 22, 34, 26, 16, 24, 30, 20, 14, 10];
+    var meter = h('div.level-meter.live', { style: { justifyContent: 'center', margin: '16px 0' }, 'aria-hidden': 'true' });
+    var bars = IDLE.map(function (v) { var b = h('i'); b.style.height = v + 'px'; meter.appendChild(b); return b; });
+    var msg = h('p', { 'aria-live': 'polite', text: 'Autorise le micro, puis dis quelques mots.' });
+    var session = null, best = 0, ok = false;
     var m = UI.modal({
       title: 'Test du micro', body: h('div', null, [meter, msg]), mascot: 'talk',
       actions: [{ label: 'Terminer' }],
-      onClose: function () { if (session) session.cancel(); }
+      onClose: function () { if (session) session.cancel(); if (ok && onOk) onOk(); }
     });
     session = App.Speech.session({
       transcribe: false, record: false,
       onLevel: function (rms) {
         best = Math.max(best, rms);
         var lvl = U.clamp(rms * 9, 0, 1);
-        bars.forEach(function (b, k) { b.style.height = Math.round(6 + lvl * 38 * (0.5 + 0.5 * Math.abs(Math.sin(Date.now() / 100 + k)))) + 'px'; });
-        if (best > 0.03) msg.textContent = 'Parfait, je t\'entends bien !';
+        bars.forEach(function (b, k) { b.style.height = Math.round(6 + lvl * 34 * (0.5 + 0.5 * Math.abs(Math.sin(Date.now() / 100 + k)))) + 'px'; });
+        if (best > 0.03 && !ok) {
+          ok = true;
+          msg.textContent = 'Parfait, je t\'entends bien !';
+          meter.classList.add('ok');
+          App.Mascot.setMood(m.el, 'happy');
+          Store.update(function (s) { s.settings.micOkAt = Date.now(); });
+        }
       }
     });
-    session.start().catch(function (err) { msg.textContent = App.Speech.errorText(err); });
+    session.start().catch(function (err) { msg.textContent = App.Speech.errorText(err); App.Mascot.setMood(m.el, 'sad'); });
+    setTimeout(function () { if (!ok && session && session.active) msg.textContent = 'Je ne t\'entends pas encore. Vérifie que ton micro n\'est pas coupé et parle plus fort.'; }, 6000);
     return m;
   };
 

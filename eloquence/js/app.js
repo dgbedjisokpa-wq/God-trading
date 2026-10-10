@@ -66,13 +66,13 @@
     box.appendChild(h('div', { style: { display: 'flex', justifyContent: 'space-between' } }, statsBar()));
 
     // Objectif du jour
-    var goal = s.profile.dailyGoal || 20, today = Store.todayXP();
+    var goal = s.profile.dailyGoal || 20, today = Store.todayXP(), reached = today >= goal;
     box.appendChild(h('div.card', null, [
       h('h3', { text: 'Objectif du jour' }),
       h('div.goal-row', null, [
-        h('span', { html: App.icon('goal') }),
-        h('div.bar', { role: 'progressbar', 'aria-valuenow': String(Math.min(today, goal)), 'aria-valuemin': '0', 'aria-valuemax': String(goal), 'aria-label': 'Objectif du jour' }, [
-          h('i', { style: { width: Math.round(Math.min(1, today / goal) * 100) + '%' } }), h('span.bar-label', { text: today + ' / ' + goal + ' XP' })
+        h('span', { html: App.icon(reached ? 'check' : 'goal'), style: reached ? { color: 'var(--green)' } : null }),
+        h('div.bar' + (reached ? '.green' : ''), { role: 'progressbar', 'aria-valuenow': String(Math.min(today, goal)), 'aria-valuemin': '0', 'aria-valuemax': String(goal), 'aria-label': 'Objectif du jour' }, [
+          h('i', { style: { width: Math.round(Math.min(1, today / goal) * 100) + '%' } }), h('span.bar-label', { text: reached ? 'Atteint ! ' + today + ' XP' : today + ' / ' + goal + ' XP' })
         ])
       ])
     ]));
@@ -85,9 +85,9 @@
         h('span', { html: App.icon(qt.icon) }),
         h('div.grow', null, [
           h('div.t', { text: Store.questLabel(q) }),
-          h('div.bar', { style: { height: '12px' } }, h('i', { style: { width: Math.round(q.progress / q.target * 100) + '%' } }))
+          h('div.bar', null, [h('i', { style: { width: Math.round(q.progress / q.target * 100) + '%' } }), h('span.bar-label', { text: q.type === 'seconds' ? Math.floor(q.progress / 60) + ' / ' + Math.round(q.target / 60) + ' min' : q.progress + ' / ' + q.target })])
         ]),
-        q.claimed ? h('span', { html: App.icon('check'), style: { color: 'var(--green)' } }) : h('span', { html: App.icon('gem') })
+        q.claimed ? h('span', { html: App.icon('check'), style: { color: 'var(--green)' } }) : h('span', { html: App.icon(q.progress >= q.target ? 'chestOpen' : 'chest') })
       ]));
     });
     box.appendChild(qc);
@@ -102,9 +102,7 @@
     ]));
 
     var cit = App.Banks.citations[Math.floor(Date.now() / 86400000) % App.Banks.citations.length];
-    box.appendChild(h('div.card', null, [
-      h('div.quote-card', { html: U.esc(cit.t) + '<span class="who">— ' + U.esc(cit.a) + '</span>', style: { fontSize: '16px' } })
-    ]));
+    box.appendChild(h('div.quote-card', { html: U.esc(cit.t) + '<span class="who">— ' + U.esc(cit.a) + '</span>', style: { fontSize: '16px' } }));
     box.appendChild(h('div.footer-links', null, [h('span', { text: 'Ahouéfa · Coach d\'éloquence' }), h('a', { href: '#/reglages', text: 'Réglages' })]));
     return box;
   }
@@ -158,6 +156,47 @@
   }, 50));
 
   /* ---------- Démarrage ---------- */
+  function streakToast(n) {
+    if (n && n.frozen) App.UI.toast('Ton gel de série a protégé ta série ! (' + U.plural(n.frozen, 'jour') + ')', 'snow', 4000);
+    else if (n && n.lost) App.UI.toast('Ta série de ' + U.plural(n.lost, 'jour') + ' s\'est arrêtée. On recommence aujourd\'hui !', 'flame', 4000);
+  }
+
+  /* Petits rappels à l'ouverture : heure de la séance passée, sauvegarde à faire */
+  function dailyNudges() {
+    var s = Store.get();
+    var now = new Date();
+    if (s.settings.reminder && !Store.practicedOn(U.dayKey())) {
+      var p = s.settings.reminder.split(':');
+      if (now.getHours() * 60 + now.getMinutes() >= (+p[0]) * 60 + (+p[1])) {
+        setTimeout(function () { App.UI.toast('C\'est l\'heure de ta séance du jour, ' + (s.profile.name || '') + ' !', 'flame', 4500); }, 900);
+      }
+    }
+  }
+
+  /* Accueil (premier lancement, ou après « Tout effacer ») */
+  App.startOnboarding = function () {
+    location.hash = '#/apprendre';
+    App.render();
+    App.Onboarding.run(function (action) {
+      location.hash = '#/apprendre';
+      if (action === 'import') { App.afterImport(); return; }
+      App.render();
+      if (action === 'first') P.startLesson('u1l1');
+      else if (action === 'placement') P.placementTest();
+    });
+  };
+
+  /* Après l'import d'une sauvegarde : thème, série, quêtes, message d'accueil */
+  App.afterImport = function () {
+    App.applyTheme();
+    var n = Store.checkStreak();
+    Store.quests();
+    App.render();
+    var name = Store.get().profile.name;
+    App.UI.toast('Progression importée ! Content' + (Store.get().profile.gender === 'f' ? 'e' : '') + ' de te revoir' + (name ? ', ' + name : '') + ' !', 'check', 3500);
+    setTimeout(function () { streakToast(n); }, 1200);
+  };
+
   function boot() {
     appEl = U.$('#app');
     App.applyTheme();
@@ -169,17 +208,11 @@
     window.addEventListener('hashchange', function () { if (!App.Lesson.active()) App.render(); });
     document.addEventListener('pointerdown', function unlock() { App.Sound.unlock(); document.removeEventListener('pointerdown', unlock); });
 
-    if (!Store.get().onboarded) {
+    if (!Store.get().onboarded) App.startOnboarding();
+    else {
       App.render();
-      App.Onboarding.run(function (startFirst) {
-        location.hash = '#/apprendre';
-        App.render();
-        if (startFirst) P.startLesson('u1l1');
-      });
-    } else {
-      App.render();
-      if (streakNews && streakNews.frozen) App.UI.toast('Ton gel de série a protégé ta série ! (' + U.plural(streakNews.frozen, 'jour') + ')', 'snow', 4000);
-      else if (streakNews && streakNews.lost) App.UI.toast('Ta série de ' + U.plural(streakNews.lost, 'jour') + ' s\'est arrêtée. On recommence aujourd\'hui !', 'flame', 4000);
+      streakToast(streakNews);
+      dailyNudges();
     }
 
     // Application installable et utilisable hors ligne
