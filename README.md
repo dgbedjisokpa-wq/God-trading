@@ -37,3 +37,10 @@ JavaScript et il est lisible par les moteurs de recherche.
 python3 -m http.server 8000
 # puis ouvrir http://localhost:8000
 ```
+
+## Application d'éloquence « Ahouéfa »
+
+Le dossier [`eloquence/`](eloquence/) contient une application web séparée,
+pour travailler son éloquence avec la mascotte Ahouéfa. Une fois publiée, elle
+est accessible à l'adresse `https://godtrading.store/eloquence/`. Voir
+[`eloquence/README.md`](eloquence/README.md).
