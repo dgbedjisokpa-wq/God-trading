@@ -182,7 +182,7 @@
       });
       if (!App.Speech.micSupported()) {
         test.disabled = true;
-        msg.textContent = 'Le micro n\'est pas accessible ici (il faut une adresse en https). Tu pourras quand même faire les exercices à voix haute.';
+        msg.textContent = App.Speech.errorText({ error: 'unsupported' }) + ' Tu pourras quand même faire les exercices à voix haute.';
       }
       inner.appendChild(h('div.card.center', { style: { display: 'grid', gap: '14px', justifyItems: 'center' } }, [meter, test, msg]));
       if (!App.Speech.srSupported()) {

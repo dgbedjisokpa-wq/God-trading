@@ -419,9 +419,9 @@
     main.appendChild(info);
     main.appendChild(checklist);
 
-    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    if (App.PREVIEW || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
       startBtn.disabled = true;
-      info.textContent = 'La caméra n\'est pas disponible dans ce navigateur (il faut une adresse en https).';
+      info.textContent = App.PREVIEW ? 'La caméra n\'est pas disponible dans cet aperçu : elle fonctionnera dans l\'application en ligne.' : 'La caméra n\'est pas disponible dans ce navigateur (il faut une adresse en https).';
       return;
     }
     startBtn.addEventListener('click', function () {
@@ -839,7 +839,7 @@
   function diagText() {
     var bits = [];
     bits.push(App.Speech.srSupported() ? 'Reconnaissance vocale : disponible.' : 'Reconnaissance vocale : non disponible dans ce navigateur (utilise Chrome ou Safari pour l\'analyse complète).');
-    bits.push(App.Speech.micSupported() ? 'Micro : disponible.' : 'Micro : indisponible (il faut une adresse en https).');
+    bits.push(App.Speech.micSupported() ? 'Micro : disponible.' : 'Micro : ' + App.Speech.errorText({ error: 'unsupported' }));
     return bits.join(' ');
   }
 

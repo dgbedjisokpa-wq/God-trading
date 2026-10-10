@@ -760,8 +760,8 @@ details.transcript p { margin: 10px 0 0; font-weight: 600; }
 @keyframes toast-in { from { opacity: 0; transform: translateY(-12px); } }
 
 /* ---------- Entraînement ---------- */
-.tools { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-@media (max-width: 480px) { .tools { grid-template-columns: 1fr; } }
+.tools { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 340px) { .tools { grid-template-columns: 1fr; } }
 .tool {
   appearance: none; cursor: pointer; text-align: left; border: 2px solid var(--line); border-bottom-width: 4px; border-radius: 18px;
   background: var(--surface); padding: 16px; display: flex; flex-direction: column; gap: 10px; color: var(--text);
@@ -810,6 +810,10 @@ details.transcript p { margin: 10px 0 0; font-weight: 600; }
 }
 .badge .bi { width: 64px; height: 64px; border-radius: 18px; display: grid; place-items: center; color: #fff; position: relative; box-shadow: 0 4px 0 rgba(0, 0, 0, .15); }
 .badge .bi .ic { width: 36px; height: 36px; }
+/* Sur un fond coloré, les icônes multicolores deviennent des silhouettes blanches */
+.badge .bi .ic [fill]:not([fill="none"]), .badge-big .ic [fill]:not([fill="none"]) { fill: #fff; }
+.badge .bi .ic [stroke], .badge-big .ic [stroke] { stroke: #fff; }
+.badge .bi .ic [opacity], .badge-big .ic [opacity] { opacity: 1; }
 .badge .lv { position: absolute; bottom: -8px; right: -8px; background: var(--surface); color: var(--text); border: 2px solid var(--line); border-radius: 10px; font-size: 12px; font-weight: 900; padding: 1px 6px; }
 .badge.off .bi { filter: grayscale(1); opacity: .35; }
 .badge .n { font-weight: 900; }

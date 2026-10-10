@@ -23,8 +23,9 @@
   App.applyTheme = function () {
     var s = Store.get().settings;
     var d = document.documentElement;
-    if (s.theme === 'light' || s.theme === 'dark') d.setAttribute('data-theme', s.theme);
-    else d.removeAttribute('data-theme');
+    // En « auto », on ne retire l'attribut que si c'est nous qui l'avions posé (l'hôte peut imposer son thème)
+    if (s.theme === 'light' || s.theme === 'dark') { d.setAttribute('data-theme', s.theme); App._themeSet = true; }
+    else if (App._themeSet) { d.removeAttribute('data-theme'); App._themeSet = false; }
     d.classList.toggle('reduce-motion', !!s.reduceMotion);
     var dark = s.theme === 'dark' || (s.theme !== 'light' && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
     var meta = document.querySelector('meta[name="theme-color"]');
@@ -182,7 +183,7 @@
     }
 
     // Application installable et utilisable hors ligne
-    if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
+    if (!App.PREVIEW && 'serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
       navigator.serviceWorker.register('sw.js').catch(function () { /* hors ligne indisponible */ });
     }
   }

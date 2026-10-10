@@ -8,9 +8,13 @@
 
   function settings() { return App.Store.get().settings; }
 
+  /* Aperçu sur claude.ai : le micro n'y est pas accessible, on passe directement en mode sans micro. */
+  App.PREVIEW = !!window.AHOUEFA_PREVIEW;
+  if (App.PREVIEW) SR = null;
   Sp.srSupported = function () { return !!SR; };
   Sp.ttsSupported = function () { return 'speechSynthesis' in window; };
   Sp.micSupported = function () {
+    if (App.PREVIEW) return false;
     return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) && window.isSecureContext !== false;
   };
   Sp.recorderSupported = function () { return typeof window.MediaRecorder !== 'undefined'; };
@@ -354,6 +358,7 @@
       case 'network':
         return 'La reconnaissance vocale a besoin d\'Internet dans ce navigateur.';
       case 'unsupported':
+        if (App.PREVIEW) return 'Le micro n\'est pas disponible dans cet aperçu : il fonctionnera dans l\'application en ligne.';
         return 'Ton navigateur ne permet pas d\'utiliser le micro ici (il faut une adresse en https).';
       default:
         return 'Le micro n\'a pas fonctionné. Réessaie.';

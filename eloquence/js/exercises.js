@@ -560,7 +560,7 @@
     });
 
     if (!Sp.srSupported()) {
-      showAlert('Ton navigateur ne reconnaît pas la voix (essaie Chrome ou Safari). Tu peux quand même t\'enregistrer et t\'évaluer.', 'bulb');
+      showAlert(App.PREVIEW ? 'Aperçu : lis la phrase à voix haute, puis évalue-toi. Le micro fonctionnera dans l\'application en ligne.' : 'Ton navigateur ne reconnaît pas la voix (essaie Chrome ou Safari). Tu peux quand même t\'enregistrer et t\'évaluer.', 'bulb');
       selfMode();
     }
 
