@@ -205,7 +205,11 @@
     }
     var streakNews = Store.checkStreak();
     Store.quests();
-    window.addEventListener('hashchange', function () { if (!App.Lesson.active()) App.render(); });
+    window.addEventListener('hashchange', function () {
+      if (App.Lesson.active()) return;
+      U.$$('canvas.confetti').forEach(function (c) { c.remove(); });
+      App.render();
+    });
     document.addEventListener('pointerdown', function unlock() { App.Sound.unlock(); document.removeEventListener('pointerdown', unlock); });
 
     if (!Store.get().onboarded) App.startOnboarding();

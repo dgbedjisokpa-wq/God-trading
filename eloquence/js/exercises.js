@@ -1091,24 +1091,29 @@
       ];
       var answers = {};
       var box = h('div', { style: { display: 'grid', gap: '16px' } });
-      qs.forEach(function (q) {
-        var row = h('div.seg');
+      qs.forEach(function (q, qi) {
+        var row = h('div.seg', { role: 'radiogroup', 'aria-labelledby': 'sr-q' + qi });
         ['Pas vraiment', 'Plutôt', 'Oui !'].forEach(function (lbl, k) {
-          var b = h('button.choice', { type: 'button', text: lbl });
+          var b = h('button.choice', { type: 'button', role: 'radio', 'aria-checked': 'false', text: lbl });
           b.addEventListener('click', function () {
             answers[q[1]] = k;
-            U.$$('button', row).forEach(function (x) { x.classList.toggle('sel', x === b); });
-            if (Object.keys(answers).length === qs.length && !reported) {
+            U.$$('button', row).forEach(function (x) { x.classList.toggle('sel', x === b); x.setAttribute('aria-checked', x === b ? 'true' : 'false'); });
+            App.Sound.play('tap');
+            if (Object.keys(answers).length < qs.length) return;
+            var score = Math.round((answers.structure + answers.tics + answers.voix) / 6 * 100);
+            if (step.assessment) Store.recordAssessment(step.assessment, { duration: secs, score: score });
+            if (!reported) {
               reported = true;
-              var score = Math.round((answers.structure + answers.tics + answers.voix) / 6 * 100);
               Store.recordSpeech({ kind: isRead ? 'lecture' : 'libre', duration: secs, score: score });
-              if (step.assessment) Store.recordAssessment(step.assessment, { duration: secs, score: score });
               ctx.complete({ activity: true, quiet: true, counts: { speeches: 1, speakSecs: secs }, bonusXP: 5 });
+            } else {
+              // Réponse modifiée après coup : on met à jour la note enregistrée
+              Store.update(function (st) { var last = st.speeches[st.speeches.length - 1]; if (last) last.score = score; });
             }
           });
           row.appendChild(b);
         });
-        box.appendChild(h('div', null, [h('div', { text: q[0], style: { fontWeight: 800, marginBottom: '8px' } }), row]));
+        box.appendChild(h('div', null, [h('div', { id: 'sr-q' + qi, text: q[0], style: { fontWeight: 800, marginBottom: '8px' } }), row]));
       });
       phaseBox.appendChild(box);
       var again = h('button.btn.ghost', { type: 'button', html: App.icon('refresh') + '<span>Recommencer</span>' });

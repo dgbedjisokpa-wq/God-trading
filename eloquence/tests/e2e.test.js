@@ -205,24 +205,24 @@ async function finishScreens(page, shotPrefix) {
     await page.getByRole('button', { name: 'C\'est parti !' }).click();
     await page.fill('#onb-name', 'Rania');
     await page.getByRole('radio', { name: 'Au féminin' }).click();
-    await onbFoot.getByRole('button', { name: 'Continuer' }).click();
+    await onbFoot.getByRole('button', { name: 'Continuer', exact: true }).click();
     // Motivations : plusieurs choix possibles (on coche, décoche, recoche)
     var boxes = page.locator('.onb [role=checkbox]');
     ok(await boxes.count() === 6, 'six motivations proposées');
-    ok(await onbFoot.getByRole('button', { name: 'Continuer' }).isDisabled(), 'au moins une motivation exigée');
+    ok(await onbFoot.getByRole('button', { name: 'Continuer', exact: true }).isDisabled(), 'au moins une motivation exigée');
     await boxes.nth(0).click();
     await boxes.nth(3).click();
     await boxes.nth(4).click();
     await boxes.nth(3).click();
     ok(await page.locator('.onb [role=checkbox][aria-checked=true]').count() === 2, 'deux motivations cochées');
     await page.screenshot({ path: path.join(SHOTS, 'm-onb-reasons.png') });
-    await onbFoot.getByRole('button', { name: 'Continuer' }).click();
+    await onbFoot.getByRole('button', { name: 'Continuer', exact: true }).click();
     await page.locator('.onb [role=radio]').nth(1).click();
-    await onbFoot.getByRole('button', { name: 'Continuer' }).click();
+    await onbFoot.getByRole('button', { name: 'Continuer', exact: true }).click();
     await page.locator('.onb [role=radio]', { hasText: 'Sérieux' }).click();
-    await onbFoot.getByRole('button', { name: 'Continuer' }).click();
+    await onbFoot.getByRole('button', { name: 'Continuer', exact: true }).click();
     await page.locator('.onb [role=radio]', { hasText: 'Le soir' }).click();
-    await onbFoot.getByRole('button', { name: 'Continuer' }).click();
+    await onbFoot.getByRole('button', { name: 'Continuer', exact: true }).click();
     // Micro : niveau sonore (micro factice de Chromium), puis reconnaissance vocale
     await page.locator('.onb .mic-btn').click();
     await page.locator('.onb-mic-msg', { hasText: 'Bonjour Ahouéfa' }).waitFor({ timeout: 8000 });
@@ -230,7 +230,7 @@ async function finishScreens(page, shotPrefix) {
     await page.locator('.onb .mic-btn').click();
     await page.locator('.onb .mic-btn.ok').waitFor({ timeout: 8000 });
     await page.screenshot({ path: path.join(SHOTS, 'm-onb-mic.png') });
-    await onbFoot.getByRole('button', { name: 'Continuer' }).click();
+    await onbFoot.getByRole('button', { name: 'Continuer', exact: true }).click();
     await page.locator('.onb-final').waitFor();
     ok(await page.locator('.plan-list li').count() >= 3, 'plan personnalisé affiché');
     ok(await page.getByRole('button', { name: /Rappel à 19 h/ }).count() === 1, 'rappel proposé dans l\'agenda');

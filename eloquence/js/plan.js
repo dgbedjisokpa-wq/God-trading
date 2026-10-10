@@ -42,7 +42,8 @@
     b.push((goalMinutes || 10) + ' minutes par jour, à ton rythme, ' + U.g('guidé', 'guidée', 'guidé(e)') + ' par Ahouéfa.');
     rs.slice(0, 2).forEach(function (r) { b.push(r.tip + '.'); });
     if (s.profile.feeling === 0) b.push('Avant chaque exercice de parole : une minute de respiration.');
-    b.push('Un bilan vocal au départ, à mi-parcours et à la fin pour mesurer tes progrès.');
+    if (s.settings.mic === false) b.push('Exercices à voix haute en pause : active ton micro dans Réglages dès que tu peux.');
+    else b.push('Un bilan vocal au départ, à mi-parcours et à la fin pour mesurer tes progrès.');
     return b;
   };
 
@@ -130,8 +131,7 @@
     var cv = document.createElement('canvas');
     cv.width = W; cv.height = H;
     var c = cv.getContext('2d');
-    var svg = App.Mascot.svg({ mood: 'celebrate', size: 300, label: false });
-    var mascotSrc = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg.replace('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" '));
+    var mascotSrc = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(App.Mascot.standalone({ mood: 'celebrate', size: 300, label: false }));
     var fontsReady = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
     return Promise.all([loadImage(mascotSrc), fontsReady]).then(function (res) {
       var img = res[0];

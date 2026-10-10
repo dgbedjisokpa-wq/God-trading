@@ -15,6 +15,7 @@
   /* opts = { id, kind, title, unit, steps, xp, onExit(done) } */
   function start(opts) {
     if (active) active.destroy();
+    U.$$('canvas.confetti').forEach(function (c) { c.remove(); });
     var steps = opts.steps.slice();
     var removedSpeaking = 0;
     if (!Store.canSpeak()) {
@@ -439,16 +440,35 @@
         ], 'Continuer', next);
       });
     }
-    (sum.badges || []).forEach(function (b) {
+    var newBadges = sum.badges || [];
+    function badgeDesc(b) { return b.badge.desc(b.badge.tiers[b.tier - 1]) + '.'; }
+    if (newBadges.length) {
       queue.push(function (next) {
         App.Sound.play('chest');
+        UI.confetti(1500);
+        if (newBadges.length === 1) {
+          var b = newBadges[0];
+          screen([
+            h('div.badge-big', { style: { background: b.badge.color }, html: App.icon(b.badge.icon) }),
+            h('h1.screen-title.purple', { text: 'Nouveau badge !' }),
+            h('div.badge-name', null, [h('strong', { text: b.badge.name }), h('span.pill', { text: 'Niveau ' + b.tier })]),
+            h('p.screen-sub', { text: badgeDesc(b) })
+          ], 'Super !', next);
+          return;
+        }
+        // Plusieurs badges d'un coup : un seul écran, plutôt qu'une série d'écrans
         screen([
-          h('div.badge-big', { style: { background: b.badge.color }, html: App.icon(b.badge.icon) }),
-          h('h1.screen-title.purple', { text: 'Nouveau badge !' }),
-          h('p.screen-sub', { text: b.badge.name + ' (niveau ' + b.tier + ') : ' + b.badge.desc(b.badge.tiers[b.tier - 1]) + '.' })
+          h('h1.screen-title.purple', { text: newBadges.length + ' nouveaux badges !' }),
+          h('ul.badge-list', null, newBadges.map(function (x, k) {
+            return h('li', { style: { '--d': (k * 0.12) + 's' } }, [
+              h('span.bl-ic', { style: { background: x.badge.color }, html: App.icon(x.badge.icon), 'aria-hidden': 'true' }),
+              h('span.grow', null, [h('strong', { text: x.badge.name }), h('span', { text: badgeDesc(x) })]),
+              h('span.pill', { text: 'Niv. ' + x.tier })
+            ]);
+          }))
         ], 'Super !', next);
       });
-    });
+    }
 
     (function run() {
       var f = queue.shift();

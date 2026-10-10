@@ -116,6 +116,8 @@
     s += '<path d="M71 96 Q81 89 92 93"/><path d="M108 93 Q119 89 129 96"/></g>';
     s += '<g class="ah-brows ah-brows-sad" fill="none" stroke="' + C.ink + '" stroke-width="3.6" stroke-linecap="round">';
     s += '<path d="M72 99 Q82 99 91 94"/><path d="M109 94 Q118 99 128 99"/></g>';
+    s += '<g class="ah-brows ah-brows-think" fill="none" stroke="' + C.ink + '" stroke-width="3.6" stroke-linecap="round">';
+    s += '<path d="M71 101 Q81 98 92 100"/><path d="M108 94 Q119 86 129 92"/></g>';
 
     // Yeux ouverts
     s += '<g class="ah-eyes ah-eyes-open">';
@@ -146,7 +148,7 @@
     s += '<ellipse class="ah-talk-a" cx="100" cy="148" rx="5" ry="2.6" fill="#FF6B8B"/></g>';
     s += '<ellipse class="ah-mouth ah-m-o" cx="100" cy="145" rx="6" ry="7" fill="' + C.mouth + '"/>';
     s += '<path class="ah-mouth ah-m-sad" d="M89 147 Q100 138 111 147" fill="none" stroke="' + C.mouth + '" stroke-width="3.6" stroke-linecap="round"/>';
-    s += '<path class="ah-mouth ah-m-hmm" d="M92 144 Q101 140 110 143" fill="none" stroke="' + C.mouth + '" stroke-width="3.6" stroke-linecap="round"/>';
+    s += '<path class="ah-mouth ah-m-hmm" d="M91 143 Q100 147 110 140" fill="none" stroke="' + C.mouth + '" stroke-width="3.6" stroke-linecap="round"/>';
     s += '</g>';
 
     // Bras levés (devant)
@@ -195,5 +197,27 @@
     return w;
   }
 
-  App.Mascot = { svg: svg, el: el, setMood: setMood, says: says, colors: C };
+  /* SVG autonome (pour une image ou un canvas) : les règles CSS de la mascotte y sont copiées,
+     sinon toutes les expressions s'afficheraient en même temps. */
+  var cssCache = null;
+  function mascotCSS() {
+    if (cssCache !== null) return cssCache;
+    var out = [];
+    [].forEach.call(document.styleSheets, function (sh) {
+      var rules;
+      try { rules = sh.cssRules; } catch (e) { return; } // feuille d'un autre domaine (polices)
+      [].forEach.call(rules || [], function (r) {
+        if (r.selectorText && /(^|[\s,])\.ah(\b|-)/.test(r.selectorText) && !/\.ah-(wrap|says)/.test(r.selectorText)) out.push(r.cssText);
+      });
+    });
+    cssCache = out.join('\n');
+    return cssCache;
+  }
+  function standalone(opts) {
+    return svg(opts)
+      .replace('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" ')
+      .replace('<defs>', '<defs><style><![CDATA[' + mascotCSS().replace(/]]>/g, '') + ']]></style>');
+  }
+
+  App.Mascot = { svg: svg, standalone: standalone, el: el, setMood: setMood, says: says, colors: C };
 })(window.App = window.App || {});

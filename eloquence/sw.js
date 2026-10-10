@@ -1,6 +1,6 @@
 /* Service worker : rend l'application utilisable hors ligne.
    Pense à changer VERSION à chaque mise à jour des fichiers. */
-var VERSION = 'ahouefa-v2';
+var VERSION = 'ahouefa-v3';
 var FILES = [
   './', 'index.html', 'manifest.webmanifest', 'css/app.css',
   'js/util.js', 'js/icons.js', 'js/store.js', 'js/sound.js', 'js/mascot.js', 'js/speech.js', 'js/analysis.js',

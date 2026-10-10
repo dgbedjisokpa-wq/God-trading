@@ -264,13 +264,10 @@
       body.appendChild(inner);
 
       var session = null, listen = null, timer = null, best = 0, phase = 'idle';
-      var cont = primary('Continuer');
-      var later = h('button.btn.flat', { type: 'button', text: 'Pas maintenant' });
-      later.addEventListener('click', function () {
-        data.mic = false;
-        App.UI.toast('D\'accord ! Tu pourras activer le micro dans Réglages.', 'micFill', 3500);
-        next();
-      });
+      var cont = primary('Continuer', true, function () { data.mic = true; next(); });
+      var later = h('button.btn.flat', { type: 'button', text: 'Continuer sans micro' });
+      function noMic() { data.mic = false; next(); }
+      later.addEventListener('click', noMic);
       footer(cont, later);
 
       function idleBars() { bars.forEach(function (b, k) { b.style.height = IDLE[k] + 'px'; }); }
@@ -365,13 +362,14 @@
           idleBars();
           setState('ko', App.Speech.errorText(err));
           App.Mascot.setMood(inner, 'sad');
-          if (err && /not-allowed|no-mic|unsupported/.test(err.error)) later.textContent = 'Continuer sans micro';
         });
       });
       if (!App.Speech.micSupported()) {
+        // Pas de micro du tout : un seul bouton, sans ambiguïté
         micBtn.disabled = true;
         setState('', App.Speech.errorText({ error: 'unsupported' }));
-        later.textContent = 'Continuer sans micro';
+        U.clear(footIn);
+        footer(primary('Continuer sans micro', true, noMic));
       }
     }
 

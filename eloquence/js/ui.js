@@ -12,6 +12,8 @@
       toastBox = h('div.toasts', { role: 'status', 'aria-live': 'polite' });
       document.body.appendChild(toastBox);
     }
+    // Pendant une leçon ou l'accueil, le toast s'affiche en bas pour ne pas cacher la question
+    toastBox.classList.toggle('low', !!document.querySelector('.lesson, .onb'));
     var t = h('div.toast', { html: (icon ? '<span class="toast-ic">' + App.icon(icon) + '</span>' : '') + '<span>' + U.esc(text) + '</span>' });
     toastBox.appendChild(t);
     setTimeout(function () {

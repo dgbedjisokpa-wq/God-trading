@@ -11,6 +11,30 @@ l'appareil (`localStorage`) ; l'analyse de la voix (volume, pauses, mélodie)
 se fait localement. Seule la transcription utilise la reconnaissance vocale du
 navigateur, qui passe par un service en ligne sur Chrome.
 
+## Le parcours d'une personne, du début à la fin
+
+1. **Accueil personnalisé** : prénom, accord au féminin ou au masculin,
+   motivations (plusieurs choix possibles : carrière, examens, confiance,
+   public, convaincre, progresser), ressenti à l'oral, objectif quotidien,
+   heure du rappel, puis test du micro et de la reconnaissance vocale
+   (« Dis : Bonjour Ahouéfa ! »). Ahouéfa construit alors un plan adapté.
+2. **Point de départ** : les personnes à l'aise passent un test de niveau
+   (questions et lectures sur les unités 1 à 9) et commencent directement
+   au bon endroit ; les autres commencent à la première leçon.
+3. **Bilan vocal de départ** : 45 secondes pour se présenter ; débit, tics,
+   pauses, mélodie et note sur 100 sont enregistrés.
+4. **Chaque jour** : leçons du parcours, rappel dans l'agenda du téléphone
+   (fichier `.ics` quotidien) et dans l'application, série, quêtes, objectif.
+   L'onglet Entraînement met en avant les outils liés aux motivations choisies.
+5. **Mi-parcours** (après l'unité 5) puis **fin** (après l'unité 10) : même
+   bilan vocal, comparé au départ, ligne par ligne.
+6. **Diplôme** : une fois les 10 unités terminées, un diplôme d'éloquence au
+   prénom de la personne, à télécharger ou partager.
+
+Les motivations, l'accord, l'objectif et le rappel se modifient à tout moment
+dans Réglages. Le bouton « retour » du téléphone ne fait jamais quitter une
+leçon par erreur : il demande confirmation.
+
 ## Ce que contient l'application
 
 **Parcours : 10 unités, 50 leçons, 10 révisions, 10 coffres**
@@ -88,7 +112,8 @@ l'intonation, et propose de compter ses tics en se réécoutant. Le bouton
 | `js/exercises.js` | Les 12 types d'exercices |
 | `js/lesson.js` | Déroulé d'une leçon et écrans de fin |
 | `js/pages.js` | Parcours, entraînement, quêtes, profil, boutique, réglages |
-| `js/onboarding.js` | Premier lancement |
+| `js/onboarding.js` | Premier lancement : questions, test du micro et de la reconnaissance vocale |
+| `js/plan.js` | Plan personnalisé, bilans vocaux, diplôme, rappel `.ics`, installation |
 | `js/store.js` | Progression, XP, série, quêtes, badges, boutique |
 | `js/speech.js` | Synthèse vocale, reconnaissance, micro, détection de la hauteur de voix |
 | `js/analysis.js` | Analyse d'un discours (débit, tics, pauses, intonation, note) |
