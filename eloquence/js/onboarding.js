@@ -156,7 +156,7 @@
     /* 1. Prénom et accord */
     function nameStep() {
       var inner = h('div.onb-inner');
-      inner.appendChild(says('Comment veux-tu que je t\'appelle ?'));
+      inner.appendChild(says('On va passer du temps ensemble. Comment veux-tu que je t\'appelle ?'));
       var input = h('input.input', { id: 'onb-name', value: data.name, maxlength: '30', autocomplete: 'given-name', placeholder: 'Ton prénom', 'aria-label': 'Ton prénom', enterkeyhint: 'next' });
       inner.appendChild(input);
       var seg = h('div.seg', { role: 'radiogroup', 'aria-labelledby': 'onb-g' });
@@ -181,7 +181,7 @@
     /* 2. Motivations : plusieurs choix possibles */
     function reasonStep() {
       var inner = h('div.onb-inner');
-      inner.appendChild(says('Enchantée, ' + name() + ' ! Pourquoi veux-tu mieux t\'exprimer ?', 'happy'));
+      inner.appendChild(says('Enchantée, ' + name() + '. Dis-moi ce qui t\'amène : je construirai tes séances autour de ça.', 'happy'));
       inner.appendChild(h('p.onb-hint', { html: App.icon('check') + '<span>Choisis tout ce qui te correspond</span>' }));
       var b;
       inner.appendChild(optionList(Plan.REASONS.map(function (r) { return { icon: tile(r.icon, r.color), label: r.label }; }), {
@@ -202,7 +202,7 @@
     /* 3. Ressenti : un seul choix */
     function feelingStep() {
       var inner = h('div.onb-inner');
-      inner.appendChild(says('Comment te sens-tu quand tu prends la parole ?', 'think'));
+      inner.appendChild(says('Et aujourd\'hui, qu\'est-ce que tu ressens quand tous les regards se tournent vers toi ? Réponds franchement, il n\'y a pas de mauvaise réponse ici.', 'think'));
       var b;
       inner.appendChild(optionList(Plan.FEELINGS.map(function (f) { return { icon: emojiTile(f.emoji), label: Plan.feelingLabel(f), sub: f.sub }; }), {
         label: 'Ton ressenti',
@@ -234,7 +234,7 @@
     /* 5. Rappel quotidien */
     function reminderStep() {
       var inner = h('div.onb-inner');
-      inner.appendChild(says('Les meilleurs orateurs s\'entraînent tous les jours. À quel moment veux-tu que je te le rappelle ?', 'talk'));
+      inner.appendChild(says('La régularité fait plus que la durée : mieux vaut cinq minutes chaque jour qu\'une heure par mois. À quel moment je te fais signe ?', 'talk'));
       var items = Plan.REMINDERS.map(function (r) { return { icon: tile('clock', '#8A3FFC'), label: r[1], sub: r[2] }; });
       items.push({ icon: tile('close', '#A398B3'), label: 'Pas de rappel', sub: 'Je m\'organise ' + U.g('seul', 'seule', 'seul(e)') });
       inner.appendChild(optionList(items, {
@@ -250,7 +250,7 @@
     /* 6. Micro : niveau sonore puis reconnaissance vocale */
     function micStep() {
       var inner = h('div.onb-inner');
-      var bubble = says('Pour les exercices de parole, j\'ai besoin de t\'entendre. On teste ton micro ?', 'talk');
+      var bubble = says('Pour les exercices à voix haute, j\'ai besoin de t\'entendre. Personne d\'autre que toi ne t\'écoute ici. On teste ton micro ?', 'talk');
       inner.appendChild(bubble);
       var IDLE = [10, 16, 24, 32, 22, 14, 26, 36, 28, 18, 12, 22, 34, 26, 16, 24, 30, 20, 14, 10];
       var meter = h('div.level-meter', { 'aria-hidden': 'true' });

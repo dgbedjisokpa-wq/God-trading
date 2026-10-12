@@ -7,9 +7,25 @@
   var SPEAKING = /^(speak|voice|free)$/;
   var active = null;
 
+  /* Ahouéfa félicite ce que la personne a fait, pas « la bonne case » :
+     on nomme l'effort, on varie les mots, on reste proche et sincère. */
   function praise(combo) {
-    var list = combo >= 5 ? ['Inarrêtable !', 'En feu !', 'Quelle série !'] : ['Excellent !', 'Bravo !', 'Parfait !', 'Bien joué !', 'Super !', 'Génial !'];
-    return U.pick(list);
+    var list = combo >= 8 ? ['Tu es lancée, ne t\'arrête pas.', 'Là, tu as trouvé ton rythme.', 'Huit de suite : ce n\'est plus de la chance.']
+      : combo >= 4 ? ['Encore une. Tu enchaînes bien.', 'Tu tiens le fil, continue.', 'Quatre d\'affilée : ça rentre.']
+        : ['Exactement ça.', 'Tu as vu juste.', 'C\'est bien ça, bravo.', 'Oui, tu as compris l\'idée.', 'Juste. Tu avances.', 'Bien vu.'];
+    var t = U.pick(list);
+    return U.g(t.replace('lancée', 'lancé'), t);
+  }
+
+  /* Une erreur n'est pas un échec : on rassure et on montre le chemin. */
+  function kindMiss() {
+    return U.pick([
+      'Pas celle-là, et ce n\'est rien.',
+      'Presque. Regarde la réponse, elle va rester.',
+      'On apprend justement ici.',
+      'Raté de peu. Tu la reverras tout à l\'heure.',
+      'C\'est le genre d\'erreur qui fait progresser.'
+    ]);
   }
 
   /* opts = { id, kind, title, unit, steps, xp, onExit(done) } */
@@ -129,7 +145,7 @@
           } else if (res.explain) text = U.esc(res.explain);
           fb = h('div.feedback', { role: 'status' }, [
             h('div.fb-icon', { html: App.icon(ok ? 'check' : 'x') }),
-            h('div', null, [h('div.fb-title', { text: res.title || (ok ? praise(L.combo) : 'Pas tout à fait…') }), text ? h('div.fb-text', { html: text }) : null])
+            h('div', null, [h('div.fb-title', { text: res.title || (ok ? praise(L.combo) : kindMiss()) }), text ? h('div.fb-text', { html: text }) : null])
           ]);
         }
         var cont = h('button.btn' + (res.quiet ? '' : ok ? '.green' : '.red'), { type: 'button', text: 'Continuer' });
@@ -388,7 +404,7 @@
 
   function showEndScreens(sum, info, done) {
     var queue = [];
-    var title = info.kind === 'review' ? 'Unité révisée !' : info.kind === 'practice' ? 'Entraînement terminé !' : 'Leçon terminée !';
+    var title = info.kind === 'review' ? 'Unité bouclée.' : info.kind === 'practice' ? 'Séance terminée.' : 'Leçon terminée.';
     var timeStr = U.fmtTime(info.secs);
     var acc = Math.round(info.accuracy * 100);
 
@@ -398,7 +414,9 @@
       screen([
         App.Mascot.el({ mood: 'celebrate', size: 170 }),
         h('h1.screen-title', { text: title }),
-        info.perfect ? h('p.screen-sub', { text: 'Sans aucune erreur ! +5 XP bonus' }) : null,
+        h('p.screen-sub', { text: info.perfect ? 'Pas une seule erreur. Tu maîtrises, et ça s\'entend. +5 XP'
+          : info.accuracy >= 0.7 ? 'Tu as tenu bon jusqu\'au bout. C\'est exactement comme ça qu\'on progresse.'
+            : 'Le plus dur était de commencer, et tu l\'as fait. On reverra ensemble ce qui a coincé.' }),
         h('div.result-cards', null, [
           h('div.rcard', { style: { '--rc': 'var(--gold)' } }, [h('div.h', { text: 'Total XP' }), h('div.b', { html: App.icon('xp') + '<span>' + sum.xp + '</span>' })]),
           h('div.rcard', { style: { '--rc': 'var(--green)' } }, [h('div.h', { text: acc >= 90 ? 'Superbe' : acc >= 70 ? 'Précision' : 'Courage' }), h('div.b', { html: App.icon('target') + '<span>' + acc + ' %</span>' })]),
@@ -416,7 +434,9 @@
           h('div.streak-num', { text: String(n) }),
           h('h1.screen-title.orange', { text: n > 1 ? 'jours de série !' : 'jour de série !' }),
           weekRow(),
-          h('p.screen-sub', { text: n === 1 ? 'Ta série commence ! Reviens demain pour l\'entretenir.' : 'Petit à petit, l\'oiseau fait son nid. Reviens demain !' })
+          h('p.screen-sub', { text: n === 1 ? 'Le premier jour est le plus difficile, et il est derrière toi. À demain ?'
+            : n < 7 ? 'Cinq minutes par jour valent mieux qu\'une heure le dimanche. On se revoit demain.'
+              : 'Parler devient une habitude chez toi. C\'est là que tout change.' })
         ], 'Continuer', next);
       });
     }
@@ -425,8 +445,8 @@
         App.Sound.play('chest');
         screen([
           App.Mascot.el({ mood: 'happy', size: 150 }),
-          h('h1.screen-title.purple', { text: 'Objectif du jour atteint !' }),
-          h('p.screen-sub', { text: 'Tu as gagné ' + Store.todayXP() + ' XP aujourd\'hui. Ahouéfa est fière de toi !' })
+          h('h1.screen-title.purple', { text: 'Objectif du jour atteint' }),
+          h('p.screen-sub', { text: Store.todayXP() + ' XP aujourd\'hui. Tu as tenu ta promesse envers toi-même : c\'est le plus important.' })
         ], 'Continuer', next);
       });
     }
@@ -437,8 +457,8 @@
         var lv = Store.level();
         screen([
           h('div.badge-big', { style: { background: 'var(--primary)' }, html: '<span style="font-size:56px;font-weight:900">' + lv.level + '</span>' }),
-          h('h1.screen-title.purple', { text: 'Niveau ' + lv.level + ' !' }),
-          h('p.screen-sub', { text: 'Nouveau titre : « ' + lv.title + ' ».' })
+          h('h1.screen-title.purple', { text: 'Niveau ' + lv.level }),
+          h('p.screen-sub', { text: 'Tu es maintenant « ' + lv.title + ' ». Repense à ta première leçon : le chemin parcouru est réel.' })
         ], 'Continuer', next);
       });
     }

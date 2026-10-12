@@ -68,10 +68,16 @@ Jaurès, Zola, La Fontaine, Rostand…), débat express, entretien d'embauche, m
 imposés, mot du jour, miroir (se filmer pour observer sa posture), révision des
 erreurs.
 
-**Identité visuelle « Améthyste »** : pierres taillées (étapes du parcours en hexagones
-facettés), reliefs et ombres portées douces plutôt que des ombres dures, titres en Fraunces
-et interface en Outfit, palette propre construite autour du violet d'Ahouéfa (émeraude, rubis,
-or, saphir). Mode sombre complet.
+**Identité visuelle** : rondeurs pleines (étapes du parcours en perles lumineuses reliées
+par un sentier pointillé, boutons en galets, pastilles rondes partout), reliefs et ombres
+portées douces plutôt que des ombres dures, typographie ronde (Poppins pour l'interface,
+Fredoka pour les titres), palette propre construite autour du violet d'Ahouéfa (émeraude,
+rubis, or, saphir). Mode sombre complet.
+
+**Ton des textes** : Ahouéfa parle comme une coach humaine, jamais comme un robot. Elle
+félicite l'effort et le progrès plutôt que « la bonne case », normalise l'erreur (« c'est le
+genre d'erreur qui fait progresser »), nomme ce qui a été fait, et rappelle que la régularité
+compte plus que la performance.
 
 **Motivation** : XP et 15 niveaux (de « Murmure » à « Légende de l'éloquence »),
 série de jours avec gel de série, objectif quotidien, 3 quêtes par jour,

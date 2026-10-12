@@ -471,14 +471,14 @@
           App.Mascot.setMood(masc, 'happy');
           label.textContent = pct + ' % de mots reconnus';
           finish({
-            correct: true, title: pct >= 95 ? 'Parfait !' : pct >= 85 ? 'Excellent !' : 'Bien dit !',
+            correct: true, title: pct >= 95 ? 'Chaque mot y est.' : pct >= 85 ? 'Très clair, je t\'ai bien ' + U.g('suivi', 'suivie') + '.' : 'Je t\'ai ' + U.g('compris', 'comprise') + '.',
             explain: 'Prononciation reconnue à ' + pct + ' %.',
             counts: { speakOk: 1, virelangues: isVire ? 1 : 0, speakSecs: Math.max(3, U.words(step.text).length * 0.4) }
           });
         } else {
           App.Mascot.setMood(masc, 'sad');
           setTimeout(function () { App.Mascot.setMood(masc, 'idle'); }, 1500);
-          label.textContent = 'Presque ! ' + pct + ' %. Les mots en rouge n\'ont pas été compris. Réessaie.';
+          label.textContent = 'J\'ai saisi ' + pct + ' % de la phrase. Les mots en rouge se sont perdus : ralentis un peu et articule la fin des mots.';
           App.Sound.play('wrong');
           addRetryOrSkip();
         }
@@ -543,7 +543,7 @@
         var b = h('button.choice', { type: 'button' }, [h('span.e', { text: r[0] }), h('span', { text: r[1] })]);
         b.addEventListener('click', function () {
           finish({
-            correct: r[2], noRequeue: true, title: r[2] ? 'Bravo !' : 'Continue comme ça !',
+            correct: r[2], noRequeue: true, title: r[2] ? 'Tu l\'as dit à voix haute, c\'est ce qui compte.' : 'Tu as osé parler. On recommencera, et ce sera plus facile.',
             explain: r[2] ? 'L\'auto-évaluation est une vraie compétence d\'orateur.' : 'Refais-le plus lentement, en exagérant chaque syllabe.',
             counts: r[2] ? { speakOk: 1, virelangues: isVire ? 1 : 0, speakSecs: secs || 4 } : { speakSecs: secs || 4 }
           });
@@ -1001,7 +1001,7 @@
       var mood = score === null ? 'happy' : score >= 80 ? 'celebrate' : score >= 60 ? 'happy' : 'talk';
       head.appendChild(sr);
       head.appendChild(h('div', null, [
-        h('h2.step-title', { text: score === null ? 'Bravo, tu l\'as fait !' : score >= 85 ? 'Magnifique !' : score >= 70 ? 'Très bien !' : score >= 55 ? 'Bon début !' : 'Continue, ça vient !' }),
+        h('h2.step-title', { text: score === null ? 'Tu l\'as fait, et c\'était le plus dur.' : score >= 85 ? 'Là, on entend quelqu\'un qui sait parler.' : score >= 70 ? 'C\'est solide. On va affiner.' : score >= 55 ? 'Les bases sont là, on construit dessus.' : 'Premier jet. Tout orateur commence ici.' }),
         h('p.muted', { text: 'Durée : ' + U.fmtDuration(r.speakSpan || r.duration), style: { fontWeight: 800, margin: '4px 0 0' } })
       ]));
       phaseBox.appendChild(head);
@@ -1099,7 +1099,7 @@
     function selfReport(secs) {
       clearTimers();
       U.clear(phaseBox);
-      phaseBox.appendChild(App.Mascot.says('Bravo, tu as parlé ' + U.fmtDuration(secs) + ' ! Comment ça s\'est passé ?', { mood: 'happy', size: 90 }));
+      phaseBox.appendChild(App.Mascot.says('Tu as parlé pendant ' + U.fmtDuration(secs) + '. Dis-moi comment tu l\'as vécu : c\'est toi qui sais le mieux.', { mood: 'happy', size: 90 }));
       var qs = [
         ['As-tu gardé le fil de tes idées ?', 'structure'],
         ['As-tu évité les « euh » et « du coup » ?', 'tics'],
