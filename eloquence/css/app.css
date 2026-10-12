@@ -1205,15 +1205,6 @@ h1, h2, .screen-title, .unit-banner h2, .page-head h1, .onb-hero h1, .onb-final 
 }
 .node.locked { background: var(--gloss), var(--locked); box-shadow: var(--lift-sm), inset 0 -3px 8px rgba(0, 0, 0, .14), 0 0 0 3px color-mix(in srgb, var(--locked) 40%, transparent); }
 .node.locked::after { opacity: .35; }
-/* Sentier qui relie les étapes : il donne au parcours sa continuité */
-.node-wrap::before {
-  content: ''; position: absolute; left: 50%; top: -46px; width: 4px; height: 46px;
-  transform: translateX(-50%);
-  background: repeating-linear-gradient(to bottom, var(--line-strong) 0 6px, transparent 6px 13px);
-  border-radius: 4px; opacity: .85; z-index: -1;
-}
-.node-wrap:first-child::before, .node-wrap.is-current::before { display: none; }
-
 /* Réponses : galets doux, arête colorée à gauche, numéro en pastille ronde */
 .choice {
   border: 2px solid var(--line); border-bottom-width: 2px; border-radius: 18px;
