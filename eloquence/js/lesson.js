@@ -27,7 +27,7 @@
           body: '<p>Tu as indiqué ne pas pouvoir parler en ce moment. On réactive les exercices de parole ?</p>',
           mascot: 'think',
           actions: [
-            { label: 'Oui, je peux parler', onClick: function () { Store.update(function (s) { s.cantSpeakUntil = 0; }); start(opts); } },
+            { label: 'Oui, je peux parler', onClick: function () { Store.update(function (s) { s.cantSpeakUntil = 0; s.settings.mic = true; }); start(opts); } },
             { label: 'Plus tard', cls: 'flat', onClick: function () { if (opts.onExit) opts.onExit(false); } }
           ],
           dismissable: false
@@ -323,7 +323,9 @@
       var perfect = L.mistakes === 0 && ids.length > 0;
       var baseXP = opts.xp || 10;
       var xp = baseXP + (perfect ? 5 : 0) + L.bonusXP;
-      var wasUnitDone = opts.kind === 'review' && App.Course.isDone(opts.id);
+      var prevProg = opts.id ? Store.get().progress[opts.id] : null;
+      // Une unité débloquée par un test est marquée « skipped » : elle ne compte qu'une fois vraiment révisée
+      var wasUnitDone = opts.kind === 'review' && !!prevProg && prevProg.count > 0 && !prevProg.skipped;
       var summary = Store.completeLesson({
         id: opts.id, kind: opts.kind, xp: xp, accuracy: accuracy, perfect: perfect,
         total: ids.length, correct: correctFirst, bestCombo: L.bestCombo, counts: L.counts,

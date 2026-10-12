@@ -1,6 +1,20 @@
-# À faire : suite de l'audit (reprise de la prochaine session)
+Constats de l# À faire : suite de l'audit
 
-Constats de l'audit multi-agents du 10 octobre 2026 (parcours, voix, contenu), non encore corrigés.
+**Corrigé le 12 octobre 2026** : content-1 (propositions mélangées), content-4 (« prêt(e) »),
+content-11 (prénom vide), content-3 et speech-8 (faux tics), speech-1/2 (micro relâché à l'annulation),
+speech-3 (boucle de reconnaissance), speech-5 (tics comptés à la main enregistrés), speech-6 (test du micro),
+speech-10 (liste des voix), speech-11 (vitesse de lecture), speech-12 (fusion des transcriptions),
+journey-mic-loop, journey-streak-resume, journey-quests-lost, journey-assess-retake,
+journey-assess-sequencing, journey-placement-scroll, journey-goal-mobile, journey-alldone,
+journey-frozen-icon, journey-skipped-units-badge.
+
+**Restent à traiter** : journey-topcards-hidden et journey-back-history (ci-dessous),
+le reste des constats de contenu (content-2, 5, 6, 7, 8, 9, 10, 12 : réponses discutables,
+accords dans les données, vouvoiement, type « plusieurs bonnes réponses »),
+speech-4, speech-7, speech-9, et les trois revues non faites : correction des exercices,
+visuel téléphone / bureau, accessibilité.
+
+'audit multi-agents du 10 octobre 2026 (parcours, voix, contenu), non encore corrigés.
 Chaque constat a été établi avec une reproduction ; le revérifier avant de corriger.
 Restent aussi à auditer : correction des exercices, visuel téléphone, visuel bureau/tablette, accessibilité.
 

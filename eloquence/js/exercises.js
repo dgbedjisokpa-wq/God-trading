@@ -783,7 +783,7 @@
       r.row.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       remaining = r.secs;
       r.num.innerHTML = '<span>' + remaining + '</span>' + App.UI.ring(48, 4, 1, 'var(--primary)', 'transparent').replace('<svg', '<svg class="ring"');
-      if (voiceOn) Sp.say(r.t.replace(/[«»]/g, ''), { rate: 1 });
+      if (voiceOn) Sp.say(r.t.replace(/[«»]/g, ''));
       tick = setInterval(function () {
         remaining--;
         if (remaining <= 0) { App.Sound.play('tick'); go(i + 1); return; }
@@ -1038,6 +1038,15 @@
             n++; cnt.textContent = String(n); App.Sound.play('tap');
             r.fillers = n;
             r.fillersPerMin = Math.round(n / Math.max(1, r.speakSpan) * 600) / 10;
+            // Sans transcription, c'est le seul chiffre de tics : il doit être enregistré
+            Store.update(function (st) {
+              var last = st.speeches[st.speeches.length - 1];
+              if (last) { last.fillers = n; last.fpm = r.fillersPerMin; }
+              if (step.assessment) {
+                var a = st.assessments.filter(function (x) { return x.kind === step.assessment; })[0];
+                if (a) { a.fillers = n; a.fpm = r.fillersPerMin; }
+              }
+            });
           });
           phaseBox.appendChild(h('div.card.center', null, [
             h('h3', { text: 'Compte tes tics en te réécoutant' }),
@@ -1067,10 +1076,17 @@
           phaseBox.insertBefore(h('div.alert.good', { html: App.icon('check') + '<span>Ton bilan de départ est enregistré. Tu le compareras à mi-parcours et à la fin.</span>' }), phaseBox.children[1] || null);
         }
       }
+      if (step.assessment) Store.recordAssessment(step.assessment, Object.assign({}, r, { score: score }));
+      if (reported) {
+        // Nouvelle prise après « Recommencer » : on met à jour la dernière mesure
+        Store.update(function (st) {
+          var last = st.speeches[st.speeches.length - 1];
+          if (last) { last.score = score; last.wpm = r.wpm || null; last.fillers = r.fillers; last.fpm = r.fillersPerMin; last.dur = Math.round(r.speakSpan || r.duration || 0); }
+        });
+      }
       if (!reported) {
         reported = true;
         Store.recordSpeech(Object.assign({}, r, { score: score }));
-        if (step.assessment) Store.recordAssessment(step.assessment, Object.assign({}, r, { score: score }));
         var counts = { speeches: 1, speakSecs: r.speakSpan || r.duration || 0, speakOk: 1 };
         if (r.hasText && r.fillers === 0 && (r.speakSpan || 0) >= 30) counts.zeroFillers = 1;
         ctx.complete({ activity: true, quiet: true, counts: counts, bonusXP: 5 });

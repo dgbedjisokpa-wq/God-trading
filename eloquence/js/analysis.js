@@ -19,7 +19,7 @@
     { re: /\b(je veux dire|j veux dire)\b/g, label: 'je veux dire' },
     { re: /\ben mode\b/g, label: 'en mode' },
     { re: /\ben vrai\b/g, label: 'en vrai' },
-    { re: /\b(enfin bref|bref)\b/g, label: 'bref' },
+    { re: /\benfin bref\b|^bref\b/g, label: 'bref' },
     { re: /\bquoi$/g, label: 'quoi (en fin de phrase)' }
   ];
   A.FILLER_LABELS = FILLERS.map(function (f) { return f.label; });
@@ -35,12 +35,26 @@
     return U.stripAccents(String(s || '').toLowerCase()).replace(/[’']/g, ' ').replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim();
   }
 
+  /* Emplois ordinaires qui ne sont pas des tics : « ce genre de », « voilà pourquoi », « tu sais que »… */
+  var NOT_FILLER = [
+    /\b(ce|un|le|du|quel|mon|ton|son|notre|votre|leur|meme) genre\b/g,
+    /\bgenre (de|d|humain|litteraire|musical)\b/g,
+    /\bvoila (pourquoi|comment|ce|qui|que|un|une|le|la|les|mon|ma|mes|ton|ta|tes|des|deux|trois)\b/g,
+    /\b(tu sais|vous savez) (que|qu|ce|faire|parler|lire|ecrire|nager|bien|tres|comment|ou|pourquoi|quoi|qui|combien|quand)\b/g,
+    /\b(je serai|sois|soyez|etre|rester|restez|reste) bref\b/g,
+    /\b(un|le|en un|d un) bref\b/g
+  ];
+  function dropExceptions(t) {
+    NOT_FILLER.forEach(function (re) { t = t.replace(re, ' xx '); });
+    return t;
+  }
+
   /* Repère les tics dans un texte. Renvoie {total, byLabel: {label: n}} */
   A.findFillers = function (text) {
     var segments = String(text || '').split(/[.!?…\n]+/);
     var byLabel = {}, total = 0;
     segments.forEach(function (seg) {
-      var t = norm(seg);
+      var t = dropExceptions(norm(seg));
       if (!t) return;
       FILLERS.forEach(function (f) {
         var m = t.match(f.re);
@@ -57,7 +71,12 @@
       'vous voyez', 'tu sais', 'vous savez', 'en gros', 'je veux dire', 'en mode', 'en vrai', 'enfin bref', 'bref'];
     forms.sort(function (a, b) { return b.length - a.length; });
     var re = new RegExp('(^|[\\s,;:.!?«"(])(' + forms.join('|') + ')(?=$|[\\s,;:.!?»")])', 'gi');
-    return html.replace(re, '$1<mark class="filler">$2</mark>');
+    var keep = /^(genre de|genre d|voilà pourquoi|voila pourquoi|voilà comment|voila comment|tu sais que|vous savez que)/i;
+    return html.replace(re, function (m, pre, word, at) {
+      var after = html.slice(at + m.length, at + m.length + 14);
+      if (keep.test(word + after)) return m;
+      return pre + '<mark class="filler">' + word + '</mark>';
+    });
   };
 
   function percentile(arr, p) {

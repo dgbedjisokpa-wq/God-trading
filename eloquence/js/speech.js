@@ -209,10 +209,13 @@
     opts = opts || {};
     var S = { frames: [], finals: [], interim: '', srError: null, active: false };
     var stream, actx, analyser, source, recorder, chunks = [], timer, rec, startedAt;
+    var cancelled = false, srRun = 0, srStarts = 0;
     var buf;
 
     S.start = function () {
       return Sp.getMic().then(function (st) {
+        // Arrêt demandé pendant la demande d'autorisation : on relâche le micro tout de suite
+        if (cancelled) { st.getTracks().forEach(function (t) { t.stop(); }); throw { error: 'cancelled' }; }
         stream = st;
         S.active = true;
         startedAt = performance.now();
@@ -273,20 +276,27 @@
             if (r.isFinal) {
               var t = r[0].transcript.trim();
               var prev = S.finals[S.finals.length - 1];
-              if (prev && t.toLowerCase().indexOf(prev.toLowerCase()) === 0) S.finals[S.finals.length - 1] = t;
+              // Android renvoie des finales cumulatives : on remplace seulement si la nouvelle prolonge la précédente
+              if (prev && S.finalsRun === srRun && (t.toLowerCase() === prev.toLowerCase() || t.toLowerCase().indexOf(prev.toLowerCase() + ' ') === 0)) S.finals[S.finals.length - 1] = t;
               else if (t) S.finals.push(t);
+              S.finalsRun = srRun;
             } else S.interim += r[0].transcript;
           }
           if (opts.onTranscript) opts.onTranscript(S.transcript(true));
         };
         rec.onerror = function (ev) {
-          if (ev.error === 'no-speech' || ev.error === 'aborted') return;
+          if (ev.error === 'no-speech') return;
+          // Toute autre erreur est fatale : on arrête de relancer pour éviter une boucle
           S.srError = ev.error;
-          if (ev.error === 'not-allowed' || ev.error === 'service-not-allowed' || ev.error === 'network' || ev.error === 'audio-capture') rec = null;
+          S.srStoppedAt = S.elapsed();
+          rec = null;
         };
         rec.onend = function () {
           // La reconnaissance s'arrête d'elle-même après un silence : on relance tant que la session tourne
-          if (S.active && rec) { try { rec.start(); } catch (e) { /* déjà relancée */ } }
+          if (!S.active || !rec) return;
+          if (srStarts > 60) { S.srError = 'too-many-restarts'; S.srStoppedAt = S.elapsed(); rec = null; return; }
+          srRun++; srStarts++;
+          try { rec.start(); } catch (e) { /* déjà relancée */ }
         };
         rec.start();
       } catch (e) { S.srError = 'start-failed'; rec = null; }
@@ -298,6 +308,7 @@
     S.elapsed = function () { return startedAt ? (performance.now() - startedAt) / 1000 : 0; };
 
     S.stop = function () {
+      cancelled = true;
       S.active = false;
       clearInterval(timer);
       var duration = S.elapsed();
@@ -332,6 +343,7 @@
     };
 
     S.cancel = function () {
+      cancelled = true;
       S.active = false;
       clearInterval(timer);
       if (rec) { try { rec.abort(); } catch (e) { /* rien */ } rec = null; }

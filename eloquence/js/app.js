@@ -60,14 +60,11 @@
     });
   }
 
-  function aside() {
+  /* Carte « Objectif du jour », utilisée dans la colonne de droite et sur la page Quêtes */
+  App.goalCard = function () {
     var s = Store.get();
-    var box = h('aside.aside', { 'aria-label': 'Ta progression' });
-    box.appendChild(h('div', { style: { display: 'flex', justifyContent: 'space-between' } }, statsBar()));
-
-    // Objectif du jour
     var goal = s.profile.dailyGoal || 20, today = Store.todayXP(), reached = today >= goal;
-    box.appendChild(h('div.card', null, [
+    return h('div.card', null, [
       h('h3', { text: 'Objectif du jour' }),
       h('div.goal-row', null, [
         h('span', { html: App.icon(reached ? 'check' : 'goal'), style: reached ? { color: 'var(--green)' } : null }),
@@ -75,7 +72,14 @@
           h('i', { style: { width: Math.round(Math.min(1, today / goal) * 100) + '%' } }), h('span.bar-label', { text: reached ? 'Atteint ! ' + today + ' XP' : today + ' / ' + goal + ' XP' })
         ])
       ])
-    ]));
+    ]);
+  };
+
+  function aside() {
+    var s = Store.get();
+    var box = h('aside.aside', { 'aria-label': 'Ta progression' });
+    box.appendChild(h('div', { style: { display: 'flex', justifyContent: 'space-between' } }, statsBar()));
+    box.appendChild(App.goalCard());
 
     // Quêtes
     var qc = h('div.card', null, [h('h3', null, ['Quêtes du jour', h('a', { href: '#/quetes', text: 'Voir tout' })])]);
@@ -161,6 +165,15 @@
     else if (n && n.lost) App.UI.toast('Ta série de ' + U.plural(n.lost, 'jour') + ' s\'est arrêtée. On recommence aujourd\'hui !', 'flame', 4000);
   }
 
+  /* Récompenses des quêtes réussies la veille mais non récupérées */
+  function questCarryToast() {
+    var s = Store.get();
+    if (!s.questCarry) return;
+    var n = s.questCarry;
+    Store.update(function (st) { st.questCarry = 0; });
+    setTimeout(function () { App.UI.toast('Quêtes d\'hier : +' + n + ' améthystes !', 'gem', 4000); }, 1200);
+  }
+
   /* Petits rappels à l'ouverture : heure de la séance passée, sauvegarde à faire */
   function dailyNudges() {
     var s = Store.get();
@@ -168,7 +181,7 @@
     if (s.settings.reminder && !Store.practicedOn(U.dayKey())) {
       var p = s.settings.reminder.split(':');
       if (now.getHours() * 60 + now.getMinutes() >= (+p[0]) * 60 + (+p[1])) {
-        setTimeout(function () { App.UI.toast('C\'est l\'heure de ta séance du jour, ' + (s.profile.name || '') + ' !', 'flame', 4500); }, 900);
+        setTimeout(function () { App.UI.toast('C\'est l\'heure de ta séance du jour' + (s.profile.name ? ', ' + s.profile.name : '') + ' !', 'flame', 4500); }, 900);
       }
     }
   }
@@ -193,7 +206,8 @@
     Store.quests();
     App.render();
     var name = Store.get().profile.name;
-    App.UI.toast('Progression importée ! Content' + (Store.get().profile.gender === 'f' ? 'e' : '') + ' de te revoir' + (name ? ', ' + name : '') + ' !', 'check', 3500);
+    // C'est Ahouéfa qui parle : toujours au féminin
+    App.UI.toast('Progression importée ! Contente de te revoir' + (name ? ', ' + name : '') + ' !', 'check', 3500);
     setTimeout(function () { streakToast(n); }, 1200);
   };
 
@@ -205,6 +219,19 @@
     }
     var streakNews = Store.checkStreak();
     Store.quests();
+    // L'application peut rester ouverte plusieurs jours (mise en arrière-plan) : on resynchronise au retour
+    var lastDay = U.dayKey();
+    function onWake() {
+      if (App.Lesson.active() || U.dayKey() === lastDay) return;
+      lastDay = U.dayKey();
+      streakToast(Store.checkStreak());
+      Store.quests();
+      questCarryToast();
+      App.render();
+      dailyNudges();
+    }
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) onWake(); });
+    window.addEventListener('focus', onWake);
     window.addEventListener('hashchange', function () {
       if (App.Lesson.active()) return;
       U.$$('canvas.confetti').forEach(function (c) { c.remove(); });
@@ -216,6 +243,7 @@
     else {
       App.render();
       streakToast(streakNews);
+    questCarryToast();
       dailyNudges();
     }
 

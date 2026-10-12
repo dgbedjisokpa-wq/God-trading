@@ -226,7 +226,16 @@
         if (!fn) { console.warn('Générateur inconnu', s.gen); return; }
         out = out.concat(fn(s));
       } else {
-        out.push(U.clone(s));
+        var c = U.clone(s);
+        // Sans mélange, la bonne réponse serait toujours la première du fichier de contenu
+        if (c.type === 'mcq' && c.options && c.options.length > 1 && typeof c.answer === 'number') {
+          var good = c.options[c.answer];
+          c.options = U.shuffle(c.options.slice());
+          c.answer = c.options.indexOf(good);
+        } else if (c.type === 'fill' && c.options && c.options.length > 1) {
+          c.options = U.shuffle(c.options.slice());
+        }
+        out.push(c);
       }
     });
     return out;

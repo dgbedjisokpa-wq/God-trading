@@ -59,7 +59,10 @@
     var C = App.Course;
     if (C.unitDone(C.units[9])) return Store.assessment('final') ? null : 'final';
     if (!Store.assessment('depart')) return 'depart';
-    if (C.unitDone(C.units[4]) && !Store.assessment('milieu') && !C.unitDone(C.units[9])) return 'milieu';
+    // Pas de bilan de mi-parcours tant que la personne n'a pas vraiment pratiqué depuis son départ
+    var dep = Store.assessment('depart');
+    var since = s.stats.lessons - (dep && dep.lessons !== undefined ? dep.lessons : 0);
+    if (C.unitDone(C.units[4]) && !Store.assessment('milieu') && !C.unitDone(C.units[9]) && since >= 10) return 'milieu';
     return null;
   };
   Plan.assessmentStep = function (kind) {

@@ -185,6 +185,10 @@
   S.quests = function () {
     var today = U.dayKey();
     if (state.quests.day !== today) {
+      // Les quêtes réussies mais non récupérées sont versées avant d'être remplacées
+      var carry = 0;
+      (state.quests.list || []).forEach(function (q) { if (!q.claimed && q.progress >= q.target) carry += q.gems || 0; });
+      if (carry) { state.gems += carry; state.questCarry = carry; }
       var rnd = U.seeded('q' + today);
       var pool = U.shuffle(['lessons', 'speak', 'perfect', 'combo', 'speech', 'breath', 'seconds', 'virelangue'], rnd);
       var types = ['xp', pool[0], pool[1]];
@@ -316,7 +320,7 @@
   S.recordAssessment = function (kind, a) {
     state.assessments = state.assessments.filter(function (x) { return x.kind !== kind; });
     state.assessments.push({
-      kind: kind, at: Date.now(), dur: Math.round(a.speakSpan || a.duration || 0),
+      kind: kind, at: Date.now(), lessons: state.stats.lessons, dur: Math.round(a.speakSpan || a.duration || 0),
       wpm: a.wpm || null, fillers: typeof a.fillers === 'number' ? a.fillers : null,
       fpm: typeof a.fillersPerMin === 'number' ? a.fillersPerMin : null,
       pitch: typeof a.pitchVar === 'number' ? a.pitchVar : null,
@@ -346,6 +350,8 @@
 
     if (r.id) {
       var p = state.progress[r.id] || { count: 0, best: 0 };
+      // L'unité avait été débloquée par un test : la leçon est maintenant vraiment faite
+      delete p.skipped;
       p.count += 1;
       p.best = Math.max(p.best, r.accuracy || 0);
       p.last = U.dayKey();

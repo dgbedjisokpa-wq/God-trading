@@ -52,7 +52,9 @@
 
   /* Typographie française : espace insécable avant ! ? : ; » et après « */
   U.fr = function (s) {
-    return String(s).replace(/ ([!?:;»])/g, '\u00a0$1').replace(/« /g, '«\u00a0');
+    return String(s)
+      .replace(/([A-Za-zÀ-ÿ]+)\(e\)/g, function (m, w) { return U.g(w, w + 'e', m); })
+      .replace(/ ([!?:;»])/g, '\u00a0$1').replace(/« /g, '«\u00a0');
   };
   U.esc = function (s) {
     return U.fr(s === undefined || s === null ? '' : s)

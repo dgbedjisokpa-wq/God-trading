@@ -68,6 +68,11 @@ Jaurès, Zola, La Fontaine, Rostand…), débat express, entretien d'embauche, m
 imposés, mot du jour, miroir (se filmer pour observer sa posture), révision des
 erreurs.
 
+**Identité visuelle « Améthyste »** : pierres taillées (étapes du parcours en hexagones
+facettés), reliefs et ombres portées douces plutôt que des ombres dures, titres en Fraunces
+et interface en Outfit, palette propre construite autour du violet d'Ahouéfa (émeraude, rubis,
+or, saphir). Mode sombre complet.
+
 **Motivation** : XP et 15 niveaux (de « Murmure » à « Légende de l'éloquence »),
 série de jours avec gel de série, objectif quotidien, 3 quêtes par jour,
 10 badges à paliers, améthystes, boutique (gel, boost d'XP, tenues

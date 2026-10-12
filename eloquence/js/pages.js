@@ -172,12 +172,26 @@
       see.addEventListener('click', App.Plan.showDiploma);
       endKids.push(see);
     }
+    if (allDone) {
+      var revi = h('button.btn.sm', { type: 'button', text: 'Révision du jour' });
+      revi.addEventListener('click', function () {
+        var u = U.pick(C.units);
+        App.Lesson.start({ id: null, kind: 'practice', title: 'Révision du jour', unit: u, steps: App.Gen.resolve(C.reviewSteps(u, 10)), xp: 15, onExit: afterLesson });
+      });
+      var tr = h('a.btn.ghost.sm', { href: '#/entrainement', text: 'S\'entraîner' });
+      endKids.push(h('div.path-end-actions', null, [revi, tr]));
+    }
     wrap.appendChild(h('div.path-end', null, endKids));
     main.appendChild(wrap);
 
     setTimeout(function () {
       var cur = U.$('.node-wrap.is-current');
-      if (!cur || P._scrolled) return;
+      if (!cur) {
+        var end = U.$('.path-end');
+        if (end && !P._scrolled) { P._scrolled = true; end.scrollIntoView({ block: 'center' }); }
+        return;
+      }
+      if (P._scrolled) return;
       P._scrolled = true;
       /* On ne fait défiler que si le nœud courant est hors de vue (sinon les cartes du haut disparaissent) */
       var r = cur.getBoundingClientRect();
@@ -323,7 +337,8 @@
           if (rs.length && rs.every(function (r) { return r.ok; })) level = u + 1; else break;
         }
         if (level > 0) markUnitsDone(level);
-        App.render();
+        P._scrolled = false;
+        afterLesson(true);
         UI.modal({
           title: level > 0 ? 'Tu commences à l\'unité ' + (level + 1) + ' !' : 'On commence au début',
           body: '<p>' + (level > 0
@@ -625,6 +640,8 @@
     var now = new Date(), mid = new Date(now); mid.setHours(24, 0, 0, 0);
     var hrs = Math.max(1, Math.round((mid - now) / 3600000));
     main.appendChild(UI.pageHead('Quêtes du jour', 'happy', 'Nouvelles quêtes dans ' + U.plural(hrs, 'heure') + '.'));
+    // La colonne de droite est masquée sous 1180 px : l'objectif du jour s'affiche ici
+    main.appendChild(h('div.goal-mobile', null, App.goalCard()));
     var card = h('div.card');
     Store.quests().forEach(function (q, i) {
       var qt = Store.QUEST_TYPES[q.type];
@@ -1003,7 +1020,13 @@
         });
       }
       fillVoices();
-      setTimeout(fillVoices, 600);
+      // Chrome livre la liste des voix de façon asynchrone
+      if (window.speechSynthesis && speechSynthesis.addEventListener) {
+        speechSynthesis.addEventListener('voiceschanged', function onV() {
+          if (!voiceSel.isConnected) { speechSynthesis.removeEventListener('voiceschanged', onV); return; }
+          fillVoices();
+        });
+      }
       voiceSel.addEventListener('change', function () { Store.update(function (st) { st.settings.voiceURI = voiceSel.value; }); });
       var rate = h('input', { type: 'range', min: '0.6', max: '1.3', step: '0.05', value: String(s.settings.rate || 0.95), id: 'set-rate', style: { width: '100%' } });
       rate.addEventListener('change', function () { Store.update(function (st) { st.settings.rate = parseFloat(rate.value); }); });
@@ -1013,7 +1036,7 @@
       card3.appendChild(h('div.field', null, [h('label', { for: 'set-rate', text: 'Vitesse de lecture' }), rate, h('div', null, test)]));
     }
     var micTest = h('button.btn.ghost.sm', { type: 'button', html: App.icon('mic') + '<span>Tester mon micro</span>' });
-    micTest.addEventListener('click', P.micTest);
+    micTest.addEventListener('click', function () { P.micTest(); });
     card3.appendChild(micTest);
     card3.appendChild(h('p.hint', { style: { marginTop: '12px' }, text: diagText() }));
     main.appendChild(card3);
@@ -1067,7 +1090,7 @@
     var m = UI.modal({
       title: 'Test du micro', body: h('div', null, [meter, msg]), mascot: 'talk',
       actions: [{ label: 'Terminer' }],
-      onClose: function () { if (session) session.cancel(); if (ok && onOk) onOk(); }
+      onClose: function () { if (session) session.cancel(); if (ok && typeof onOk === 'function') onOk(); }
     });
     session = App.Speech.session({
       transcribe: false, record: false,

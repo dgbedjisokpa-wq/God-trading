@@ -1124,3 +1124,126 @@ details.transcript p { margin: 10px 0 0; font-weight: 600; }
 .badge-list strong { display: block; font-size: 17px; font-weight: 900; }
 .badge-list .grow span { display: block; font-size: 14px; font-weight: 700; color: var(--text-soft); }
 .badge-list .pill { flex: none; background: var(--primary-soft); color: var(--primary-text); }
+
+/* Jour protégé par un gel de série : le flocon doit ressortir sur le disque bleu */
+.week .d.frozen i .ic [stroke] { stroke: #fff; }
+.week .d.frozen i .ic [fill]:not([fill="none"]) { fill: #fff; }
+
+
+/* ================================================================
+   IDENTITÉ « AMÉTHYSTE »
+   Formes taillées, reliefs de pierre et palette propre à Ahouéfa.
+   Ces règles passent après le socle : elles remplacent l'allure
+   empruntée au départ (ombres dures, ronds, majuscules, palette tierce).
+   ================================================================ */
+:root {
+  --font: 'Outfit', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-display: 'Fraunces', 'Outfit', Georgia, serif;
+  --primary: #7B2FF2; --primary-dark: #5312B8; --primary-soft: #F2E9FF; --primary-line: #CFB2FF; --primary-text: #5F1FD1;
+  --green: #12A174; --green-dark: #0C7A57; --green-soft: #D6F5E9; --green-text: #0A6B4D;
+  --red: #E0315E; --red-dark: #B21F46; --red-soft: #FDE3EA; --red-text: #B21F46;
+  --gold: #F0B429; --gold-dark: #C4890C; --orange: #EE7E2E; --blue: #3E6FE3; --blue-dark: #2A51B8; --pink: #D63FA0;
+  --bg-soft: #F7F3FD; --surface-2: #F4EEFF; --line: #E7DEF5; --line-strong: #D2C2EA;
+  --text: #2E2440; --text-soft: #6B6082; --text-faint: #9A90AE;
+  --radius: 18px;
+  --facet: conic-gradient(from 210deg at 50% 45%, rgba(255,255,255,.26), rgba(0,0,0,.14) 22%, rgba(255,255,255,.16) 48%, rgba(0,0,0,.2) 72%, rgba(255,255,255,.26));
+  --lift: 0 10px 24px -10px rgba(46, 20, 90, .45), 0 2px 6px -2px rgba(46, 20, 90, .25);
+  --lift-sm: 0 6px 16px -8px rgba(46, 20, 90, .4);
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --primary: #A775FF; --primary-dark: #6D28D9; --primary-soft: #2E1F4A; --primary-line: #5F3FA0; --primary-text: #CDB0FF;
+  --green: #26C193; --green-soft: #10352A; --green-text: #5BE2B6; --red: #F2577C; --red-soft: #3A1622; --red-text: #FF8FA8;
+  --line: #352B47; --line-strong: #4A3C61; --text: #F3EEFB; --text-soft: #B5A8CA; --text-faint: #80748F;
+  --lift: 0 12px 28px -12px rgba(0, 0, 0, .75), 0 2px 8px -3px rgba(0, 0, 0, .6);
+  --lift-sm: 0 8px 18px -10px rgba(0, 0, 0, .7);
+} }
+:root[data-theme="dark"] {
+  --primary: #A775FF; --primary-dark: #6D28D9; --primary-soft: #2E1F4A; --primary-line: #5F3FA0; --primary-text: #CDB0FF;
+  --green: #26C193; --green-soft: #10352A; --green-text: #5BE2B6; --red: #F2577C; --red-soft: #3A1622; --red-text: #FF8FA8;
+  --line: #352B47; --line-strong: #4A3C61; --text: #F3EEFB; --text-soft: #B5A8CA; --text-faint: #80748F;
+  --lift: 0 12px 28px -12px rgba(0, 0, 0, .75), 0 2px 8px -3px rgba(0, 0, 0, .6);
+  --lift-sm: 0 8px 18px -10px rgba(0, 0, 0, .7);
+}
+
+/* Titres en serif taillé, interface en sans géométrique */
+h1, h2, .screen-title, .unit-banner h2, .page-head h1, .bubble strong, .onb-hero h1, .onb-final h1 {
+  font-family: var(--font-display); font-weight: 900; letter-spacing: -.015em;
+}
+.onb-hero h1, .onb-final h1, .screen-title { line-height: 1.12; }
+
+/* Boutons : pierre polie (dégradé, biseau, ombre portée douce), plus de bas-de-casse */
+.btn {
+  background: linear-gradient(170deg, color-mix(in srgb, var(--b) 88%, #fff) 0%, var(--b) 52%, var(--s) 100%);
+  box-shadow: var(--lift), inset 0 1px 0 rgba(255, 255, 255, .45), inset 0 -2px 0 rgba(0, 0, 0, .14);
+  text-transform: none; letter-spacing: .005em; font-size: 16px; font-weight: 700;
+  border-radius: 14px;
+  transition: transform .12s cubic-bezier(.2, .8, .3, 1), box-shadow .12s, filter .15s, opacity .15s;
+}
+.btn:hover { filter: brightness(1.05); transform: translateY(-1px); }
+.btn:active { transform: translateY(1px) scale(.985); box-shadow: var(--lift-sm), inset 0 2px 5px rgba(0, 0, 0, .22); }
+.btn[disabled], .btn.is-disabled { background: var(--locked); box-shadow: inset 0 -2px 0 rgba(0, 0, 0, .08); }
+.btn[disabled]:active { transform: none; box-shadow: inset 0 -2px 0 rgba(0, 0, 0, .08); }
+.btn.ghost { background: var(--surface); border: 2px solid var(--primary-line); box-shadow: var(--lift-sm); }
+.btn.ghost:active, .btn.ghost.sm { box-shadow: var(--lift-sm); }
+.btn.gold { --t: #3B2A00; }
+.btn.sm { box-shadow: var(--lift-sm), inset 0 1px 0 rgba(255, 255, 255, .4); font-size: 14px; border-radius: 12px; }
+.btn.flat { box-shadow: none; font-weight: 700; }
+
+/* Étapes du parcours : pierres taillées en hexagone, facettes et éclat */
+.node {
+  width: 78px; height: 72px; border-radius: 0;
+  clip-path: polygon(50% 0%, 94% 26%, 94% 74%, 50% 100%, 6% 74%, 6% 26%);
+  background: var(--facet), var(--uc); background-blend-mode: overlay, normal;
+  box-shadow: none;
+  filter: drop-shadow(0 8px 14px rgba(46, 20, 90, .35)) drop-shadow(0 2px 0 var(--ud));
+}
+.node:active { transform: translateY(3px) scale(.97); box-shadow: none; }
+.node::after { /* éclat de taille */
+  content: ''; position: absolute; top: 8px; left: 50%; width: 26px; height: 12px;
+  border-radius: 0; transform: translateX(-50%) rotate(0deg);
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+  background: rgba(255, 255, 255, .4);
+}
+.node.locked { background: var(--facet), var(--locked); filter: drop-shadow(0 6px 10px rgba(46, 20, 90, .18)); }
+.node.chest-node, .node.review-node { clip-path: polygon(50% 0%, 94% 26%, 94% 74%, 50% 100%, 6% 74%, 6% 26%); }
+.diploma-node { clip-path: polygon(50% 0%, 94% 26%, 94% 74%, 50% 100%, 6% 74%, 6% 26%); border-radius: 0; }
+
+/* Réponses : plaque biseautée avec arête violette à gauche */
+.choice {
+  border: 2px solid var(--line); border-bottom-width: 2px; border-radius: 16px;
+  box-shadow: var(--lift-sm); background: var(--surface);
+  position: relative; overflow: hidden;
+}
+.choice::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 5px;
+  background: linear-gradient(180deg, var(--primary-line), transparent); opacity: .5;
+}
+.choice:active { transform: translateY(1px); border-bottom-width: 2px; margin-bottom: 0; }
+.choice.sel::before { opacity: 1; background: linear-gradient(180deg, var(--primary), var(--primary-dark)); width: 6px; }
+.choice.ok::before { background: var(--green); opacity: 1; }
+.choice.ko::before { background: var(--red); opacity: 1; }
+
+/* Correction : bandeau sobre à liseré, plutôt qu'un aplat vert ou rouge */
+.lesson-foot.ok, .lesson-foot.ko { background: var(--surface); border-top: 3px solid var(--line); }
+.lesson-foot.ok { border-top-color: var(--green); box-shadow: inset 0 14px 28px -22px var(--green); }
+.lesson-foot.ko { border-top-color: var(--red); box-shadow: inset 0 14px 28px -22px var(--red); }
+
+/* Cartes de fin de leçon : petites plaques serties */
+.rcard {
+  border: 0; border-radius: 16px; background: var(--surface);
+  box-shadow: var(--lift), inset 0 0 0 2px var(--rc);
+}
+.rcard .h { background: var(--rc); letter-spacing: .04em; text-transform: none; font-size: 12.5px; padding: 6px 4px 5px; }
+.rcard .b { background: var(--surface); margin: 0; border-radius: 0 0 14px 14px; }
+
+/* Cartes, fenêtres et bannières : relief doux au lieu des traits épais */
+.card { border-radius: var(--radius); box-shadow: var(--lift-sm); }
+.unit-banner { border-radius: 20px; box-shadow: var(--lift); }
+.modal { border-radius: 24px; box-shadow: var(--lift); }
+.toast { border-radius: 16px; box-shadow: var(--lift); }
+.tool { border-radius: 20px; box-shadow: var(--lift-sm); }
+.tool .ti { border-radius: 16px; box-shadow: var(--lift-sm), inset 0 1px 0 rgba(255, 255, 255, .4); background-image: var(--facet); background-blend-mode: overlay; }
+.badge-big, .badge .bi { background-image: var(--facet); background-blend-mode: soft-light; }
+.start-bubble { border-radius: 12px; box-shadow: var(--lift-sm); font-family: var(--font); letter-spacing: 0; text-transform: none; }
+.pill, .chip { border-radius: 12px; }
+.mic-btn { background-image: var(--facet); background-blend-mode: overlay; box-shadow: var(--lift); }
