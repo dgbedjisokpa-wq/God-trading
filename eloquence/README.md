@@ -68,6 +68,11 @@ Jaurès, Zola, La Fontaine, Rostand…), débat express, entretien d'embauche, m
 imposés, mot du jour, miroir (se filmer pour observer sa posture), révision des
 erreurs.
 
+**L'accueil** : la séance du jour occupe le haut de l'écran, avec son titre, sa durée, ce
+qu'elle travaille et un seul bouton. En dessous, chaque unité affiche sa barre d'avancement
+et ses leçons en lignes lisibles, titre visible : on sait ce qu'on va faire avant de cliquer.
+Pas de chemin en zigzag à parcourir des yeux.
+
 **Identité visuelle** : rondeurs pleines (étapes du parcours en perles lumineuses reliées
 par un sentier pointillé, boutons en galets, pastilles rondes partout), reliefs et ombres
 portées douces plutôt que des ombres dures, typographie ronde (Poppins pour l'interface,

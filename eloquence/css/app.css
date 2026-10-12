@@ -1248,3 +1248,66 @@ h1, h2, .screen-title, .unit-banner h2, .page-head h1, .onb-hero h1, .onb-final 
 .bar, .bar i { border-radius: 999px; }
 .stat { border-radius: 999px; }
 .nav-item { border-radius: 16px; }
+
+/* ================================================================
+   ACCUEIL : la séance du jour, puis les unités en lignes lisibles
+   ================================================================ */
+.today { position: relative; border-radius: 28px; overflow: hidden; color: #fff; box-shadow: var(--lift); margin-bottom: 26px;
+  background: radial-gradient(135% 110% at 12% 0%, color-mix(in srgb, var(--uc) 70%, #fff) 0%, var(--uc) 45%, var(--ud) 100%); }
+.today::after { content: ''; position: absolute; left: -30%; right: -30%; bottom: -62%; height: 160px; border-radius: 50%; background: rgba(255, 255, 255, .09); }
+.today-in { position: relative; z-index: 1; padding: 22px 20px 20px; max-width: 460px; }
+.today-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; background: rgba(255, 255, 255, .2); padding: 5px 12px; border-radius: 999px; margin-bottom: 12px; }
+.today h2 { font-size: clamp(21px, 5.6vw, 26px); line-height: 1.18; margin-bottom: 6px; color: #fff; }
+.today p { font-size: 14.5px; font-weight: 500; opacity: .88; margin: 0 0 16px; max-width: 34ch; }
+.today-go { --b: #fff; --s: rgba(0, 0, 0, .25); --t: #5F1FD1; width: 100%; max-width: 330px; justify-content: space-between; padding-left: 22px; }
+.today-go .ic { width: 30px; height: 30px; padding: 7px; border-radius: 50%; background: var(--primary); color: #fff; box-sizing: content-box; }
+.today-meta { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 14px; font-size: 12.5px; font-weight: 600; opacity: .9; }
+.today-meta span { position: relative; padding-left: 13px; }
+.today-meta span::before { content: ''; position: absolute; left: 0; top: 6px; width: 6px; height: 6px; border-radius: 2px; background: rgba(255, 255, 255, .8); transform: rotate(45deg); }
+.today-ah { position: absolute; right: -6px; bottom: -8px; opacity: .95; pointer-events: none; z-index: 0; }
+@media (max-width: 420px) { .today-ah { display: none; } }
+
+.unit { margin-bottom: 30px; }
+.uhead { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; margin-bottom: 9px; }
+.uhead .over { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text-faint); }
+.uhead h2 { font-size: 19px; color: var(--text); display: flex; align-items: center; gap: 7px; }
+.uhead h2 .ic { width: 19px; height: 19px; color: var(--gold); }
+.unit-guide { flex: none; display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--line); background: var(--surface);
+  color: var(--text-soft); border-radius: 999px; padding: 7px 13px; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
+.unit-guide:hover { border-color: var(--primary-line); color: var(--primary-text); }
+.unit-guide .ic { width: 16px; height: 16px; }
+.umeter { height: 7px; border-radius: 999px; background: var(--line); overflow: hidden; margin-bottom: 14px; }
+.umeter i { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--uc), color-mix(in srgb, var(--uc) 55%, var(--pink))); transition: width .4s; }
+
+.lrows { display: grid; gap: 9px; }
+.lrow { display: flex; align-items: center; gap: 14px; width: 100%; text-align: left; cursor: pointer; font: inherit; color: var(--text);
+  background: var(--surface); border: 1.5px solid var(--line); border-radius: 18px; padding: 11px 13px;
+  box-shadow: 0 7px 16px -14px rgba(46, 20, 90, .6); transition: transform .12s, border-color .12s, box-shadow .12s; position: relative; }
+.lrow:hover { border-color: var(--primary-line); transform: translateY(-1px); }
+/* La barre du haut est fixe : on garde de la place quand on amène une ligne à l'écran */
+.lrow, .jump-bubble, .uhead { scroll-margin-top: 96px; }
+.lrow:active { transform: translateY(1px); }
+.lrow.done { background: transparent; border-style: dashed; box-shadow: none; }
+.lrow.locked { opacity: .62; }
+.lrow.current { border: 2px solid var(--uc); box-shadow: var(--lift-sm); }
+.lrow .node-wrap { flex: none; margin: 0; }
+.lrow .node { width: 44px; height: 44px; border-radius: 15px; box-shadow: inset 0 -3px 7px rgba(0, 0, 0, .18), inset 0 2px 5px rgba(255, 255, 255, .35); }
+.lrow .node::after { display: none; }
+.lrow .node .ic { width: 22px; height: 22px; }
+.lrow-t { flex: 1; min-width: 0; }
+.lrow-t b { display: block; font-weight: 600; font-size: 15.5px; line-height: 1.25; }
+.lrow-t small { color: var(--text-soft); font-weight: 500; font-size: 12.5px; }
+.lrow-k { flex: none; font-size: 11.5px; font-weight: 700; color: var(--text-faint); background: var(--surface-2); padding: 5px 10px; border-radius: 999px; }
+.lrow.done .lrow-k { color: var(--green-text); background: var(--green-soft); }
+.lrow.current .lrow-k { color: #fff; background: var(--uc); }
+/* La bulle d'une ligne s'ouvre sous la ligne entière, sur toute sa largeur */
+.lrow.has-pop { z-index: 30; }
+.lrow .popover { position: absolute; left: 0; right: 0; top: calc(100% + 10px); width: auto; transform: none; border-radius: 20px; }
+.lrow .popover::before, .lrow .popover::after { left: 42px; }
+/* « Sauter ici ? » : un bouton posé dans l'en-tête de l'unité, plus une bulle flottante */
+.jump-bubble { position: relative; bottom: auto; left: auto; transform: none; display: inline-flex; margin: 0 0 12px;
+  box-shadow: var(--lift-sm); border-radius: 999px; text-transform: none; letter-spacing: 0; font: 600 14px/1 var(--font);
+  padding: 10px 16px 10px 12px; border-color: var(--primary-line); }
+.jump-bubble::after { display: none; }
+.jump-bubble:active { transform: translateY(1px); box-shadow: var(--lift-sm); }

@@ -288,7 +288,7 @@ async function finishScreens(page, shotPrefix) {
     ok(st.stats.units === 1, 'unité comptée');
     // Le coffre de l'unité 1 s'ouvre et donne des améthystes
     var gemsBefore = st.gems;
-    await page.locator('.node.chest-node.open').first().click();
+    await page.locator('.lrow.is-chest.open').first().click();
     await page.locator('.modal').getByRole('button', { name: 'Super !' }).click();
     st = await page.evaluate(function () { return App.Store.get(); });
     ok(st.gems > gemsBefore && st.chests['u1-chest'], 'coffre ouvert : ' + gemsBefore + ' → ' + st.gems);
@@ -354,7 +354,9 @@ async function finishScreens(page, shotPrefix) {
     /* 7. Test de niveau : sauter directement à l'unité 3 */
     var jpage = await newPage(browser, 390, 844, JSON.stringify({ onboarded: true, profile: { name: 'Test', dailyGoal: 20 } }));
     await jpage.goto(base);
-    await jpage.locator('.unit', { hasText: 'Chasser les tics' }).getByRole('button', { name: 'Sauter ici ?' }).click();
+    var jump = jpage.locator('.unit', { hasText: 'Chasser les tics' }).getByRole('button', { name: 'Sauter ici ?' });
+    await jump.scrollIntoViewIfNeeded();
+    await jump.click();
     await jpage.locator('.modal').getByRole('button', { name: 'Passer le test' }).click();
     await jpage.locator('.lesson').waitFor();
     await playLesson(jpage, null);

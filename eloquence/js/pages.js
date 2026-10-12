@@ -89,76 +89,120 @@
     return out;
   }
 
+  /* Accueil : la séance du jour en grand, puis chaque unité en lignes lisibles.
+     On montre le titre de chaque leçon : c'est le contenu qui donne envie. */
+  function lessonMinutes(n) {
+    if (n.kind === 'review') return 8;
+    var steps = (n.lesson && n.lesson.steps) || [];
+    return Math.max(3, Math.round(steps.length * 0.8));
+  }
+  function nodeIcon(n, state) {
+    if (n.kind === 'chest') return state === 'done' ? 'chestOpen' : 'chest';
+    if (n.kind === 'review') return 'trophy';
+    return state === 'done' ? 'check' : n.lesson.icon;
+  }
+  function nodeTitle(n, u, i) {
+    if (n.kind === 'chest') return 'Coffre de l\'unité';
+    if (n.kind === 'review') return 'Révision de l\'unité';
+    return n.lesson.title;
+  }
+
   P.learn = function (main) {
     var st = C.state();
     var wrap = h('div.learn');
     topCards().forEach(function (c) { wrap.appendChild(c); });
+
+    /* ---- La séance du jour ---- */
+    var cur = st.current;
+    if (cur) {
+      var f = C.find(cur.id) || { unit: C.units[0], ui: 0, li: -1 };
+      var cu = f.unit, ci = f.ui;
+      var pos = typeof f.li === 'number' ? f.li : -1;
+      var sub = cur.kind === 'review'
+        ? 'Tout ce que tu as appris dans cette unité, en une seule séance.'
+        : (cu.desc || '');
+      var today = h('section.today', { 'aria-labelledby': 'today-t' });
+      today.style.setProperty('--uc', cu.color);
+      today.style.setProperty('--ud', cu.dark);
+      var go = h('button.btn.today-go', { type: 'button', html: '<span>' + (cur.kind === 'review' ? 'Réviser l\'unité' : 'Commencer la séance') + '</span>' + App.icon('play') });
+      go.addEventListener('click', function () { App.Sound.play('tap'); P.startLesson(cur.id); });
+      today.appendChild(h('div.today-in', null, [
+        h('span.today-tag', { text: 'Ta séance du jour · ' + lessonMinutes(cur) + ' min' }),
+        h('h2', { id: 'today-t', text: nodeTitle(cur, cu, pos) }),
+        sub ? h('p', { text: sub }) : null,
+        go,
+        h('div.today-meta', null, [
+          h('span', { text: 'Unité ' + (ci + 1) + ' · ' + cu.title }),
+          pos >= 0 ? h('span', { text: 'Leçon ' + (pos + 1) + ' sur ' + cu.lessons.length }) : null
+        ])
+      ]));
+      today.appendChild(h('div.today-ah', { 'aria-hidden': 'true', html: App.Mascot.svg({ mood: 'happy', size: 104, label: false }) }));
+      wrap.appendChild(today);
+    }
+
+    /* ---- Les unités, en lignes ---- */
     C.units.forEach(function (u, ui) {
       var sec = h('section.unit', { 'aria-labelledby': 'unit-' + u.id });
       sec.style.setProperty('--uc', u.color);
       sec.style.setProperty('--ud', u.dark);
       var nodes = C.nodes(u);
       var unitLocked = st.map[nodes[0].id] === 'locked';
+      var done = C.unitDone(u);
+      var prog = Math.round(C.unitProgress(u) * 100);
+
       var guideBtn = h('button.unit-guide', { type: 'button', 'aria-label': 'Guide de l\'unité ' + (ui + 1), html: App.icon('book') + '<span>Guide</span>' });
       guideBtn.addEventListener('click', function () { showGuide(u, ui); });
-      var done = C.unitDone(u);
-      sec.appendChild(h('div.unit-banner', null, [
-        h('div.unit-text', null, [
-          h('div.over', { text: 'Unité ' + (ui + 1) + (done ? ' · terminée' : '') }),
-          h('h2', { id: 'unit-' + u.id, html: U.esc(u.title) + (done ? ' ' + App.icon('crown', 'crown-done') : '') }),
-          h('div.desc', { text: u.desc })
+      var head = h('div.uhead', null, [
+        h('div.uhead-t', null, [
+          h('div.over', { text: 'Unité ' + (ui + 1) + (done ? ' · terminée' : unitLocked ? ' · à venir' : '') }),
+          h('h2', { id: 'unit-' + u.id, html: U.esc(u.title) + (done ? ' ' + App.icon('crown', 'crown-done') : '') })
         ]),
-        h('div.unit-actions', null, [guideBtn])
-      ]));
-
-      var path = h('div.path');
-      var flip = ui % 2 === 1 ? -1 : 1;
-      nodes.forEach(function (n, i) {
-        var state = st.map[n.id] || 'locked';
-        var x = OFFSETS[i % OFFSETS.length] * flip;
-        var nw = h('div.node-wrap' + (state === 'current' ? '.is-current' : ''), { style: { transform: 'translateX(' + x + 'px)' } });
-        var btn;
-        if (n.kind === 'lesson') {
-          var li = u.lessons.indexOf(n.lesson);
-          btn = h('button.node.' + state, {
-            type: 'button',
-            'aria-label': 'Leçon ' + (li + 1) + ' : ' + n.lesson.title + (state === 'done' ? ' (terminée)' : state === 'locked' ? ' (verrouillée)' : ''),
-            html: App.icon(state === 'done' ? 'check' : state === 'locked' ? (n.lesson.icon === 'star' ? 'star' : n.lesson.icon) : n.lesson.icon)
-          });
-        } else if (n.kind === 'chest') {
-          btn = h('button.node.chest-node.' + state, { type: 'button', 'aria-label': state === 'done' ? 'Coffre ouvert' : state === 'open' ? 'Ouvrir le coffre' : 'Coffre verrouillé', html: App.icon(state === 'done' ? 'chestOpen' : 'chest') });
-        } else {
-          btn = h('button.node.review-node.' + state, { type: 'button', 'aria-label': 'Révision de l\'unité' + (state === 'done' ? ' (terminée)' : ''), html: App.icon('trophy') });
-        }
-        if (state === 'current') {
-          nw.appendChild(h('div.node-ring'));
-          nw.appendChild(h('div.start-bubble', { text: 'Commencer' }));
-        }
-        nw.appendChild(btn);
-        btn.addEventListener('click', function (e) {
-          e.stopPropagation();
-          App.Sound.play('tap');
-          if (n.kind === 'chest') { openChest(n, state); return; }
-          togglePop(nw, n, u, state);
-        });
-        path.appendChild(nw);
-      });
-      // « Sauter ici ? » posé sur le premier nœud d'une unité verrouillée
+        guideBtn
+      ]);
+      sec.appendChild(head);
+      sec.appendChild(h('div.umeter', { role: 'progressbar', 'aria-valuenow': String(prog), 'aria-valuemin': '0', 'aria-valuemax': '100', 'aria-label': 'Avancement de l\'unité ' + (ui + 1) }, h('i', { style: { width: prog + '%' } })));
       if (unitLocked && ui > 0) {
         var jb = h('button.jump-bubble', { type: 'button', html: App.icon('next') + '<span>Sauter ici ?</span>' });
         jb.addEventListener('click', function (e) { e.stopPropagation(); jumpTest(ui); });
-        path.firstChild.appendChild(jb);
+        sec.appendChild(jb);
       }
-      // Ahouéfa à côté du chemin
-      var moods = ['wave', 'talk', 'happy', 'think', 'idle'];
-      var pm = h('div.path-mascot', { 'aria-hidden': 'true', html: App.Mascot.svg({ mood: moods[ui % moods.length], size: 120, label: false }) });
-      pm.style.top = (84 + 2 * 86 - 40) + 'px';
-      pm.style.left = flip === 1 ? 'calc(50% - 175px)' : 'calc(50% + 55px)';
-      path.appendChild(pm);
-      sec.appendChild(path);
+
+      var list = h('div.lrows');
+      nodes.forEach(function (n, i) {
+        var state = st.map[n.id] || 'locked';
+        var li = n.kind === 'lesson' ? u.lessons.indexOf(n.lesson) : -1;
+        var nw = h('div.node-wrap' + (state === 'current' ? '.is-current' : ''));
+        var label = n.kind === 'lesson' ? 'Leçon ' + (li + 1) + ' : ' + n.lesson.title
+          : n.kind === 'chest' ? (state === 'done' ? 'Coffre ouvert' : state === 'open' ? 'Ouvrir le coffre' : 'Coffre verrouillé')
+            : 'Révision de l\'unité';
+        var cls = '.node' + (n.kind === 'chest' ? '.chest-node' : n.kind === 'review' ? '.review-node' : '') + '.' + state;
+        var btn = h('span' + cls, { 'aria-hidden': 'true', html: App.icon(nodeIcon(n, state)) });
+        nw.appendChild(btn);
+
+        var p = Store.get().progress[n.id];
+        var note = state === 'done' && p && p.best ? 'Terminée · ' + Math.round(p.best * 100) + ' %'
+          : state === 'done' ? 'Terminée'
+            : state === 'current' ? 'C\'est ici que tu reprends'
+              : state === 'open' ? 'À ouvrir : il t\'attend'
+                : n.kind === 'review' ? 'Pour ancrer ce que tu as appris'
+                  : 'Se débloque en avançant';
+        var pill = state === 'done' ? 'Revoir' : state === 'current' ? 'Reprendre' : state === 'open' ? 'Ouvrir' : n.kind === 'review' ? '+20 XP' : 'Bientôt';
+        var row = h('button.lrow.' + state + (n.kind === 'chest' ? '.is-chest' : ''), {
+          type: 'button', 'aria-label': label
+        }, [nw, h('span.lrow-t', null, [h('b', { text: nodeTitle(n, u, li) }), h('small', { text: note })]), h('span.lrow-k', { text: pill })]);
+        row.addEventListener('click', function (e) {
+          e.stopPropagation();
+          App.Sound.play('tap');
+          if (n.kind === 'chest') { openChest(n, state); return; }
+          togglePop(row, n, u, state);
+        });
+        list.appendChild(row);
+      });
+      sec.appendChild(list);
       wrap.appendChild(sec);
     });
-    // Le diplôme, au bout du chemin
+
+    /* ---- Le diplôme, au bout du parcours ---- */
     var allDone = App.Plan.diplomaEarned();
     var dip = h('button.diploma-node' + (allDone ? '.earned' : ''), { type: 'button', 'aria-label': allDone ? 'Voir mon diplôme' : 'Diplôme (termine les 10 unités)', html: App.icon('medal') });
     dip.addEventListener('click', function () {
@@ -171,12 +215,10 @@
       var see = h('button.btn.sm', { type: 'button', text: 'Voir mon diplôme' });
       see.addEventListener('click', App.Plan.showDiploma);
       endKids.push(see);
-    }
-    if (allDone) {
       var revi = h('button.btn.sm', { type: 'button', text: 'Révision du jour' });
       revi.addEventListener('click', function () {
-        var u = U.pick(C.units);
-        App.Lesson.start({ id: null, kind: 'practice', title: 'Révision du jour', unit: u, steps: App.Gen.resolve(C.reviewSteps(u, 10)), xp: 15, onExit: afterLesson });
+        var ru = U.pick(C.units);
+        App.Lesson.start({ id: null, kind: 'practice', title: 'Révision du jour', unit: ru, steps: App.Gen.resolve(C.reviewSteps(ru, 10)), xp: 15, onExit: afterLesson });
       });
       var tr = h('a.btn.ghost.sm', { href: '#/entrainement', text: 'S\'entraîner' });
       endKids.push(h('div.path-end-actions', null, [revi, tr]));
@@ -184,18 +226,13 @@
     wrap.appendChild(h('div.path-end', null, endKids));
     main.appendChild(wrap);
 
+    // La séance du jour est en haut : plus besoin d'aller chercher la personne dans la page
     setTimeout(function () {
-      var cur = U.$('.node-wrap.is-current');
-      if (!cur) {
-        var end = U.$('.path-end');
-        if (end && !P._scrolled) { P._scrolled = true; end.scrollIntoView({ block: 'center' }); }
-        return;
-      }
       if (P._scrolled) return;
       P._scrolled = true;
-      /* On ne fait défiler que si le nœud courant est hors de vue (sinon les cartes du haut disparaissent) */
-      var r = cur.getBoundingClientRect();
-      if (r.bottom > window.innerHeight - 110 || r.top < 0) cur.scrollIntoView({ block: 'center' });
+      if (cur) return;
+      var end = U.$('.path-end');
+      if (end) end.scrollIntoView({ block: 'center' });
     }, 30);
   };
 
