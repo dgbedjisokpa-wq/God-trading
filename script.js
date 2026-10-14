@@ -94,6 +94,8 @@
       entries.forEach(function (e) {
         if (!e.isIntersecting) return;
         var id = '#' + e.target.id;
+        /* une section sans lien de menu (À propos, Pour qui…) garde l'état précédent */
+        if (!navLinks.some(function (a) { return a.getAttribute('href') === id; })) return;
         navLinks.forEach(function (a) {
           var on = a.getAttribute('href') === id;
           a.classList.toggle('on', on);
@@ -136,7 +138,7 @@
     }
     if (marquee && !viewTimeline && !reduce) {
       var p = Math.max(0, Math.min(1, (y + vh - tickTop) / (vh + tickH)));
-      marquee.style.transform = 'translateX(' + (-p * 33.333).toFixed(3) + '%)';
+      marquee.style.transform = 'translateX(' + (-p * 25).toFixed(3) + '%)';
     }
   };
   var onScroll = function () { if (!raf) raf = requestAnimationFrame(frame); };

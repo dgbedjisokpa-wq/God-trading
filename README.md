@@ -35,7 +35,10 @@ n'est chargée depuis un serveur tiers (polices comprises).
 - **WhatsApp** : les liens utilisent `https://wa.me/2290193324439?text=…`.
   Chaque bouton ajoute sa source au message (`[site : accueil]`,
   `[site : offres]`…) pour savoir quel bouton amène les demandes.
-  Pour changer de numéro, remplacer `2290193324439` partout dans `index.html`.
+  Pour changer de numéro : remplacer `2290193324439` partout dans `index.html`,
+  puis le numéro affiché `+229&nbsp;01&nbsp;93&nbsp;32&nbsp;44&nbsp;39` (en-tête,
+  contact, pied de page), `+229 01 93 32 44 39` dans les `aria-label` et dans
+  le bloc JSON-LD en haut de page.
 - **Réseaux sociaux** : un bloc prêt à l'emploi est en commentaire dans le pied
   de page ; y mettre les vrais liens puis le décommenter.
 - **Après une modification de `style.css` ou `script.js`** : incrémenter le

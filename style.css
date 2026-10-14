@@ -37,7 +37,7 @@
   :root{--spring:linear(0,.0789,.2363,.4033,.5513,.6714,.7641,.8332,.8834,.9193,.9446,.9622,.9744,.9827,.9884,.9922,.9948,.9966,.9977,.9985,1)}
 }
 
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:84px;color-scheme:light}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:84px;color-scheme:only light}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans)}
 *{box-sizing:border-box}
 a{color:inherit}
@@ -187,7 +187,7 @@ html[data-sc] .cue:focus-visible{opacity:1;transform:none;pointer-events:auto}
 @supports (animation-timeline:view()){
   .marquee{animation:ticker linear both;animation-timeline:--ticker;animation-range:cover}
 }
-@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-33.333%)}}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-25%)}}
 
 /* ---------- à propos ---------- */
 .blob{position:absolute;left:-12%;top:-30%;width:60%;height:160%;border-radius:0 50% 50% 0;background:var(--bg)}
@@ -561,9 +561,12 @@ html:not(.js) .rv-nav,.rv[data-static] .rv-nav{display:none}
 
 /* --- impression --- */
 @media print{
-  .progress,.mbar,.dust,.cue,.ticker,.nav-burger,.mob-panel,.page::after{display:none!important}
+  .progress,.mbar,.dust,.cue,.ticker,.nav-burger,.mob-panel,.page::after,.skip,.rv-nav,.nav-actions{display:none!important}
   .topbar{position:static}
   [data-r]{opacity:1!important;transform:none!important}
   .arch{clip-path:none}
+  .hero h1 em{background:none!important;-webkit-text-fill-color:currentColor!important;color:var(--gold-dk)!important}
+  .rv-track{display:grid;grid-auto-flow:row;grid-template-columns:1fr 1fr;overflow:visible;margin:0;padding:0}
+  .card,.phase,.svc,.rv-card,.faq-item,.step,.fit,.risk{break-inside:avoid}
   .faq-item::details-content{block-size:auto!important;content-visibility:visible!important}
 }
