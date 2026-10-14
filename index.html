@@ -4,11 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GOD TRADING — Formation en trading des indices synthétiques</title>
-<meta name="description" content="Apprends à trader les indices synthétiques (V75, Boom, Crash) avec une vraie méthode : 10 modules, 3 mois de coaching avec Coach Godfrid Mustang, 100 % sur mobile. Paiement par tranches.">
+<meta name="description" content="Apprends à trader les indices synthétiques (V75, Boom, Crash) avec méthode : 10 modules, 3 mois de coaching, 100 % sur mobile, paiement par tranches.">
 <link rel="canonical" href="https://godtrading.store/">
-<meta name="theme-color" content="#14120F">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#FAF7F0">
+<link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" href="assets/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_FR">
 <meta property="og:site_name" content="GOD TRADING">
@@ -20,34 +23,58 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="GOD TRADING — Arrête de trader au hasard. Trade avec une méthode.">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,700;1,800&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Cinzel:wght@700;900&amp;display=swap">
-<link rel="stylesheet" href="style.css">
-<script>
-  /* L'intro animée ne s'affiche qu'une fois par visite. */
-  (function (d) {
-    d.classList.add('js');
-    try {
-      if (sessionStorage.getItem('gt-intro')) d.classList.add('no-intro');
-      else sessionStorage.setItem('gt-intro', '1');
-    } catch (e) {}
-  })(document.documentElement);
+<link rel="preload" href="assets/fonts/playfair-display.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css?v=3">
+<script>document.documentElement.classList.add('js');</script>
+<script src="script.js?v=3" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://godtrading.store/#organisation",
+      "name": "GOD TRADING",
+      "url": "https://godtrading.store/",
+      "logo": "https://godtrading.store/assets/icon-512.png",
+      "founder": { "@type": "Person", "name": "Godfrid Mustang" },
+      "contactPoint": { "@type": "ContactPoint", "telephone": "+229 01 93 32 44 39", "contactType": "customer service", "availableLanguage": "fr" }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://godtrading.store/#site",
+      "name": "GOD TRADING",
+      "url": "https://godtrading.store/",
+      "inLanguage": "fr",
+      "publisher": { "@id": "https://godtrading.store/#organisation" }
+    },
+    {
+      "@type": "Course",
+      "name": "Formation complète GOD TRADING",
+      "description": "Formation au trading des indices synthétiques : 10 modules + bonus, 3 mois de coaching, live trading en groupe, 100 % sur mobile.",
+      "inLanguage": "fr",
+      "provider": { "@id": "https://godtrading.store/#organisation" },
+      "offers": { "@type": "Offer", "price": "200", "priceCurrency": "USD", "category": "Paid", "url": "https://godtrading.store/#formation" },
+      "hasCourseInstance": { "@type": "CourseInstance", "courseMode": "Online", "courseWorkload": "P3M" }
+    }
+  ]
+}
 </script>
-<script src="script.js" defer></script>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></symbol>
+</svg>
 <a class="skip" href="#contenu">Aller au contenu</a>
 <div class="page">
-  <div class="intro" aria-hidden="true"><div class="intro-in"><img src="assets/embleme-carre.jpg" alt="" width="120" height="120"><span class="intro-word">GOD TRADING</span><span class="intro-bar"><i></i></span></div></div>
   <div class="progress" aria-hidden="true"></div>
-  <div class="cur" aria-hidden="true"></div><div class="cur-dot" aria-hidden="true"></div>
 
   <!-- ===== NAV ===== -->
   <header class="topbar">
     <nav class="wrap nav" aria-label="Navigation principale">
       <a class="brand" href="#top" aria-label="GOD TRADING, retour en haut de page">
-        <img src="assets/embleme-carre.jpg" alt="" width="40" height="40">
+        <picture><source srcset="assets/embleme-carre.webp" type="image/webp"><img src="assets/embleme-carre.jpg" alt="" width="40" height="40"></picture>
         <span>GOD TRADING</span>
       </a>
       <div class="nav-links">
@@ -59,41 +86,43 @@
         <a class="nav-item" href="#contact">Contact</a>
       </div>
       <div class="nav-actions">
-        <a class="nav-wa nav-phone" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20j%E2%80%99ai%20une%20question." target="_blank" rel="noopener" aria-label="Nous écrire sur WhatsApp au +229 01 93 32 44 39">
-          <span class="nav-wa-ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.5 8.5 0 1 1 21 11.5z"></path></svg></span>
+        <a class="nav-wa nav-phone" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20j%E2%80%99ai%20une%20question.%20%5Bsite%20%3A%20en-t%C3%AAte%5D" target="_blank" rel="noopener" aria-label="Écrire sur WhatsApp au +229 01 93 32 44 39 (nouvel onglet)">
+          <span class="nav-wa-ic"><svg class="i-wa" aria-hidden="true"><use href="#i-wa"></use></svg></span>
           <span>+229&nbsp;01&nbsp;93&nbsp;32&nbsp;44&nbsp;39</span>
         </a>
-        <a class="btn btn-gold btn-sm nav-phone" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation." target="_blank" rel="noopener">Rejoindre</a>
+        <a class="btn btn-gold btn-sm nav-phone" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation.%20%5Bsite%20%3A%20en-t%C3%AAte%5D" target="_blank" rel="noopener"><svg class="i-wa" aria-hidden="true"><use href="#i-wa"></use></svg>Réserver<span class="sr-only"> ma place sur WhatsApp (nouvel onglet)</span></a>
         <button class="nav-burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu-mobile">
           <svg class="ic-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
           <svg class="ic-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg>
         </button>
       </div>
     </nav>
-    <div class="mob-panel wrap" id="menu-mobile" hidden>
-      <a href="#pourquoi">Pourquoi nous <span>01</span></a>
-      <a href="#programme">Programme <span>02</span></a>
-      <a href="#offres">Offres <span>03</span></a>
-      <a href="#avis">Avis <span>04</span></a>
-      <a href="#faq">FAQ <span>05</span></a>
-      <a href="#contact">Contact <span>06</span></a>
-      <a class="btn btn-gold" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation." target="_blank" rel="noopener">Je réserve ma place</a>
-    </div>
+    <nav class="mob-panel" id="menu-mobile" aria-label="Menu" hidden>
+      <div class="wrap mob-in">
+        <a href="#pourquoi">Pourquoi nous <span aria-hidden="true">01</span></a>
+        <a href="#programme">Programme <span aria-hidden="true">02</span></a>
+        <a href="#offres">Offres <span aria-hidden="true">03</span></a>
+        <a href="#avis">Avis <span aria-hidden="true">04</span></a>
+        <a href="#faq">FAQ <span aria-hidden="true">05</span></a>
+        <a href="#contact">Contact <span aria-hidden="true">06</span></a>
+        <a class="btn btn-gold" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation.%20%5Bsite%20%3A%20menu%5D" target="_blank" rel="noopener"><svg class="i-wa" aria-hidden="true"><use href="#i-wa"></use></svg>Je réserve ma place<span class="sr-only"> sur WhatsApp (nouvel onglet)</span></a>
+      </div>
+    </nav>
   </header>
 
-  <main id="contenu">
+  <main id="contenu" tabindex="-1">
   <!-- ===== HÉROS ===== -->
-  <section id="top" class="wrap hero-sec">
+  <section id="top" class="wrap hero-sec" aria-labelledby="hero-titre">
     <div class="hero">
       <div class="hero-copy">
-        <span class="badge rise d1"><span class="badge-dot" aria-hidden="true"></span>Inscriptions ouvertes · places limitées</span>
-        <h1 class="rise d2">Arrête de trader au hasard. <em>Trade avec une méthode.</em></h1>
-        <p class="txt lead rise d3">En 3&nbsp;mois, apprends à lire les indices synthétiques, à protéger ton capital et à suivre un plan clair. Accompagné pas à pas par Coach Godfrid Mustang, 100&nbsp;% depuis ton téléphone.</p>
+        <p class="badge rise d1"><span class="badge-dot" aria-hidden="true"></span>Inscriptions ouvertes · places limitées</p>
+        <h1 id="hero-titre" class="rise d2">Arrête de trader au hasard. <em>Trade avec une méthode.</em></h1>
+        <p class="txt lead rise d3">En 3&nbsp;mois, apprends à lire les indices synthétiques, à protéger ton capital et à suivre un plan clair. Avec l’accompagnement pas à pas de Coach Godfrid Mustang, 100&nbsp;% depuis ton téléphone.</p>
         <div class="hero-ctas rise d4">
-          <a class="btn btn-gold" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation." target="_blank" rel="noopener">Je réserve ma place <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"></path></svg></a>
+          <a class="btn btn-gold" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation.%20%5Bsite%20%3A%20accueil%5D" target="_blank" rel="noopener"><svg class="i-wa" aria-hidden="true"><use href="#i-wa"></use></svg>Je réserve ma place<span class="sr-only"> sur WhatsApp (nouvel onglet)</span></a>
           <a class="btn btn-line" href="#programme">Découvrir le programme</a>
         </div>
-        <ul class="hero-checks rise d4">
+        <ul class="hero-checks rise d4" role="list">
           <li class="chk">Paiement par tranches</li>
           <li class="chk">Mobile Money, Wave, carte</li>
           <li class="chk">100&nbsp;% sur mobile</li>
@@ -102,7 +131,7 @@
       <div class="hero-art rise d3">
         <div class="halo" aria-hidden="true"></div>
         <canvas class="dust" aria-hidden="true"></canvas>
-        <div class="arch"><img src="assets/embleme.jpg" alt="Emblème GOD TRADING : Zeus doré tenant un éclair, entouré de chandeliers de trading" width="640" height="522" fetchpriority="high"><div class="flash" aria-hidden="true"></div></div>
+        <div class="arch"><picture><source srcset="assets/embleme.webp" type="image/webp"><img src="assets/embleme.jpg" alt="Emblème GOD TRADING : Zeus doré brandissant un éclair au-dessus de chandeliers de trading" width="640" height="522" fetchpriority="high"></picture><div class="flash" aria-hidden="true"></div></div>
         <div class="disc">
           <span class="disc-price">200&nbsp;$</span>
           <span class="disc-label">formation<br>complète</span>
@@ -113,21 +142,22 @@
         </div>
       </div>
     </div>
-    <a class="cue" href="#pourquoi"><span class="mouse" aria-hidden="true"></span>DÉCOUVRIR</a>
-    <div class="g-stats">
-      <div class="stat"><span class="sr-only">10 modules + 1 bonus</span><span class="stat-num" aria-hidden="true"><span class="count" style="--to: 10"></span><span class="gold">+1</span></span><span class="stat-label" aria-hidden="true">Modules + bonus</span></div>
-      <div class="stat"><span class="sr-only">Plus de 120 pages de manuel</span><span class="stat-num" aria-hidden="true"><span class="count" style="--to: 120"></span><span class="gold">+</span></span><span class="stat-label" aria-hidden="true">Pages de manuel</span></div>
-      <div class="stat"><span class="sr-only">3 mois d’accompagnement</span><span class="stat-num" aria-hidden="true"><span class="count" style="--to: 3"></span><span class="gold">&nbsp;mois</span></span><span class="stat-label" aria-hidden="true">D’accompagnement</span></div>
-      <div class="stat"><span class="sr-only">Marchés ouverts 24 heures sur 24, 7 jours sur 7</span><span class="stat-num" aria-hidden="true"><span class="count" style="--to: 24"></span><span class="gold">/7</span></span><span class="stat-label" aria-hidden="true">Marchés ouverts</span></div>
-    </div>
+    <a class="cue" href="#pourquoi" aria-label="Découvrir la suite"><span class="mouse" aria-hidden="true"></span><span aria-hidden="true">DÉCOUVRIR</span></a>
+    <ul class="g-stats" role="list">
+      <li class="stat"><span class="stat-num">10<span class="gold">+1</span></span><span class="stat-label">Modules + bonus</span></li>
+      <li class="stat"><span class="stat-num">120<span class="gold">+</span></span><span class="stat-label">Pages de manuel</span></li>
+      <li class="stat"><span class="stat-num">3<span class="gold">&nbsp;mois</span></span><span class="stat-label">D’accompagnement</span></li>
+      <li class="stat"><span class="stat-num">24<span class="gold">/7</span></span><span class="stat-label">Marchés ouverts</span></li>
+    </ul>
   </section>
 
-  <!-- ===== BANDEAU ===== -->
+  <!-- ===== BANDEAU (suit le défilement) ===== -->
   <div class="ticker" aria-hidden="true">
-    <div class="tick"><div class="marquee">
+    <div class="marquee">
       <span>VOLATILITY 75 <b>◆</b> BOOM 1000 <b>◆</b> CRASH 500 <b>◆</b> STEP INDEX <b>◆</b> JUMP 10 <b>◆</b> VOLATILITY 25 <b>◆</b> BOOM 500 <b>◆</b> CRASH 1000 <b>◆</b></span>
       <span>VOLATILITY 75 <b>◆</b> BOOM 1000 <b>◆</b> CRASH 500 <b>◆</b> STEP INDEX <b>◆</b> JUMP 10 <b>◆</b> VOLATILITY 25 <b>◆</b> BOOM 500 <b>◆</b> CRASH 1000 <b>◆</b></span>
-    </div></div>
+      <span>VOLATILITY 75 <b>◆</b> BOOM 1000 <b>◆</b> CRASH 500 <b>◆</b> STEP INDEX <b>◆</b> JUMP 10 <b>◆</b> VOLATILITY 25 <b>◆</b> BOOM 500 <b>◆</b> CRASH 1000 <b>◆</b></span>
+    </div>
   </div>
 
   <!-- ===== À PROPOS ===== -->
@@ -136,7 +166,7 @@
     <div class="wrap about">
       <div class="about-art">
         <div class="book">
-          <img src="assets/manuel.jpg" alt="Couverture du livre Le Manuel du Trader Divin, par Coach Godfrid Mustang" width="336" height="454" loading="lazy">
+          <picture><source srcset="assets/manuel.webp" type="image/webp"><img src="assets/manuel.jpg" alt="Couverture du livre Le Manuel du Trader Divin, par Coach Godfrid Mustang" width="336" height="454" loading="lazy"></picture>
           <span class="book-tag">Édition&nbsp;2025 · 120+&nbsp;pages</span>
         </div>
       </div>
@@ -144,45 +174,48 @@
         <span class="eyebrow">À propos</span>
         <h2 id="apropos-titre" class="about-title">GOD TRADING</h2>
         <p class="txt">Une communauté fondée par <strong>Coach Godfrid Mustang</strong> pour former des traders capables de comprendre, d’analyser et de trader les indices synthétiques avec méthode. Ici, pas de promesse de gains faciles&nbsp;: on développe une vraie stratégie, une gestion du risque solide et une discipline de fer.</p>
-        <blockquote class="quote">«&nbsp;Le savoir est une arme, la discipline est la clé.&nbsp;»<cite>Coach Godfrid Mustang, fondateur</cite></blockquote>
+        <figure class="quote">
+          <blockquote>«&nbsp;Le savoir est une arme, la discipline est la clé.&nbsp;»</blockquote>
+          <figcaption>Coach Godfrid Mustang, fondateur</figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
   <!-- ===== POURQUOI NOUS ===== -->
-  <section id="pourquoi" class="wrap sec">
+  <section id="pourquoi" class="wrap sec" aria-labelledby="pourquoi-titre">
     <div class="sec-head">
       <span class="eyebrow">Ce qui fait la différence</span>
-      <h2 class="h2">Tu n’as pas besoin de chance. Tu as besoin d’une méthode.</h2>
+      <h2 id="pourquoi-titre" class="h2">Tu n’as pas besoin de chance. Tu as besoin d’une méthode.</h2>
       <p>La plupart des débutants perdent parce qu’ils tradent sans plan, sans gestion du risque et sous le coup des émotions. Voici comment on corrige&nbsp;ça.</p>
     </div>
     <div class="g-why">
-      <div class="card lift">
+      <div class="card">
         <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 4-6 8-6s8 2 8 6"></path></svg></span>
         <h3>Coaching personnalisé</h3>
         <p class="txt">Un accompagnement individuel pendant les 3&nbsp;mois de formation.</p>
       </div>
-      <div class="card lift">
+      <div class="card">
         <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="13" rx="2"></rect><path d="M8 21h8M12 17v4"></path><path d="M6 13l3-3 2 2 4-4"></path></svg></span>
         <h3>Live trading en groupe</h3>
         <p class="txt">Analyse, entrée, gestion et sortie en direct sur MetaTrader&nbsp;5.</p>
       </div>
-      <div class="card lift">
+      <div class="card">
         <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z"></path><path d="M9 12l2 2 4-4"></path></svg></span>
         <h3>Gestion du risque</h3>
         <p class="txt">Taille de lot, ratio risque/récompense, drawdown&nbsp;: protéger ton capital avant tout.</p>
       </div>
-      <div class="card lift">
+      <div class="card">
         <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"></circle><circle cx="17" cy="9" r="2.5"></circle><path d="M2.5 20c0-3.5 3-5.5 6.5-5.5s6.5 2 6.5 5.5M15.5 14.5c3 0 6 1.5 6 5"></path></svg></span>
         <h3>Communauté privée</h3>
         <p class="txt">Échange, partage tes trades et progresse avec des traders motivés.</p>
       </div>
-      <div class="card lift">
+      <div class="card">
         <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"></path><path d="M7 15l4-4 3 3 5-6"></path></svg></span>
         <h3>Suivi de performance</h3>
         <p class="txt">Journal de trading, KPIs et revue de tes résultats jusqu’à l’autonomie.</p>
       </div>
-      <div class="card card-dark lift">
+      <div class="card card-dark">
         <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2"></path><path d="M8 7h7"></path></svg></span>
         <h3>Le manuel inclus</h3>
         <p class="txt">Le Manuel du Trader Divin pour réviser chaque module à ton rythme.</p>
@@ -191,51 +224,51 @@
   </section>
 
   <!-- ===== PROGRAMME ===== -->
-  <section id="programme" class="band sec">
+  <section id="programme" class="band sec" aria-labelledby="programme-titre">
     <div class="wrap">
       <div class="sec-head">
         <span class="eyebrow">Le programme</span>
-        <h2 class="h2">Ton parcours, du premier trade à l’autonomie</h2>
+        <h2 id="programme-titre" class="h2">Ton parcours, du premier trade à l’autonomie</h2>
         <p>10&nbsp;modules organisés en 3&nbsp;étapes. Chaque notion est mise en pratique en direct avant de passer à la suivante.</p>
       </div>
       <div class="path hide-sm" aria-hidden="true"><i></i><b style="left: 0"></b><b style="left: 50%"></b><b style="left: 100%"></b></div>
       <div class="g-cards">
-        <article class="phase lift">
+        <article class="phase" aria-labelledby="etape-1">
           <div class="phase-top">
-            <span class="phase-name"><span class="phase-step">ÉTAPE 1</span><span class="phase-title">Les fondations</span></span>
+            <h3 class="phase-name" id="etape-1"><span class="phase-step">ÉTAPE 1</span> <span class="phase-title">Les fondations</span></h3>
             <span class="phase-range"><span aria-hidden="true">01–03</span><span class="sr-only">Modules 1 à 3</span></span>
           </div>
           <div class="phase-body">
             <p class="txt">Comprendre les indices synthétiques, maîtriser MetaTrader&nbsp;5 et lire un graphique comme un pro.</p>
-            <ul class="phase-mods">
+            <ul class="phase-mods" role="list">
               <li class="chk">Les fondations du dieu des marchés</li>
               <li class="chk">Maîtrise de MetaTrader&nbsp;5</li>
               <li class="chk">L’art divin de l’analyse technique</li>
             </ul>
           </div>
         </article>
-        <article class="phase lift">
+        <article class="phase" aria-labelledby="etape-2">
           <div class="phase-top">
-            <span class="phase-name"><span class="phase-step">ÉTAPE 2</span><span class="phase-title">Stratégie et risque</span></span>
+            <h3 class="phase-name" id="etape-2"><span class="phase-step">ÉTAPE 2</span> <span class="phase-title">Stratégie et risque</span></h3>
             <span class="phase-range"><span aria-hidden="true">04–06</span><span class="sr-only">Modules 4 à 6</span></span>
           </div>
           <div class="phase-body">
             <p class="txt">Des stratégies par indice, une gestion du risque solide et la structure du marché synthétique.</p>
-            <ul class="phase-mods">
+            <ul class="phase-mods" role="list">
               <li class="chk">Stratégies pour dominer le marché</li>
               <li class="chk">Gestion des risques</li>
               <li class="chk">La structure du marché synthétique</li>
             </ul>
           </div>
         </article>
-        <article class="phase lift">
+        <article class="phase" aria-labelledby="etape-3">
           <div class="phase-top">
-            <span class="phase-name"><span class="phase-step">ÉTAPE 3</span><span class="phase-title">Pratique et liberté</span></span>
+            <h3 class="phase-name" id="etape-3"><span class="phase-step">ÉTAPE 3</span> <span class="phase-title">Pratique et liberté</span></h3>
             <span class="phase-range"><span aria-hidden="true">07–10</span><span class="sr-only">Modules 7 à 10</span></span>
           </div>
           <div class="phase-body">
             <p class="txt">Le mental, la pratique en conditions réelles, le suivi de performance et le business du trader.</p>
-            <ul class="phase-mods">
+            <ul class="phase-mods" role="list">
               <li class="chk">L’ascension du trader profitable</li>
               <li class="chk">Immersion en conditions réelles</li>
               <li class="chk">Suivi de performance et KPIs</li>
@@ -246,84 +279,85 @@
         </article>
       </div>
       <div class="center-cta">
-        <a class="btn btn-dark" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation." target="_blank" rel="noopener">Je commence mon parcours</a>
+        <a class="btn btn-dark" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation.%20%5Bsite%20%3A%20programme%5D" target="_blank" rel="noopener"><svg class="i-wa" aria-hidden="true"><use href="#i-wa"></use></svg>Je commence mon parcours<span class="sr-only"> sur WhatsApp (nouvel onglet)</span></a>
       </div>
     </div>
   </section>
 
   <!-- ===== POUR QUI ===== -->
-  <section id="pourqui" class="wrap sec sec-tight">
+  <section id="pourqui" class="wrap sec sec-tight" aria-labelledby="pourqui-titre">
     <div class="sec-head">
       <span class="eyebrow">Pour qui&nbsp;?</span>
-      <h2 class="h2">Sois honnête avec toi-même</h2>
+      <h2 id="pourqui-titre" class="h2">Sois honnête avec toi-même</h2>
       <p>On préfère te le dire maintenant&nbsp;: cette formation n’est pas faite pour tout le monde.</p>
     </div>
     <div class="g-2col">
       <div class="fit">
         <h3 class="fit-title">C’est pour toi si…</h3>
-        <ul class="fit-list">
+        <ul class="fit-list" role="list">
           <li class="chk">Tu débutes ou tu trades déjà, mais sans résultats réguliers</li>
           <li class="chk">Tu veux comprendre ce que tu fais au lieu de copier des signaux</li>
-          <li class="chk">Tu es prêt à suivre un plan et à respecter une gestion du risque</li>
-          <li class="chk">Tu veux être accompagné plutôt qu’apprendre seul sur YouTube</li>
+          <li class="chk">Tu veux suivre un plan et respecter une gestion du risque</li>
+          <li class="chk">Tu préfères un accompagnement plutôt qu’apprendre en solo sur YouTube</li>
         </ul>
       </div>
       <div class="fit fit-dark">
         <h3 class="fit-title">Ce n’est pas pour toi si…</h3>
-        <ul class="fit-list">
+        <ul class="fit-list" role="list">
           <li class="nope">Tu cherches à devenir riche en une semaine</li>
           <li class="nope">Tu veux trader l’argent dont tu as besoin pour vivre</li>
-          <li class="nope">Tu n’es pas prêt à pratiquer et à te remettre en question</li>
+          <li class="nope">Tu ne veux pas pratiquer ni te remettre en question</li>
         </ul>
       </div>
     </div>
   </section>
 
   <!-- ===== OFFRES ===== -->
-  <section id="offres" class="wrap sec">
+  <section id="offres" class="wrap sec" aria-labelledby="offres-titre">
     <div class="sec-head">
       <span class="eyebrow">Les offres</span>
-      <h2 class="h2">Choisis ton point de départ</h2>
+      <h2 id="offres-titre" class="h2">Choisis ton point de départ</h2>
       <p>Découvre la méthode avec le manuel, ou fais-toi accompagner jusqu’au bout avec la formation complète.</p>
     </div>
     <div class="offers">
-      <article class="svc">
+      <article class="svc" id="formation" aria-labelledby="formation-titre">
         <div class="svc-media svc-media-dark">
-          <span class="tag tag-gold">RECOMMANDÉ</span>
+          <span class="tag tag-gold" aria-hidden="true">RECOMMANDÉ</span>
           <svg viewBox="0 0 320 140" role="img" aria-label="Illustration d’un graphique en chandeliers">
             <path class="draw" pathLength="1" d="M0 120 C60 112 100 95 140 85 S220 55 260 45 S300 30 320 22" fill="none" stroke="#E9B63B" stroke-width="2.5"></path>
             <g stroke-width="2"><line x1="20" y1="100" x2="20" y2="132" stroke="#E5484D"></line><rect x="15" y="106" width="10" height="18" fill="#E5484D"></rect><line x1="48" y1="90" x2="48" y2="124" stroke="#22B573"></line><rect x="43" y="96" width="10" height="22" fill="#22B573"></rect><line x1="76" y1="82" x2="76" y2="112" stroke="#22B573"></line><rect x="71" y="86" width="10" height="18" fill="#22B573"></rect><line x1="104" y1="80" x2="104" y2="108" stroke="#E5484D"></line><rect x="99" y="86" width="10" height="14" fill="#E5484D"></rect><line x1="132" y1="68" x2="132" y2="104" stroke="#22B573"></line><rect x="127" y="74" width="10" height="24" fill="#22B573"></rect><line x1="160" y1="58" x2="160" y2="88" stroke="#22B573"></line><rect x="155" y="62" width="10" height="18" fill="#22B573"></rect><line x1="188" y1="58" x2="188" y2="84" stroke="#E5484D"></line><rect x="183" y="63" width="10" height="14" fill="#E5484D"></rect><line x1="216" y1="44" x2="216" y2="78" stroke="#22B573"></line><rect x="211" y="50" width="10" height="20" fill="#22B573"></rect><line x1="244" y1="36" x2="244" y2="64" stroke="#22B573"></line><rect x="239" y="40" width="10" height="16" fill="#22B573"></rect><line x1="272" y1="30" x2="272" y2="56" stroke="#E5484D"></line><rect x="267" y="35" width="10" height="12" fill="#E5484D"></rect><line x1="300" y1="16" x2="300" y2="46" stroke="#22B573"></line><rect x="295" y="21" width="10" height="18" fill="#22B573"></rect></g>
           </svg>
         </div>
         <div class="svc-body">
-          <h3 class="svc-title">Formation complète</h3>
-          <p class="txt">Pour ceux qui veulent un coach à leurs côtés&nbsp;: tu apprends, tu pratiques en direct et on te suit jusqu’à ce que tu trades seul.</p>
-          <ul class="g-feat">
+          <h3 class="svc-title" id="formation-titre">Formation complète<span class="sr-only"> (offre recommandée)</span></h3>
+          <p class="txt">Tu veux un coach à tes côtés&nbsp;? Tu apprends, tu pratiques en direct et on te suit jusqu’à ce que tu trades en autonomie.</p>
+          <ul class="g-feat" role="list">
             <li class="chk">10 modules + bonus</li><li class="chk">3 mois de coaching</li><li class="chk">Live trading en groupe</li><li class="chk">Communauté privée</li><li class="chk">Suivi de performance</li><li class="chk">Le manuel inclus</li>
           </ul>
           <p class="price"><span class="price-num">200&nbsp;$</span><span class="price-note">ou en plusieurs tranches</span></p>
-          <a class="btn btn-gold" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation." target="_blank" rel="noopener">Je réserve ma place</a>
+          <a class="btn btn-gold" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation.%20%5Bsite%20%3A%20offres%5D" target="_blank" rel="noopener"><svg class="i-wa" aria-hidden="true"><use href="#i-wa"></use></svg>Je réserve ma place<span class="sr-only"> sur WhatsApp (nouvel onglet)</span></a>
           <span class="micro">Réponse rapide sur WhatsApp · Mobile Money, Wave ou carte</span>
         </div>
       </article>
 
-      <article class="svc svc-rev">
+      <article class="svc svc-rev" id="manuel" aria-labelledby="manuel-titre">
         <div class="svc-media svc-media-sand">
-          <span class="tag tag-red">PRIX PROMO</span>
-          <img src="assets/manuel.jpg" alt="Couverture du livre Le Manuel du Trader Divin" width="336" height="454" loading="lazy">
+          <span class="tag tag-red" aria-hidden="true">PRIX PROMO</span>
+          <picture><source srcset="assets/manuel.webp" type="image/webp"><img src="assets/manuel.jpg" alt="Couverture du livre Le Manuel du Trader Divin" width="336" height="454" loading="lazy"></picture>
         </div>
         <div class="svc-body">
-          <h3 class="svc-title">Le Manuel du Trader Divin</h3>
+          <h3 class="svc-title" id="manuel-titre">Le Manuel du Trader Divin<span class="sr-only"> (prix promo)</span></h3>
           <p class="txt">Pour découvrir la méthode avant de t’engager&nbsp;: tout le programme GOD TRADING en plus de 120&nbsp;pages, à lire à ton rythme.</p>
-          <ul class="svc-list">
+          <ul class="svc-list" role="list">
             <li class="chk">Les 10 modules + le bonus, détaillés</li><li class="chk">1 mois offert au groupe communautaire</li><li class="chk">Journal de trading et check-lists inclus</li>
           </ul>
           <p class="price"><span class="price-num">9&nbsp;$</span><span class="price-note price-fcfa">4&nbsp;999&nbsp;FCFA</span></p>
-          <a class="btn btn-line" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20commander%20le%20Manuel%20du%20Trader%20Divin." target="_blank" rel="noopener">Je veux le manuel</a>
-          <span class="micro">Accès instantané après paiement</span>
+          <a class="btn btn-line" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20commander%20le%20Manuel%20du%20Trader%20Divin.%20%5Bsite%20%3A%20offres%5D" target="_blank" rel="noopener"><svg class="i-wa" aria-hidden="true"><use href="#i-wa"></use></svg>Je veux le manuel<span class="sr-only"> : commander sur WhatsApp (nouvel onglet)</span></a>
+          <span class="micro">Envoyé sur WhatsApp dès réception du paiement</span>
         </div>
       </article>
     </div>
+    <p class="risk" role="note"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path><path d="M12 9v4M12 17h.01"></path></svg><span><strong>Risque de perte en capital.</strong> Les indices synthétiques sont des produits à effet de levier proposés par un courtier&nbsp;: tu peux perdre rapidement tout ton capital. Formation à visée éducative, aucun gain n’est garanti.</span></p>
   </section>
 
   <!-- ===== COMMENT S'INSCRIRE ===== -->
@@ -334,7 +368,7 @@
         <span class="eyebrow">Comment s’inscrire</span>
         <h2 id="inscription-titre" class="h2">Tu peux commencer aujourd’hui</h2>
       </div>
-      <ol class="g-steps">
+      <ol class="g-steps" role="list">
         <li class="step">
           <span class="step-n" aria-hidden="true">1</span>
           <h3 class="step-title">Écris-nous sur WhatsApp</h3>
@@ -351,15 +385,15 @@
           <p class="txt">Tu rejoins le groupe et tu démarres le module&nbsp;1 tout de suite.</p>
         </li>
       </ol>
-      <a class="btn btn-dark" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation." target="_blank" rel="noopener">Je fais le premier pas</a>
+      <a class="btn btn-dark" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation.%20%5Bsite%20%3A%20%C3%A9tapes%5D" target="_blank" rel="noopener"><svg class="i-wa" aria-hidden="true"><use href="#i-wa"></use></svg>Je fais le premier pas<span class="sr-only"> sur WhatsApp (nouvel onglet)</span></a>
     </div>
   </section>
 
   <!-- ===== AVIS ===== -->
-  <section id="avis" class="wrap sec">
+  <section id="avis" class="wrap sec" aria-labelledby="avis-titre">
     <div class="sec-head">
       <span class="eyebrow">Avis des élèves</span>
-      <h2 class="h2">Ils ont arrêté de trader au hasard</h2>
+      <h2 id="avis-titre" class="h2">Ils ont arrêté de trader au hasard</h2>
     </div>
     <!--
       AVIS FICTIFS — exemples rédigés pour remplir la maquette.
@@ -367,7 +401,7 @@
       de les présenter comme authentiques. Chaque avis = un bloc <figure>.
     -->
     <div class="rv">
-      <div class="rv-track" tabindex="0" role="region" aria-label="Avis des élèves, faire défiler horizontalement">
+      <div class="rv-track" tabindex="0" role="region" aria-roledescription="carrousel" aria-label="Avis des élèves, faire défiler horizontalement">
         <figure class="rv-card">
           <blockquote class="txt">Avant, j’ouvrais des positions sur le V75 au feeling et je vidais mon compte démo en quelques jours. Maintenant j’ai un plan&nbsp;: je sais où entrer, où sortir et combien risquer. Le module sur la gestion des risques a tout changé pour moi.</blockquote>
           <figcaption class="rv-who"><span class="rv-av" aria-hidden="true">A</span><span class="rv-meta"><strong>Arnaud K.</strong><span>Cotonou · Formation complète</span></span></figcaption>
@@ -394,44 +428,46 @@
         </figure>
       </div>
       <div class="rv-nav">
-        <button class="arrow" type="button" data-prev aria-label="Avis précédent"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></button>
+        <button class="arrow" type="button" data-prev aria-label="Avis précédent" aria-disabled="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg></button>
         <div class="rv-dots"></div>
+        <p class="rv-count" aria-hidden="true"><span data-cur>1</span>&nbsp;/&nbsp;<span data-total>6</span></p>
         <button class="arrow" type="button" data-next aria-label="Avis suivant"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></button>
       </div>
+      <p class="rv-live sr-only" aria-live="polite"></p>
     </div>
   </section>
 
   <!-- ===== FAQ ===== -->
-  <section id="faq" class="band sec">
+  <section id="faq" class="band sec" aria-labelledby="faq-titre">
     <div class="wrap g-faq">
       <div class="faq-intro">
         <span class="eyebrow">FAQ</span>
-        <h2 class="h2">Tu hésites encore&nbsp;?</h2>
+        <h2 id="faq-titre" class="h2">Tu hésites encore&nbsp;?</h2>
         <p class="txt">C’est normal. Voici les réponses aux questions qu’on nous pose le plus. Pour le reste, écris-nous directement.</p>
-        <a class="btn btn-dark" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20j%E2%80%99ai%20une%20question." target="_blank" rel="noopener">Poser ma question</a>
+        <a class="btn btn-dark" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20j%E2%80%99ai%20une%20question.%20%5Bsite%20%3A%20faq%5D" target="_blank" rel="noopener"><svg class="i-wa" aria-hidden="true"><use href="#i-wa"></use></svg>Poser ma question<span class="sr-only"> sur WhatsApp (nouvel onglet)</span></a>
       </div>
       <div class="faq-list">
-        <details class="faq-item" name="faq" open>
+        <details class="faq-item" open>
           <summary>Je débute complètement, est-ce que je vais suivre&nbsp;?<span class="faq-ic" aria-hidden="true"></span></summary>
           <p class="ans">Oui. Le module&nbsp;1 part de zéro&nbsp;: ce que sont les indices synthétiques, comment fonctionne Deriv et comment installer MetaTrader&nbsp;5. Et ton coach est là si tu bloques.</p>
         </details>
-        <details class="faq-item" name="faq">
+        <details class="faq-item">
           <summary>Je n’ai pas beaucoup d’argent pour trader. C’est un problème&nbsp;?<span class="faq-ic" aria-hidden="true"></span></summary>
           <p class="ans">Non. Tu commences sur un compte démo, sans risquer d’argent. La formation t’apprend ensuite à définir un capital adapté et à gérer ton risque avant de passer en réel.</p>
         </details>
-        <details class="faq-item" name="faq">
+        <details class="faq-item">
           <summary>Je n’ai pas d’ordinateur, je peux quand même suivre&nbsp;?<span class="faq-ic" aria-hidden="true"></span></summary>
           <p class="ans">Oui, pas besoin d’ordinateur. Tout se fait sur téléphone avec MetaTrader&nbsp;5 mobile, et la configuration est expliquée pas à pas.</p>
         </details>
-        <details class="faq-item" name="faq">
+        <details class="faq-item">
           <summary>Puis-je payer en plusieurs fois&nbsp;?<span class="faq-ic" aria-hidden="true"></span></summary>
           <p class="ans">Oui, la formation peut se payer par tranches. Écris-nous sur WhatsApp pour choisir les modalités qui te conviennent.</p>
         </details>
-        <details class="faq-item" name="faq">
+        <details class="faq-item">
           <summary>Quand puis-je commencer&nbsp;?<span class="faq-ic" aria-hidden="true"></span></summary>
           <p class="ans">Dès aujourd’hui. Les inscriptions sont ouvertes en continu&nbsp;: tu reçois ton accès et tu démarres le module&nbsp;1 tout de suite.</p>
         </details>
-        <details class="faq-item" name="faq">
+        <details class="faq-item">
           <summary>Est-ce que je vais forcément gagner de l’argent&nbsp;?<span class="faq-ic" aria-hidden="true"></span></summary>
           <p class="ans">Non, et méfie-toi de ceux qui te le promettent. Le trading comporte des risques. Notre rôle est de te donner une méthode, une gestion du risque et une discipline solides pour mettre toutes les chances de ton côté.</p>
         </details>
@@ -440,13 +476,13 @@
   </section>
 
   <!-- ===== CONTACT ===== -->
-  <section id="contact" class="wrap sec">
+  <section id="contact" class="wrap sec" aria-labelledby="contact-titre">
     <div class="g-contact">
       <div class="contact-info">
         <span class="eyebrow">Contact</span>
-        <h2 class="h2">Une question avant de te lancer&nbsp;?</h2>
+        <h2 id="contact-titre" class="h2">Une question avant de te lancer&nbsp;?</h2>
         <dl class="facts">
-          <div><dt>WhatsApp</dt><dd><a href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20j%E2%80%99ai%20une%20question." target="_blank" rel="noopener">+229&nbsp;01&nbsp;93&nbsp;32&nbsp;44&nbsp;39</a></dd></div>
+          <div><dt>WhatsApp</dt><dd><a href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20j%E2%80%99ai%20une%20question.%20%5Bsite%20%3A%20contact%5D" target="_blank" rel="noopener"><svg class="i-wa" aria-hidden="true"><use href="#i-wa"></use></svg>+229&nbsp;01&nbsp;93&nbsp;32&nbsp;44&nbsp;39<span class="sr-only"> (nouvel onglet)</span></a></dd></div>
           <div><dt>Localisation</dt><dd>Bénin · 100&nbsp;% en ligne</dd></div>
           <div><dt>Paiement</dt><dd>Mobile Money, Wave, carte</dd></div>
           <div><dt>Format</dt><dd>Sur ton téléphone</dd></div>
@@ -454,10 +490,10 @@
       </div>
       <div class="cta-card">
         <div class="cta-glow" aria-hidden="true"></div>
-        <img src="assets/embleme-carre.jpg" alt="" width="96" height="96" loading="lazy">
-        <p class="cta-title">Dans 3&nbsp;mois, tu peux encore trader au hasard… ou suivre une méthode.</p>
+        <picture><source srcset="assets/embleme-carre.webp" type="image/webp"><img src="assets/embleme-carre.jpg" alt="" width="96" height="96" loading="lazy"></picture>
+        <h3 class="cta-title">Dans 3&nbsp;mois, tu peux encore trader au hasard… ou suivre une méthode.</h3>
         <p class="cta-sub">Les places de coaching sont limitées pour garder un vrai suivi individuel.</p>
-        <a class="btn btn-gold" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation." target="_blank" rel="noopener">Je réserve ma place</a>
+        <a class="btn btn-gold" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation.%20%5Bsite%20%3A%20contact%5D" target="_blank" rel="noopener"><svg class="i-wa" aria-hidden="true"><use href="#i-wa"></use></svg>Je réserve ma place<span class="sr-only"> sur WhatsApp (nouvel onglet)</span></a>
       </div>
     </div>
   </section>
@@ -473,27 +509,27 @@
           <!--
             Réseaux sociaux : remplacer les liens puis décommenter.
             <div class="socials">
-              <a href="https://www.tiktok.com/@VOTRE_COMPTE" aria-label="TikTok" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v11a4 4 0 1 1-4-4"></path><path d="M14 3c.5 3 2.5 5 6 5"></path></svg></a>
-              <a href="https://www.facebook.com/VOTRE_PAGE" aria-label="Facebook" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
-              <a href="https://www.youtube.com/@VOTRE_CHAINE" aria-label="YouTube" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9l5 3-5 3z"></path></svg></a>
+              <a href="https://www.tiktok.com/@VOTRE_COMPTE" aria-label="TikTok (nouvel onglet)" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v11a4 4 0 1 1-4-4"></path><path d="M14 3c.5 3 2.5 5 6 5"></path></svg></a>
+              <a href="https://www.facebook.com/VOTRE_PAGE" aria-label="Facebook (nouvel onglet)" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+              <a href="https://www.youtube.com/@VOTRE_CHAINE" aria-label="YouTube (nouvel onglet)" target="_blank" rel="noopener"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9l5 3-5 3z"></path></svg></a>
             </div>
           -->
         </div>
-        <nav class="foot-col" aria-label="Pied de page">
-          <span class="foot-h">Navigation</span>
+        <nav class="foot-col" aria-labelledby="foot-nav">
+          <h2 class="foot-h" id="foot-nav">Navigation</h2>
           <a href="#pourquoi">Pourquoi nous</a>
           <a href="#programme">Programme</a>
           <a href="#avis">Avis</a>
           <a href="#faq">FAQ</a>
         </nav>
         <div class="foot-col">
-          <span class="foot-h">Offres</span>
-          <a href="#offres">Formation · 200&nbsp;$</a>
-          <a href="#offres">Manuel · 9&nbsp;$</a>
+          <h2 class="foot-h">Offres</h2>
+          <a href="#formation">Formation · 200&nbsp;$</a>
+          <a href="#manuel">Manuel · 9&nbsp;$</a>
         </div>
         <div class="foot-col">
-          <span class="foot-h">Contact</span>
-          <a class="strong" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20j%E2%80%99ai%20une%20question." target="_blank" rel="noopener">+229&nbsp;01&nbsp;93&nbsp;32&nbsp;44&nbsp;39</a>
+          <h2 class="foot-h">Contact</h2>
+          <a class="strong" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20j%E2%80%99ai%20une%20question.%20%5Bsite%20%3A%20pied%20de%20page%5D" target="_blank" rel="noopener" aria-label="WhatsApp +229 01 93 32 44 39 (nouvel onglet)">+229&nbsp;01&nbsp;93&nbsp;32&nbsp;44&nbsp;39</a>
           <span class="muted">Bénin · 100&nbsp;% en ligne</span>
         </div>
       </div>
@@ -506,7 +542,7 @@
 
   <!-- ===== BARRE D'ACTION MOBILE ===== -->
   <div class="mbar" role="region" aria-label="Actions rapides">
-    <a class="btn btn-gold" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation." target="_blank" rel="noopener">Je réserve ma place</a>
+    <a class="btn btn-gold" href="https://wa.me/2290193324439?text=Bonjour%20GOD%20TRADING%2C%20je%20veux%20r%C3%A9server%20ma%20place%20pour%20la%20formation.%20%5Bsite%20%3A%20barre%20mobile%5D" target="_blank" rel="noopener"><svg class="i-wa" aria-hidden="true"><use href="#i-wa"></use></svg>Je réserve ma place<span class="sr-only"> sur WhatsApp (nouvel onglet)</span></a>
     <a class="mbar-alt" href="#offres">Offres</a>
   </div>
 </div>
