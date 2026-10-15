@@ -5,7 +5,10 @@ import { messageFiche, messageEvaluation, messageModification, messageRetouche, 
 import { renderMarkdown, decouper } from './markdown.js';
 import { lireFichier, blocsPourIA, ACCEPTES } from './fichiers.js';
 import * as S from './stockage.js';
-import { blobWord, telecharger, nomFichier, imprimer, copier, partager, partageDisponible } from './export.js';
+import { telecharger, nomFichier, imprimer, copier, partager, partageDisponible } from './export.js';
+import { blobDocx } from './docx.js';
+import { genererViaClaude } from './ia-claude.js';
+import { EXEMPLES } from './exemples.js';
 
 const MODELES = [
   { id: 'claude-opus-5-5', label: 'Claude Opus 5.5 (recommandé)' },
@@ -23,6 +26,9 @@ const etat = {
   doc: null,
   generation: null,
   fichiers: [], // { id, nom, statut: 'lecture'|'ok'|'erreur', donnees, message }
+  // Ouverte comme page claude.ai, l'application utilise le compte Claude de la personne
+  modeClaude: false,
+  claude: { sample: null, downloads: null, imagesOk: false },
 };
 
 // L'IA (SDK de 300 ko) est chargée en arrière-plan, pas au démarrage.
@@ -49,6 +55,7 @@ function toast(message) {
 }
 
 function aAcces(r = S.lireReglages()) {
+  if (etat.claude.sample) return true;
   return (r.relais && r.relais.trim() && r.codeAcces && r.codeAcces.trim()) || (r.cle && r.cle.trim());
 }
 
@@ -333,7 +340,12 @@ function ajouterFichiers(liste) {
     const item = { id: S.nouvelId(), nom: fichier.name, statut: 'lecture' };
     etat.fichiers.push(item);
     lireFichier(fichier)
-      .then(d => { item.donnees = d; item.statut = 'ok'; })
+      .then(d => {
+        if (etat.modeClaude && d.genre === 'pdf') throw new Error('PDF non accepté dans claude.ai : envoie des photos des pages ou le fichier Word.');
+        if (etat.modeClaude && d.genre === 'image' && !etat.claude.imagesOk) throw new Error('photos non acceptées dans cette vue : importe le fichier Word ou colle le texte.');
+        item.donnees = d;
+        item.statut = 'ok';
+      })
       .catch(err => { item.statut = 'erreur'; item.message = err.message || 'Fichier illisible.'; })
       .finally(afficherFichiers);
   }
@@ -483,16 +495,17 @@ async function lancer(demandeLancement) {
   try { eveil = navigator.wakeLock ? await navigator.wakeLock.request('screen') : null; } catch { /* facultatif */ }
 
   try {
-    const { generer } = await chargerIA();
-    const g = generer({
-      reglages,
-      contenu,
-      effort,
-      onTexte: t => {
-        texte = t;
-        if (!minuteurRendu) minuteurRendu = setTimeout(rendre, 120);
-      },
-    });
+    const onTexte = t => {
+      texte = t;
+      if (!minuteurRendu) minuteurRendu = setTimeout(rendre, 120);
+    };
+    let g;
+    if (etat.claude.sample) {
+      g = genererViaClaude({ sample: etat.claude.sample, contenu, onTexte });
+    } else {
+      const { generer } = await chargerIA();
+      g = generer({ reglages, contenu, effort, onTexte });
+    }
     etat.generation = g;
     const res = await g.promesse;
     if (ancien != null) doc.versions = [...(doc.versions || []), ancien];
@@ -587,7 +600,7 @@ function ouvrirDocument(doc, { enCours = false, retouche = false, garderAlerte =
   feuille.hidden = false;
   if (enCours && !retouche) {
     feuille.innerHTML = `<div class="attente"><span class="anneau" aria-hidden="true"></span>
-      <p><strong>Rédaction en préparation.</strong><br>Une fiche complète prend en général 1 à 3 minutes. Garde cette page ouverte.</p></div>`;
+      <p><strong>Rédaction en préparation.</strong><br>Un document complet prend en général 1 à 3 minutes. Garde cette page ouverte.${etat.modeClaude ? '<br>Si Claude te demande l\'autorisation, accepte-la.' : ''}</p></div>`;
   } else {
     feuille.innerHTML = renderMarkdown(doc.md);
   }
@@ -599,8 +612,31 @@ function ouvrirDocument(doc, { enCours = false, retouche = false, garderAlerte =
     if (aCorrige) $('input[name="partie"][value="tout"]', $('#doc-partie')).checked = true;
     $('#doc-version').hidden = !(doc.versions && doc.versions.length);
     $('#doc-interro').hidden = !(doc.type === 'fiche' && doc.notion);
-    $('#doc-partager').hidden = !partageDisponible();
+    majOutils();
   }
+}
+
+/** Boutons d'export disponibles selon l'endroit où l'application est ouverte. */
+function majOutils() {
+  // dans claude.ai, la page ne peut ni imprimer ni ouvrir le partage du téléphone
+  $('#doc-imprimer').hidden = etat.modeClaude;
+  $('#doc-partager').hidden = etat.modeClaude || !partageDisponible();
+  $('#doc-word').hidden = etat.modeClaude && !etat.claude.downloads;
+}
+
+/** Enregistre un fichier : téléchargement classique, ou demande à claude.ai. */
+async function enregistrerFichier(blob, nom) {
+  if (etat.claude.downloads) {
+    try {
+      await etat.claude.downloads.save({ filename: nom, data: blob });
+      return true;
+    } catch (e) {
+      if (e && e.code !== 'declined') toast('Enregistrement impossible dans cette vue.');
+      return false;
+    }
+  }
+  telecharger(blob, nom);
+  return true;
 }
 
 function initResultat() {
@@ -610,10 +646,9 @@ function initResultat() {
   });
   $('#doc-arreter').addEventListener('click', () => { if (etat.generation) etat.generation.arreter(); });
 
-  $('#doc-word').addEventListener('click', () => {
+  $('#doc-word').addEventListener('click', async () => {
     const titre = etat.doc.titre + suffixePartie();
-    telecharger(blobWord(titre, mdAExporter()), nomFichier(titre, 'doc'));
-    toast('Fichier Word téléchargé');
+    if (await enregistrerFichier(blobDocx(titre, mdAExporter()), nomFichier(titre, 'docx'))) toast('Fichier Word enregistré');
   });
   $('#doc-imprimer').addEventListener('click', () => imprimer(mdAExporter()));
   $('#doc-copier').addEventListener('click', async () => {
@@ -704,7 +739,7 @@ function afficherDocuments() {
   $('#liste-docs').innerHTML = docs.map(d => `
     <li>
       <button type="button" class="ouvrir" data-id="${d.id}">
-        <span class="badge ${d.incomplet ? 'incomplet' : ''}">${LIBELLES_TYPE[d.type] || 'Document'}${d.incomplet ? ' · incomplet' : ''}</span>
+        <span class="badge ${d.incomplet ? 'incomplet' : ''}">${LIBELLES_TYPE[d.type] || 'Document'}${d.exemple ? ' · exemple' : ''}${d.incomplet ? ' · incomplet' : ''}</span>
         <strong>${escapeAttr(d.titre || 'Sans titre')}</strong>
         <small>${dateCourte(d.maj || d.cree)}</small>
       </button>
@@ -730,20 +765,21 @@ function initDocuments() {
       ouvrirDocument(doc);
     } else if (suppr) {
       const doc = S.lireDocuments().find(d => d.id === suppr.dataset.suppr);
-      if (doc && confirm(`Supprimer « ${doc.titre} » ?`)) {
+      if (!doc) return;
+      confirmer(`Supprimer « ${doc.titre} » ?`, 'Supprimer').then(oui => {
+        if (!oui) return;
         S.supprimerDocument(doc.id);
         if (etat.doc && etat.doc.id === doc.id && !etat.generation) etat.doc = null;
         afficherDocuments();
         toast('Document supprimé');
-      }
+      });
     }
   });
 
-  $('#btn-exporter').addEventListener('click', () => {
+  $('#btn-exporter').addEventListener('click', async () => {
     const json = JSON.stringify(S.exporterTout(), null, 1);
     const jour = new Date().toISOString().slice(0, 10);
-    telecharger(new Blob([json], { type: 'application/json' }), `maths-apc-sauvegarde-${jour}.json`);
-    toast('Sauvegarde enregistrée');
+    if (await enregistrerFichier(new Blob([json], { type: 'application/json' }), `maths-apc-sauvegarde-${jour}.json`)) toast('Sauvegarde enregistrée');
   });
   $('#fichier-import').addEventListener('change', async e => {
     const f = e.target.files[0];
@@ -784,9 +820,9 @@ function initProgrammes() {
     chargerProgramme();
     toast(`Programme de ${libelleClasse(v.ens, v.classe, v.serie)} enregistré`);
   });
-  $('#prog-retablir').addEventListener('click', () => {
+  $('#prog-retablir').addEventListener('click', async () => {
     const v = selecteurs.programmes.valeur();
-    if (!confirm(`Rétablir le programme d'origine pour ${libelleClasse(v.ens, v.classe, v.serie)} ? Tes corrections et tes notes seront effacées.`)) return;
+    if (!await confirmer(`Rétablir le programme d'origine pour ${libelleClasse(v.ens, v.classe, v.serie)} ? Tes corrections et tes notes seront effacées.`, 'Rétablir')) return;
     S.ecrireProgrammePerso(cleClasse(v.ens, v.classe, v.serie), null, '');
     rafraichirFormulaires();
     chargerProgramme();
@@ -894,6 +930,103 @@ function initPuces() {
   });
 }
 
+// ================================================================ confirmation dans la page
+
+let modaleOuverte = null;
+/** Remplace confirm() (bloqué dans certaines vues) : résout true si l'enseignant confirme. */
+function confirmer(message, libelleOk = 'Confirmer') {
+  const m = $('#modale');
+  if (modaleOuverte) modaleOuverte(false);
+  $('#modale-texte').textContent = message;
+  $('#modale-ok').textContent = libelleOk;
+  const retour = document.activeElement;
+  m.hidden = false;
+  $('#modale-annuler').focus();
+  return new Promise(resoudre => {
+    const fermer = oui => {
+      m.hidden = true;
+      modaleOuverte = null;
+      document.removeEventListener('keydown', clavier, true);
+      $('#modale-ok').onclick = null;
+      $('#modale-annuler').onclick = null;
+      m.onclick = null;
+      if (retour && retour.focus) retour.focus({ preventScroll: true });
+      resoudre(oui);
+    };
+    const clavier = e => {
+      if (e.key === 'Escape') { e.preventDefault(); fermer(false); }
+      if (e.key === 'Tab') { // le focus reste dans la boîte
+        const b = [$('#modale-annuler'), $('#modale-ok')];
+        const i = b.indexOf(document.activeElement);
+        e.preventDefault();
+        b[(i + (e.shiftKey ? b.length - 1 : 1)) % b.length].focus();
+      }
+    };
+    modaleOuverte = fermer;
+    document.addEventListener('keydown', clavier, true);
+    $('#modale-ok').onclick = () => fermer(true);
+    $('#modale-annuler').onclick = () => fermer(false);
+    m.onclick = e => { if (e.target === m) fermer(false); };
+  });
+}
+
+// ================================================================ claude.ai et exemples
+
+async function detecterClaude() {
+  try {
+    const [sample, downloads] = await Promise.all([
+      window.claude.use('sample').catch(() => null),
+      window.claude.use('downloads').catch(() => null),
+    ]);
+    etat.claude.downloads = downloads;
+    if (sample) {
+      etat.claude.sample = sample;
+      etat.modeClaude = true;
+      const limites = await sample.limits().catch(() => null);
+      etat.claude.imagesOk = !!(limites && limites.images);
+    }
+  } catch { /* hors claude.ai : mode clé API */ }
+  appliquerMode();
+}
+
+function appliquerMode() {
+  document.documentElement.classList.toggle('mode-claude', etat.modeClaude);
+  $('#vue-fiche .bandeau-cle').hidden = !!aAcces();
+  $('#carte-claude').hidden = !etat.modeClaude;
+  $('#form-ia').hidden = etat.modeClaude;
+  $('#depot .aide').textContent = etat.modeClaude
+    ? (etat.claude.imagesOk ? 'Word (.docx) ou photos des pages. Tu peux ajouter plusieurs photos.' : 'Fichier Word (.docx) ou texte.')
+    : 'Word (.docx), PDF ou photos. Tu peux ajouter plusieurs photos.';
+  majOutils();
+}
+
+/** Chaque exemple est ajouté une seule fois à « Mes documents » : supprimé, il ne revient pas. */
+function ajouterExemples() {
+  const dejaAjoutes = new Set(S.lireMemoire('exemples-ajoutes', []));
+  const presents = new Set(S.lireDocuments().map(d => d.id));
+  for (const ex of EXEMPLES.slice().reverse()) {
+    if (dejaAjoutes.has(ex.id)) continue;
+    if (!presents.has(ex.id)) S.enregistrerDocument({ ...ex, versions: [] });
+    dejaAjoutes.add(ex.id);
+  }
+  S.ecrireMemoire('exemples-ajoutes', [...dejaAjoutes]);
+  // les liens « Voir un exemple » n'apparaissent que si l'exemple existe
+  for (const b of $$('[data-exemple]')) b.hidden = !EXEMPLES.some(ex => ex.id === b.dataset.exemple);
+}
+
+function ouvrirExemple(id) {
+  const doc = S.lireDocuments().find(d => d.id === id) || EXEMPLES.find(d => d.id === id);
+  if (!doc) return;
+  etat.doc = { versions: [], ...doc };
+  afficherVue('resultat');
+  ouvrirDocument(etat.doc);
+}
+
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-exemple]');
+  if (b) ouvrirExemple(b.dataset.exemple);
+});
+
 // ================================================================ démarrage
 
 function demarrer() {
@@ -910,7 +1043,13 @@ function demarrer() {
   history.replaceState({ vue }, '', `#${vue}`);
   afficherVue(vue, { historique: false });
   // l'IA est chargée dès que le navigateur est libre, pour être prête au premier clic
-  (window.requestIdleCallback || (f => setTimeout(f, 1500)))(() => chargerIA().catch(() => { moduleIA = null; }));
+  ajouterExemples();
+  if (window.claude && typeof window.claude.use === 'function') {
+    detecterClaude();
+  } else {
+    // hors claude.ai : l'IA est chargée dès que le navigateur est libre, pour être prête au premier clic
+    (window.requestIdleCallback || (f => setTimeout(f, 1500)))(() => chargerIA().catch(() => { moduleIA = null; }));
+  }
 }
 
 demarrer();

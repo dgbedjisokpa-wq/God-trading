@@ -5,16 +5,11 @@
 
 import Anthropic from '../vendor/anthropic-sdk-0.134.0.min.js';
 import { SYSTEME } from './prompts.js';
+import { ErreurIA } from './erreurs.js';
 
 export const MODELE_DEFAUT = 'claude-opus-5-5';
 
-export class ErreurIA extends Error {
-  constructor(message, { partiel = '', arret = false } = {}) {
-    super(message);
-    this.partiel = partiel;
-    this.arret = arret;
-  }
-}
+export { ErreurIA };
 
 /**
  * Lance une génération en flux continu.

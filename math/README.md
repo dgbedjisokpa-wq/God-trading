@@ -21,8 +21,8 @@ l'enseignement technique :
   pour toutes les fiches et épreuves de la classe.
 
 Chaque document peut être retouché (« Demander une modification »), modifié à
-la main, exporté en **Word**, imprimé ou enregistré en **PDF**, copié ou
-partagé (WhatsApp…). Pour une épreuve, on peut exporter l'épreuve seule (à
+la main, exporté en **Word (.docx, avec de vraies équations)**, imprimé ou
+enregistré en **PDF**, copié ou partagé (WhatsApp…). Pour une épreuve, on peut exporter l'épreuve seule (à
 distribuer) ou le corrigé seul.
 
 ## Première utilisation
@@ -40,6 +40,14 @@ Anthropic. Coût indicatif : environ 0,20 à 0,40 $ (≈ 120 à 250 FCFA) par
 document avec Claude Opus 5.5, environ moitié moins avec Claude Sonnet 5.5
 (modèle au choix dans les Réglages ; vérifier les tarifs sur le site
 d'Anthropic).
+
+## Aperçu dans claude.ai
+
+L'application fonctionne aussi comme page claude.ai (Artifact). Dans ce mode,
+l'IA est celle du compte Claude de la personne qui ouvre la page : pas de clé
+API à saisir (Claude demande une autorisation à la première rédaction).
+L'impression directe n'y est pas possible (exporter en Word) et les PDF
+importés ne sont pas acceptés (envoyer des photos ou le fichier Word).
 
 ## Mise en ligne sur math.godtrading.store
 
@@ -88,10 +96,14 @@ du relais.
 | `js/app.js` | Logique de l'interface |
 | `js/programmes.js` | Programmes pré-remplis par classe et série (6e → Tle, général et technique) |
 | `js/prompts.js` | Consignes données à l'IA : modèle APC béninois de fiche et d'épreuve, barème |
-| `js/ia.js` | Appel à Claude (SDK officiel Anthropic, réponse en continu) |
+| `js/ia.js` | Appel à Claude avec une clé API (SDK officiel Anthropic, réponse en continu) |
+| `js/ia-claude.js` | Appel à Claude dans claude.ai (compte de la personne, sans clé) |
+| `js/erreurs.js` | Erreur commune aux deux modes |
+| `js/exemples.js` | Fiche et devoir d'exemple ajoutés à « Mes documents » |
+| `js/docx.js` | Fabrication du fichier Word .docx (tableaux, encadrés, équations) |
 | `js/markdown.js` | Mise en forme des documents (tableaux, fractions, vecteurs, racines…) |
 | `js/fichiers.js` | Lecture des fichiers importés (Word, PDF, photos) |
-| `js/export.js` | Export Word, impression / PDF, copie, partage |
+| `js/export.js` | Téléchargement, impression / PDF, copie, partage |
 | `js/stockage.js` | Mémoire locale (réglages, programmes, documents, sauvegarde) |
 | `vendor/` | SDK Anthropic 0.134.0 en un seul fichier (licence incluse) |
 | `relais/relais.js` | Relais Cloudflare facultatif |

@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Maths APC — fiches et épreuves de mathématiques (Bénin)</title>
 <meta name="description" content="Rédige tes fiches pédagogiques APC, interrogations, devoirs et compositions de mathématiques (6e à Tle, général et technique) avec corrigé type et barème.">
 <meta name="color-scheme" content="only light">
@@ -59,6 +59,7 @@
     <div class="intro">
       <h1 id="t-fiche">Rédiger une fiche pédagogique</h1>
       <p>Choisis la classe et la notion : la fiche APC complète (situation de départ, introduction, réalisation, retour et projection) est rédigée pour toi.</p>
+      <button type="button" class="lien" data-exemple="exemple-fiche-4e">Voir un exemple de fiche</button>
     </div>
     <div class="bandeau-cle" hidden>
       <p><strong>Première utilisation :</strong> ajoute ta clé d'accès à l'IA dans les Réglages. Tu ne le fais qu'une fois.</p>
@@ -144,6 +145,7 @@
     <div class="intro">
       <h1 id="t-eval">Interrogations, devoirs et compositions</h1>
       <p>L'épreuve est rédigée avec son corrigé type et son barème détaillé (critères Ca, Cm, Co et perfectionnement).</p>
+      <button type="button" class="lien" data-exemple="exemple-devoir-3e">Voir un exemple de devoir corrigé</button>
     </div>
     <form class="carte formulaire" id="form-eval" novalidate>
       <fieldset class="champ">
@@ -315,6 +317,11 @@
       <button type="submit" class="btn btn-or">Enregistrer le profil</button>
     </form>
 
+    <div class="carte" id="carte-claude" hidden>
+      <h2>Accès à l'IA</h2>
+      <p class="aide">Tu utilises Maths APC dans claude.ai : les documents sont rédigés par Claude avec ton compte. Aucune clé API n'est nécessaire. À la première rédaction, Claude te demande l'autorisation.</p>
+    </div>
+
     <form class="carte formulaire" id="form-ia" novalidate>
       <h2>Accès à l'IA</h2>
       <p class="aide">L'application utilise Claude, l'IA d'Anthropic. Crée une clé sur <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">console.anthropic.com</a> (rubrique « API Keys ») et colle-la ici. Elle reste sur cet appareil et n'est envoyée qu'à Anthropic.</p>
@@ -413,6 +420,16 @@
   <button type="button" class="onglet" data-vue="docs"><svg aria-hidden="true"><use href="#i-docs"/></svg><span>Documents</span></button>
   <button type="button" class="onglet" data-vue="programmes"><svg aria-hidden="true"><use href="#i-prog"/></svg><span>Programmes</span></button>
 </nav>
+
+<div class="modale" id="modale" hidden>
+  <div class="modale-boite" role="dialog" aria-modal="true" aria-labelledby="modale-texte">
+    <p id="modale-texte"></p>
+    <div class="actions">
+      <button type="button" class="btn btn-or" id="modale-ok">Confirmer</button>
+      <button type="button" class="btn btn-sec" id="modale-annuler">Annuler</button>
+    </div>
+  </div>
+</div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div id="zone-impression" aria-hidden="true"></div>
