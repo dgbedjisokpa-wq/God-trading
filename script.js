@@ -18,12 +18,32 @@
   var viewTimeline = supports('animation-timeline: view()');
   var $ = function (s, root) { return (root || document).querySelector(s); };
   var $$ = function (s, root) { return Array.prototype.slice.call((root || document).querySelectorAll(s)); };
+  var byHash = function (href) { return href && href.charAt(0) === '#' && href.length > 1 ? document.getElementById(href.slice(1)) : null; };
 
   /* Sur iOS, :active ne s'affiche au toucher qu'avec un écouteur touchstart. */
   document.addEventListener('touchstart', function () {}, { passive: true });
 
+  /* Défilement fluide seulement après le chargement : un lien partagé (#faq)
+     arrive directement à destination au lieu de traverser toute la page. */
+  window.addEventListener('load', function () {
+    requestAnimationFrame(function () { doc.classList.add('ready'); });
+  });
+
   /* ---------- année du pied de page ---------- */
   $$('[data-year]').forEach(function (el) { el.textContent = String(new Date().getFullYear()); });
+
+  /* ---------- apparitions : révéler tout de suite une destination choisie ---------- */
+  var rio = null;
+  var revealNow = function (root) {
+    if (!root) return;
+    var list = $$('[data-r]:not([data-in])', root);
+    if (root.hasAttribute('data-r') && !root.hasAttribute('data-in')) list.push(root);
+    list.forEach(function (el) {
+      el.style.transition = 'none';
+      el.setAttribute('data-in', '');
+      if (rio) rio.unobserve(el);
+    });
+  };
 
   /* ---------- menu mobile ---------- */
   var topbar = $('.topbar');
@@ -46,7 +66,7 @@
       doc.removeAttribute('data-menu');
       panel.classList.remove('open');
       /* même chemin qu'à l'ouverture ; on retire le panneau une fois la sortie jouée */
-      closeTimer = setTimeout(function () { if (!menuOpen()) panel.hidden = true; }, reduce ? 0 : 320);
+      closeTimer = setTimeout(function () { if (!menuOpen()) panel.hidden = true; }, reduce ? 200 : 320);
     }
   };
   if (burger && panel && topbar) {
@@ -55,17 +75,16 @@
       var a = e.target.closest('a');
       if (!a) return;
       /* la section visée reçoit le focus après la navigation (le lien, lui, disparaît) */
-      var href = a.getAttribute('href');
-      var target = href && href.charAt(0) === '#' ? document.getElementById(href.slice(1)) : null;
+      var target = byHash(a.getAttribute('href'));
       if (target && !target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
       setMenu(false);
     });
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && menuOpen()) { setMenu(false); burger.focus(); }
+      if (e.key === 'Escape' && menuOpen()) { setMenu(false); burger.focus({ preventScroll: true }); }
     });
-    /* clic sur le voile ou ailleurs dans la page */
+    /* tout appui hors du panneau (voile, logo, liens de l'en-tête) ferme le menu */
     document.addEventListener('click', function (e) {
-      if (menuOpen() && !e.target.closest('.topbar')) setMenu(false);
+      if (menuOpen() && !e.target.closest('.mob-panel, .nav-burger')) setMenu(false);
     });
     /* sortie du menu au clavier (Tab) */
     topbar.addEventListener('focusout', function (e) {
@@ -75,13 +94,15 @@
     onChange(wide, function () { if (wide.matches) setMenu(false); });
   }
 
-  /* ---------- navigation par ancre : l'en-tête reste visible pendant le trajet ---------- */
+  /* ---------- navigation par ancre : l'en-tête reste visible, la destination est prête ---------- */
   var navigating = false, navTimer = 0;
   var endNav = function () { navigating = false; clearTimeout(navTimer); };
   document.addEventListener('click', function (e) {
-    if (!e.target.closest || !e.target.closest('a[href^="#"]')) return;
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a) return;
     navigating = true;
     doc.removeAttribute('data-down');
+    revealNow(byHash(a.getAttribute('href')));
     clearTimeout(navTimer);
     navTimer = setTimeout(endNav, 1500);
   });
@@ -89,25 +110,31 @@
 
   /* ---------- menu : section active ---------- */
   var navLinks = $$('.nav-item, .mob-panel a[href^="#"]');
+  var setActive = function (id) {
+    navLinks.forEach(function (a) {
+      var on = a.getAttribute('href') === id;
+      a.classList.toggle('on', on);
+      if (on) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+    });
+  };
   if (navLinks.length && hasIO) {
     var spy = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (!e.isIntersecting) return;
         var id = '#' + e.target.id;
+        /* en haut de page : aucun lien actif */
+        if (e.target.id === 'top') { setActive(null); return; }
         /* une section sans lien de menu (À propos, Pour qui…) garde l'état précédent */
         if (!navLinks.some(function (a) { return a.getAttribute('href') === id; })) return;
-        navLinks.forEach(function (a) {
-          var on = a.getAttribute('href') === id;
-          a.classList.toggle('on', on);
-          if (on) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
-        });
+        setActive(id);
       });
     }, { rootMargin: '-40% 0px -55% 0px' });
     $$('main section[id]').forEach(function (s) { spy.observe(s); });
   }
 
   /* ---------- défilement : matériau de l'en-tête, masquage, progression, bandeau ---------- */
-  var staticHeader = mm('(max-height: 500px)');
+  /* en-tête non collant seulement pour le zoom sur ordinateur (fenêtre basse + souris) */
+  var staticHeader = mm('(max-height: 500px) and (pointer: fine)');
   var progress = $('.progress');
   var ticker = $('.ticker');
   var marquee = $('.marquee');
@@ -118,18 +145,21 @@
     tickTop = r.top + window.scrollY;
     tickH = r.height || 1;
   };
-  var lastY = window.scrollY, acc = 0, raf = 0;
+  var lastY = window.scrollY, acc = 0, raf = 0, first = true;
   var frame = function () {
     raf = 0;
     var y = window.scrollY;
     var vh = window.innerHeight;
     var sc = y > 40;
     if (sc !== doc.hasAttribute('data-sc')) { if (sc) doc.setAttribute('data-sc', ''); else doc.removeAttribute('data-sc'); }
-    /* masquer après 48 px de descente cumulée, réafficher après 24 px de remontée */
+    /* masquer après 48 px de descente cumulée, réafficher après 24 px de remontée ;
+       un saut (ancre, restauration de position, premier affichage) ne compte pas */
     var dy = y - lastY;
     lastY = y;
-    acc = (dy > 0) === (acc > 0) ? acc + dy : dy;
-    if (y < 640 || acc < -24 || reduce || navigating || menuOpen() || staticHeader.matches) doc.removeAttribute('data-down');
+    if (first || navigating || Math.abs(dy) > vh) acc = 0;
+    else acc = (dy > 0) === (acc > 0) ? acc + dy : dy;
+    first = false;
+    if (y < 640 || acc < -24 || reduce || navigating || menuOpen() || staticHeader.matches || (topbar && topbar.contains(document.activeElement))) doc.removeAttribute('data-down');
     else if (acc > 48) doc.setAttribute('data-down', '');
     /* repli JS quand le navigateur ne sait pas lier une animation au défilement */
     if (progress && !scrollTimeline) {
@@ -141,7 +171,44 @@
       marquee.style.transform = 'translateX(' + (-p * 25).toFixed(3) + '%)';
     }
   };
-  var onScroll = function () { if (!raf) raf = requestAnimationFrame(frame); };
+  /* navigation au clavier : l'en-tête masqué réapparaît dès l'appui sur Tab,
+     avant que le focus ne bouge (sinon le navigateur fait défiler la page pour le montrer) */
+  var tabbing = false, holdY = null, holdUntil = 0;
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Tab') { holdY = null; return; }
+    tabbing = true;
+    if (!topbar || !doc.hasAttribute('data-down')) return;
+    topbar.style.transition = 'none';
+    doc.removeAttribute('data-down');
+    void topbar.offsetHeight;
+    topbar.style.transition = '';
+    acc = 0;
+  });
+  /* un élément des barres collantes est toujours à l'écran : le focus clavier qui y arrive
+     ne doit pas faire défiler la page (la marge de défilement le croit caché).
+     Le défilement lancé par le navigateur juste après est annulé, sauf geste de l'utilisateur */
+  document.addEventListener('focusin', function (e) {
+    var kb = tabbing;
+    tabbing = false;
+    holdY = null;
+    if (!kb || !e.target.closest || !e.target.closest('.topbar, .mbar')) return;
+    holdY = window.scrollY;
+    holdUntil = Date.now() + 700;
+  });
+  var release = function () { holdY = null; tabbing = false; };
+  ['wheel', 'touchstart', 'pointerdown', 'click'].forEach(function (t) {
+    window.addEventListener(t, release, { passive: true, capture: true });
+  });
+  var held = function () {
+    if (holdY === null) return false;
+    if (Date.now() > holdUntil) { holdY = null; return false; }
+    if (Math.abs(window.scrollY - holdY) < 1) return false;
+    doc.style.scrollBehavior = 'auto';
+    window.scrollTo(0, holdY);
+    doc.style.scrollBehavior = '';
+    return true;
+  };
+  var onScroll = function () { if (!held() && !raf) raf = requestAnimationFrame(frame); };
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', function () { measure(); onScroll(); });
   window.addEventListener('load', function () { measure(); onScroll(); });
@@ -172,14 +239,15 @@
     var curEl = $('[data-cur]', rv);
     var totEl = $('[data-total]', rv);
     var live = $('.rv-live', rv);
-    var dots = [], target = -1, settle = 0, last = -1;
+    var dots = [], target = -1, settle = 0, idle = 0, last = -1, per = 1, lastW = 0;
     var step = function () {
       if (!cards.length) return 1;
       return cards[0].getBoundingClientRect().width + (parseFloat(getComputedStyle(track).columnGap) || 0);
     };
     var pageCount = function () { return Math.max(1, Math.round((track.scrollWidth - track.clientWidth) / step()) + 1); };
     var current = function () { return Math.round(track.scrollLeft / step()); };
-    var sync = function (i) {
+    /* announce : seulement après une action de la personne (jamais au chargement ni au redimensionnement) */
+    var sync = function (i, announce) {
       var n = dots.length || 1;
       i = Math.max(0, Math.min(n - 1, i));
       dots.forEach(function (d, k) { d.setAttribute('aria-current', k === i ? 'true' : 'false'); });
@@ -187,16 +255,21 @@
       if (prev) prev.setAttribute('aria-disabled', String(i <= 0));
       if (next) next.setAttribute('aria-disabled', String(i >= n - 1));
       if (curEl) curEl.textContent = String(i + 1);
-      if (live && i !== last) live.textContent = 'Avis ' + (i + 1) + ' sur ' + n;
+      if (live && announce && i !== last) {
+        live.textContent = per > 1
+          ? 'Avis ' + (i + 1) + ' à ' + (i + per) + ' sur ' + cards.length
+          : 'Avis ' + (i + 1) + ' sur ' + cards.length;
+      }
       last = i;
     };
+    var settleNow = function () { target = -1; sync(current(), true); };
     var go = function (i) {
       var n = dots.length || 1;
       target = Math.max(0, Math.min(n - 1, i));
       track.scrollTo({ left: target * step(), behavior: reduce ? 'auto' : 'smooth' });
-      sync(target);
+      sync(target, true);
       clearTimeout(settle);
-      settle = setTimeout(function () { target = -1; }, 800);
+      settle = setTimeout(settleNow, 800);
     };
     /* les clics rapides s'additionnent : on part de la cible en cours, pas de la position à l'écran */
     var base = function () { return target >= 0 ? target : current(); };
@@ -204,7 +277,7 @@
     if (next) next.addEventListener('click', function () { if (next.getAttribute('aria-disabled') !== 'true') go(base() + 1); });
     var build = function () {
       var n = pageCount();
-      var per = Math.max(1, cards.length - n + 1);
+      per = Math.max(1, cards.length - n + 1);
       if (n <= 1) rv.setAttribute('data-static', ''); else rv.removeAttribute('data-static');
       if (totEl) totEl.textContent = String(n);
       if (n !== dots.length) {
@@ -219,17 +292,24 @@
           dots.push(b);
         }
       }
-      last = -1;
-      sync(current());
+      sync(current(), false);
     };
     var rvRaf = 0;
     track.addEventListener('scroll', function () {
+      /* repli sans l'événement scrollend (Safari) : fin de défilement = 150 ms sans mouvement */
+      clearTimeout(idle);
+      idle = setTimeout(settleNow, 150);
       if (rvRaf || target >= 0) return;
-      rvRaf = requestAnimationFrame(function () { rvRaf = 0; sync(current()); });
+      rvRaf = requestAnimationFrame(function () { rvRaf = 0; sync(current(), true); });
     }, { passive: true });
-    track.addEventListener('scrollend', function () { target = -1; sync(current()); });
+    track.addEventListener('scrollend', function () { clearTimeout(idle); settleNow(); });
     var rvT = 0;
-    window.addEventListener('resize', function () { clearTimeout(rvT); rvT = setTimeout(build, 150); });
+    window.addEventListener('resize', function () {
+      if (window.innerWidth === lastW) return; /* la barre d'outils mobile qui se replie ne compte pas */
+      clearTimeout(rvT);
+      rvT = setTimeout(function () { lastW = window.innerWidth; build(); }, 150);
+    });
+    lastW = window.innerWidth;
     build();
   }
 
@@ -237,25 +317,38 @@
 
   /* ---------- apparitions au défilement ----------
      Seuls les blocs encore sous la ligne de flottaison sont masqués : rien de ce
-     qui est déjà à l'écran ne disparaît, et l'apparition est courte (≈ 0,45 s). */
+     qui est déjà à l'écran ne disparaît, et l'apparition est courte (≈ 0,45 s).
+     La section visée par un lien partagé (#faq…) n'est jamais masquée. */
   if (hasIO) {
-    var sel = '.sec-head, .g-stats, .about > *, .svc, .path, .g-faq > *, .g-contact > *, .g-why > *, .g-cards > *, .rv, .risk, .promo-in > .btn, .g-steps > *, .g-2col > *, .g-foot > *';
+    var sel = '.sec-head, .g-stats, .about > *, .svc, .path, .g-faq > *, .g-contact > *, .g-why > *, .g-cards > *, .rv, .risk, .g-steps > *, .g-2col > *, .g-foot > *';
     var fold = window.innerHeight;
-    var targets = $$(sel).filter(function (el) { return el.getBoundingClientRect().top > fold * 0.9; });
+    var hashTarget = byHash(location.hash);
+    var tops = $$(sel).map(function (el) { return [el, el.getBoundingClientRect().top]; });
+    var targets = tops.filter(function (t) {
+      var el = t[0];
+      if (hashTarget && (hashTarget.contains(el) || el.contains(hashTarget))) return false;
+      return t[1] > fold * 0.9;
+    }).map(function (t) { return t[0]; });
     targets.forEach(function (el) {
       var sib = el.parentElement ? Array.prototype.filter.call(el.parentElement.children, function (c) { return targets.indexOf(c) !== -1; }) : [el];
       var idx = Math.max(0, sib.indexOf(el));
       el.style.setProperty('--d', Math.min(idx * 0.06, 0.18) + 's');
       el.setAttribute('data-r', '');
     });
-    var rio = new IntersectionObserver(function (entries) {
+    rio = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (!e.isIntersecting) return;
         e.target.setAttribute('data-in', '');
         rio.unobserve(e.target);
       });
     }, { threshold: 0 });
-    targets.forEach(function (el) { rio.observe(el); });
+    /* l'état masqué est posé sans transition, puis les transitions sont réactivées */
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        doc.classList.add('armed');
+        targets.forEach(function (el) { if (!el.hasAttribute('data-in')) rio.observe(el); });
+      });
+    });
     /* un bloc atteint au clavier apparaît tout de suite */
     document.addEventListener('focusin', function (e) {
       var b = e.target.closest && e.target.closest('[data-r]:not([data-in])');
