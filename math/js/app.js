@@ -1038,12 +1038,11 @@ function demarrer() {
   initProgrammes();
   initReglages();
   initPuces();
+  ajouterExemples();
   const depart = location.hash.slice(1);
   const vue = VUES.includes(depart) && depart !== 'resultat' ? depart : 'fiche';
   history.replaceState({ vue }, '', `#${vue}`);
   afficherVue(vue, { historique: false });
-  // l'IA est chargée dès que le navigateur est libre, pour être prête au premier clic
-  ajouterExemples();
   if (window.claude && typeof window.claude.use === 'function') {
     detecterClaude();
   } else {
