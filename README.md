@@ -23,6 +23,14 @@ n'est chargée depuis un serveur tiers (polices comprises).
 | `_config.yml` | Réglage GitHub Pages (n'y publie pas ce README) |
 | `.claude/skills/apple-design/` | Guide de conception utilisé pour le mouvement et les interactions |
 
+## Application Maths APC (`math/`)
+
+Le dossier `math/` contient une application séparée, prévue pour
+**math.godtrading.store** : rédaction de fiches pédagogiques APC,
+d'interrogations, de devoirs et de compositions de mathématiques (Bénin,
+6e à Tle) avec corrigé et barème. Sa mise en ligne et son fonctionnement sont
+décrits dans `math/README.md`. Elle n'utilise aucun fichier du site vitrine.
+
 ## Modifier le contenu
 
 - **Textes et prix** : directement dans `index.html`, section par section

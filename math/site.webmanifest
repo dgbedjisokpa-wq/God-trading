@@ -1,0 +1,16 @@
+{
+  "name": "Maths APC — fiches et épreuves de mathématiques",
+  "short_name": "Maths APC",
+  "description": "Fiches pédagogiques APC, interrogations, devoirs et compositions de mathématiques (Bénin, 6e à Tle) avec corrigé et barème.",
+  "lang": "fr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#FAF7F0",
+  "theme_color": "#FAF7F0",
+  "icons": [
+    { "src": "assets/icone-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/icone-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "assets/icone.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

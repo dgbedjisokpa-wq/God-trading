@@ -1,3 +1,5 @@
 # GitHub Pages : on publie le site tel quel, sans les fichiers internes.
 exclude:
   - README.md
+  - math/README.md
+  - math/relais

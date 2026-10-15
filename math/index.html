@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Maths APC — fiches et épreuves de mathématiques (Bénin)</title>
+<meta name="description" content="Rédige tes fiches pédagogiques APC, interrogations, devoirs et compositions de mathématiques (6e à Tle, général et technique) avec corrigé type et barème.">
+<meta name="color-scheme" content="only light">
+<meta name="theme-color" content="#FAF7F0">
+<link rel="icon" href="assets/icone.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icone-180.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preload" href="assets/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="app.css?v=1">
+<script type="module" src="js/app.js?v=1"></script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-fiche" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M9 13h6M9 17h4"/></symbol>
+  <symbol id="i-modif" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16zM13.5 6.5l4 4"/></symbol>
+  <symbol id="i-eval" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M9 4h6M9 4a1 1 0 0 0-1 1v1h8V5a1 1 0 0 0-1-1M8 5H6a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-2M8.5 13l2.2 2.2L15.5 10.5"/></symbol>
+  <symbol id="i-docs" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="i-prog" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5zM20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5z"/></symbol>
+  <symbol id="i-reglages" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></symbol>
+  <symbol id="i-retour" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M15 18l-6-6 6-6"/></symbol>
+  <symbol id="i-word" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 3v12M7 10l5 5 5-5M5 21h14"/></symbol>
+  <symbol id="i-print" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M7 9V3h10v6M7 18H5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M7 14h10v7H7z"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M9 9h10v12H9zM5 15V3h10"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 3v13M7 8l5-5 5 5M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></symbol>
+  <symbol id="i-texte" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M4 7V5h16v2M9 19h6M12 5v14"/></symbol>
+  <symbol id="i-annuler" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M9 14L4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></symbol>
+</svg>
+
+<a class="skip" href="#contenu">Aller au contenu</a>
+
+<header class="entete">
+  <div class="entete-in">
+    <a class="marque" href="./" aria-label="Maths APC, accueil">
+      <span class="marque-logo" aria-hidden="true">∑</span>
+      <span class="marque-txt"><strong>Maths APC</strong><small>Bénin · 6e à Tle</small></span>
+    </a>
+    <nav class="onglets" aria-label="Sections">
+      <button type="button" class="onglet" data-vue="fiche"><svg aria-hidden="true"><use href="#i-fiche"/></svg><span>Fiche</span></button>
+      <button type="button" class="onglet" data-vue="modifier"><svg aria-hidden="true"><use href="#i-modif"/></svg><span>Modifier</span></button>
+      <button type="button" class="onglet" data-vue="eval"><svg aria-hidden="true"><use href="#i-eval"/></svg><span>Évaluations</span></button>
+      <button type="button" class="onglet" data-vue="docs"><svg aria-hidden="true"><use href="#i-docs"/></svg><span>Documents</span></button>
+      <button type="button" class="onglet" data-vue="programmes"><svg aria-hidden="true"><use href="#i-prog"/></svg><span>Programmes</span></button>
+    </nav>
+    <button type="button" class="btn-icone" data-vue="reglages" aria-label="Réglages"><svg aria-hidden="true"><use href="#i-reglages"/></svg></button>
+  </div>
+</header>
+
+<main id="contenu" tabindex="-1">
+
+  <!-- ===== FICHE ===== -->
+  <section class="vue" id="vue-fiche" aria-labelledby="t-fiche" hidden>
+    <div class="intro">
+      <h1 id="t-fiche">Rédiger une fiche pédagogique</h1>
+      <p>Choisis la classe et la notion : la fiche APC complète (situation de départ, introduction, réalisation, retour et projection) est rédigée pour toi.</p>
+    </div>
+    <div class="bandeau-cle" hidden>
+      <p><strong>Première utilisation :</strong> ajoute ta clé d'accès à l'IA dans les Réglages. Tu ne le fais qu'une fois.</p>
+      <button type="button" class="btn btn-sec" data-vue="reglages">Ouvrir les réglages</button>
+    </div>
+    <form class="carte formulaire" id="form-fiche" novalidate>
+      <div class="choix-classe" data-pour="fiche"></div>
+      <div class="champ">
+        <label for="fiche-partie">Situation d'apprentissage</label>
+        <select id="fiche-partie" name="partie"></select>
+      </div>
+      <div class="champ">
+        <label for="fiche-notion">Séquence (notion)</label>
+        <select id="fiche-notion" name="notionChoix"></select>
+        <input type="text" id="fiche-notion-libre" name="notionLibre" placeholder="Saisis la notion, ex. : Propriété de Pythagore" hidden aria-label="Notion (saisie libre)">
+      </div>
+      <div class="grille-3">
+        <div class="champ">
+          <label for="fiche-numero">N° de séquence</label>
+          <input type="text" id="fiche-numero" name="numero" inputmode="numeric" placeholder="ex. 3">
+        </div>
+        <div class="champ">
+          <label for="fiche-duree">Durée</label>
+          <select id="fiche-duree" name="duree">
+            <option>55 min</option>
+            <option selected>2 × 55 min</option>
+            <option>3 × 55 min</option>
+            <option>1 h</option>
+            <option>2 h</option>
+          </select>
+        </div>
+        <div class="champ">
+          <label for="fiche-effectif">Effectif</label>
+          <input type="text" id="fiche-effectif" name="effectif" inputmode="numeric" placeholder="ex. 64">
+        </div>
+      </div>
+      <div class="champ">
+        <label for="fiche-precisions">Précisions <span class="facultatif">(facultatif)</span></label>
+        <textarea id="fiche-precisions" name="precisions" rows="3" placeholder="Ex. : mes élèves ont des difficultés en fractions ; situation de départ sur le marché ; pas de rapporteur en classe…"></textarea>
+      </div>
+      <button type="submit" class="btn btn-or btn-large">Rédiger la fiche</button>
+    </form>
+  </section>
+
+  <!-- ===== MODIFIER ===== -->
+  <section class="vue" id="vue-modifier" aria-labelledby="t-modif" hidden>
+    <div class="intro">
+      <h1 id="t-modif">Modifier une fiche existante</h1>
+      <p>Importe ta fiche (Word, PDF ou photos des pages) ou colle son texte, puis dis ce qu'il faut changer.</p>
+    </div>
+    <form class="carte formulaire" id="form-modifier" novalidate>
+      <div class="champ">
+        <span class="label">Ta fiche</span>
+        <div class="depot" id="depot">
+          <input type="file" id="modif-fichiers" accept=".docx,.pdf,.txt,.md,image/*" multiple class="sr-only">
+          <label for="modif-fichiers" class="btn btn-sec"><svg aria-hidden="true"><use href="#i-plus"/></svg>Choisir des fichiers</label>
+          <p class="aide">Word (.docx), PDF ou photos. Tu peux ajouter plusieurs photos.</p>
+          <ul class="liste-fichiers" id="liste-fichiers" aria-live="polite"></ul>
+        </div>
+      </div>
+      <div class="champ">
+        <label for="modif-texte">ou colle le texte de la fiche</label>
+        <textarea id="modif-texte" name="texte" rows="5" placeholder="Colle ici le contenu de ta fiche…"></textarea>
+      </div>
+      <div class="choix-classe" data-pour="modifier"></div>
+      <div class="champ">
+        <label for="modif-demande">Que faut-il changer ?</label>
+        <textarea id="modif-demande" name="demande" rows="3" required placeholder="Ex. : change la situation de départ et adapte la fiche à 2 × 55 min."></textarea>
+        <div class="puces" data-cible="modif-demande">
+          <button type="button" class="puce">Mets-la au modèle APC béninois</button>
+          <button type="button" class="puce">Change la situation de départ</button>
+          <button type="button" class="puce">Ajoute des exercices d'application avec corrigés</button>
+          <button type="button" class="puce">Corrige les erreurs et améliore la rédaction</button>
+          <button type="button" class="puce">Adapte-la à une séance de 55 min</button>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-or btn-large">Modifier la fiche</button>
+    </form>
+  </section>
+
+  <!-- ===== ÉVALUATIONS ===== -->
+  <section class="vue" id="vue-eval" aria-labelledby="t-eval" hidden>
+    <div class="intro">
+      <h1 id="t-eval">Interrogations, devoirs et compositions</h1>
+      <p>L'épreuve est rédigée avec son corrigé type et son barème détaillé (critères Ca, Cm, Co et perfectionnement).</p>
+    </div>
+    <form class="carte formulaire" id="form-eval" novalidate>
+      <fieldset class="champ">
+        <legend>Type d'évaluation</legend>
+        <div class="segments segments-wrap" id="eval-type">
+          <label><input type="radio" name="type" value="interrogation" checked><span>Interrogation</span></label>
+          <label><input type="radio" name="type" value="devoir"><span>Devoir de table</span></label>
+          <label><input type="radio" name="type" value="maison"><span>Devoir de maison</span></label>
+          <label><input type="radio" name="type" value="composition"><span>Composition</span></label>
+          <label><input type="radio" name="type" value="examen"><span>Examen blanc</span></label>
+        </div>
+      </fieldset>
+      <div class="choix-classe" data-pour="eval"></div>
+      <fieldset class="champ">
+        <legend>Contenus évalués</legend>
+        <p class="aide">Coche les séquences déjà faites en classe.</p>
+        <div class="contenus" id="eval-contenus"></div>
+        <label class="champ-inline" for="eval-autres">Autres contenus <span class="facultatif">(facultatif)</span></label>
+        <input type="text" id="eval-autres" name="autres" placeholder="Ex. : Propriété de Pythagore (réciproque)">
+      </fieldset>
+      <div class="champ" id="bloc-portee">
+        <label class="case"><input type="checkbox" name="parSequence" id="eval-par-sequence"> <span>Une interrogation par séquence cochée (chacune avec son corrigé)</span></label>
+      </div>
+      <div class="grille-3">
+        <div class="champ">
+          <label for="eval-numero">Numéro</label>
+          <input type="text" id="eval-numero" name="numero" inputmode="numeric" placeholder="ex. 1">
+        </div>
+        <div class="champ">
+          <label for="eval-periode">Période</label>
+          <select id="eval-periode" name="periode">
+            <option value="">—</option>
+            <option>1er semestre</option>
+            <option>2e semestre</option>
+            <option>1er trimestre</option>
+            <option>2e trimestre</option>
+            <option>3e trimestre</option>
+          </select>
+        </div>
+        <div class="champ">
+          <label for="eval-duree">Durée</label>
+          <select id="eval-duree" name="duree">
+            <option value="">Habituelle</option>
+            <option>20 min</option>
+            <option>30 min</option>
+            <option>1 h</option>
+            <option>2 h</option>
+            <option>3 h</option>
+            <option>4 h</option>
+          </select>
+        </div>
+      </div>
+      <details class="plus">
+        <summary>Barème et format</summary>
+        <div class="grille-3">
+          <div class="champ">
+            <label for="eval-bareme">Barème</label>
+            <select id="eval-bareme" name="bareme">
+              <option value="sur 20">Sur 20</option>
+              <option value="sur 10">Sur 10</option>
+              <option value="sur 100 points, ramenés à une note sur 20">Sur 100 (ramené à 20)</option>
+            </select>
+          </div>
+          <div class="champ">
+            <label for="eval-grille">Critères</label>
+            <select id="eval-grille" name="grille">
+              <option value="ca">Ca / Cm / Co + CP</option>
+              <option value="cm">CM1 / CM2 / CM3 + CP</option>
+              <option value="points">Points par question</option>
+            </select>
+          </div>
+          <div class="champ">
+            <label for="eval-format">Format</label>
+            <select id="eval-format" name="format">
+              <option value="apc">APC (contexte, tâche, problèmes)</option>
+              <option value="classique">Classique (exercices, problème)</option>
+            </select>
+          </div>
+        </div>
+      </details>
+      <div class="champ">
+        <label for="eval-precisions">Précisions <span class="facultatif">(facultatif)</span></label>
+        <textarea id="eval-precisions" name="precisions" rows="3" placeholder="Ex. : contexte sur une coopérative scolaire ; un problème de géométrie avec figure à construire…"></textarea>
+      </div>
+      <button type="submit" class="btn btn-or btn-large">Préparer l'épreuve et le corrigé</button>
+    </form>
+  </section>
+
+  <!-- ===== DOCUMENTS ===== -->
+  <section class="vue" id="vue-docs" aria-labelledby="t-docs" hidden>
+    <div class="intro">
+      <h1 id="t-docs">Mes documents</h1>
+      <p>Tout ce que tu as rédigé est gardé sur cet appareil. Pense à faire une sauvegarde de temps en temps.</p>
+    </div>
+    <div class="carte">
+      <div class="barre-recherche">
+        <label class="sr-only" for="docs-recherche">Rechercher</label>
+        <input type="search" id="docs-recherche" placeholder="Rechercher (classe, notion…)">
+        <div class="segments" id="docs-filtre" role="radiogroup" aria-label="Type de document">
+          <label><input type="radio" name="filtre" value="" checked><span>Tous</span></label>
+          <label><input type="radio" name="filtre" value="fiche"><span>Fiches</span></label>
+          <label><input type="radio" name="filtre" value="evaluation"><span>Épreuves</span></label>
+        </div>
+      </div>
+      <ul class="liste-docs" id="liste-docs"></ul>
+      <p class="vide" id="docs-vide" hidden>Aucun document pour l'instant. Rédige ta première fiche !</p>
+    </div>
+    <div class="carte sauvegarde">
+      <h2>Sauvegarde</h2>
+      <p class="aide">Enregistre tous tes documents et réglages (sauf la clé) dans un fichier, pour les garder ou les retrouver sur un autre appareil.</p>
+      <div class="actions">
+        <button type="button" class="btn btn-sec" id="btn-exporter">Enregistrer une sauvegarde</button>
+        <input type="file" id="fichier-import" accept=".json,application/json" class="sr-only">
+        <label class="btn btn-sec" for="fichier-import">Restaurer une sauvegarde</label>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROGRAMMES ===== -->
+  <section class="vue" id="vue-programmes" aria-labelledby="t-prog" hidden>
+    <div class="intro">
+      <h1 id="t-prog">Programmes par classe</h1>
+      <p>Voici ce que l'application garde en mémoire pour chaque classe. Vérifie-le avec ton guide du programme et corrige-le si besoin : l'IA s'en sert pour toutes tes fiches et épreuves de cette classe.</p>
+    </div>
+    <form class="carte formulaire" id="form-programmes" novalidate>
+      <div class="choix-classe" data-pour="programmes"></div>
+      <div class="champ">
+        <div class="label-ligne">
+          <label for="prog-texte">Situations d'apprentissage et séquences</label>
+          <span class="etiquette" id="prog-etat" hidden>Modifié</span>
+        </div>
+        <textarea id="prog-texte" name="texte" rows="16" spellcheck="false"></textarea>
+        <p class="aide">Une ligne « SA n°… : titre » par situation d'apprentissage, puis une ligne « - … » par séquence.</p>
+      </div>
+      <div class="champ">
+        <label for="prog-notes">Notes pour cette classe <span class="facultatif">(facultatif)</span></label>
+        <textarea id="prog-notes" name="notes" rows="3" placeholder="Ex. : manuel utilisé ; progression de l'établissement ; niveau des élèves…"></textarea>
+      </div>
+      <div class="actions">
+        <button type="submit" class="btn btn-or">Enregistrer</button>
+        <button type="button" class="btn btn-sec" id="prog-retablir">Rétablir l'original</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- ===== RÉGLAGES ===== -->
+  <section class="vue" id="vue-reglages" aria-labelledby="t-reglages" hidden>
+    <div class="intro">
+      <h1 id="t-reglages">Réglages</h1>
+    </div>
+    <div class="message-reglages" id="message-reglages" role="status" hidden></div>
+    <form class="carte formulaire" id="form-profil" novalidate>
+      <h2>Ton profil</h2>
+      <p class="aide">Ces informations remplissent l'en-tête des fiches et des épreuves.</p>
+      <div class="grille-2">
+        <div class="champ"><label for="p-enseignant">Nom de l'enseignant(e)</label><input type="text" id="p-enseignant" name="enseignant" autocomplete="name"></div>
+        <div class="champ"><label for="p-etablissement">Établissement</label><input type="text" id="p-etablissement" name="etablissement" placeholder="Ex. : CEG Sainte Rita"></div>
+        <div class="champ"><label for="p-annee">Année scolaire</label><input type="text" id="p-annee" name="annee" placeholder="2026-2027"></div>
+        <div class="champ"><label for="p-ville">Ville</label><input type="text" id="p-ville" name="ville" placeholder="Ex. : Cotonou"></div>
+      </div>
+      <div class="champ">
+        <label for="p-consignes">Consignes personnelles <span class="facultatif">(pour tous les documents)</span></label>
+        <textarea id="p-consignes" name="consignes" rows="3" placeholder="Ex. : toujours indiquer la durée de chaque étape ; finir chaque fiche par un exercice de maison."></textarea>
+      </div>
+      <div class="champ">
+        <label for="p-notation">Règles de notation de ton établissement <span class="facultatif">(facultatif)</span></label>
+        <textarea id="p-notation" name="notation" rows="3" placeholder="Ex. : critère de perfectionnement sur 2 points, accordé seulement si l'élève a au moins 8/18."></textarea>
+      </div>
+      <button type="submit" class="btn btn-or">Enregistrer le profil</button>
+    </form>
+
+    <form class="carte formulaire" id="form-ia" novalidate>
+      <h2>Accès à l'IA</h2>
+      <p class="aide">L'application utilise Claude, l'IA d'Anthropic. Crée une clé sur <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">console.anthropic.com</a> (rubrique « API Keys ») et colle-la ici. Elle reste sur cet appareil et n'est envoyée qu'à Anthropic.</p>
+      <div class="champ">
+        <label for="r-cle">Clé API</label>
+        <div class="cle-ligne">
+          <input type="password" id="r-cle" name="cle" autocomplete="off" spellcheck="false" placeholder="sk-ant-…">
+          <button type="button" class="btn btn-sec btn-petit" id="r-voir" aria-pressed="false">Afficher</button>
+        </div>
+      </div>
+      <div class="grille-2">
+        <div class="champ">
+          <label for="r-modele">Modèle</label>
+          <select id="r-modele" name="modele"></select>
+        </div>
+        <div class="champ">
+          <label for="r-effort">Réflexion</label>
+          <select id="r-effort" name="effort">
+            <option value="auto">Automatique (recommandé)</option>
+            <option value="low">Rapide</option>
+            <option value="medium">Équilibrée</option>
+            <option value="high">Approfondie</option>
+          </select>
+        </div>
+      </div>
+      <details class="plus">
+        <summary>Utiliser un relais (accès partagé)</summary>
+        <p class="aide">Si l'administrateur de l'application a installé un relais, indique son adresse et ton code d'accès : tu n'as alors pas besoin de clé API.</p>
+        <div class="grille-2">
+          <div class="champ"><label for="r-relais">Adresse du relais</label><input type="url" id="r-relais" name="relais" placeholder="https://…" spellcheck="false"></div>
+          <div class="champ"><label for="r-code">Code d'accès</label><input type="password" id="r-code" name="codeAcces" autocomplete="off"></div>
+        </div>
+      </details>
+      <div class="actions">
+        <button type="submit" class="btn btn-or">Enregistrer</button>
+        <button type="button" class="btn btn-sec" id="r-tester">Tester l'accès</button>
+      </div>
+      <p class="resultat-test" id="r-resultat" role="status"></p>
+    </form>
+  </section>
+
+  <!-- ===== RÉSULTAT ===== -->
+  <section class="vue vue-resultat" id="vue-resultat" aria-labelledby="t-doc" hidden>
+    <div class="doc-barre">
+      <button type="button" class="btn-icone" id="doc-retour" aria-label="Retour"><svg aria-hidden="true"><use href="#i-retour"/></svg></button>
+      <div class="doc-titres">
+        <h1 id="t-doc">Document</h1>
+        <p class="doc-statut" id="doc-statut" role="status" aria-live="polite"></p>
+      </div>
+      <button type="button" class="btn btn-sec btn-petit" id="doc-arreter" hidden>Arrêter</button>
+    </div>
+
+    <div class="doc-outils" id="doc-outils" hidden>
+      <div class="segments" id="doc-partie" role="radiogroup" aria-label="Partie à exporter" hidden>
+        <label><input type="radio" name="partie" value="tout" checked><span>Tout</span></label>
+        <label><input type="radio" name="partie" value="epreuve"><span>Épreuve</span></label>
+        <label><input type="radio" name="partie" value="corrige"><span>Corrigé</span></label>
+      </div>
+      <div class="outils">
+        <button type="button" class="outil" id="doc-word"><svg aria-hidden="true"><use href="#i-word"/></svg>Word</button>
+        <button type="button" class="outil" id="doc-imprimer"><svg aria-hidden="true"><use href="#i-print"/></svg>PDF / Imprimer</button>
+        <button type="button" class="outil" id="doc-copier"><svg aria-hidden="true"><use href="#i-copy"/></svg>Copier</button>
+        <button type="button" class="outil" id="doc-partager" hidden><svg aria-hidden="true"><use href="#i-share"/></svg>Partager</button>
+        <button type="button" class="outil" id="doc-editer" aria-pressed="false"><svg aria-hidden="true"><use href="#i-texte"/></svg>Modifier le texte</button>
+      </div>
+    </div>
+
+    <div class="doc-alerte" id="doc-alerte" role="alert" hidden></div>
+
+    <article class="feuille" id="doc-feuille" aria-labelledby="t-doc"></article>
+    <div class="editeur" id="doc-editeur" hidden>
+      <label for="doc-source" class="sr-only">Texte du document</label>
+      <textarea id="doc-source" class="mono" spellcheck="true"></textarea>
+      <div class="actions">
+        <button type="button" class="btn btn-or" id="doc-source-ok">Enregistrer le texte</button>
+        <button type="button" class="btn btn-sec" id="doc-source-annuler">Annuler</button>
+      </div>
+    </div>
+
+    <form class="carte retouche" id="form-retouche" novalidate hidden>
+      <label for="retouche-demande"><strong>Demander une modification</strong></label>
+      <textarea id="retouche-demande" rows="2" placeholder="Ex. : change la situation de départ ; ajoute un exercice ; rends le problème 2 plus facile…"></textarea>
+      <div class="actions">
+        <button type="submit" class="btn btn-or">Modifier</button>
+        <button type="button" class="btn btn-sec" id="doc-version" hidden><svg aria-hidden="true"><use href="#i-annuler"/></svg>Version précédente</button>
+        <button type="button" class="btn btn-sec" id="doc-interro" hidden>Interrogation sur cette séquence</button>
+      </div>
+    </form>
+  </section>
+</main>
+
+<nav class="barre-bas" aria-label="Sections">
+  <button type="button" class="onglet" data-vue="fiche"><svg aria-hidden="true"><use href="#i-fiche"/></svg><span>Fiche</span></button>
+  <button type="button" class="onglet" data-vue="modifier"><svg aria-hidden="true"><use href="#i-modif"/></svg><span>Modifier</span></button>
+  <button type="button" class="onglet" data-vue="eval"><svg aria-hidden="true"><use href="#i-eval"/></svg><span>Épreuves</span></button>
+  <button type="button" class="onglet" data-vue="docs"><svg aria-hidden="true"><use href="#i-docs"/></svg><span>Documents</span></button>
+  <button type="button" class="onglet" data-vue="programmes"><svg aria-hidden="true"><use href="#i-prog"/></svg><span>Programmes</span></button>
+</nav>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div id="zone-impression" aria-hidden="true"></div>
+
+<noscript><p class="noscript">Cette application a besoin de JavaScript. Active-le dans ton navigateur.</p></noscript>
+</body>
+</html>
