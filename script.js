@@ -173,10 +173,11 @@
   };
   /* navigation au clavier : l'en-tête masqué réapparaît dès l'appui sur Tab,
      avant que le focus ne bouge (sinon le navigateur fait défiler la page pour le montrer) */
-  var tabbing = false, holdY = null, holdUntil = 0;
+  var tabbing = false, tabY = 0, holdY = null, holdUntil = 0;
   document.addEventListener('keydown', function (e) {
     if (e.key !== 'Tab') { holdY = null; return; }
     tabbing = true;
+    tabY = window.scrollY;
     if (!topbar || !doc.hasAttribute('data-down')) return;
     topbar.style.transition = 'none';
     doc.removeAttribute('data-down');
@@ -184,16 +185,20 @@
     topbar.style.transition = '';
     acc = 0;
   });
-  /* un élément des barres collantes est toujours à l'écran : le focus clavier qui y arrive
+  /* un élément d'une barre collante est toujours à l'écran : le focus clavier qui y arrive
      ne doit pas faire défiler la page (la marge de défilement le croit caché).
-     Le défilement lancé par le navigateur juste après est annulé, sauf geste de l'utilisateur */
+     Le navigateur fait ce défilement avant « focusin » (instantané) ou juste après (animé) :
+     la position d'avant l'appui sur Tab est rétablie, sauf geste de l'utilisateur.
+     Barre non collante (fenêtre basse, zoom) : le navigateur doit pouvoir la montrer */
   document.addEventListener('focusin', function (e) {
     var kb = tabbing;
     tabbing = false;
     holdY = null;
-    if (!kb || !e.target.closest || !e.target.closest('.topbar, .mbar')) return;
-    holdY = window.scrollY;
+    var bar = kb && e.target.closest && e.target.closest('.topbar, .mbar');
+    if (!bar || getComputedStyle(bar).position !== 'sticky') return;
+    holdY = tabY;
     holdUntil = Date.now() + 700;
+    held();
   });
   var release = function () { holdY = null; tabbing = false; };
   ['wheel', 'touchstart', 'pointerdown', 'click'].forEach(function (t) {
